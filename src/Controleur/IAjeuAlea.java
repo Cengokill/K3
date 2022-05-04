@@ -1,7 +1,5 @@
 package Controleur;
 
-import Modeles.*;
-
 public class IAjeuAlea implements IAjeu {
 
     // recupere les coupsjouables du joueurIA (on part du principe piece accessible
