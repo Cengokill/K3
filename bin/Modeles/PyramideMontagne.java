@@ -1,10 +1,58 @@
 package Modeles;
 
+import java.util.LinkedList;
+
 public class PyramideMontagne implements Pyramide {
 	
 	private Piece[][] pyramide;
 	private int largeur;
 	private int hauteur;
+
+	public PyramideMontagne(int largeur, int hauteur) {
+		this.largeur= largeur;
+		this.hauteur= hauteur;
+	}
+	
+	public LinkedList<Position> listePositionsAccescible() {
+		
+		boolean premièrecase;
+		boolean dernièrecase;
+		
+		LinkedList<Position> p = new LinkedList<Position>();
+		//dernier place de la pyramide
+		if(pyramide[hauteur-1][0] == null && pyramide[hauteur-2][0] != null && pyramide[hauteur-2][1] != null) {
+			Position newP = new Position(hauteur-1,0);
+			p.add(newP);
+		}
+		//intérrieur pyramide
+		else {
+			int i = hauteur-2 ;
+			while( i >= 0){
+				int j = 0;
+				while( j < pyramide[i].length) {
+					// en haut a droite
+					if(j-1 < 0) {
+						premièrecase = true; //si c'est la dernière case de la ligne en haut a gauche = libre
+					}else {
+						premièrecase = (pyramide[i+1][j-1] == null); //on regarde en haut a gauche = libre
+					}
+					
+					if(j == pyramide[i-1].length) {
+						dernièrecase = true; //si c'est la dernière case de la ligne en haut a droite = libre
+					}else {
+						dernièrecase = (pyramide[i+1][j] == null); //on regarde en haut a droite = libre
+					}
+					
+					//on regarde ne haut a gauche + en haut a droite
+					if(premièrecase && dernièrecase && pyramide[i-1][j] != null && pyramide[i-1][j+1] != null){ // on regarde si il ya des pieces porteuses
+						Position newP = new Position(i,j);
+						p.add(newP);
+					}
+				}
+			}
+		}
+		return p;
+	}
 
 	public void empiler(Piece piece, Position p) {
 		if(p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0 ) {

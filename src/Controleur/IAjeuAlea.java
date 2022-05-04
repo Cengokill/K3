@@ -3,16 +3,15 @@ package Controleur;
 import Modeles.*;
 
 public class IAjeuAlea implements IAjeu {
-    // recupere la pyramide du joueur
-    // recupere la pyramide du adverse
-    // recupere la pyramide du jeu
-    Jeu kTrois;
 
-    IAjeuAlea(Jeu kTrois) {
-        this.kTrois = kTrois;
-    }
+    // recupere les coupsjouables du joueurIA (on part du principe piece accessible
+    // + piece jouable sur plateau)
+    // iterer sur les coups jouables avec un radom puis
+    // renvoie un coup random parmi ceux la
 
-    public Sequence<Piece> GetPiecesJouables() {
+    // liste des coups possibles a faire
+    // recuperer un coup aleatoire et le renvoyer ->
+    // dans le cas ou les joueur / le jeu peut envoyer cette liste de coups
+    // Sinon la calculer avec la pyramide actuelle et la pyramide du joueur en cours
 
-    }
 }
