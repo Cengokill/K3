@@ -1,6 +1,7 @@
 package Modeles;
 import java.awt.Color;
 import java.util.ArrayList;
+import Structures.*;
 
 public class Jeu {
 	private Joueur j1;
@@ -43,6 +44,14 @@ public class Jeu {
 		for(int i=0 ; i<nb_blancs ; i++) {
 			basePieces.add(pBlanc);
 		}	
+	}
+	
+	public void coupsJouables(Joueur j) {//renvoie les coups jouables du joueur
+		
+	}
+	
+	public Position volerPiece(Joueur voleur, Joueur victime) {//vole une piece au joueur j
+		
 	}
 	
 	public void sauverPartie() {

@@ -31,16 +31,8 @@ public class Joueur implements Acteur{
 		this.liste_pieces.add(p);		
 	}
 	
-	public void coupsJouables(Jeu j, Pyramide p) {//renvoie les coups jouables du joueur
-		
-	}
-	
 	public String nomJ() {//renvoie le nom du joueur
 		return this.nom;
-	}
-	
-	public Position volerPiece(Joueur j) {//vole une piece au joueur j
-		
 	}
 	
 	public void placerPiece(Piece p) {
