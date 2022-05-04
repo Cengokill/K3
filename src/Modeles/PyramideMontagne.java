@@ -13,15 +13,19 @@ public class PyramideMontagne implements Pyramide {
 		this.hauteur= hauteur;
 	}
 	
-	public LinkedList<Pieces> listePositionsAccescible() {
-		
+	public LinkedList<Piece> listePositionsAccescible() {
 		boolean premierecase;
 		boolean dernierecase;
 		
-		LinkedList<Pieces> p = new LinkedList<Pieces>();
+		LinkedList<Piece> p = new LinkedList<Piece>();
 		//dernier place de la pyramide
 		if(pyramide[hauteur-1][0] == null && pyramide[hauteur-2][0] != null && pyramide[hauteur-2][1] != null) {
-			Position newP = new Position(hauteur-1,0);
+			Position pp = new Position(hauteur-1,0);
+			Piece newP;
+			newP = new Piece(pyramide[hauteur-2][0].getColor(),pp);
+			p.add(newP);
+			newP = new Piece(pyramide[hauteur-2][1].getColor(),pp);
+			p.add(newP);
 			p.add(newP);
 		}
 		//intérrieur pyramide
@@ -51,7 +55,6 @@ public class PyramideMontagne implements Pyramide {
 						p.add(newP);
 						newP = new Piece(pyramide[i-1][j+1].getColor(),pp);
 						p.add(newP);
-						
 					}
 				}
 			}
