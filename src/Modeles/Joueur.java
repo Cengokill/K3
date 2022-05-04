@@ -25,7 +25,7 @@ public class Joueur implements Acteur{
 		liste_pieces.add(p5);
 		liste_pieces.add(p6);
 		liste_pieces.add(p7);
-		p=new PyramideJoueur(8,5);
+		p=new PyramideJoueur(6,6);
 	}
 	
 	public void coupsJouables(Jeu j, Pyramide p) {//renvoie les coups jouables du joueur
@@ -51,24 +51,16 @@ public class Joueur implements Acteur{
 
 	@Override
 	public void construire() {
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	@Override
 	public void jouer() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void volerPiece() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void piocher() {
 		// TODO Auto-generated method stub
 		
 	}

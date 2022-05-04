@@ -1,14 +1,45 @@
 package Modeles;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Jeu {
 	private Joueur j1;
 	private Joueur j2;
 	private ArrayList<Piece> basePieces = new ArrayList<Piece>();//pieces disponible à se partager entre les joueurs
+	Piece pBleu;
+	Piece pVert;
+	Piece pJaune;
+	Piece pRouge;
+	Piece pNoir;
+	Piece pBlanc;
+	Piece pNaturel;
 	
 	public Jeu() {
-		
+		pBleu=new Piece(Color.blue);
+		pVert=new Piece(Color.green);
+		pJaune=new Piece(Color.yellow);
+		pRouge=new Piece(Color.red);
+		pNoir=new Piece(Color.black);
+		pBlanc=new Piece(Color.white);
+		pNaturel=new Piece(Color.LIGHT_GRAY);
+		initialiser2Joueurs();
+	}
+	
+	public void initialiser2Joueurs() {
+		int nb_pieces_par_couleur=4;
+		int nb_blancs=2;
+		for(int i=0 ; i<nb_pieces_par_couleur ; i++) {
+			basePieces.add(pBleu);
+			basePieces.add(pVert);
+			basePieces.add(pJaune);
+			basePieces.add(pRouge);
+			basePieces.add(pNoir);
+		}
+		for(int i=0 ; i<nb_blancs ; i++) {
+			basePieces.add(pBlanc);
+			basePieces.add(pNaturel);
+		}		
 	}
 	
 	public void sauverPartie() {
