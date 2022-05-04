@@ -2,8 +2,8 @@ package Modeles;
 
 public interface Pyramide {
 	
-	int LARGEUR_MAX = 1000;
-	int HAUTEUR_MAX = 1000;
+	int LARGEUR_MAX = 100;
+	int HAUTEUR_MAX = 100;
 	
 	public void empiler(Piece piece, Position p);
 	
