@@ -1,12 +1,11 @@
 package Modeles;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
 public class Jeu {
 	private Joueur j1;
 	private Joueur j2;
-	private ArrayList<Piece> basePieces = new ArrayList<Piece>();//pieces disponible à se partager entre les joueurs
+	private ArrayList<Piece> basePieces;//pieces disponible à se partager entre les joueurs
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -16,6 +15,7 @@ public class Jeu {
 	Piece pNaturel;
 	
 	public Jeu() {
+		basePieces = new ArrayList<Piece>();
 		pBleu=new Piece(Color.blue);
 		pVert=new Piece(Color.green);
 		pJaune=new Piece(Color.yellow);
