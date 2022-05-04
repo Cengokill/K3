@@ -55,7 +55,7 @@ public class Joueur implements Acteur{
 	}
 
 	@Override
-	public void jouer() {
+	public void jouer(PyramideMontagne p) {
 		
 	}
 
@@ -63,5 +63,17 @@ public class Joueur implements Acteur{
 	public void volerPiece() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Coup jouer(PyramideMontagne p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Position volerPiece() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -23,12 +23,13 @@ public class Jeu {
 		pNoir=new Piece(Color.black);
 		pBlanc=new Piece(Color.white);
 		pNaturel=new Piece(Color.LIGHT_GRAY);
-		initialiser2Joueurs();
+		initialiserJeu();
 	}
 	
-	public void initialiser2Joueurs() {
-		int nb_pieces_par_couleur=4;
-		int nb_blancs=2;
+	public void initialiserJeu() {
+		int nb_pieces_par_couleur=9;
+		int nb_naturels=6;
+		int nb_blancs=4;
 		for(int i=0 ; i<nb_pieces_par_couleur ; i++) {
 			basePieces.add(pBleu);
 			basePieces.add(pVert);
@@ -36,10 +37,12 @@ public class Jeu {
 			basePieces.add(pRouge);
 			basePieces.add(pNoir);
 		}
+		for(int i=0 ; i<nb_naturels ; i++) {
+			basePieces.add(pNaturel);
+		}
 		for(int i=0 ; i<nb_blancs ; i++) {
 			basePieces.add(pBlanc);
-			basePieces.add(pNaturel);
-		}		
+		}	
 	}
 	
 	public void sauverPartie() {
