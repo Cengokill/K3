@@ -1,7 +1,7 @@
 package Modeles;
 import java.awt.Color;
 
-public class Piece {
+public class Piece {//piece
 	private Color color;
 	private Position pos;
 	
