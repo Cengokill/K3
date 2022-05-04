@@ -7,7 +7,7 @@ public interface Acteur {
 	public void construire();
 	
 	// phase 2
-	public void jouer();
-	public void volerPiece();
+	public Coup jouer(PyramideMontagne pyramide); //pyramide au milieu
+	public Position volerPiece();
 	
 }
