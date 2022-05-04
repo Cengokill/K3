@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class Jeu {
+public class Jeu {//éàêëèôö
 	private Joueur j1;
 	private Joueur j2;
 	private ArrayList<Piece> basePieces;//pieces disponible à se partager entre les joueurs, uniquement à la création du jeu
