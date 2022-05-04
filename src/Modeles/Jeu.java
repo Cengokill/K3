@@ -1,12 +1,14 @@
 package Modeles;
 import java.awt.Color;
 import java.util.ArrayList;
-import Structures.*;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class Jeu {
 	private Joueur j1;
 	private Joueur j2;
-	private ArrayList<Piece> basePieces;//pieces disponible à se partager entre les joueurs
+	private ArrayList<Piece> basePieces;//pieces disponible à se partager entre les joueurs, uniquement à la création du jeu
+	private PyramideMontagne baseMontagne;//base de la montagne
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -43,15 +45,32 @@ public class Jeu {
 		}
 		for(int i=0 ; i<nb_blancs ; i++) {
 			basePieces.add(pBlanc);
-		}	
+		}
+		Collections.shuffle(basePieces);//mélange du jeu
+	}
+	
+	public void initBaseMontagne() {//création de la base de la montagne constituée de 9 pièces
+		int taille=basePieces.size();
+		baseMontagne=new PyramideMontagne(1,9);//1 étage, 9 pièces
+		for(int i=0; i<9; i++) {
+			Piece element=basePieces.get(taille-i-1);
+			Position pos=new Position(0,i);
+			baseMontagne.empiler(element, pos);
+		}
 	}
 	
 	public void coupsJouables(Joueur j) {//renvoie les coups jouables du joueur
+		PyramideJoueur p = j.pyramideJ();
+		LinkedList<Piece> piecesAcc = p.listePiecesAccessibles();
+		LinkedList<Piece> piecesPosables = new LinkedList<Piece>();
+		for(int i=0;i<piecesAcc.size(); i++) {
+			
+		}
 		
 	}
 	
 	public Position volerPiece(Joueur voleur, Joueur victime) {//vole une piece au joueur j
-		
+		return new Position(0,0);
 	}
 	
 	public void sauverPartie() {

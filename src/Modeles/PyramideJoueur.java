@@ -57,8 +57,7 @@ public class PyramideJoueur implements Pyramide{
 		}
 	}
 	
-	public LinkedList<Piece> listePiecesAccescible() {
-		
+	public LinkedList<Piece> listePiecesAccessibles() {
 		LinkedList<Piece> c = new LinkedList<Piece>();
 		int i = hauteur-1 ;
 		while( i >= 0){
