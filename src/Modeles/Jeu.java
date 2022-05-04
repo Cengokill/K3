@@ -19,13 +19,13 @@ public class Jeu {//יאךכטפצ
 	
 	public Jeu() {
 		basePieces = new ArrayList<Piece>();
-		pBleu=new Piece(Color.blue);
-		pVert=new Piece(Color.green);
-		pJaune=new Piece(Color.yellow);
-		pRouge=new Piece(Color.red);
-		pNoir=new Piece(Color.black);
-		pBlanc=new Piece(Color.white);
-		pNaturel=new Piece(Color.LIGHT_GRAY);
+		pBleu=new Piece(Color.blue, null);
+		pVert=new Piece(Color.green, null);
+		pJaune=new Piece(Color.yellow, null);
+		pRouge=new Piece(Color.red, null);
+		pNoir=new Piece(Color.black, null);
+		pBlanc=new Piece(Color.white, null);
+		pNaturel=new Piece(Color.LIGHT_GRAY, null);
 		initialiserJeu();
 	}
 	
