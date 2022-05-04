@@ -13,7 +13,7 @@ public class PyramideMontagne implements Pyramide {
 		this.hauteur= hauteur;
 	}
 	
-	public LinkedList<Piece> listePositionsAccescible() {
+	public LinkedList<Piece> listePositionsAccessible() {
 		boolean premierecase;
 		boolean dernierecase;
 		
@@ -28,7 +28,7 @@ public class PyramideMontagne implements Pyramide {
 			p.add(newP);
 			p.add(newP);
 		}
-		//intérrieur pyramide
+		//intérieur pyramide
 		else {
 			int i = hauteur-2 ;
 			while( i >= 0){
