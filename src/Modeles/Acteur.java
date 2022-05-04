@@ -8,6 +8,6 @@ public interface Acteur {
 	
 	// phase 2
 	public Coup jouer(PyramideMontagne pyramide); //pyramide au milieu
-	public Position volerPiece();
+	public Position volerPiece(Joueur j);
 	
 }

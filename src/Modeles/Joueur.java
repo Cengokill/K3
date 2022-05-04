@@ -27,6 +27,9 @@ public class Joueur implements Acteur{
 		liste_pieces.add(p7);
 		p=new PyramideJoueur(6,6);
 	}
+	public void piocher(Piece p) {
+		this.liste_pieces.add(p);		
+	}
 	
 	public void coupsJouables(Jeu j, Pyramide p) {//renvoie les coups jouables du joueur
 		
@@ -36,7 +39,7 @@ public class Joueur implements Acteur{
 		return this.nom;
 	}
 	
-	public void volerPiece(Joueur j) {//vole une piece au joueur j
+	public Position volerPiece(Joueur j) {//vole une piece au joueur j
 		
 	}
 	
@@ -44,35 +47,11 @@ public class Joueur implements Acteur{
 		
 	}
 
-	@Override
-	public void piocher(Piece p) {
-		this.liste_pieces.add(p);		
-	}
-
-	@Override
 	public void construire() {
 				
 	}
 
-	@Override
-	public void jouer(PyramideMontagne p) {
-		
-	}
-
-	@Override
-	public void volerPiece() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Coup jouer(PyramideMontagne p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Position volerPiece() {
 		// TODO Auto-generated method stub
 		return null;
 	}
