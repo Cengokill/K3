@@ -3,13 +3,14 @@ package Modeles;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class Joueur {
+public class Joueur implements Acteur{
 	private String nom;
 	private PyramideJoueur p;
+	private ArrayList<Piece> liste_pieces;
 	
 	public Joueur(String nom) {
 		this.nom=nom;
-		ArrayList<Piece> liste_pieces = new ArrayList<Piece>();
+		this.liste_pieces = new ArrayList<Piece>();
 		Piece p1=new Piece(Color.blue);
 		Piece p2=new Piece(Color.green);
 		Piece p3=new Piece(Color.yellow);
@@ -25,14 +26,9 @@ public class Joueur {
 		liste_pieces.add(p6);
 		liste_pieces.add(p7);
 		p=new PyramideJoueur(8,5);
-		Position pos = new Position(0,0);
-		for(int i=0; i<7 ; i++) {
-			p.empiler(liste_pieces.get(i),pos);
-		}
-		
 	}
 	
-	public void coupsJouables(Jeu j, pyramide p) {//renvoie les coups jouables du joueur
+	public void coupsJouables(Jeu j, Pyramide p) {//renvoie les coups jouables du joueur
 		
 	}
 	
@@ -45,6 +41,35 @@ public class Joueur {
 	}
 	
 	public void placerPiece(Piece p) {
+		
+	}
+
+	@Override
+	public void piocher(Piece p) {
+		this.liste_pieces.add(p);		
+	}
+
+	@Override
+	public void construire() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void jouer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void volerPiece() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void piocher() {
+		// TODO Auto-generated method stub
 		
 	}
 }

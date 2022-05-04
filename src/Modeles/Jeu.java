@@ -1,8 +1,11 @@
 package Modeles;
 
+import java.util.ArrayList;
+
 public class Jeu {
 	private Joueur j1;
 	private Joueur j2;
+	private ArrayList<Piece> basePieces = new ArrayList<Piece>();//pieces disponible à se partager entre les joueurs
 	
 	public Jeu() {
 		
