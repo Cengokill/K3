@@ -61,10 +61,19 @@ public class Jeu {//יאךכטפצ
 	
 	public void coupsJouables(Joueur j) {//renvoie les coups jouables du joueur
 		PyramideJoueur p = j.pyramideJ();
-		LinkedList<Piece> piecesAcc = p.listePiecesAccessibles();
+		LinkedList<Piece> piecesAccessBase=baseMontagne.listePosAccessibles();
+		LinkedList<Piece> piecesAccessJoueur = p.listePiecesAccessibles();
 		LinkedList<Piece> piecesPosables = new LinkedList<Piece>();
-		for(int i=0;i<piecesAcc.size(); i++) {
-			
+		for(int i=0;i<piecesAccessJoueur.size(); i++) {//pour chaque piece du joueur
+			Piece pieceJoueur=piecesAccessJoueur.get(i);
+			Position posPieceJ=pieceJoueur.getPos();
+			for(int k=0; k<piecesAccessBase.size(); k++) {//on verif que la piece est posable sur une paire de pieces de la base
+				Piece pieceBase=piecesAccessBase.get(i);
+				Position posPieceBase=pieceBase.getPos();
+				if(posPieceJ.equals(posPieceBase)) {
+					piecesPosables.add(pieceJoueur);
+				}
+			}
 		}
 		
 	}
