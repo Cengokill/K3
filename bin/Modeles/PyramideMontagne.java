@@ -13,12 +13,12 @@ public class PyramideMontagne implements Pyramide {
 		this.hauteur= hauteur;
 	}
 	
-	public LinkedList<Position> listePositionsAccescible() {
+	public LinkedList<Pieces> listePositionsAccescible() {
 		
-		boolean premièrecase;
-		boolean dernièrecase;
+		boolean premierecase;
+		boolean dernierecase;
 		
-		LinkedList<Position> p = new LinkedList<Position>();
+		LinkedList<Pieces> p = new LinkedList<Pieces>();
 		//dernier place de la pyramide
 		if(pyramide[hauteur-1][0] == null && pyramide[hauteur-2][0] != null && pyramide[hauteur-2][1] != null) {
 			Position newP = new Position(hauteur-1,0);
@@ -32,21 +32,26 @@ public class PyramideMontagne implements Pyramide {
 				while( j < pyramide[i].length) {
 					// en haut a droite
 					if(j-1 < 0) {
-						premièrecase = true; //si c'est la dernière case de la ligne en haut a gauche = libre
+						premierecase = true; //si c'est la derniere case de la ligne en haut a gauche = libre
 					}else {
-						premièrecase = (pyramide[i+1][j-1] == null); //on regarde en haut a gauche = libre
+						premierecase = (pyramide[i+1][j-1] == null); //on regarde en haut a gauche = libre
 					}
 					
 					if(j == pyramide[i-1].length) {
-						dernièrecase = true; //si c'est la dernière case de la ligne en haut a droite = libre
+						dernierecase = true; //si c'est la derniere case de la ligne en haut a droite = libre
 					}else {
-						dernièrecase = (pyramide[i+1][j] == null); //on regarde en haut a droite = libre
+						dernierecase = (pyramide[i+1][j] == null); //on regarde en haut a droite = libre
 					}
 					
 					//on regarde ne haut a gauche + en haut a droite
-					if(premièrecase && dernièrecase && pyramide[i-1][j] != null && pyramide[i-1][j+1] != null){ // on regarde si il ya des pieces porteuses
-						Position newP = new Position(i,j);
+					if(premierecase && dernierecase && pyramide[i-1][j] != null && pyramide[i-1][j+1] != null){ // on regarde si il ya des pieces porteuses
+						Position pp = new Position(i,j);
+						Piece newP;
+						newP = new Piece(pyramide[i-1][j].getColor(),pp);
 						p.add(newP);
+						newP = new Piece(pyramide[i-1][j+1].getColor(),pp);
+						p.add(newP);
+						
 					}
 				}
 			}
