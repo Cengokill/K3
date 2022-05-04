@@ -1,5 +1,5 @@
 package Controleur;
 
-public class IApioche {
+public interface IApioche {
 
 }

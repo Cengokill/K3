@@ -1,5 +1,5 @@
 package Controleur;
 
-public class IAjeu {
+public interface IAjeu {
 
 }
