@@ -26,7 +26,7 @@ public class Jeu {
 		initialiserJeu();
 	}
 	
-	public void initialiserJeu() {
+	public void initialiserJeu() {//ajoute toutes les pièces au jeu
 		int nb_pieces_par_couleur=9;
 		int nb_naturels=6;
 		int nb_blancs=4;
