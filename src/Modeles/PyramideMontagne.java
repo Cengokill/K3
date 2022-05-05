@@ -8,9 +8,9 @@ public class PyramideMontagne implements Pyramide {
 	private int largeur;
 	private int hauteur;
 
-	public PyramideMontagne(int largeur, int hauteur) {
-		this.largeur= largeur;
+	public PyramideMontagne(int hauteur, int largeur) {
 		this.hauteur= hauteur;
+		this.largeur= largeur;
 	}
 	
 	public LinkedList<PiecePyramide> piecesPosables() {//renvoie la liste de toutes les pièces que l'on peut placer sur la pyramide de la base
