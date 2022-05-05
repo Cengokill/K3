@@ -1,6 +1,6 @@
 package Test;
 
-import java.util.Random;
+import java.util.*;
 
 import Modeles.*;
 
@@ -15,6 +15,14 @@ public class TestPyramideMontagne {
             Piece p = baseMontagne.getPiece(coord);
             System.out.println(p.toString() + " de position" + coord.toString());
         }
+        // Affiche les pieces qui sont posables sur la pyramide
+        LinkedList<PiecePyramide> posables = baseMontagne.piecesPosables();
+        Iterator<PiecePyramide> it = posables.iterator();
+        System.out.println("Pieces posables: ");
+        while (it.hasNext()) {
+            System.out.println(it.next().toString());
+        }
+
     }
 
     static void initBaseMontagne() {// creation de la base de la montagne constituee de 9 pieces
