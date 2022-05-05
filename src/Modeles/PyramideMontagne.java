@@ -11,6 +11,7 @@ public class PyramideMontagne implements Pyramide {
 	public PyramideMontagne(int largeur, int hauteur) {
 		this.largeur = largeur;
 		this.hauteur = hauteur;
+		pyramide = new Piece[largeur][hauteur];
 	}
 
 	public LinkedList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
@@ -92,7 +93,7 @@ public class PyramideMontagne implements Pyramide {
 					return;
 				}
 			} else {
-				System.err.println("Impossible d'empiler une pi�ce sur du vide. Il faut au moins 2 pieces porteuses.");
+				System.err.println("Impossible d'empiler une piece sur du vide. Il faut au moins 2 pieces porteuses.");
 				return;
 			}
 		}
