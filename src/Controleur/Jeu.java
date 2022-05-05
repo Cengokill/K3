@@ -111,8 +111,21 @@ public class Jeu {
 		return coupsPosables;
 	}
 	
+	public PyramideMontagne getBaseMontagne() {
+		return this.baseMontagne;
+	}
+	
 	public Position volerPiece(Joueur voleur, Joueur victime) {//vole une piece au joueur j
 		return new Position(0,0);
+	}
+	
+	public void afficherCoups(LinkedList<PiecePyramide> arr) {
+		int taille=arr.size();
+		for(int i=0; i<taille; i++) {
+			Piece pi=arr.get(i).getPiece();
+			Position pos=arr.get(i).getPos();
+			System.out.println(pi.toString()+":"+pos.toString());
+		}
 	}
 	
 	public void sauverPartie() {
