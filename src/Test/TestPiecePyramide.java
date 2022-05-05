@@ -10,7 +10,7 @@ import Modeles.Position;
 
 public class TestPiecePyramide {
     public static void main(String[] args) {
-        String res = "Pieces dans la liste: [";
+        String res = "Pieces dans la liste: \n";
         LinkedList<Piece> l = new LinkedList<>();
 
         l.add(new Piece(Color.red));
@@ -28,10 +28,9 @@ public class TestPiecePyramide {
             Position pos = new Position(compt, compt + 1);
             PiecePyramide pp = new PiecePyramide(p, pos);
             res += pp.toString();
-            res += ", ";
+            res += "\n";
             compt++;
         }
-        res += "]";
         System.out.println(res);
 
     }
