@@ -14,6 +14,7 @@ public class PyramideJoueur implements Pyramide{
 	private Piece[][] pyramide;
 	private int largeur;
 	private int hauteur;
+	public int nbPieces;// variable test
 	
 	public PyramideJoueur(int largeur, int hauteur) {
 		if(largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
@@ -44,6 +45,7 @@ public class PyramideJoueur implements Pyramide{
 		else if(p.y == 0) {
 			// pas de piece porteuse
 			pyramide[p.y][p.x] = piece;
+			this.nbPieces++;
 		}
 		else {
 			// avec piece porteuse
@@ -53,6 +55,7 @@ public class PyramideJoueur implements Pyramide{
 			int porteurGauchey = p.y-1;
 			if(pyramide[porteurDroity][porteurDroitx] != null && pyramide[porteurGauchey][porteurGauchex] !=null) {
 				pyramide[p.y][p.x] = piece;
+				this.nbPieces++;
 			}else {
 				System.err.println("la piece n'as pas de piece porteuse");
 			}
@@ -100,15 +103,36 @@ public class PyramideJoueur implements Pyramide{
 		
 	}
 	
-	public void afficher() { //a supprimer
+	public void afficher() {
 		for(int i = hauteur-1;i >= 0; i--){
 			for( int j = 0; j < pyramide[i].length ; j++) {
-				if(pyramide[i][j] != null) {
-					System.out.print('B');
-				}else {
-					System.out.print('.');
-				}
-				
+				if(pyramide[i][j]!=null) {
+					switch(pyramide[i][j].getColor()) {
+						case BLEU:
+							System.out.print('B');
+							break;
+						case NOIR:
+							System.out.print('N');
+							break;
+						case ROUGE:
+							System.out.print('R');
+							break;
+						case VERT:
+							System.out.print('V');
+							break;
+						case JAUNE:
+							System.out.print('J');
+							break;
+						case BLANC:
+							System.out.print('W');
+							break;
+						case NATUREL:
+							System.out.print('#');
+							break;
+						default:
+							System.out.print('.');
+					}
+				}else System.out.print('.');
 			}
 			System.out.println();
 		}

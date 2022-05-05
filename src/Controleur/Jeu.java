@@ -33,6 +33,7 @@ public class Jeu {
 		j2=new Joueur("Mademoiselle Jeanne");
 		initCampJoueur(j1);
 		initCampJoueur(j2);
+		initBaseMontagne();
 	}
 	
 	public void initialiserSac() {//ajoute toutes les pièces au sac
@@ -57,7 +58,6 @@ public class Jeu {
 	}
 	
 	public void initCampJoueur(Joueur jou) {//création du camps du joueur j
-		//PyramideJoueur camp = j.getCampJ();
 		for(int i=0; i<6; i++) {//hauteur
 			for(int j=0; j<6-i; j++) {//largeur
 				Piece element=basePieces.get(0);
@@ -65,23 +65,26 @@ public class Jeu {
 				PiecePyramide pp=new PiecePyramide(element, pos);
 				jou.getCamp().empiler(pp);
 				basePieces.remove(0);
-				System.out.println("piece "+pos.x+","+pos.y+" ajoutée au sac.");
+				Piece pAffich=jou.getCamp().getPiece(pos);
+				//System.out.println("piece "+pos.x+","+pos.y+" ajoutée au camp de "+jou.getNom()+" : "+pAffich.toString());
 			}
 		}
-		System.out.println("Camp de "+jou.getNom()+" initialisé. Taille : "+basePieces.size());
+		jou.getCamp().afficher();
+		System.out.println("Camp de "+jou.getNom()+" initialisé. Taille : "+jou.getCamp().nbPieces);
 	}
 	
 	public void initBaseMontagne() {//création de la base de la montagne constituée de 9 pièces
 		baseMontagne=new PyramideMontagne(9,9);//9 étages, 9 pièces au dernier étage
 		for(int i=0; i<9; i++) {
 			Piece element=basePieces.get(0);
-			Position pos=new Position(0,i);
+			Position pos=new Position(i,0);
 			PiecePyramide pp=new PiecePyramide(element, pos);
 			baseMontagne.empiler(pp);
 			basePieces.remove(0);
 		}
 		System.out.println("Base de la montagne initialisée. Taille : "+baseMontagne.getHauteur());
 		System.out.println("Le sac a maintenant une taille de "+basePieces.size()+" pièces.");
+		baseMontagne.afficher();
 	}
 	
 	public LinkedList<Coup> CoupsJouables(Joueur j) {//renvoie les pieces et la pos jouables du joueur

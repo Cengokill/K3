@@ -95,7 +95,7 @@ public class PyramideMontagne implements Pyramide {
 					return;
 				}
 			} else {
-				System.err.println("Impossible d'empiler une pi�ce sur du vide. Il faut au moins 2 pieces porteuses.");
+				System.err.println("Impossible d'empiler une piece sur du vide. Il faut au moins 2 pieces porteuses.");
 				return;
 			}
 		}
@@ -116,5 +116,40 @@ public class PyramideMontagne implements Pyramide {
 		}
 		return pyramide[p.y][p.x];
 
+	}
+	
+	public void afficher() {
+		for(int i = hauteur-1;i >= 0; i--){
+			for( int j = 0; j < pyramide[i].length ; j++) {
+				if(pyramide[i][j]!=null) {
+					switch(pyramide[i][j].getColor()) {
+						case BLEU:
+							System.out.print('B');
+							break;
+						case NOIR:
+							System.out.print('N');
+							break;
+						case ROUGE:
+							System.out.print('R');
+							break;
+						case VERT:
+							System.out.print('V');
+							break;
+						case JAUNE:
+							System.out.print('J');
+							break;
+						case BLANC:
+							System.out.print('W');
+							break;
+						case NATUREL:
+							System.out.print('#');
+							break;
+						default:
+							System.out.print('.');
+					}
+				}else System.out.print('.');
+			}
+			System.out.println();
+		}
 	}
 }

@@ -12,6 +12,6 @@ public class Piece {// piece
 	}
 
 	public String toString() {
-		return "Piece de couleur " + color;
+		return "["+color+"]";
 	}
 }
