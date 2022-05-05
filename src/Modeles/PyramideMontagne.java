@@ -52,12 +52,14 @@ public class PyramideMontagne implements Pyramide {
 
 						// on regarde ne haut a gauche + en haut a droite
 						if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
-							if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {
-								Position pp = new Position(i, j);
-								newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
-								p.add(newC);
-								newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
-								p.add(newC);
+							if (j != (pyramide[i].length - 1) && i != 0) {
+								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {
+									Position pp = new Position(i, j);
+									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
+									p.add(newC);
+									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
+									p.add(newC);
+								}
 							}
 						}
 					}

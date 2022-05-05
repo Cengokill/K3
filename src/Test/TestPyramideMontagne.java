@@ -26,7 +26,7 @@ public class TestPyramideMontagne {
     }
 
     static void initBaseMontagne() {// creation de la base de la montagne constituee de 9 pieces
-        baseMontagne = new PyramideMontagne(1, 9);// 1 etage, 9 pieces
+        baseMontagne = new PyramideMontagne(9, 9);// 9 etages, 9 pieces
         Random r = new Random();
         Piece p;
         PiecePyramide pp;
