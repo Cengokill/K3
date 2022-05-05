@@ -72,7 +72,7 @@ public class Jeu {
 	}
 	
 	public void initBaseMontagne() {//création de la base de la montagne constituée de 9 pièces
-		baseMontagne=new PyramideMontagne(1,9);//1 étage, 9 pièces
+		baseMontagne=new PyramideMontagne(9,9);//9 étages, 9 pièces au dernier étage
 		for(int i=0; i<9; i++) {
 			Piece element=basePieces.get(0);
 			Position pos=new Position(0,i);
