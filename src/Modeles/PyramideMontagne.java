@@ -67,20 +67,20 @@ public class PyramideMontagne implements Pyramide {
 								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
-									Piece pi=newC.getPiece();
-									Position pos=newC.getPos();
-									if(p.size()==0 || !p.get(p.size()-1).egal(newC)) {
+									if(p.size()==0) {
 										p.add(newC);
-										PiecePyramide prec;
-										prec=p.get(p.size()-1);
-										Piece piPrec=prec.getPiece();
-										Position posPrec=prec.getPos();
-										System.out.println(pi.toString()+":"+pos.toString()+" n'est pas identique à "+piPrec.toString()+":"+posPrec.toString());
+										//System.out.println("ajout : " + newC.getPiece().toString()+":"+newC.getPos().toString());
 									}else {
-										System.out.println("PiecePyramide non ajoutée.");
+										if(!p.get(p.size()-1).egal(newC)) {
+											//System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+" n'est pas identique à "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
+											p.add(newC);
+										}
 									}
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
-									p.add(newC);
+									if(!p.get(p.size()-1).egal(newC)) {
+										//System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+" n'est pas identique à "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
+										p.add(newC);
+									}
 								}
 							}
 						}
