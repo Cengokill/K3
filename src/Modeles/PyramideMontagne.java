@@ -9,9 +9,22 @@ public class PyramideMontagne implements Pyramide {
 	private int hauteur;
 
 	public PyramideMontagne(int largeur, int hauteur) {
-		this.hauteur = hauteur;
-		this.largeur = largeur;
-		pyramide = new Piece[largeur][hauteur];
+		if(largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
+			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
+		}
+		else {
+			this.largeur = largeur;
+			this.hauteur = hauteur;
+			int l=largeur;
+			
+			Piece[][] etage = new Piece[hauteur][];
+			for(int i = 0; i<hauteur; i++) {
+				Piece[] ligne = new Piece[l];
+				etage[i] = ligne;
+				l = l-1;
+			}
+			this.pyramide = etage;
+		}
 	}
 
 	public LinkedList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pi�ces que l'on peut placer sur
