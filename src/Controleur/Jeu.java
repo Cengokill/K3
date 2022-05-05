@@ -28,10 +28,14 @@ public class Jeu {
 		pNoir=new Piece(Couleurs.NOIR);
 		pBlanc=new Piece(Couleurs.BLANC);
 		pNaturel=new Piece(Couleurs.NATUREL);
-		initialiserJeu();
+		initialiserSac();
+		j1=new Joueur("Gaston");
+		j2=new Joueur("Mademoiselle Jeanne");
+		initCampJoueur(j1);
+		initCampJoueur(j2);
 	}
 	
-	public void initialiserJeu() {//ajoute toutes les pièces au jeu
+	public void initialiserSac() {//ajoute toutes les pièces au sac
 		int nb_pieces_par_couleur=9;
 		int nb_naturels=6;
 		int nb_blancs=4;
@@ -48,22 +52,39 @@ public class Jeu {
 		for(int i=0 ; i<nb_blancs ; i++) {
 			basePieces.add(pBlanc);
 		}
-		Collections.shuffle(basePieces);//mélange du jeu
+		Collections.shuffle(basePieces);//mélange les pièces à piocher pour les joueurs
+		System.out.println("sac initialisé. Taille : "+basePieces.size());
+	}
+	
+	public void initCampJoueur(Joueur jou) {//création du camps du joueur j
+		//PyramideJoueur camp = j.getCampJ();
+		for(int i=0; i<6; i++) {//hauteur
+			for(int j=0; j<6-i; j++) {//largeur
+				Piece element=basePieces.get(0);
+				Position pos=new Position(j,i);
+				PiecePyramide pp=new PiecePyramide(element, pos);
+				jou.getCamp().empiler(pp);
+				basePieces.remove(0);
+			}
+		}
+		System.out.println("Camp de "+jou.getNom()+" initialisé. Taille : "+basePieces.size());
 	}
 	
 	public void initBaseMontagne() {//création de la base de la montagne constituée de 9 pièces
-		int taille=basePieces.size();
-		baseMontagne=new PyramideMontagne(1,9);//1 étage, 9 pièces
+		baseMontagne=new PyramideMontagne(9,1);//1 étage, 9 pièces
 		for(int i=0; i<9; i++) {
-			Piece element=basePieces.get(taille-i-1);
+			Piece element=basePieces.get(0);
 			Position pos=new Position(0,i);
 			PiecePyramide pp=new PiecePyramide(element, pos);
 			baseMontagne.empiler(pp);
+			basePieces.remove(0);
 		}
+		System.out.println("Base de la montagne initialisée. Taille : "+baseMontagne.getHauteur());
+		System.out.println("Le sac a maintenant une taille de "+basePieces.size()+" pièces.");
 	}
 	
 	public LinkedList<Coup> CoupsJouables(Joueur j) {//renvoie les pieces et la pos jouables du joueur
-		PyramideJoueur p = j.pyramideJ();
+		PyramideJoueur p = j.getCamp();
 		LinkedList<Coup> coupsPosables = new LinkedList<Coup>();
 		Piece p1, p2;
 		Position pos1, pos2;
