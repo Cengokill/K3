@@ -1,11 +1,4 @@
-.class
+bin/
+tmp/
+*.tmp
 *.class
-bin/Modeles/Piece.class
-bin/Modeles/PyramideJoueur.class
-bin/Modeles/Pyramide.class
-bin/Modeles/PyramideMontagne.class
-bin/Modeles/Coup.class
-bin/Modeles/Position.class
-bin/Modeles/Acteur.class
-bin/Modeles/Aleatoire.class
-bin/Controleur/Jeu.class
