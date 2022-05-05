@@ -5,7 +5,7 @@ public interface Pyramide {
 	int LARGEUR_MAX = 100;
 	int HAUTEUR_MAX = 100;
 	
-	public void empiler(Piece piece, Position p);
+	public void empiler(PiecePyramide pp);
 	
 	public int getlargeur();
 	
