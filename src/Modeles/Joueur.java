@@ -1,6 +1,5 @@
 package Modeles;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class Joueur implements Acteur{
@@ -11,13 +10,13 @@ public class Joueur implements Acteur{
 	public Joueur(String nom) {
 		this.nom=nom;
 		this.liste_pieces = new ArrayList<Piece>();
-		Piece p1=new Piece(Color.blue);
-		Piece p2=new Piece(Color.green);
-		Piece p3=new Piece(Color.yellow);
-		Piece p4=new Piece(Color.red);
-		Piece p5=new Piece(Color.black);
-		Piece p6=new Piece(Color.white);
-		Piece p7=new Piece(Color.LIGHT_GRAY);
+		Piece p1 = new Piece(Couleurs.BLEU);
+		Piece p2=new Piece(Couleurs.VERT);
+		Piece p3=new Piece(Couleurs.JAUNE);
+		Piece p4=new Piece(Couleurs.ROUGE);
+		Piece p5=new Piece(Couleurs.NOIR);
+		Piece p6=new Piece(Couleurs.BLANC);
+		Piece p7=new Piece(Couleurs.NATUREL);
 		liste_pieces.add(p1);
 		liste_pieces.add(p2);
 		liste_pieces.add(p3);

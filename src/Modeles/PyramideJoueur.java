@@ -60,22 +60,27 @@ public class PyramideJoueur implements Pyramide{
 	}
 	
 	public LinkedList<PiecePyramide> piecesJouables() {//renvoie les pieces que le joueur peut prendre à partir de sa pyramide
-		LinkedList<PiecePyramide> c = new LinkedList<PiecePyramide>();
-		Position pos;
-		int i = hauteur-1 ;
-		while( i >= 0){
-			int j = 0;
-			while( j < pyramide[i].length) {
-				if(pyramide[i][j] == null){
-					i--;
-				}else {
-					pos=new Position(i,j);
-					c.add(new PiecePyramide(pyramide[i][j], pos));
-					j++;
+		LinkedList<PiecePyramide> arr = new LinkedList<PiecePyramide>();
+		LinkedList<Position> piecesVerif = new LinkedList<Position>();
+		piecesVerif.add(new Position(hauteur-1, 0));
+		while(!piecesVerif.isEmpty()) {
+			int x=piecesVerif.get(0).x;
+			int y=piecesVerif.get(0).y;
+			if(pyramide[y][x]==null) {
+				piecesVerif.add(new Position(x, y-1));
+				piecesVerif.add(new Position(x+1, y-1));
+			}else {//case contenant une pièce
+				arr.add(new PiecePyramide(pyramide[y][x], piecesVerif.get(0)));
+				if(x == pyramide[y].length-1) {
+					arr.add(new PiecePyramide(pyramide[y][x], piecesVerif.get(0)));
+				}else if(pyramide[y+1][x]==null){
+					arr.add(new PiecePyramide(pyramide[y][x], piecesVerif.get(0)));
 				}
 			}
+			piecesVerif.remove(0);
 		}
-		return c;
+		return arr;
+
 	}
 
 	public int getlargeur() {

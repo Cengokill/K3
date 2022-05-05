@@ -1,5 +1,5 @@
 package Controleur;
-import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -21,13 +21,13 @@ public class Jeu {//יאךכטפצ
 	
 	public Jeu() {
 		basePieces = new ArrayList<Piece>();
-		pBleu=new Piece(Color.blue);
-		pVert=new Piece(Color.green);
-		pJaune=new Piece(Color.yellow);
-		pRouge=new Piece(Color.red);
-		pNoir=new Piece(Color.black);
-		pBlanc=new Piece(Color.white);
-		pNaturel=new Piece(Color.LIGHT_GRAY);
+		pBleu=new Piece(Couleurs.BLEU);
+		pVert=new Piece(Couleurs.VERT);
+		pJaune=new Piece(Couleurs.JAUNE);
+		pRouge=new Piece(Couleurs.ROUGE);
+		pNoir=new Piece(Couleurs.NOIR);
+		pBlanc=new Piece(Couleurs.BLANC);
+		pNaturel=new Piece(Couleurs.NATUREL);
 		initialiserJeu();
 	}
 	

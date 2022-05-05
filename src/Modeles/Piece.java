@@ -1,15 +1,13 @@
 package Modeles;
 
-import java.awt.Color;
-
 public class Piece {// piece
-	private Color color;
+	private Couleurs color;
 
-	public Piece(Color color) {
+	public Piece(Couleurs color) {
 		this.color = color;
 	}
 
-	public Color getColor() {
+	public Couleurs getColor() {
 		return this.color;
 	}
 
@@ -18,6 +16,4 @@ public class Piece {// piece
 		res += color.toString().substring(14);
 		return res;
 	}
-
-///>>>>>>> b195f65f561a0b53116aaeac661fe4962d3ed40c
 }
