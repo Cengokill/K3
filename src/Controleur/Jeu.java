@@ -140,11 +140,11 @@ public class Jeu {
 		
 	}
 	
-	public Joueur Joueur1() {
+	public Joueur joueur1() {
 		return j1;
 	}
 	
-	public Joueur Joueur2() {
+	public Joueur joueur2() {
 		return j2;
 	}
 }

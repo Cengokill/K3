@@ -35,12 +35,45 @@ public class PyramideJoueur implements Pyramide{
 		}
 	}
 	
+	public boolean retirer(PiecePyramide pp) {
+		Position p=pp.getPos();
+		if(p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0  || pyramide[p.y][p.x]==null) {
+			System.err.println("erreur impossible de retirer la piece.");
+			return false;
+		}
+		else {
+			// avec piece porteuse
+			boolean caseSupGauche, caseSupDroite;
+			if (p.x == 0) {
+				caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe
+										// pas
+			} else {
+				caseSupGauche = (pyramide[p.y + 1][p.x - 1] == null); // on regarde si en haut a gauche est
+			}														// libre
+			if (p.x == pyramide[p.y].length - 1) {
+				caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe
+										// pas
+			} else {
+				caseSupDroite = (pyramide[p.y + 1][p.x] == null); // on regarde si en haut a droite est libre
+			}
+			// on regarde ne haut a gauche + en haut a droite
+			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
+				pyramide[p.y][p.x] = null;
+				this.nbPieces--;
+				System.out.println("Pièce retirée");
+				return true;
+			}else {
+				System.err.println("La piece n'a pas de piece porteuse.");
+				return false;
+			}
+		}
+	}
 	
 	public void empiler(PiecePyramide pp) {
 		Piece piece=pp.getPiece();
 		Position p=pp.getPos();
 		if(p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0 ) {
-			System.err.println("erreur position impossible : " + p.x + "," + p.y);
+			System.err.println("Erreur position impossible : " + p.x + "," + p.y);
 		}
 		else if(p.y == 0) {
 			// pas de piece porteuse
@@ -57,7 +90,7 @@ public class PyramideJoueur implements Pyramide{
 				pyramide[p.y][p.x] = piece;
 				this.nbPieces++;
 			}else {
-				System.err.println("la piece n'as pas de piece porteuse");
+				System.err.println("La piece n'a pas de piece porteuse.");
 			}
 		}
 	}

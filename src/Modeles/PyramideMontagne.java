@@ -29,8 +29,7 @@ public class PyramideMontagne implements Pyramide {
 
 	public LinkedList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pi�ces que l'on peut placer sur
 														// la pyramide de la base
-		boolean caseSupGauche;
-		boolean caseSupDroite;
+		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC;
 
 		LinkedList<PiecePyramide> p = new LinkedList<PiecePyramide>();
