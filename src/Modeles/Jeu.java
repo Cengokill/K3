@@ -19,13 +19,13 @@ public class Jeu {//יאךכטפצ
 	
 	public Jeu() {
 		basePieces = new ArrayList<Piece>();
-		pBleu=new Piece(Color.blue, null);
-		pVert=new Piece(Color.green, null);
-		pJaune=new Piece(Color.yellow, null);
-		pRouge=new Piece(Color.red, null);
-		pNoir=new Piece(Color.black, null);
-		pBlanc=new Piece(Color.white, null);
-		pNaturel=new Piece(Color.LIGHT_GRAY, null);
+		pBleu=new Piece(Color.blue);
+		pVert=new Piece(Color.green);
+		pJaune=new Piece(Color.yellow);
+		pRouge=new Piece(Color.red);
+		pNoir=new Piece(Color.black);
+		pBlanc=new Piece(Color.white);
+		pNaturel=new Piece(Color.LIGHT_GRAY);
 		initialiserJeu();
 	}
 	
@@ -61,18 +61,13 @@ public class Jeu {//יאךכטפצ
 	
 	public void coupsJouables(Joueur j) {//renvoie les coups jouables du joueur
 		PyramideJoueur p = j.pyramideJ();
-		LinkedList<Piece> piecesAccessBase=baseMontagne.listePosAccessibles();
+		LinkedList<Coup> piecesAccessBase=baseMontagne.listePosAccessibles();
 		LinkedList<Piece> piecesAccessJoueur = p.listePiecesAccessibles();
 		LinkedList<Piece> piecesPosables = new LinkedList<Piece>();
 		for(int i=0;i<piecesAccessJoueur.size(); i++) {//pour chaque piece du joueur
 			Piece pieceJoueur=piecesAccessJoueur.get(i);
-			Position posPieceJ=pieceJoueur.getPos();
-			for(int k=0; k<piecesAccessBase.size(); k++) {//on verif que la piece est posable sur une paire de pieces de la base
-				Piece pieceBase=piecesAccessBase.get(i);
-				Position posPieceBase=pieceBase.getPos();
-				if(posPieceJ.equals(posPieceBase)) {
-					piecesPosables.add(pieceJoueur);
-				}
+			if(piecesAccessJoueur.contains(pieceJoueur)) {
+				piecesPosables.add(pieceJoueur);
 			}
 		}
 		

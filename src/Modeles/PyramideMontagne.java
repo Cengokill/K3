@@ -13,48 +13,48 @@ public class PyramideMontagne implements Pyramide {
 		this.hauteur= hauteur;
 	}
 	
-	public LinkedList<Piece> listePosAccessibles() {
-		boolean premierecase;
-		boolean dernierecase;
+	public LinkedList<Coup> listePosAccessibles() {//renvoie la liste de toute les pièces que l'on peut placer sur la pyramide de la base
+		boolean caseSupGauche;
+		boolean caseSupDroite;
+		Coup newC;
 		
-		LinkedList<Piece> p = new LinkedList<Piece>();
-		//dernier place de la pyramide
+		LinkedList<Coup> p = new LinkedList<Coup>();
+		//derniere place de la pyramide
 		if(pyramide[hauteur-1][0] == null && pyramide[hauteur-2][0] != null && pyramide[hauteur-2][1] != null) {
 			Position pp = new Position(hauteur-1,0);
-			Piece newP;
-			newP = new Piece(pyramide[hauteur-2][0].getColor(),pp);
-			p.add(newP);
-			newP = new Piece(pyramide[hauteur-2][1].getColor(),pp);
-			p.add(newP);
-			p.add(newP);
+			newC = new Coup(new Piece(pyramide[hauteur-2][0].getColor()),pp);
+			p.add(newC);
+			newC = new Coup(new Piece(pyramide[hauteur-2][1].getColor()),pp);
+			p.add(newC);
 		}
-		//intérieur pyramide
+		//interieur pyramide
 		else {
-			int i = hauteur-2 ;
-			while( i >= 0){
-				int j = 0;
-				while( j < pyramide[i].length) {
+			for(int i = hauteur-2; i>= 0; i--){
+				for(int j = 0; j < pyramide[i].length; j++) {
 					// en haut a droite
-					if(j-1 < 0) {
-						premierecase = true; //si c'est la derniere case de la ligne en haut a gauche = libre
-					}else {
-						premierecase = (pyramide[i+1][j-1] == null); //on regarde en haut a gauche = libre
-					}
-					
-					if(j == pyramide[i-1].length) {
-						dernierecase = true; //si c'est la derniere case de la ligne en haut a droite = libre
-					}else {
-						dernierecase = (pyramide[i+1][j] == null); //on regarde en haut a droite = libre
-					}
-					
-					//on regarde ne haut a gauche + en haut a droite
-					if(premierecase && dernierecase && pyramide[i-1][j] != null && pyramide[i-1][j+1] != null){ // on regarde si il ya des pieces porteuses
-						Position pp = new Position(i,j);
-						Piece newP;
-						newP = new Piece(pyramide[i-1][j].getColor(),pp);
-						p.add(newP);
-						newP = new Piece(pyramide[i-1][j+1].getColor(),pp);
-						p.add(newP);
+					if(pyramide[i][j]==null) {//si la case courante ne contient pas de piece
+						if(j==0) {
+							caseSupGauche = true; //si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
+						}else {
+							caseSupGauche = (pyramide[i+1][j-1] == null); //on regarde si en haut a gauche est libre
+						}
+						
+						if(j == pyramide[i].length-1) {
+							caseSupDroite = true; //si c'est la derniere case de la ligne en haut a droite qui n'existe pas
+						}else {
+							caseSupDroite = (pyramide[i+1][j] == null); //on regarde si en haut a droite est libre
+						}
+						
+						//on regarde ne haut a gauche + en haut a droite
+						if(caseSupGauche && caseSupDroite){ // on regarde si il ya des pieces porteuses
+							if(i==0 || (pyramide[i-1][j] != null && pyramide[i-1][j+1] != null)) {
+								Position pp = new Position(i,j);
+								newC = new Coup(new Piece(pyramide[i-1][j].getColor()),pp);
+								p.add(newC);
+								newC = new Coup(new Piece(pyramide[i-1][j+1].getColor()),pp);
+								p.add(newC);
+							}
+						}
 					}
 				}
 			}
