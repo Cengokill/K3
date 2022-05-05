@@ -1,12 +1,26 @@
 package Modeles;
 
-public class Coup {
-	public Piece piece;
-	public Position pos;
-	
-	public Coup(Piece piece, Position position) {
-		this.piece = piece;
-		this.pos = position;
+public class Coup{
+	private Piece piece;
+	private Position posCampJoueur;
+	private Position posBaseMontagne;
+	//un coup est défini par une pièce, une position de départ depuis la pyramide du joueur et une position d'arrivée dans la base de la montagne
+	public Coup(Piece p, Position pos1, Position pos2) {
+		this.piece=p;
+		this.posCampJoueur=pos1;
+		this.posBaseMontagne=pos2;
 	}
 	
+	public Piece getPiece() {
+		return this.piece;
+	}
+	
+	public Position getposJ() {
+		return this.posCampJoueur;
+	}
+	
+	public Position getPosBase() {
+		return this.posBaseMontagne;
+	}
+		
 }

@@ -13,18 +13,18 @@ public class PyramideMontagne implements Pyramide {
 		this.hauteur= hauteur;
 	}
 	
-	public LinkedList<Coup> listePosAccessibles() {//renvoie la liste de toute les pièces que l'on peut placer sur la pyramide de la base
+	public LinkedList<PiecePyramide> piecesPosables() {//renvoie la liste de toutes les pièces que l'on peut placer sur la pyramide de la base
 		boolean caseSupGauche;
 		boolean caseSupDroite;
-		Coup newC;
+		PiecePyramide newC;
 		
-		LinkedList<Coup> p = new LinkedList<Coup>();
+		LinkedList<PiecePyramide> p = new LinkedList<PiecePyramide>();
 		//derniere place de la pyramide
 		if(pyramide[hauteur-1][0] == null && pyramide[hauteur-2][0] != null && pyramide[hauteur-2][1] != null) {
 			Position pp = new Position(hauteur-1,0);
-			newC = new Coup(new Piece(pyramide[hauteur-2][0].getColor()),pp);
+			newC = new PiecePyramide(new Piece(pyramide[hauteur-2][0].getColor()),pp);
 			p.add(newC);
-			newC = new Coup(new Piece(pyramide[hauteur-2][1].getColor()),pp);
+			newC = new PiecePyramide(new Piece(pyramide[hauteur-2][1].getColor()),pp);
 			p.add(newC);
 		}
 		//interieur pyramide
@@ -49,9 +49,9 @@ public class PyramideMontagne implements Pyramide {
 						if(caseSupGauche && caseSupDroite){ // on regarde si il ya des pieces porteuses
 							if(i==0 || (pyramide[i-1][j] != null && pyramide[i-1][j+1] != null)) {
 								Position pp = new Position(i,j);
-								newC = new Coup(new Piece(pyramide[i-1][j].getColor()),pp);
+								newC = new PiecePyramide(new Piece(pyramide[i-1][j].getColor()),pp);
 								p.add(newC);
-								newC = new Coup(new Piece(pyramide[i-1][j+1].getColor()),pp);
+								newC = new PiecePyramide(new Piece(pyramide[i-1][j+1].getColor()),pp);
 								p.add(newC);
 							}
 						}
@@ -65,6 +65,7 @@ public class PyramideMontagne implements Pyramide {
 	public void empiler(Piece piece, Position p) {
 		if(p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0 ) {
 			System.err.println("erreur position impossible : " + p.x + "," + p.y);
+			return;
 		}
 		else if(p.y == 0) {
 			// pas de piece porteuse
@@ -84,9 +85,11 @@ public class PyramideMontagne implements Pyramide {
 					pyramide[p.y][p.x] = piece;
 				}else {
 					System.err.println("la piece n'est pas de la bonne couleur");
+					return;
 				}
 			}else {
 				System.err.println("la piece n'as pas de piece porteuse");
+				return;
 			}
 		}
 	}

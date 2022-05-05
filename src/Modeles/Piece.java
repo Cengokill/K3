@@ -11,5 +11,4 @@ public class Piece {//piece
 	public Color getColor() {
 		return this.color;
 	}
-	
 }

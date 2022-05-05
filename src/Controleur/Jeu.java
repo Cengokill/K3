@@ -1,8 +1,10 @@
-package Modeles;
+package Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+
+import Modeles.*;
 
 public class Jeu {//יאךכטפצ
 	private Joueur j1;
@@ -59,18 +61,28 @@ public class Jeu {//יאךכטפצ
 		}
 	}
 	
-	public void coupsJouables(Joueur j) {//renvoie les coups jouables du joueur
+	public LinkedList<Coup> CoupsJouables(Joueur j) {//renvoie les pieces et la pos jouables du joueur
 		PyramideJoueur p = j.pyramideJ();
-		LinkedList<Coup> piecesAccessBase=baseMontagne.listePosAccessibles();
-		LinkedList<Piece> piecesAccessJoueur = p.listePiecesAccessibles();
-		LinkedList<Piece> piecesPosables = new LinkedList<Piece>();
-		for(int i=0;i<piecesAccessJoueur.size(); i++) {//pour chaque piece du joueur
-			Piece pieceJoueur=piecesAccessJoueur.get(i);
-			if(piecesAccessJoueur.contains(pieceJoueur)) {
-				piecesPosables.add(pieceJoueur);
+		LinkedList<Coup> coupsPosables = new LinkedList<Coup>();
+		Piece p1, p2;
+		Position pos1, pos2;
+		Coup c;
+		LinkedList<PiecePyramide> piecesBase=baseMontagne.piecesPosables();
+		LinkedList<PiecePyramide> piecesJoueur = p.piecesJouables();
+		for(int i=0;i<piecesJoueur.size(); i++) {//pour chaque piece du joueur
+			PiecePyramide pieceJoueur=piecesJoueur.get(i);
+			p1=pieceJoueur.getPiece();
+			for(PiecePyramide pp : piecesBase){
+				p2=pp.getPiece();
+				if(p1.getColor()==p2.getColor()) {
+					pos1=pieceJoueur.getPos();
+					pos2=pp.getPos();
+					c=new Coup(p1, pos1, pos2);
+					coupsPosables.add(c);
+				}
 			}
 		}
-		
+		return coupsPosables;
 	}
 	
 	public Position volerPiece(Joueur voleur, Joueur victime) {//vole une piece au joueur j

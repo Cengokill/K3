@@ -11,13 +11,13 @@ public class Joueur implements Acteur{
 	public Joueur(String nom) {
 		this.nom=nom;
 		this.liste_pieces = new ArrayList<Piece>();
-		Piece p1=new Piece(Color.blue, null);
-		Piece p2=new Piece(Color.green, null);
-		Piece p3=new Piece(Color.yellow, null);
-		Piece p4=new Piece(Color.red, null);
-		Piece p5=new Piece(Color.black, null);
-		Piece p6=new Piece(Color.white, null);
-		Piece p7=new Piece(Color.LIGHT_GRAY, null);
+		Piece p1=new Piece(Color.blue);
+		Piece p2=new Piece(Color.green);
+		Piece p3=new Piece(Color.yellow);
+		Piece p4=new Piece(Color.red);
+		Piece p5=new Piece(Color.black);
+		Piece p6=new Piece(Color.white);
+		Piece p7=new Piece(Color.LIGHT_GRAY);
 		liste_pieces.add(p1);
 		liste_pieces.add(p2);
 		liste_pieces.add(p3);
@@ -47,7 +47,7 @@ public class Joueur implements Acteur{
 				
 	}
 
-	public Coup jouer(PyramideMontagne p) {
+	public PiecePyramide jouer(PyramideMontagne p) {
 		// TODO Auto-generated method stub
 		return null;
 	}

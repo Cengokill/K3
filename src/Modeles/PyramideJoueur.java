@@ -57,8 +57,9 @@ public class PyramideJoueur implements Pyramide{
 		}
 	}
 	
-	public LinkedList<Piece> listePiecesAccessibles() {
-		LinkedList<Piece> c = new LinkedList<Piece>();
+	public LinkedList<PiecePyramide> piecesJouables() {//renvoie les pieces que le joueur peut prendre à partir de sa pyramide
+		LinkedList<PiecePyramide> c = new LinkedList<PiecePyramide>();
+		Position pos;
 		int i = hauteur-1 ;
 		while( i >= 0){
 			int j = 0;
@@ -66,14 +67,14 @@ public class PyramideJoueur implements Pyramide{
 				if(pyramide[i][j] == null){
 					i--;
 				}else {
-					c.add(pyramide[i][j]);
+					pos=new Position(i,j);
+					c.add(new PiecePyramide(pyramide[i][j], pos));
 					j++;
 				}
 			}
 		}
 		return c;
 	}
-
 
 	public int getlargeur() {
 		return this.largeur;
