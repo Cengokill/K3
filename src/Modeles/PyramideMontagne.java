@@ -53,9 +53,7 @@ public class PyramideMontagne implements Pyramide {
 													// pas
 						} else {
 							caseSupGauche = (pyramide[i + 1][j - 1] == null); // on regarde si en haut a gauche est
-																				// libre
-						}
-
+						}														// libre
 						if (j == pyramide[i].length - 1) {
 							caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe
 													// pas
@@ -69,7 +67,18 @@ public class PyramideMontagne implements Pyramide {
 								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
-									p.add(newC);
+									Piece pi=newC.getPiece();
+									Position pos=newC.getPos();
+									if(p.size()==0 || !p.get(p.size()-1).egal(newC)) {
+										p.add(newC);
+										PiecePyramide prec;
+										prec=p.get(p.size()-1);
+										Piece piPrec=prec.getPiece();
+										Position posPrec=prec.getPos();
+										System.out.println(pi.toString()+":"+pos.toString()+" n'est pas identique à "+piPrec.toString()+":"+posPrec.toString());
+									}else {
+										System.out.println("PiecePyramide non ajoutée.");
+									}
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
 									p.add(newC);
 								}
