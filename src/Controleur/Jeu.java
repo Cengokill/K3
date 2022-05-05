@@ -6,10 +6,10 @@ import java.util.LinkedList;
 
 import Modeles.*;
 
-public class Jeu {//éàêëèôö
+public class Jeu {
 	private Joueur j1;
 	private Joueur j2;
-	private ArrayList<Piece> basePieces;//pieces disponible à se partager entre les joueurs, uniquement à la création du jeu
+	private ArrayList<Piece> basePieces;//pieces disponibles à se partager entre les joueurs, uniquement à la création du jeu
 	private PyramideMontagne baseMontagne;//base de la montagne
 	Piece pBleu;
 	Piece pVert;
