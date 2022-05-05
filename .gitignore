@@ -1,5 +1,5 @@
 .class
 *.class
-*.class
-*.class
 bin/Modeles/Piece.class
+bin/Modeles/PyramideJoueur.class
+bin/Modeles/Pyramide.class
