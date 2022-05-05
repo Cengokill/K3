@@ -12,8 +12,6 @@ public class Piece {// piece
 	}
 
 	public String toString() {
-		String res = "Piece de couleur ";
-		res += color.toString().substring(14);
-		return res;
+		return "Piece de couleur " + color;
 	}
 }
