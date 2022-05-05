@@ -57,7 +57,8 @@ public class Jeu {//יאךכטפצ
 		for(int i=0; i<9; i++) {
 			Piece element=basePieces.get(taille-i-1);
 			Position pos=new Position(0,i);
-			baseMontagne.empiler(element, pos);
+			PiecePyramide pp=new PiecePyramide(element, pos);
+			baseMontagne.empiler(pp);
 		}
 	}
 	

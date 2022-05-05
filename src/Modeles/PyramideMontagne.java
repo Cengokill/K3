@@ -62,7 +62,9 @@ public class PyramideMontagne implements Pyramide {
 		return p;
 	}
 
-	public void empiler(Piece piece, Position p) {
+	public void empiler(PiecePyramide pp) {
+		Piece piece=pp.getPiece();
+		Position p=pp.getPos();
 		if(p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0 ) {
 			System.err.println("erreur position impossible : " + p.x + "," + p.y);
 			return;
