@@ -61,7 +61,7 @@ public class Jeu {//יאךכטפצ
 		}
 	}
 	
-	public LinkedList<Coup> CoupsJouables(Joueur j) {//renvoie les pieces et la pos jouables du joueur/
+	public LinkedList<Coup> CoupsJouables(Joueur j) {//renvoie les pieces et la pos jouables du joueur
 		PyramideJoueur p = j.pyramideJ();
 		LinkedList<Coup> coupsPosables = new LinkedList<Coup>();
 		Piece p1, p2;
