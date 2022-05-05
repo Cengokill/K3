@@ -66,7 +66,7 @@ public class PyramideMontagne implements Pyramide {
 		Piece piece=pp.getPiece();
 		Position p=pp.getPos();
 		if(p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0 ) {
-			System.err.println("erreur position impossible : " + p.x + "," + p.y);
+			System.err.println("Erreur : la position (" + p.x + "," + p.y+") est impossible.");
 			return;
 		}
 		else if(p.y == 0) {
@@ -86,11 +86,11 @@ public class PyramideMontagne implements Pyramide {
 				if(porteurDroit.getColor() == piece.getColor() || porteurGauche.getColor() == piece.getColor()) {
 					pyramide[p.y][p.x] = piece;
 				}else {
-					System.err.println("la piece n'est pas de la bonne couleur");
+					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
 					return;
 				}
 			}else {
-				System.err.println("la piece n'as pas de piece porteuse");
+				System.err.println("Impossible d'empiler une pièce sur du vide. Il faut au moins 2 pieces porteuses.");
 				return;
 			}
 		}
