@@ -149,8 +149,8 @@ public class Jeu {
 		files.ecrireSauvegarde(this);
 	}
 	
-	public void chargerPartie() {
-		
+	public void chargerPartie(String cheminSauvegardes) {
+		Fichiers.lisSauvegarde(this);
 	}
 	
 	public void jouer() {

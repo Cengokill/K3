@@ -1,13 +1,18 @@
 package Modeles;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import Controleur.Jeu;
 
 public class Fichiers {
 	private File f;
+	public int NB_LIGNES_SAUVEGARDE=33;
 
 	public Fichiers(String texte) {//texte contient le chemin et le nom du fichier
 		f=new File(texte);
@@ -54,7 +59,6 @@ public class Fichiers {
 			bw.newLine();
 			bw.write(j.joueur2().getCamp().toString());
 			bw.write("pieces volees:"+j.joueur2().toStringPiecesVolees());
-			bw.newLine();
 			bw.close();
 			writer.close();
 		}catch(IOException e) {
@@ -63,61 +67,87 @@ public class Fichiers {
 	}
 	
 	public Sauvegarde lisSauvegarde() {
-		if(typeFichier==0) {
-			ArrayList<String> tab = new ArrayList<String>();
-			try {
-				FileReader reader=new FileReader(f);
-				BufferedReader br=new BufferedReader(reader);
-				String ligne_lue;
-				while((ligne_lue=br.readLine()) != null) {
-					tab.add(ligne_lue);
-			    }
-				if(tab.size()!=7) {//NB DE LIGNES DU FICHIER DE SAUVEGARDE = 7
-					System.err.println("Erreur : le fichier de sauvegarde est corrompu."+tab.size());
-					return null;
-				}
-				String[] ligne = tab.get(0).split(":");
-				Joueur j1 = new Joueur(Integer.parseInt(ligne[1]));
-				ligne = tab.get(1).split(":");
-				Joueur j2 = new Joueur(Integer.parseInt(ligne[1]));
-				ligne = tab.get(2).split(":");
-				int j_courant = Integer.parseInt(ligne[1]);
-				ligne = tab.get(3).split(":");
-				int largeur = Integer.parseInt(ligne[1]);
-				ligne = tab.get(4).split(":");
-				int hauteur = Integer.parseInt(ligne[1]);
-				ligne = tab.get(5).split(":");
-				ligne = ligne[1].split(",");//x d'un côté et y de l'autre
-				int poisonX=Integer.parseInt(ligne[0]);
-				int poisonY=Integer.parseInt(ligne[1]);
-				ligne = tab.get(6).split(":");//liste des coups
-				Gaufre g = new Gaufre(largeur,hauteur);
-				String[] decoupe;
-				int h,l, numJ;
-				for(int k=1; k < ligne.length; k++) {
-					decoupe = ligne[k].split(",");//x d'un côté et y de l'autre
-					h = Integer.parseInt(decoupe[0]); 
-					l = Integer.parseInt(decoupe[1]);
-					g.croquer(h, l);
-					if(k%2 == 1) {
-						numJ = j1.numeroJoueur;
-					}
-					else {
-						numJ = j2.numeroJoueur;
-					}
-					g.ajouterCoupHistorique(h, l, numJ);
-				}
-			    br.close();
-			    reader.close();
-			    return new Sauvegarde(g, j1, j2, j_courant);
-			}catch(IOException e) {
-				e.printStackTrace();
+		ArrayList<String> tab = new ArrayList<String>();
+		PyramideMontagne pm = new PyramideMontagne(9,9);
+		try {
+			FileReader reader=new FileReader(f);
+			BufferedReader br=new BufferedReader(reader);
+			String ligne_lue;
+			while((ligne_lue=br.readLine()) != null) {
+				tab.add(ligne_lue);
+		    }
+			if(tab.size()!=NB_LIGNES_SAUVEGARDE) {//NB DE LIGNES DU FICHIER DE SAUVEGARDE = 7
+				System.err.println("Erreur : le fichier de sauvegarde est corrompu."+tab.size());
+				return null;
 			}
-			return null;
-		}else {
-			System.err.println("Erreur : le fichier n'est pas un fichier de sauvegarde.");
+			String[] ligneTab = tab.get(0).split(":");
+			int hauteurMont=Integer.parseInt(ligne[1]);
+			ligneTab = tab.get(1).split(":");
+			int hauteurJou=Integer.parseInt(ligne[1]);
+			Piece p = stringToPiece(tab.get(3));
+			Position pos=new Position(0,8);
+			pm.ajouter(p, pos);
+			
+			ligneTab = tab.get(4).split("");
+			p = stringToPiece(ligneTab[0]);
+			pos=new Position(0,7);
+			pm.ajouter(p, pos);
+			
+			p = stringToPiece(ligneTab[1]);
+			pos=new Position(1,7);
+			pm.ajouter(p, pos);
+			
+			ligneTab = tab.get(5).split("");
+			p = stringToPiece(ligneTab[0]);
+			pos=new Position(0,6);
+			pm.ajouter(p, pos);
+			
+			p = stringToPiece(ligneTab[1]);
+			pos=new Position(1,6);
+			pm.ajouter(p, pos);
+			
+			p = stringToPiece(ligneTab[2]);
+			pos=new Position(2,6);
+			pm.ajouter(p, pos);
+			
+		    br.close();
+		    reader.close();
+		    return new Sauvegarde(g, j1, j2, j_courant);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Piece stringToPiece(String s) {
+		Couleurs c;
+		switch(s) {
+		case "B":
+			c=Couleurs.BLEU;
+			break;
+		case "N":
+			c=Couleurs.NOIR;
+			break;
+		case "R":
+			c=Couleurs.ROUGE;
+			break;
+		case "V":
+			c=Couleurs.VERT;
+			break;
+		case "J":
+			c=Couleurs.JAUNE;
+			break;
+		case "W":
+			c=Couleurs.BLANC;
+			break;
+		case "#":
+			c=Couleurs.NATUREL;
+			break;
+		default:
 			return null;
 		}
+		Piece p=new Piece(c);
+		return p;
 	}
 	
 	public void ecrireStats(Joueur j, int nbP, int nbV) {

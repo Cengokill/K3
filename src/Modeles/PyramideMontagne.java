@@ -117,4 +117,8 @@ public class PyramideMontagne extends Pyramide {
 			}
 		}
 	}
+	
+	public void ajouter(Piece p, Position pos) {
+		pyramide[pos.x][pos.y]=p;
+	}
 }
