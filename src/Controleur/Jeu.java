@@ -11,6 +11,7 @@ public class Jeu {
 	private Joueur j2;
 	private ArrayList<Piece> basePieces;//pieces disponibles à se partager entre les joueurs, uniquement à la création du jeu
 	private PyramideMontagne baseMontagne;//base de la montagne
+	private LinkedList<Coup> historique;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -18,6 +19,7 @@ public class Jeu {
 	Piece pNoir;
 	Piece pBlanc;
 	Piece pNaturel;
+	
 	
 	public Jeu() {
 		basePieces = new ArrayList<Piece>();
@@ -34,6 +36,7 @@ public class Jeu {
 		initCampJoueur(j1);
 		initCampJoueur(j2);
 		initBaseMontagne();
+		historique = new LinkedList<Coup>();
 	}
 	
 	public void initialiserSac() {//ajoute toutes les pièces au sac
@@ -111,12 +114,25 @@ public class Jeu {
 		return coupsPosables;
 	}
 	
+	public LinkedList<Coup> getHist() {
+		return this.historique;
+	}
+	
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
 	}
 	
-	public Position volerPiece(Joueur voleur, Joueur victime) {//vole une piece au joueur j
-		return new Position(0,0);
+	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {//voleur vole une piece au joueur victime
+		PyramideJoueur campVictime=victime.getCamp();
+		boolean b=campVictime.retirer(pp);
+		
+		if(b) {
+			voleur.addPieceVolee(pp.getPiece());//ajout de la piece volee a la liste des poieces volees du joueur voleur
+			return b;
+		}else {
+			System.err.println("La pièce de peut pas être volée.");
+			return b;
+		}
 	}
 	
 	public void afficherCoups(LinkedList<PiecePyramide> arr) {

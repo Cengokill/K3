@@ -6,6 +6,7 @@ public class Joueur implements Acteur{
 	private String nom;
 	private PyramideJoueur campJ;
 	private ArrayList<Piece> liste_pieces;//liste des pièces qui NE SONT PAS sur la pyramide du joueur
+	private ArrayList<Piece> piecesVolees;//pieces que le joueur a volees a l'autre joueur
 	
 	public Joueur(String nom) {
 		this.nom=nom;
@@ -38,8 +39,15 @@ public class Joueur implements Acteur{
 		return this.campJ;
 	}
 	
-	public void placerPiece(Piece p) {
-		
+	public void placerPiece(Piece p) {	
+	}
+	
+	public ArrayList<Piece> getPiecesVolees(){
+		return this.piecesVolees;
+	}
+	
+	public void addPieceVolee(Piece p){
+		this.piecesVolees.add(p);
 	}
 
 	public void construire() {
