@@ -1,5 +1,4 @@
-.class
+bin/
+tmp/
+*.tmp
 *.class
-*.class
-*.class
-bin/Modeles/Piece.class
