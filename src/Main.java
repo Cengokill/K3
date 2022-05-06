@@ -7,7 +7,7 @@ import Modeles.*;
 public class Main {
 	public static void main(String args[]) {
 		Jeu j=new Jeu();
-		/*
+		
 		LinkedList<PiecePyramide> coups=j.getBaseMontagne().piecesPosables();
 		//j.afficherCoups(coups);
 		PyramideJoueur camp1=j.joueur1().getCamp();
@@ -31,7 +31,6 @@ public class Main {
 		String chemin="C:/Users/Killian/Desktop/AI/";
 		File f = new File(chemin+"sauvegarde_001.txt");
 		j.sauverPartie(chemin+"sauvegarde_001.txt");
-		*/
 
 	}
 }
