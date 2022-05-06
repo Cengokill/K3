@@ -72,8 +72,8 @@ public class Jeu {
 				//System.out.println("piece "+pos.x+","+pos.y+" ajoutée au camp de "+jou.getNom()+" : "+pAffich.toString());
 			}
 		}
-		jou.getCamp().afficher();
-		System.out.println("Camp de "+jou.getNom()+" initialisé. Taille : "+jou.getCamp().nbPieces);
+		System.out.println(jou.getCamp().toString());
+		System.out.println("Camp de "+jou.getNom()+" initialisé.");
 	}
 	
 	public void initBaseMontagne() {//création de la base de la montagne constituée de 9 pièces
@@ -87,7 +87,7 @@ public class Jeu {
 		}
 		System.out.println("Base de la montagne initialisée. Taille : "+baseMontagne.getHauteur());
 		System.out.println("Le sac a maintenant une taille de "+basePieces.size()+" pièces.");
-		baseMontagne.afficher();
+		System.out.println(baseMontagne.toString());
 	}
 	
 	public LinkedList<Coup> CoupsJouables(Joueur j) {//renvoie les pieces et la pos jouables du joueur
@@ -127,9 +127,9 @@ public class Jeu {
 		boolean b=campVictime.retirer(pp);
 		
 		if(b) {
-			voleur.addPieceVolee(pp.getPiece());//ajout de la piece volee a la liste des poieces volees du joueur voleur
+			voleur.addPieceVolee(pp.getPiece());//ajout de la piece volee a la liste des pieces volees du joueur voleur
 			return b;
-		}else {
+		}else {//si impossible de retirer la piece
 			System.err.println("La pièce de peut pas être volée.");
 			return b;
 		}
@@ -144,8 +144,9 @@ public class Jeu {
 		}
 	}
 	
-	public void sauverPartie() {
-		
+	public void sauverPartie(String cheminFichier) {
+		Fichiers files=new Fichiers(cheminFichier);
+		files.ecrireSauvegarde(this);
 	}
 	
 	public void chargerPartie() {

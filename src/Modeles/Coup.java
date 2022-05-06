@@ -22,5 +22,11 @@ public class Coup{
 	public Position getPosBase() {
 		return this.posBaseMontagne;
 	}
+	
+	public String toString() {
+		String tableau=new String();
+		tableau+=piece.toString()+"|"+posCampJoueur.toString()+"|"+posBaseMontagne.toString();
+		return tableau;
+	}
 		
 }

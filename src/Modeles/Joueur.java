@@ -5,30 +5,12 @@ import java.util.ArrayList;
 public class Joueur implements Acteur{
 	private String nom;
 	private PyramideJoueur campJ;
-	private ArrayList<Piece> liste_pieces;//liste des pièces qui NE SONT PAS sur la pyramide du joueur
 	private ArrayList<Piece> piecesVolees;//pieces que le joueur a volees a l'autre joueur
 	
 	public Joueur(String nom) {
 		this.nom=nom;
-		this.liste_pieces = new ArrayList<Piece>();
-		Piece p1 = new Piece(Couleurs.BLEU);
-		Piece p2=new Piece(Couleurs.VERT);
-		Piece p3=new Piece(Couleurs.JAUNE);
-		Piece p4=new Piece(Couleurs.ROUGE);
-		Piece p5=new Piece(Couleurs.NOIR);
-		Piece p6=new Piece(Couleurs.BLANC);
-		Piece p7=new Piece(Couleurs.NATUREL);
-		liste_pieces.add(p1);
-		liste_pieces.add(p2);
-		liste_pieces.add(p3);
-		liste_pieces.add(p4);
-		liste_pieces.add(p5);
-		liste_pieces.add(p6);
-		liste_pieces.add(p7);
+		this.piecesVolees = new ArrayList<Piece>();
 		campJ=new PyramideJoueur(6,6);
-	}
-	public void piocher(Piece p) {
-		this.liste_pieces.add(p);		
 	}
 	
 	public String getNom() {//renvoie le nom du joueur
@@ -48,6 +30,14 @@ public class Joueur implements Acteur{
 	
 	public void addPieceVolee(Piece p){
 		this.piecesVolees.add(p);
+	}
+	
+	public String toStringPiecesVolees() {
+		String tableau = new String();
+		for(int i=0; i<piecesVolees.size(); i++) {
+			tableau+=piecesVolees.get(i).toString();
+		}
+		return tableau;
 	}
 
 	public void construire() {

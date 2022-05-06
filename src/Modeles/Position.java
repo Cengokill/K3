@@ -11,7 +11,7 @@ public class Position {
 
     public String toString() {
         String res = "";
-        res += "[ " + x + ", " + y + " ]";
+        res += x+","+y;
         return res;
     }
 }
