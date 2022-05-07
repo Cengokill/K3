@@ -150,7 +150,7 @@ public class Jeu {
 	}
 	
 	public void chargerPartie(String cheminSauvegardes) {
-		Fichiers.lisSauvegarde(this);
+		Fichiers.lisSauvegarde();
 	}
 	
 	public void jouer() {

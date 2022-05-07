@@ -66,7 +66,7 @@ public class Fichiers {
 		}
 	}
 	
-	public Sauvegarde lisSauvegarde() {
+	public Jeu lisSauvegarde() {
 		ArrayList<String> tab = new ArrayList<String>();
 		PyramideMontagne pm = new PyramideMontagne(9,9);
 		try {
@@ -112,8 +112,9 @@ public class Fichiers {
 			
 		    br.close();
 		    reader.close();
-		    return new Sauvegarde(g, j1, j2, j_courant);
+		    return new Sauvegarde();
 		}catch(IOException e) {
+			System.err.println("Erreur : le fichier de sauvegarde est corromput.");
 			e.printStackTrace();
 		}
 		return null;
