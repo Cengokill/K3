@@ -1,4 +1,4 @@
-package Controleur;
+package controleur;
 
 public class IApiocheExpert implements IApioche {
 

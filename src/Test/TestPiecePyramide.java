@@ -1,12 +1,12 @@
-package Test;
+package test;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import Modeles.Couleurs;
-import Modeles.Piece;
-import Modeles.PiecePyramide;
-import Modeles.Position;
+import modeles.Couleurs;
+import modeles.Piece;
+import modeles.PiecePyramide;
+import modeles.Position;
 
 public class TestPiecePyramide {
     public static void main(String[] args) {

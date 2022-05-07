@@ -1,10 +1,10 @@
-package Controleur;
+package controleur;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import Modeles.*;
+import modeles.*;
 
 public class Jeu {
 	private Joueur j1;
@@ -150,7 +150,7 @@ public class Jeu {
 	}
 	
 	public void chargerPartie(String cheminSauvegardes) {
-		Fichiers.lisSauvegarde();
+		//Fichiers.lisSauvegarde();
 	}
 	
 	public void jouer() {

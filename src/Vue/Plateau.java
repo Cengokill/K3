@@ -18,18 +18,15 @@ import controleur.*;
  * @author Said
  */
 public class Plateau extends javax.swing.JFrame {
+	//String chemin="C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\";
+	public final String CHEMIN="C:\\Users\\Killian\\Desktop\\Développement Eclipse\\Espace de travail\\K3\\src\\ressources\\";
 
     /**
      * Creates new form Plateau
      */
     public Plateau() {
         initComponents();
-       
-
-       
     }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,74 +168,49 @@ public class Plateau extends javax.swing.JFrame {
     
     @Override
    public void paint(Graphics g) {
-      
-       try {
-          File bg = new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\bg5.jpg");
-           BufferedImage imageback = ImageIO.read(bg);
-            g.drawImage(imageback, this.getX(), this.getY(), this.getWidth(),this.getHeight(),null); 
-       }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
+	   try {
+	      File bg = new File(CHEMIN+"bg5.jpg");
+	      BufferedImage imageback = ImageIO.read(bg);
+	      g.drawImage(imageback, this.getX(), this.getY(), this.getWidth(),this.getHeight(),null); 
+	   }
+	    catch (IOException e) {
+	        e.printStackTrace();
+	    }
 
         
                                     
        try {
-       
-       
        Point test = jPanel2.getLocationOnScreen();
        Point test2 = jPanel3.getLocationOnScreen();
-                  File file = new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\BLACK.png");
-                  
-            BufferedImage image = ImageIO.read(file);
-            
-             File file2= new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\RED.png");
-                  
-            BufferedImage image2 = ImageIO.read(file2);
-            
-             File file3 = new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\BLUE.png");
-                  
-            BufferedImage image3 = ImageIO.read(file3);
-            
-             File file4 = new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\WOOD.png");
-                  
-            BufferedImage image4 = ImageIO.read(file4);
-            
-             File file5 = new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\YELLOW.png");
-                  
-            BufferedImage image5 = ImageIO.read(file5);
+       File file = new File(CHEMIN+"BLACK.png");          
+       BufferedImage image = ImageIO.read(file);
+       File file2= new File(CHEMIN+"RED.png");
+       BufferedImage image2 = ImageIO.read(file2);
+       File file3 = new File(CHEMIN+"BLUE.png");
+       BufferedImage image3 = ImageIO.read(file3);
+       File file4 = new File(CHEMIN+"WOOD.png");
+       BufferedImage image4 = ImageIO.read(file4);
+       File file5 = new File(CHEMIN+"YELLOW.png");
+       BufferedImage image5 = ImageIO.read(file5);
        
-  
-        int uniteX = jPanel2.getWidth()/6;
-        int uniteY = (jPanel2.getHeight()/6);
+       int uniteX = jPanel2.getWidth()/6;
+       int uniteY = (jPanel2.getHeight()/6);
         
-        int uniteX2 = jPanel3.getWidth()/6;
-        int uniteY2 = jPanel3.getHeight()/6;
-        
-        
-        
-        Position actualpos = new Position(0,0);
-        
+       int uniteX2 = jPanel3.getWidth()/6;
+       int uniteY2 = jPanel3.getHeight()/6;
+      
+       Position actualpos = new Position(0,0);
         
        drawpyramide(g,uniteX,uniteY,test,1);
        drawpyramide(g,uniteX2,uniteY2,test2,2);
 
-        
-        
-        
-        
-        
-        
        Point test3 = jPanel1.getLocationOnScreen();
  
-       
-     
-       
-  
-        int uniteX3 = jPanel1.getWidth()/9;
-        int uniteY3 = jPanel1.getHeight()/9;
+       int uniteX3 = jPanel1.getWidth()/9;
+       int uniteY3 = jPanel1.getHeight()/9;
         
-         for(int i =0; i< 9; i++) { // colone
+       for(int i =0; i< 9; i++) { // colone
            switch (i) {
                case 2: 
                    g.drawImage(image3,(test3.x+(i*uniteX3)), test3.y +(uniteY3*2) , uniteX3, uniteY3,null);
@@ -256,21 +228,14 @@ public class Plateau extends javax.swing.JFrame {
                    g.drawImage(image,(test3.x+(i*uniteX3)), test3.y +(uniteY3*2) , uniteX3, uniteY3,null);
                    break;
            }
-             
-
          }
          
-         
-         Point test4 = jPanel4.getLocationOnScreen();
- 
-       
-     
-       
-  
+        Point test4 = jPanel4.getLocationOnScreen();
+
         int uniteX4 = jPanel4.getWidth()/7;
         int uniteY4 = jPanel4.getHeight()/7;
         
-         for(int i =0; i< 4; i++) { // colone
+        for(int i =0; i< 4; i++) { // colone
            switch (i) {
                case 2: 
                    g.drawImage(image3,4/3*(test3.x+(i*uniteX4*2)), test4.y +(uniteY4*5) , uniteX4, uniteY4,null);
@@ -288,24 +253,11 @@ public class Plateau extends javax.swing.JFrame {
                    g.drawImage(image,4/3*(test3.x+(i*uniteX4*2)), test4.y +(uniteY4*5) , uniteX4, uniteY4,null);
                    break;
            }
-             
-
          }
-        
-        
-        
-        
-        
-       
           } catch (IOException e) {
             e.printStackTrace();
         }
-
-       
-       
    }
-   
-   
    
     public void setpartie(Jeu p) {
         this.partie_actuel = p;
@@ -317,8 +269,7 @@ public class Plateau extends javax.swing.JFrame {
         String macouleur = "";
         switch(c){
             case BLEU: macouleur = "BLUE";
-                       break;
-                       
+                break;          
             case VERT: macouleur = "GREEN";
                 break;
              case NOIR:  macouleur = "BLACK";
@@ -331,27 +282,17 @@ public class Plateau extends javax.swing.JFrame {
                  break;
              case NATUREL: macouleur = "WOOD";
                  break;
-             
-             
         }
         
-        try {
-            File file = new File("C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\"+macouleur+".png");
+       try {
+            File file = new File(CHEMIN+macouleur+".png");
             BufferedImage image = ImageIO.read(file);
             return image;
              }
        catch (IOException e) {
             e.printStackTrace();
         }
-        
         return null;
-                       
-        
-        
-        
-        
-      
-
     }
     
     public void drawpyramide(Graphics g,int uniteX,int uniteY,Point test,int typejoueur) {
@@ -433,14 +374,10 @@ public class Plateau extends javax.swing.JFrame {
                                             break;
                                 }
                                 break;
-                                   
-
             }
         }
-
 }
         }
-        
         else {
             Position actualpos = new Position(0,0);
             for(int i =0; i< this.partie_actuel.joueur2().getCamp().getHauteur() ; i++) { // colone         
@@ -450,94 +387,80 @@ public class Plateau extends javax.swing.JFrame {
                         BufferedImage image = colortoimage(this.partie_actuel.joueur2().getCamp().getPiece(actualpos).getColor());
                         switch (i) {
                             case 0:
-                                    switch (j){
-                                        case 0: g.drawImage(image,(test.x+(0*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null); 
-                                                break;
-                                        case 1: g.drawImage(image,(test.x+(1*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 2: g.drawImage(image,(test.x+(2*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 3: g.drawImage(image,(test.x+(3*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 4: g.drawImage(image,(test.x+(4*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 5: g.drawImage(image,(test.x+(5*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
-                                               break;
+                                switch (j){
+                                    case 0: g.drawImage(image,(test.x+(0*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null); 
+                                            break;
+                                    case 1: g.drawImage(image,(test.x+(1*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 2: g.drawImage(image,(test.x+(2*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 3: g.drawImage(image,(test.x+(3*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 4: g.drawImage(image,(test.x+(4*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 5: g.drawImage(image,(test.x+(5*uniteX)), test.y+(5*uniteY), uniteX, uniteY,null);
+                                           break;
                                     }
                                     break;
 
                             case 1:
-                                    switch (j){
-                                        case 0:  g.drawImage(image,test.x+(0*uniteX)+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
-                                                 break;
-                                        case 1:  g.drawImage(image,(test.x+(1*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
-                                                 break;
-                                        case 2:  g.drawImage(image,(test.x+(2*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
-                                                 break;
-                                        case 3:  g.drawImage(image,(test.x+(3*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
-                                                 break;
-                                        case 4:  g.drawImage(image,(test.x+(4*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
-                                                break;
-                                    }
-                                    break;
+                                switch (j){
+                                    case 0:  g.drawImage(image,test.x+(0*uniteX)+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
+                                             break;
+                                    case 1:  g.drawImage(image,(test.x+(1*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
+                                             break;
+                                    case 2:  g.drawImage(image,(test.x+(2*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
+                                             break;
+                                    case 3:  g.drawImage(image,(test.x+(3*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
+                                             break;
+                                    case 4:  g.drawImage(image,(test.x+(4*uniteX))+(uniteX/2), test.y+(4*uniteY), uniteX, uniteY,null);
+                                            break;
+                                }
+                                break;
 
 
                             case 2:
-                                    switch (j){
-                                        case 0: g.drawImage(image,(test.x+(1*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 1: g.drawImage(image,(test.x+(2*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 2: g.drawImage(image,(test.x+(3*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 3: g.drawImage(image,(test.x+(4*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
-                                                break;
-                                    }
-                                    break;
+                                switch (j){
+                                    case 0: g.drawImage(image,(test.x+(1*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 1: g.drawImage(image,(test.x+(2*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 2: g.drawImage(image,(test.x+(3*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 3: g.drawImage(image,(test.x+(4*uniteX)), test.y+(3*uniteY), uniteX, uniteY,null);
+                                            break;
+                                }
+                                break;
                             case 3:
-                                    switch (j){
-                                        case 0: g.drawImage(image,(test.x+(2*uniteX))-(uniteX)+(uniteX/2), test.y+(2*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 1: g.drawImage(image,(test.x+(3*uniteX))-(uniteX)+(uniteX/2), test.y+(2*uniteY), uniteX, uniteY,null);
-                                                break;
-                                        case 2: g.drawImage(image,(test.x+(4*uniteX))-(uniteX)+(uniteX/2), test.y+(2*uniteY), uniteX, uniteY,null);  
-                                                break;
-                                    }
-                                    break;
+                                switch (j){
+                                    case 0: g.drawImage(image,(test.x+(2*uniteX))-(uniteX)+(uniteX/2), test.y+(2*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 1: g.drawImage(image,(test.x+(3*uniteX))-(uniteX)+(uniteX/2), test.y+(2*uniteY), uniteX, uniteY,null);
+                                            break;
+                                    case 2: g.drawImage(image,(test.x+(4*uniteX))-(uniteX)+(uniteX/2), test.y+(2*uniteY), uniteX, uniteY,null);  
+                                            break;
+                                }
+                                break;
                             case 4:
-
-                                    switch (j){
-                                        case 0:  g.drawImage(image,(test.x+(2*uniteX)), test.y+(1*uniteY), uniteX, uniteY,null);
-                                                 break;
-                                        case 1:  g.drawImage(image,(test.x+(i*uniteX))-(uniteX), test.y+(j*uniteY), uniteX, uniteY,null);
-                                                 break;
-                                    }
-                                    break;
+                                switch (j){
+                                    case 0:  g.drawImage(image,(test.x+(2*uniteX)), test.y+(1*uniteY), uniteX, uniteY,null);
+                                             break;
+                                    case 1:  g.drawImage(image,(test.x+(i*uniteX))-(uniteX), test.y+(j*uniteY), uniteX, uniteY,null);
+                                             break;
+                                }
+                                break;
                             case 5:
-                                    switch (j){
-                                        case 0: g.drawImage(image,(test.x+(2*uniteX))+(uniteX/2), test.y+(0*uniteY), uniteX, uniteY,null);
-                                                break;
-                                    }
-                                    break;
-
-
-                }
+                                switch (j){
+                                    case 0: g.drawImage(image,(test.x+(2*uniteX))+(uniteX/2), test.y+(0*uniteY), uniteX, uniteY,null);
+                                            break;
+                                }
+                                break;
+	                }
+	            }
             }
+	     }                         
+    }
 
-}
-        }
-
-       
-                                
- }
-    
-    
-    
-   
-    
-   
-   
-   
    public Jeu partie_actuel;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,8 +1,8 @@
 import java.io.File;
 import java.util.LinkedList;
 
-import Controleur.*;
-import Modeles.*;
+import controleur.*;
+import modeles.*;
 
 public class Main {
 	public static void main(String args[]) {

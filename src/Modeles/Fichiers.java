@@ -1,4 +1,4 @@
-package Modeles;
+package modeles;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Controleur.Jeu;
+import controleur.Jeu;
 
 public class Fichiers {
 	private File f;

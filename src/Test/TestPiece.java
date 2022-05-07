@@ -1,9 +1,9 @@
-package Test;
+package test;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import Modeles.*;
+import modeles.*;
 
 public class TestPiece {
     public static void main(String[] args) {

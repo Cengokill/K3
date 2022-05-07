@@ -1,4 +1,4 @@
-package Modeles;
+package modeles;
 
 public class PiecePyramide {
 	private Piece piece;
