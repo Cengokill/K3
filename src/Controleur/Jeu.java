@@ -31,8 +31,7 @@ public class Jeu {
 	
 	
 	public Jeu() {
-		int[]reponseOptions=lireOptions();
-		InterpreterReponse(reponseOptions);//pour l'affichage des message d'erreur à l'écran
+		lireOptions();
 		basePieces = new ArrayList<Piece>();
 		pBleu=new Piece(Couleurs.BLEU);
 		pVert=new Piece(Couleurs.VERT);
@@ -164,7 +163,7 @@ public class Jeu {
 		//Fichiers.lisSauvegarde();
 	}
 	
-	public String InterpreterReponse(int[] r) {
+	public String interpreterReponse(int[] r) {
 		String message="";
 		for(int i=0; i<r.length; i++) {
 			switch(r[i]) {
@@ -188,7 +187,7 @@ public class Jeu {
 		return message;
 	}
 	
-	public int[] lireOptions() {//au tout premier lancement du jeu, le fichier Options.txt existe déjà
+	public void lireOptions() {//au tout premier lancement du jeu, le fichier Options.txt existe déjà
 		int[] renvoi = new int[5];
 		// 2 : chemin non trouvé
 		// 3 : nom de fichier inexistant
@@ -233,10 +232,10 @@ public class Jeu {
 			System.err.println("Erreur : le fichier Options.txt est corrompu.");
 			e.printStackTrace();
 		}
-		return renvoi;
+		interpreterReponse(renvoi);//pour l'affichage des message d'erreur à l'écran
 	}
 	
-	public int testCheminExistant(String c) {
+	public int testCheminExistant(String c) {//renvoie 0 si le chemin existe, sinon 2
 		String nom_test="test_fichier_existant";
 		try {
 			File myFile = new File(c+nom_test);
@@ -253,7 +252,7 @@ public class Jeu {
 		return 2;
 	}
 	
-	public int testVolume(int v1, int v2) {
+	public int testVolume(int v1, int v2) {//renvoie 0 si le volume est compris entre 0 et 10, sinon renvoie 4
 		int r=0;
 		if(v1>=10 || v1<0) {
 			this.volumeEffetsSonores=6;
@@ -266,7 +265,7 @@ public class Jeu {
 		return r;
 	}
 	
-	public int testFichierExistant(String nomFichier) {
+	public int testFichierExistant(String nomFichier) {//renvoie 0 si le fichier existe, sinon 3
 		try {
 			File myFile=new File(this.cheminImages+nomFichier);
 			String path = myFile.getPath();
@@ -276,10 +275,10 @@ public class Jeu {
 			System.err.println("Erreur : le fichier "+nomFichier+" est inexistant.");
 			e.printStackTrace();
 		}
-		return 2;
+		return 3;
 	}
 	
-	public void ecrireOptions() {
+	public void ecrireOptions() {//réinitialise le fichier Options.txt en écrivant des valeurs par défaut
 		String userHome = System.getProperty("user.home");
 		String desktop = userHome+"/Desktop/Jeu_K3";
 		new File(desktop).mkdirs();
