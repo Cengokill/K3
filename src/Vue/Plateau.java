@@ -298,7 +298,7 @@ public class Plateau extends javax.swing.JFrame {
     public void drawpyramide(Graphics g,int uniteX,int uniteY,Point test,int typejoueur) {
         if(typejoueur == 1) {
         Position actualpos = new Position(0,0);
-        for(int i =0; i< this.partie_actuel.joueur1().getCamp().getHauteur() ; i++) { // colone         
+        for(int i =0; i< this.partie_actuel.joueur1().getCamp().getHauteur() ; i++) { // colonne         
             for(int j = 0; j < (this.partie_actuel.joueur1().getCamp().getlargeur() -i); j++) { // ligne 
                     actualpos.x = j;
                     actualpos.y = i;
