@@ -25,7 +25,7 @@ public class Serveur {
 		this.nom_client = in.readUTF();
 		//traitement
 		this.s1="Bienvenue "+nom_client+". Tu est desormais connecte.";
-		//envoie de la donnee au client
+		//envoi de la donnee au client
 		this.out=new DataOutputStream(s.getOutputStream());
 		this.out.writeUTF(s1);
 	}
