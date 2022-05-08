@@ -1,5 +1,11 @@
 package controleur;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -12,6 +18,8 @@ public class Jeu {
 	private ArrayList<Piece> basePieces;//pieces disponibles à se partager entre les joueurs, uniquement à la création du jeu
 	private PyramideMontagne baseMontagne;//base de la montagne
 	private LinkedList<Coup> historique;
+	public String cheminFichiers, cheminImages, photoProfil;
+	public int volumeEffetsSonores, volumeMusique;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -19,9 +27,12 @@ public class Jeu {
 	Piece pNoir;
 	Piece pBlanc;
 	Piece pNaturel;
+	String chemin;
 	
 	
 	public Jeu() {
+		int[]reponseOptions=lireOptions();
+		InterpreterReponse(reponseOptions);//pour l'affichage des message d'erreur à l'écran
 		basePieces = new ArrayList<Piece>();
 		pBleu=new Piece(Couleurs.BLEU);
 		pVert=new Piece(Couleurs.VERT);
@@ -151,6 +162,150 @@ public class Jeu {
 	
 	public void chargerPartie(String cheminSauvegardes) {
 		//Fichiers.lisSauvegarde();
+	}
+	
+	public String InterpreterReponse(int[] r) {
+		String message="";
+		for(int i=0; i<r.length; i++) {
+			switch(r[i]) {
+			case 2:
+				message="Erreur : le chemin "+cheminImages+" est inexistant.";
+				break;
+			case 3:
+				message="Erreur : le fichier"+photoProfil+" n'existe pas.";
+				break;
+			case 4:
+				message="Erreur : le fichier Options.txt n'a pas de valeurs correctes pour le volume.";
+				break;
+			case 5:
+				message="Erreur : le fichier Options.txt est corrompu. Il a été réinitialisé.";
+				ecrireOptions();
+				break;
+			default:
+				break;
+			}
+		}
+		return message;
+	}
+	
+	public int[] lireOptions() {//au tout premier lancement du jeu, le fichier Options.txt existe déjà
+		int[] renvoi = new int[5];
+		// 2 : chemin non trouvé
+		// 3 : nom de fichier inexistant
+		// 4 : lecture du volume impossible
+		// 5 : fichier options.txt corrompu
+		renvoi[0]=5;
+		int testChemin1, testChemin2, testFichier, testVolume;
+		final int NB_LIGNES_OPTIONS=6;//NB DE LIGNES DU FICHIER Options.txt = 6
+		String nom_fichier="Options.txt";
+		ArrayList<String> tab = new ArrayList<String>();
+		try {
+			FileReader reader=new FileReader(chemin+nom_fichier);
+			BufferedReader br=new BufferedReader(reader);
+			String ligne_lue;
+			while((ligne_lue=br.readLine()) != null) {
+				tab.add(ligne_lue);
+		    }
+			if(tab.size()!=NB_LIGNES_OPTIONS) {
+				System.err.println("Erreur : le fichier "+nom_fichier+" est corrompu."+tab.size());
+			}else {
+				//Emplacement des images
+				//Emplacement de tous les autres fichiers
+				//Autre chose ?
+				//Nom du fichier de la photo de profil du joueur
+				//Volume de la musique
+				//Volume des effets sonores
+				this.cheminImages=tab.get(0);
+				testChemin1=testCheminExistant(cheminImages);
+				this.cheminFichiers=tab.get(1);
+				testChemin2=testCheminExistant(cheminImages);
+				this.photoProfil=tab.get(2);
+				testFichier=testFichierExistant(photoProfil);
+				this.volumeEffetsSonores=Integer.parseInt(tab.get(3));
+				this.volumeMusique=Integer.parseInt(tab.get(4));
+				testVolume=testVolume(volumeEffetsSonores, volumeMusique);
+				renvoi[1]=testChemin1;
+				renvoi[2]=testChemin2;
+				renvoi[3]=testFichier;
+				renvoi[4]=testVolume;
+			}
+		}catch(IOException e) {
+			System.err.println("Erreur : le fichier Options.txt est corrompu.");
+			e.printStackTrace();
+		}
+		return renvoi;
+	}
+	
+	public int testCheminExistant(String c) {
+		String nom_test="test_fichier_existant";
+		try {
+			File myFile = new File(c+nom_test);
+		    if (myFile.createNewFile()) {
+		    	System.out.println("Fichier test créer avec succès : " + myFile.getName());
+		    	myFile.delete();
+		    	return 0;
+		    }
+		}
+		catch(IOException e) {
+			System.err.println("Erreur : le chemin "+c+" est inexistant.");
+			e.printStackTrace();
+		}
+		return 2;
+	}
+	
+	public int testVolume(int v1, int v2) {
+		int r=0;
+		if(v1>=10 || v1<0) {
+			this.volumeEffetsSonores=6;
+			r=4;
+		}
+		if(v2>=10 || v2<0) {
+			this.volumeMusique=4;
+			r=4;
+		}
+		return r;
+	}
+	
+	public int testFichierExistant(String nomFichier) {
+		try {
+			File myFile=new File(this.cheminImages+nomFichier);
+			String path = myFile.getPath();
+			return 0;
+		}
+		catch(Exception e) {
+			System.err.println("Erreur : le fichier "+nomFichier+" est inexistant.");
+			e.printStackTrace();
+		}
+		return 2;
+	}
+	
+	public void ecrireOptions() {
+		String userHome = System.getProperty("user.home");
+		String desktop = userHome+"/Desktop/Jeu_K3";
+		new File(desktop).mkdirs();
+		try {
+			File f=new File(desktop+"/Options.txt");
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			FileWriter writer=new FileWriter(f,false);//écrire en mode remplacement
+			BufferedWriter bw=new BufferedWriter(writer);
+			bw.write(this.cheminImages);
+			bw.newLine();
+			bw.write(this.cheminFichiers);
+			bw.newLine();
+			bw.write(this.photoProfil);
+			bw.newLine();
+			bw.write(this.volumeEffetsSonores);
+			bw.newLine();
+			bw.write(this.volumeMusique);
+			bw.close();
+			writer.close();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void jouer() {

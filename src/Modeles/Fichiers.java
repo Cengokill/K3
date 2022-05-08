@@ -114,7 +114,7 @@ public class Fichiers {
 		    reader.close();
 		    return new Sauvegarde();
 		}catch(IOException e) {
-			System.err.println("Erreur : le fichier de sauvegarde est corromput.");
+			System.err.println("Erreur : le fichier de sauvegarde est corrompu.");
 			e.printStackTrace();
 		}
 		return null;
