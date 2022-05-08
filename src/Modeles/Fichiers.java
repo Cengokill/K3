@@ -81,9 +81,9 @@ public class Fichiers {
 				return null;
 			}
 			String[] ligneTab = tab.get(0).split(":");
-			int hauteurMont=Integer.parseInt(ligne[1]);
+			int hauteurMont=Integer.parseInt(ligneTab[1]);
 			ligneTab = tab.get(1).split(":");
-			int hauteurJou=Integer.parseInt(ligne[1]);
+			int hauteurJou=Integer.parseInt(ligneTab[1]);
 			Piece p = stringToPiece(tab.get(3));
 			Position pos=new Position(0,8);
 			pm.ajouter(p, pos);
