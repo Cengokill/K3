@@ -1,23 +1,22 @@
-package modeles;
+package Modeles;
 
 import java.util.LinkedList;
 
 public class PyramideMontagne extends Pyramide {
 
 	public PyramideMontagne(int largeur, int hauteur) {
-		if(largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
+		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
 			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
-		}
-		else {
+		} else {
 			this.largeur = largeur;
 			this.hauteur = hauteur;
-			int l=largeur;
-			
+			int l = largeur;
+
 			Piece[][] etage = new Piece[hauteur][];
-			for(int i = 0; i<hauteur; i++) {
+			for (int i = 0; i < hauteur; i++) {
 				Piece[] ligne = new Piece[l];
 				etage[i] = ligne;
-				l = l-1;
+				l = l - 1;
 			}
 			this.pyramide = etage;
 		}
@@ -48,7 +47,7 @@ public class PyramideMontagne extends Pyramide {
 													// pas
 						} else {
 							caseSupGauche = (pyramide[i + 1][j - 1] == null); // on regarde si en haut a gauche est
-						}														// libre
+						} // libre
 						if (j == pyramide[i].length - 1) {
 							caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe
 													// pas
@@ -62,18 +61,23 @@ public class PyramideMontagne extends Pyramide {
 								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
-									if(p.size()==0) {
+									if (p.size() == 0) {
 										p.add(newC);
-										//System.out.println("ajout : " + newC.getPiece().toString()+":"+newC.getPos().toString());
-									}else {
-										if(!p.get(p.size()-1).egal(newC)) {
-											//System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+" n'est pas identique à "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
+										// System.out.println("ajout : " +
+										// newC.getPiece().toString()+":"+newC.getPos().toString());
+									} else {
+										if (!p.get(p.size() - 1).egal(newC)) {
+											// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
+											// n'est pas identique ï¿½
+											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 											p.add(newC);
 										}
 									}
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
-									if(!p.get(p.size()-1).egal(newC)) {
-										//System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+" n'est pas identique à "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
+									if (!p.get(p.size() - 1).egal(newC)) {
+										// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
+										// n'est pas identique ï¿½
+										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										p.add(newC);
 									}
 								}
@@ -117,8 +121,8 @@ public class PyramideMontagne extends Pyramide {
 			}
 		}
 	}
-	
+
 	public void ajouter(Piece p, Position pos) {
-		pyramide[pos.x][pos.y]=p;
+		pyramide[pos.x][pos.y] = p;
 	}
 }

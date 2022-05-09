@@ -1,4 +1,4 @@
-package controleur;
+package Controleur;
 
 public class IAjeuExpert implements IAjeu {
     // Cloner le jeu actuel pour travailler dessus

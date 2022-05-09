@@ -1,4 +1,4 @@
-package controleur;
+package Controleur;
 
 public interface IAjeu {
     // facile: aleatoire

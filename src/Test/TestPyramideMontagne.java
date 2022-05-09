@@ -1,8 +1,8 @@
-package test;
+package Test;
 
 import java.util.*;
 
-import modeles.*;
+import Modeles.*;
 
 public class TestPyramideMontagne {
     static PyramideMontagne baseMontagne;

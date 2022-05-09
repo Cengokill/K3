@@ -1,4 +1,4 @@
-package modeles;
+package Modeles;
 
 public class Position {
     public int x;
@@ -11,7 +11,7 @@ public class Position {
 
     public String toString() {
         String res = "";
-        res += x+","+y;
+        res += x + "," + y;
         return res;
     }
 }

@@ -1,4 +1,4 @@
-package modeles;
+package Modeles;
 
 public class Piece {// piece
 	private Couleurs color;
@@ -12,6 +12,6 @@ public class Piece {// piece
 	}
 
 	public String toString() {
-		return "["+color+"]";
+		return "[" + color + "]";
 	}
 }

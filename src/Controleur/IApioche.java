@@ -1,4 +1,4 @@
-package controleur;
+package Controleur;
 
 public interface IApioche {
     // on ne regarde pas la pyramide adverse tant que on n'a pas fini la notre
