@@ -23,16 +23,27 @@ public class Jeu {
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
 		partieEnCours=new Partie(j1,j2);
 		this.joueurCourant=Aleatoire.genInt(0,1);//choix du joueur aléatoire
-		while(this.partieEnCours.getTailleBasePieces()>0) {
+		while(this.partieEnCours.getTailleBasePieces()>0) {//initialisation de la pioche des joueurs
 			piocher();
 		}
+		while(partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
+			partieEnCours.joueur1().placerPieces();
+			partieEnCours.joueur2().placerPieces();
+		}
+		System.out.println(partieEnCours.joueur1().getCamp().toString());
+		System.out.println(partieEnCours.joueur2().getCamp().toString());
 	}
 	
 	public void piocher() {
+		Piece p;
 		if(joueurCourant==0) {
-			this.partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
+			System.out.print("{"+partieEnCours.joueur1().getNom()+"}. ");
+			p=this.partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
+			this.partieEnCours.joueur1().addPiecesPiochees(p);
 		}else{
-			this.partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
+			System.out.print("{"+partieEnCours.joueur2().getNom()+"}. ");
+			p=this.partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
+			this.partieEnCours.joueur2().addPiecesPiochees(p);
 		}
 		changementJoueurCourant();
 	}

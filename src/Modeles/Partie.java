@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public class Partie {
-	private Joueur j1;
-	private Joueur j2;
+	private Acteur j1;
+	private Acteur j2;
 	private ArrayList<Piece> basePieces;// pieces disponibles ï¿½ se partager entre les joueurs, uniquement ï¿½ la crï¿½ation du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private LinkedList<Coup> historique;
@@ -18,7 +18,7 @@ public class Partie {
 	Piece pBlanc;
 	Piece pNaturel;
 	
-	public Partie(Joueur j1, Joueur j2) {
+	public Partie(Acteur j1, Acteur j2) {
 		this.historique = new LinkedList<Coup>();
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
@@ -52,11 +52,7 @@ public class Partie {
 			basePieces.add(pBlanc);
 		}
 		Collections.shuffle(basePieces);// mï¿½lange les piï¿½ces ï¿½ piocher pour les joueurs
-		System.out.println("sac initialisï¿½. Taille : " + basePieces.size());
-	}
-
-	public void initCampsJoueurs() {
-		
+		System.out.println("sac initialisé. Taille : " + basePieces.size());
 	}
 	
 	public void initCampJoueur(Joueur jou) {// création du camp du joueur j
@@ -88,8 +84,8 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			basePieces.remove(0);
 		}
-		System.out.println("Base de la montagne initialisï¿½e. Taille : " + baseMontagne.getHauteur());
-		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " piï¿½ces.");
+		System.out.println("Base de la montagne initialisée. Taille : " + baseMontagne.getHauteur());
+		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " pièces.");
 		System.out.println(baseMontagne.toString());
 	}
 
@@ -155,11 +151,11 @@ public class Partie {
 		}
 	}
 
-	public Joueur joueur1() {
+	public Acteur joueur1() {
 		return j1;
 	}
 
-	public Joueur joueur2() {
+	public Acteur joueur2() {
 		return j2;
 	}
 }
