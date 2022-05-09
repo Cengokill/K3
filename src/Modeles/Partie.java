@@ -121,8 +121,7 @@ public class Partie {
 		return this.baseMontagne;
 	}
 
-	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {// voleur vole une piece au joueur
-																				// victime
+	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {// voleur vole une piece au joueur victime
 		PyramideJoueur campVictime = victime.getCamp();
 		boolean b = campVictime.retirer(pp);
 
@@ -142,10 +141,6 @@ public class Partie {
 			Position pos = arr.get(i).getPos();
 			System.out.println(pi.toString() + ":" + pos.toString());
 		}
-	}
-	
-	public void jouer() {
-
 	}
 
 	public Joueur joueur1() {
