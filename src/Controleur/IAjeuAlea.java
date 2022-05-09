@@ -3,7 +3,6 @@ package Controleur;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-
 import Modeles.*;
 
 public class IAjeuAlea implements IAjeu {
