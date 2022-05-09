@@ -1,5 +1,9 @@
 package Controleur;
 
+import Modeles.Piece;
+import Modeles.Pyramide;
+import Modeles.PyramideJoueur;
+
 public interface IApioche {
     // on ne regarde pas la pyramide adverse tant que on n'a pas fini la notre
     // Mais on connait son nombre de piece et leurs couleurs
@@ -12,4 +16,5 @@ public interface IApioche {
     // IA moyen : sans regarder ce que l'adversaire a juste avec tes pieces et la
     // base
     // IA expert : trop intelligent pour perdre (min-max)
+
 }
