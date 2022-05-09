@@ -12,14 +12,35 @@ import Modeles.*;
 
 public class Jeu {
 	public Partie partieEnCours;
+	public int joueurCourant;
 	public String cheminFichiers, cheminImages, photoProfil;
 	private String chemin;
 	public int volumeEffetsSonores, volumeMusique;
 
-
 	public Jeu() {
-		lireOptions();
-		partieEnCours=new Partie();
+		//lireOptions();
+		Joueur j1 = new Joueur("Gaston");
+		Joueur j2 = new Joueur("Mademoiselle Jeanne");
+		partieEnCours=new Partie(j1,j2);
+		this.joueurCourant=Aleatoire.genInt(0,1);//choix du joueur aléatoire
+		while(this.partieEnCours.getTailleBasePieces()>0) {
+			piocher();
+		}
+	}
+	
+	public void piocher() {
+		if(joueurCourant==0) {
+			this.partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
+		}else{
+			this.partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
+		}
+		changementJoueurCourant();
+	}
+	
+	public void changementJoueurCourant() {
+		if(this.joueurCourant==1) {
+			this.joueurCourant=0;
+		}else this.joueurCourant=1;
 	}
 
 	public void sauverPartie(String cheminFichier) {
@@ -135,7 +156,6 @@ public class Jeu {
 	public int testFichierExistant(String nomFichier) {// renvoie 0 si le fichier existe, sinon 3
 		try {
 			File myFile = new File(this.cheminImages + nomFichier);
-			String path = myFile.getPath();
 			return 0;
 		} catch (Exception e) {
 			System.err.println("Erreur : le fichier " + nomFichier + " est inexistant.");
@@ -173,5 +193,7 @@ public class Jeu {
 		}
 	}
 
-
+	public int getJoueurCourant() {
+		return this.joueurCourant;
+	}
 }

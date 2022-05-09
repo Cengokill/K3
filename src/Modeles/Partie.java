@@ -7,8 +7,7 @@ import java.util.LinkedList;
 public class Partie {
 	private Joueur j1;
 	private Joueur j2;
-	private ArrayList<Piece> basePieces;// pieces disponibles ï¿½ se partager entre les joueurs, uniquement ï¿½ la crï¿½ation
-										// du jeu
+	private ArrayList<Piece> basePieces;// pieces disponibles ï¿½ se partager entre les joueurs, uniquement ï¿½ la crï¿½ation du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private LinkedList<Coup> historique;
 	Piece pBleu;
@@ -19,8 +18,11 @@ public class Partie {
 	Piece pBlanc;
 	Piece pNaturel;
 	
-	public Partie() {
-		basePieces = new ArrayList<Piece>();
+	public Partie(Joueur j1, Joueur j2) {
+		this.historique = new LinkedList<Coup>();
+		this.basePieces = new ArrayList<Piece>();
+		this.j1 = j1;
+		this.j2 = j2;
 		pBleu = new Piece(Couleurs.BLEU);
 		pVert = new Piece(Couleurs.VERT);
 		pJaune = new Piece(Couleurs.JAUNE);
@@ -29,15 +31,10 @@ public class Partie {
 		pBlanc = new Piece(Couleurs.BLANC);
 		pNaturel = new Piece(Couleurs.NATUREL);
 		initialiserSac();
-		j1 = new Joueur("Gaston");
-		j2 = new Joueur("Mademoiselle Jeanne");
-		initCampJoueur(j1);
-		initCampJoueur(j2);
 		initBaseMontagne();
-		historique = new LinkedList<Coup>();
 	}
 	
-	public void initialiserSac() {// ajoute toutes les piï¿½ces au sac
+	public void initialiserSac() {// ajoute toutes les pièces au sac
 		int nb_pieces_par_couleur = 9;
 		int nb_naturels = 6;
 		int nb_blancs = 4;
@@ -58,7 +55,12 @@ public class Partie {
 		System.out.println("sac initialisï¿½. Taille : " + basePieces.size());
 	}
 
-	public void initCampJoueur(Joueur jou) {// crï¿½ation du camps du joueur j
+	public void initCampsJoueurs() {
+		
+	}
+	
+	public void initCampJoueur(Joueur jou) {// création du camp du joueur j
+		/*
 		for (int i = 0; i < 6; i++) {// hauteur
 			for (int j = 0; j < 6 - i; j++) {// largeur
 				Piece element = basePieces.get(0);
@@ -71,8 +73,10 @@ public class Partie {
 				// "+jou.getNom()+" : "+pAffich.toString());
 			}
 		}
+		*/
+		
 		System.out.println(jou.getCamp().toString());
-		System.out.println("Camp de " + jou.getNom() + " initialisï¿½.");
+		System.out.println("Camp de " + jou.getNom() + " initialisé.");
 	}
 
 	public void initBaseMontagne() {// crï¿½ation de la base de la montagne constituï¿½e de 9 piï¿½ces
@@ -119,6 +123,14 @@ public class Partie {
 
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
+	}
+	
+	public ArrayList<Piece> getBasePieces() {
+		return this.basePieces;
+	}
+	
+	public int getTailleBasePieces() {
+		return this.basePieces.size();
 	}
 
 	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {// voleur vole une piece au joueur victime
