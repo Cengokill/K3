@@ -1,5 +1,7 @@
 package Controleur;
 
+import Modeles.*;
+
 public interface IAjeu {
     // facile: aleatoire
     // moyen: min-max avec moins de profondeur
@@ -7,4 +9,6 @@ public interface IAjeu {
 
     // Heuristique de base: si notre nb de coups =0 -> +infini
     // sinon le nombre de coups de l 'adversaire
+
+    public Coup IACoup(Partie p);
 }
