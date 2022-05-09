@@ -1,13 +1,8 @@
 package Controleur;
 
-<<<<<<< Updated upstream
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-=======
-import java.util.LinkedList;
->>>>>>> Stashed changes
-
 import Modeles.*;
 
 public class IAjeuAlea implements IAjeu {
@@ -22,7 +17,6 @@ public class IAjeuAlea implements IAjeu {
     // dans le cas ou les joueur / le jeu peut envoyer cette liste de coups
     // Sinon la calculer avec la pyramide actuelle et la pyramide du joueur en cours
 
-<<<<<<< Updated upstream
     public IAjeuAlea(Joueur ia) {
         this.ia = ia;
     }
@@ -44,19 +38,5 @@ public class IAjeuAlea implements IAjeu {
             }
         }
         return null;
-=======
-    public IAjeu(Joueur ia){
-        this.ia = ia;
-    }
-
-    public Coup IACoup(Jeu j, Joueur player) {
-        
-        Coup c;
-        LinkedList<Coup> l = j.CoupsJouables(j)
-
-
-
-        return c;
->>>>>>> Stashed changes
     }
 }
