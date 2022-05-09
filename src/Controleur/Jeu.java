@@ -23,7 +23,7 @@ public class Jeu {
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
 		partieEnCours=new Partie(j1,j2);
 		this.joueurCourant=Aleatoire.genInt(0,1);//choix du joueur aléatoire
-		while(this.partieEnCours.getTailleBasePieces()>0) {//initialisation de la pioche des joueurs
+		while(partieEnCours.joueur1().getTaillePiecesPiochees()<21 || partieEnCours.joueur2().getTaillePiecesPiochees()<21) {//initialisation de la pioche des joueurs à 21 pièces
 			piocher();
 		}
 		while(partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
