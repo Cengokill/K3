@@ -59,38 +59,70 @@ public class Pyramide {
 
 	public String toString() {
 		String tableau = new String();
+		String ligne="";
+		String debut="";
 		for (int i = hauteur - 1; i >= 0; i--) {
+			switch(i) {
+			case 8:
+				debut="        ";
+				break;
+			case 7:
+				debut="       ";
+				break;
+			case 6:
+				debut="      ";
+				break;
+			case 5:
+				debut="     ";
+				break;
+			case 4:
+				debut="    ";
+				break;
+			case 3:
+				debut="   ";
+				break;
+			case 2:
+				debut="  ";
+				break;
+			case 1:
+				debut=" ";
+				break;
+			case 0:
+				debut="";
+			}
 			for (int j = 0; j < pyramide[i].length; j++) {
 				if (pyramide[i][j] != null) {
 					switch (pyramide[i][j].getColor()) {
 						case BLEU:
-							tableau += 'B';
+							ligne += 'B';
 							break;
 						case NOIR:
-							tableau += 'N';
+							ligne += 'N';
 							break;
 						case ROUGE:
-							tableau += 'R';
+							ligne += 'R';
 							break;
 						case VERT:
-							tableau += 'V';
+							ligne += 'V';
 							break;
 						case JAUNE:
-							tableau += 'J';
+							ligne += 'J';
 							break;
 						case BLANC:
-							tableau += 'W';
+							ligne += 'W';
 							break;
 						case NATUREL:
-							tableau += '#';
+							ligne += '#';
 							break;
-						default:
-							tableau += '.';
 					}
 				} else
-					tableau += '.';
+					ligne += '.';
+				ligne += ' ';
 			}
-			tableau += System.getProperty("line.separator");
+			ligne += System.getProperty("line.separator");
+			ligne=debut+ligne;
+			tableau+=ligne;
+			ligne="";
 		}
 		return tableau;
 	}
