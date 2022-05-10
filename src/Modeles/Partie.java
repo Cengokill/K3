@@ -96,7 +96,7 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			neufPieces.remove(0);
 		}
-		System.out.println("Base de la montagne initialisee. Taille : " + baseMontagne.getHauteur());
+		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs différentes. Taille : " + baseMontagne.getHauteur());
 		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " pieces.");
 		System.out.println(baseMontagne.toString());
 	}

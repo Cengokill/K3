@@ -10,7 +10,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 	}
 	
 	public Coup jouer(ArrayList<Coup> arr) {
-		System.out.println("Joueur, veuillez jouer un coup :");
+		System.out.println(super.getNom()+", veuillez jouer un coup :");
 		super.afficherCoupsJouables(arr);
 		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 		String coup = myObj.nextLine();
