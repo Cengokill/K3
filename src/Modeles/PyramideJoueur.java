@@ -1,6 +1,6 @@
 package Modeles;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class PyramideJoueur extends Pyramide{
 	/*y � | x-> 
@@ -52,9 +52,9 @@ public class PyramideJoueur extends Pyramide{
 		}
 	}
 	
-	public LinkedList<PiecePyramide> piecesJouables() {//renvoie les pieces que le joueur peut prendre � partir de sa pyramide
-		LinkedList<PiecePyramide> arr = new LinkedList<PiecePyramide>();
-		LinkedList<Position> piecesVerif = new LinkedList<Position>();
+	public ArrayList<PiecePyramide> piecesJouables() {//renvoie les pieces que le joueur peut prendre a partir de sa pyramide
+		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
+		ArrayList<Position> piecesVerif = new ArrayList<Position>();
 		piecesVerif.add(new Position(hauteur-1, 0));
 		while(!piecesVerif.isEmpty()) {
 			int x=piecesVerif.get(0).x;

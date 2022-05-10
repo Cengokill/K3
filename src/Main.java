@@ -10,7 +10,12 @@ public class Main {
 		String chemin="C:/Users/Killian/Desktop/AI/";
 		File f = new File(chemin+"sauvegarde_001.txt");
 		
-		Jeu j=new Jeu();
-		
+		int i=0;
+		while(i<1) {
+			Jeu j=new Jeu();
+			i++;
+		}
+		//System.out.println(j.partieEnCours.joueur1().getCamp().toString());
+		//System.out.println(j.partieEnCours.joueur2().getCamp().toString());
 	}
 }

@@ -5,12 +5,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public class Partie {
-	private ActeurClasse j1;
-	private ActeurClasse j2;
-	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs, uniquement e la creation
-										// du jeu
+	private Acteur j1;
+	private Acteur j2;
+	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
-	private LinkedList<Coup> historique;
+	private ArrayList<Coup> historique;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -18,9 +17,11 @@ public class Partie {
 	Piece pNoir;
 	Piece pBlanc;
 	Piece pNaturel;
+	private final int NB_PIECES_NATURELS=2;
+	private final int NB_PIECES_BLANCS=2;
 
-	public Partie(ActeurClasse j1, ActeurClasse j2) {
-		this.historique = new LinkedList<Coup>();
+	public Partie(Acteur j1, Acteur j2) {
+		this.historique = new ArrayList<Coup>();
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
@@ -34,11 +35,13 @@ public class Partie {
 		initialiserSac();
 		initBaseMontagne();
 	}
+	
+	public boolean joueurPeutJouer(Acteur j) {
+		return coupsJouables(j).isEmpty();
+	}
 
 	public void initialiserSac() {// ajoute toutes les pieces au sac
 		int nb_pieces_par_couleur = 9;
-		int nb_naturels = 6;
-		int nb_blancs = 4;
 		for (int i = 0; i < nb_pieces_par_couleur; i++) {// uniquement pour la base de la montagne
 			basePieces.add(pBleu);
 			basePieces.add(pVert);
@@ -46,58 +49,67 @@ public class Partie {
 			basePieces.add(pRouge);
 			basePieces.add(pNoir);
 		}
-		for (int i = 0; i < nb_naturels; i++) {// uniquement pour les joueurs
-			basePieces.add(pNaturel);
-		}
-		for (int i = 0; i < nb_blancs; i++) {// uniquement pour les joueurs
-			basePieces.add(pBlanc);
-		}
 		Collections.shuffle(basePieces);// melange les pieces e piocher pour les joueurs
 		System.out.println("sac initialise. Taille : " + basePieces.size());
 	}
-
-	public void initCampJoueur(Joueur jou) {// creation du camp du joueur j
-		/*
-		 * for (int i = 0; i < 6; i++) {// hauteur
-		 * for (int j = 0; j < 6 - i; j++) {// largeur
-		 * Piece element = basePieces.get(0);
-		 * Position pos = new Position(j, i);
-		 * PiecePyramide pp = new PiecePyramide(element, pos);
-		 * jou.getCamp().empiler(pp);
-		 * basePieces.remove(0);
-		 * //Piece pAffich = jou.getCamp().getPiece(pos);
-		 * // System.out.println("piece "+pos.x+","+pos.y+" ajoutee au camp de
-		 * // "+jou.getNom()+" : "+pAffich.toString());
-		 * }
-		 * }
-		 */
-
-		System.out.println(jou.getCamp().toString());
-		System.out.println("Camp de " + jou.getNom() + " initialise.");
+	
+	public void distribuerBlancEtNaturels(){
+		Acteur jCourant= j1;
+		Piece pNaturel = new Piece(Couleurs.NATUREL);
+		Piece pBlanc = new Piece(Couleurs.BLANC);
+		for(int j=0; j<=1; j++) {
+			if(j==1) jCourant=j2;
+			for (int i = 0; i < NB_PIECES_NATURELS; i++) {
+				jCourant.addPiecePiochee(pNaturel);
+			}
+			for (int i = 0; i < NB_PIECES_BLANCS; i++) {
+				jCourant.addPiecePiochee(pBlanc);
+			}
+		}
 	}
 
 	public void initBaseMontagne() {// creation de la base de la montagne constituee de 9 pieces
+		//init de la liste des 9 pieces
+		ArrayList<Piece> neufPieces = new ArrayList<Piece>();
+		ArrayList<Couleurs> quatreCouleurs = new ArrayList<Couleurs>();
+		int i = 0;
+		while(i<basePieces.size() && neufPieces.size()<9) {
+			Piece pCourante=basePieces.get(i);
+			Couleurs cCourante=basePieces.get(i).getColor();
+			if(!quatreCouleurs.contains(cCourante) && quatreCouleurs.size()<4) {
+				quatreCouleurs.add(cCourante);
+				neufPieces.add(pCourante);
+				basePieces.remove(pCourante);
+				i--;
+			}else if(quatreCouleurs.size()>=4){
+				neufPieces.add(pCourante);
+				basePieces.remove(pCourante);
+				i--;
+			}
+			i++;
+		}
+		Collections.shuffle(neufPieces);
 		baseMontagne = new PyramideMontagne(9, 9);// 9 etages, 9 pieces au dernier etage
-		for (int i = 0; i < 9; i++) {
-			Piece element = basePieces.get(0);
-			Position pos = new Position(i, 0);
+		for (int k = 0; k < 9; k++) {
+			Piece element = neufPieces.get(0);
+			Position pos = new Position(k, 0);
 			PiecePyramide pp = new PiecePyramide(element, pos);
 			baseMontagne.empiler(pp);
-			basePieces.remove(0);
+			neufPieces.remove(0);
 		}
 		System.out.println("Base de la montagne initialisee. Taille : " + baseMontagne.getHauteur());
 		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " pieces.");
 		System.out.println(baseMontagne.toString());
 	}
 
-	public LinkedList<Coup> CoupsJouables(Joueur j) {// renvoie les pieces et la pos jouables du joueur
+	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
 		PyramideJoueur p = j.getCamp();
-		LinkedList<Coup> coupsPosables = new LinkedList<Coup>();
+		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
 		Piece p1, p2;
 		Position pos1, pos2;
 		Coup c;
-		LinkedList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
-		LinkedList<PiecePyramide> piecesJoueur = p.piecesJouables();
+		ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
+		ArrayList<PiecePyramide> piecesJoueur = p.piecesJouables();
 		for (int i = 0; i < piecesJoueur.size(); i++) {// pour chaque piece du joueur
 			PiecePyramide pieceJoueur = piecesJoueur.get(i);
 			p1 = pieceJoueur.getPiece();
@@ -114,7 +126,7 @@ public class Partie {
 		return coupsPosables;
 	}
 
-	public LinkedList<Coup> getHist() {
+	public ArrayList<Coup> getHist() {
 		return this.historique;
 	}
 
@@ -130,7 +142,7 @@ public class Partie {
 		return this.basePieces.size();
 	}
 
-	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {// voleur vole une piece au joueur
+	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur
 																				// victime
 		PyramideJoueur campVictime = victime.getCamp();
 		boolean b = campVictime.retirer(pp);
@@ -144,7 +156,7 @@ public class Partie {
 		}
 	}
 
-	public void afficherCoups(LinkedList<PiecePyramide> arr) {
+	public static void afficherCoups(ArrayList<PiecePyramide> arr) {
 		int taille = arr.size();
 		for (int i = 0; i < taille; i++) {
 			Piece pi = arr.get(i).getPiece();
@@ -153,11 +165,11 @@ public class Partie {
 		}
 	}
 
-	public ActeurClasse joueur1() {
+	public Acteur joueur1() {
 		return j1;
 	}
 
-	public ActeurClasse joueur2() {
+	public Acteur joueur2() {
 		return j2;
 	}
 }

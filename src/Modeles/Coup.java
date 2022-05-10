@@ -17,7 +17,7 @@ public class Coup {
 		return this.piece;
 	}
 
-	public Position getposJ() {
+	public Position getPosJ() {
 		return this.posCampJoueur;
 	}
 

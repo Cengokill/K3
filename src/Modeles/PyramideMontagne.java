@@ -1,6 +1,6 @@
 package Modeles;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class PyramideMontagne extends Pyramide {
 
@@ -22,12 +22,12 @@ public class PyramideMontagne extends Pyramide {
 		}
 	}
 
-	public LinkedList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
+	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
 														// la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC;
 
-		LinkedList<PiecePyramide> p = new LinkedList<PiecePyramide>();
+		ArrayList<PiecePyramide> p = new ArrayList<PiecePyramide>();
 		// derniere place de la pyramide
 		if (pyramide[hauteur - 1][0] == null && pyramide[hauteur - 2][0] != null && pyramide[hauteur - 2][1] != null) {
 			Position pp = new Position(hauteur - 1, 0);
