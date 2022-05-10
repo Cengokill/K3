@@ -38,20 +38,20 @@ public class Partie {
 		int nb_pieces_par_couleur = 9;
 		int nb_naturels = 6;
 		int nb_blancs = 4;
-		for (int i = 0; i < nb_pieces_par_couleur; i++) {
+		for (int i = 0; i < nb_pieces_par_couleur; i++) {//uniquement pour la base de la montagne
 			basePieces.add(pBleu);
 			basePieces.add(pVert);
 			basePieces.add(pJaune);
 			basePieces.add(pRouge);
 			basePieces.add(pNoir);
 		}
-		for (int i = 0; i < nb_naturels; i++) {
+		for (int i = 0; i < nb_naturels; i++) {//uniquement pour les joueurs
 			basePieces.add(pNaturel);
 		}
-		for (int i = 0; i < nb_blancs; i++) {
+		for (int i = 0; i < nb_blancs; i++) {//uniquement pour les joueurs
 			basePieces.add(pBlanc);
 		}
-		Collections.shuffle(basePieces);// mï¿½lange les piï¿½ces ï¿½ piocher pour les joueurs
+		Collections.shuffle(basePieces);// mélange les pièces ï¿½ piocher pour les joueurs
 		System.out.println("sac initialisé. Taille : " + basePieces.size());
 	}
 	
@@ -65,7 +65,7 @@ public class Partie {
 				jou.getCamp().empiler(pp);
 				basePieces.remove(0);
 				//Piece pAffich = jou.getCamp().getPiece(pos);
-				// System.out.println("piece "+pos.x+","+pos.y+" ajoutï¿½e au camp de
+				// System.out.println("piece "+pos.x+","+pos.y+" ajoutée au camp de
 				// "+jou.getNom()+" : "+pAffich.toString());
 			}
 		}
