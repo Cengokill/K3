@@ -28,9 +28,9 @@ public class IApiocheAlea implements IApioche {
         PiecePyramide pp;
         Position pos;
         LinkedList<Position> lPos = new LinkedList<>();
-        for (int i = 0; i < 6; i++) { // A tester peut avoir un bug sur les positions
-            for (int j = 0; j < (6 - i); j++) {
-                pos = new Position(i, j);
+        for (int etage = 0; etage < 6; etage++) { // A tester peut avoir un bug sur les positions
+            for (int largeur = 0; largeur < (6 - etage); largeur++) {
+                pos = new Position(largeur, etage);
                 lPos.add(pos);
             }
         }
