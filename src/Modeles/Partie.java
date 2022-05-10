@@ -68,7 +68,6 @@ public class Partie {
 	}
 
 	public void initBaseMontagne() {// creation de la base de la montagne constituee de 9 pieces
-		//init de la liste des 9 pieces
 		ArrayList<Piece> neufPieces = new ArrayList<Piece>();
 		ArrayList<Couleurs> quatreCouleurs = new ArrayList<Couleurs>();
 		int i = 0;
@@ -100,21 +99,23 @@ public class Partie {
 	}
 
     public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
-        PyramideJoueur p = j.getCamp();
         ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
-        Piece p1, p2;
+        Piece pJoueurCourante, p2;
         Position pos1, pos2;
         Coup c;
+        PyramideJoueur pj = j.getCamp();
         ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
-        ArrayList<PiecePyramide> piecesJoueur = p.piecesJouables();
+        ArrayList<PiecePyramide> piecesJoueur = pj.piecesJouables();
+        ArrayList<PiecePyramide> piecesDoublons = new  ArrayList<PiecePyramide>();
         for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
-            p1 = pieceJoueur.getPiece();
+        	pJoueurCourante = pieceJoueur.getPiece();
             for (PiecePyramide pp : piecesBase) {
-                p2 = pp.getPiece();
-                if (p1.getColor() == p2.getColor()) {
+                p2 = pp.getPiece();// une piece courante du camp de la montagne
+                if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
                     pos1 = pieceJoueur.getPos();
                     pos2 = pp.getPos();
-                    c = new Coup(p1, pos1, pos2);
+                    c = new Coup(pJoueurCourante, pos1, pos2);
+                    piecesDoublons.add(pp);
                     coupsPosables.add(c);
                 }
             }
