@@ -54,7 +54,8 @@ public interface Acteur {
 		boolean ColorPresent;
 		if(0>=sac.size()) {
 			System.err.println("erreur sac vide");
-		else if(piecesPiochees.size()<4{ //on n'as pas encore les 4 couleurs différentes
+		}
+		/*else if(piecesPiochees.size()<4{ //on n'as pas encore les 4 couleurs différentes
 			ColorPresent = false;
 			int j = 0;
 			while( j<sac.size() && !ColorPresent) {
@@ -69,7 +70,8 @@ public interface Acteur {
 				}
 				j++;
 			}
-		}else {
+		}*/
+		else {
 			pChoisie = sac.get(0);
 		}
 	    sac.remove(pChoisie);
