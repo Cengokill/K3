@@ -32,6 +32,7 @@ public class Jeu {
 		}
 		System.out.println(partieEnCours.joueur1().getCamp().toString());
 		System.out.println(partieEnCours.joueur2().getCamp().toString());
+		System.out.println(partieEnCours.getBaseMontagne().toString());
 	}
 	
 	public void piocher() {
