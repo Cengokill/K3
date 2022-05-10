@@ -1,17 +1,17 @@
 package Modeles;
 
 public class Position {
-    public int x;
-    public int y;
+    public int etage;
+    public int rang;
 
-    public Position(int i, int j) {
-        x = i;
-        y = j;
+    public Position(int etage, int rang) {
+    	this.etage = etage;
+    	this.rang = rang;
     }
 
     public String toString() {
         String res = "";
-        res += x + "," + y;
+        res += etage + "," + rang;
         return res;
     }
 }

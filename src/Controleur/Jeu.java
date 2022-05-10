@@ -38,6 +38,7 @@ public class Jeu {
 		while(!estPartieFinie()) {
 			faireJouerActeurs();
 		}
+		partieVictoire();
 	}
 	
 	public void faireJouerActeurs() {
@@ -60,6 +61,16 @@ public class Jeu {
 		}else {
 			return this.partieEnCours.joueurPeutJouer(this.partieEnCours.joueur2());
 		}
+	}
+	
+	public void partieVictoire() {
+		System.out.println("Fin de la partie.");
+		if (joueurCourant == 0) {
+			System.out.print(this.partieEnCours.joueur2().getNom());
+		}else {
+			System.out.print(this.partieEnCours.joueur1().getNom());
+		}
+		System.out.println(" a gagné !");
 	}
 
 	public void piocher() {

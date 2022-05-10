@@ -17,38 +17,38 @@ public class Pyramide {
 	}
 
 	public Piece getPiece(Position p) {
-		if (p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0) {
-			System.err.println("erreur position impossible : " + p.x + "," + p.y);
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
+			System.err.println("erreur position impossible : " + p.rang + "," + p.etage);
 			return null;
 		}
-		return pyramide[p.y][p.x];
+		return pyramide[p.etage][p.rang];
 
 	}
 
 	public boolean retirer(PiecePyramide pp) {
 		Position p = pp.getPos();
-		if (p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0 || pyramide[p.y][p.x] == null) {
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0 || pyramide[p.etage][p.rang] == null) {
 			System.err.println("erreur impossible de retirer la piece.");
 			return false;
 		} else {
 			// avec piece porteuse
 			boolean caseSupGauche, caseSupDroite;
-			if (p.x == 0) {
+			if (p.rang == 0) {
 				caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe
 										// pas
 			} else {
-				caseSupGauche = (pyramide[p.y + 1][p.x - 1] == null); // on regarde si en haut a gauche est
+				caseSupGauche = (pyramide[p.etage + 1][p.rang - 1] == null); // on regarde si en haut a gauche est
 			} // libre
-			if (p.x == pyramide[p.y].length - 1) {
+			if (p.rang == pyramide[p.etage].length - 1) {
 				caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe
 										// pas
 			} else {
-				caseSupDroite = (pyramide[p.y + 1][p.x] == null); // on regarde si en haut a droite est libre
+				caseSupDroite = (pyramide[p.etage + 1][p.rang] == null); // on regarde si en haut a droite est libre
 			}
 			// on regarde ne haut a gauche + en haut a droite
 			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
-				pyramide[p.y][p.x] = null;
-				System.out.println("Pi�ce retir�e");
+				pyramide[p.etage][p.rang] = null;
+				System.out.println("Piece retiree");
 				return true;
 			} else {
 				System.err.println("La piece est une piece porteuse et ne peut pas etre retiree.");

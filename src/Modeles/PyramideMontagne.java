@@ -22,8 +22,7 @@ public class PyramideMontagne extends Pyramide {
 		}
 	}
 
-	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
-														// la pyramide de la base
+	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC;
 
@@ -93,24 +92,24 @@ public class PyramideMontagne extends Pyramide {
 	public void empiler(PiecePyramide pp) {
 		Piece piece = pp.getPiece();
 		Position p = pp.getPos();
-		if (p.y >= hauteur || p.y < 0 || p.x >= pyramide[p.y].length || p.x < 0) {
-			System.err.println("Erreur : la position (" + p.x + "," + p.y + ") est impossible.");
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
+			System.err.println("Erreur : la position (" + p.rang + "," + p.etage + ") est impossible.");
 			return;
-		} else if (p.y == 0) {
+		} else if (p.etage == 0) {
 			// pas de piece porteuse
-			pyramide[p.y][p.x] = piece;
+			pyramide[p.etage][p.rang] = piece;
 		} else {
 			// avec piece porteuse
-			int porteurDroitx = p.x;
-			int porteurDroity = p.y - 1;
-			Piece porteurDroit = pyramide[porteurDroity][porteurDroitx];
-			int porteurGauchex = porteurDroitx + 1;
-			int porteurGauchey = p.y - 1;
-			Piece porteurGauche = pyramide[porteurGauchey][porteurGauchex];
+			int porteurDroitRang = p.rang;
+			int porteurDroitEtage = p.etage - 1;
+			Piece porteurDroit = pyramide[porteurDroitEtage][porteurDroitRang];
+			int porteurGaucheRang = porteurDroitRang + 1;
+			int porteurGaucheEtage = p.etage - 1;
+			Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
 
 			if (porteurDroit != null && porteurGauche != null) {
 				if (porteurDroit.getColor() == piece.getColor() || porteurGauche.getColor() == piece.getColor()) {
-					pyramide[p.y][p.x] = piece;
+					pyramide[p.etage][p.rang] = piece;
 				} else {
 					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
 					return;
@@ -123,6 +122,6 @@ public class PyramideMontagne extends Pyramide {
 	}
 
 	public void ajouter(Piece p, Position pos) {
-		pyramide[pos.x][pos.y] = p;
+		pyramide[pos.etage][pos.rang] = p;
 	}
 }

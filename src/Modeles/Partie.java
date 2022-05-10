@@ -2,7 +2,6 @@ package Modeles;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 
 public class Partie {
 	private Acteur j1;
@@ -92,7 +91,7 @@ public class Partie {
 		baseMontagne = new PyramideMontagne(9, 9);// 9 etages, 9 pieces au dernier etage
 		for (int k = 0; k < 9; k++) {
 			Piece element = neufPieces.get(0);
-			Position pos = new Position(k, 0);
+			Position pos = new Position(0, k);
 			PiecePyramide pp = new PiecePyramide(element, pos);
 			baseMontagne.empiler(pp);
 			neufPieces.remove(0);
@@ -102,29 +101,28 @@ public class Partie {
 		System.out.println(baseMontagne.toString());
 	}
 
-	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
-		PyramideJoueur p = j.getCamp();
-		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
-		Piece p1, p2;
-		Position pos1, pos2;
-		Coup c;
-		ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
-		ArrayList<PiecePyramide> piecesJoueur = p.piecesJouables();
-		for (int i = 0; i < piecesJoueur.size(); i++) {// pour chaque piece du joueur
-			PiecePyramide pieceJoueur = piecesJoueur.get(i);
-			p1 = pieceJoueur.getPiece();
-			for (PiecePyramide pp : piecesBase) {
-				p2 = pp.getPiece();
-				if (p1.getColor() == p2.getColor()) {
-					pos1 = pieceJoueur.getPos();
-					pos2 = pp.getPos();
-					c = new Coup(p1, pos1, pos2);
-					coupsPosables.add(c);
-				}
-			}
-		}
-		return coupsPosables;
-	}
+    public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
+        PyramideJoueur p = j.getCamp();
+        ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
+        Piece p1, p2;
+        Position pos1, pos2;
+        Coup c;
+        ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
+        ArrayList<PiecePyramide> piecesJoueur = p.piecesJouables();
+        for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
+            p1 = pieceJoueur.getPiece();
+            for (PiecePyramide pp : piecesBase) {
+                p2 = pp.getPiece();
+                if (p1.getColor() == p2.getColor()) {
+                    pos1 = pieceJoueur.getPos();
+                    pos2 = pp.getPos();
+                    c = new Coup(p1, pos1, pos2);
+                    coupsPosables.add(c);
+                }
+            }
+        }
+        return coupsPosables;
+    }
 
 	public ArrayList<Coup> getHist() {
 		return this.historique;
