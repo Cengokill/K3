@@ -1,7 +1,8 @@
 package Controleur;
 
+import java.util.ArrayList;
+
 import Modeles.Piece;
-import Modeles.Pyramide;
 import Modeles.PyramideJoueur;
 
 public interface IApioche {
@@ -17,4 +18,5 @@ public interface IApioche {
     // base
     // IA expert : trop intelligent pour perdre (min-max)
 
+    public PyramideJoueur CreerPioche(ArrayList<Piece> piecesIA);
 }

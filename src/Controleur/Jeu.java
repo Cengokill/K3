@@ -18,15 +18,18 @@ public class Jeu {
 	public int volumeEffetsSonores, volumeMusique;
 
 	public Jeu() {
-		//lireOptions();
+		// lireOptions();
 		Joueur j1 = new Joueur("Gaston");
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
-		partieEnCours=new Partie(j1,j2);
-		this.joueurCourant=Aleatoire.genInt(0,1);//choix du joueur aléatoire
-		while(partieEnCours.joueur1().getTaillePiecesPiochees()<21 || partieEnCours.joueur2().getTaillePiecesPiochees()<21) {//initialisation de la pioche des joueurs à 21 pièces
+		partieEnCours = new Partie(j1, j2);
+		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur alï¿½atoire
+		while (partieEnCours.joueur1().getTaillePiecesPiochees() < 21
+				|| partieEnCours.joueur2().getTaillePiecesPiochees() < 21) {// initialisation de la pioche des joueurs ï¿½
+																			// 21 piï¿½ces
 			piocher();
 		}
-		while(partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
+		while (partieEnCours.joueur1().getTaillePiecesPiochees() > 0
+				&& partieEnCours.joueur2().getTaillePiecesPiochees() > 0) {
 			partieEnCours.joueur1().placerPieces();
 			partieEnCours.joueur2().placerPieces();
 		}
@@ -34,25 +37,26 @@ public class Jeu {
 		System.out.println(partieEnCours.joueur2().getCamp().toString());
 		System.out.println(partieEnCours.getBaseMontagne().toString());
 	}
-	
+
 	public void piocher() {
 		Piece p;
-		if(joueurCourant==0) {
-			System.out.print("{"+partieEnCours.joueur1().getNom()+"}. ");
-			p=this.partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
+		if (joueurCourant == 0) {
+			System.out.print("{" + partieEnCours.joueur1().getNom() + "}. ");
+			p = this.partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
 			this.partieEnCours.joueur1().addPiecesPiochees(p);
-		}else{
-			System.out.print("{"+partieEnCours.joueur2().getNom()+"}. ");
-			p=this.partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
+		} else {
+			System.out.print("{" + partieEnCours.joueur2().getNom() + "}. ");
+			p = this.partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
 			this.partieEnCours.joueur2().addPiecesPiochees(p);
 		}
 		changementJoueurCourant();
 	}
-	
+
 	public void changementJoueurCourant() {
-		if(this.joueurCourant==1) {
-			this.joueurCourant=0;
-		}else this.joueurCourant=1;
+		if (this.joueurCourant == 1) {
+			this.joueurCourant = 0;
+		} else
+			this.joueurCourant = 1;
 	}
 
 	public void sauverPartie(String cheminFichier) {

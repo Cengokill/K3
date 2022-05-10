@@ -18,7 +18,7 @@ public class IApiocheAlea implements IApioche {
     // }
     // }
 
-    Pyramide CreerPioche(LinkedList<Piece> piecesIA) {
+    public PyramideJoueur CreerPioche(ArrayList<Piece> piecesIA) {
         if (piecesIA.size() != (6 * 7 / 2)) {
             System.out.println("Il n'y a pas le bon nombre de piece dans le sac pour constuire sa pyramide");
         }
