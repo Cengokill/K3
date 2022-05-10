@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public class Partie {
-	private Acteur j1;
-	private Acteur j2;
+	private ActeurClasse j1;
+	private ActeurClasse j2;
 	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs, uniquement e la creation
 										// du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
@@ -19,7 +19,7 @@ public class Partie {
 	Piece pBlanc;
 	Piece pNaturel;
 
-	public Partie(Acteur j1, Acteur j2) {
+	public Partie(ActeurClasse j1, ActeurClasse j2) {
 		this.historique = new LinkedList<Coup>();
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
@@ -153,11 +153,11 @@ public class Partie {
 		}
 	}
 
-	public Acteur joueur1() {
+	public ActeurClasse joueur1() {
 		return j1;
 	}
 
-	public Acteur joueur2() {
+	public ActeurClasse joueur2() {
 		return j2;
 	}
 }
