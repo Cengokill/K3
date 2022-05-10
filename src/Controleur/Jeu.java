@@ -36,9 +36,14 @@ public class Jeu {
 		}
 		
 		while(!estPartieFinie()) {
+			afficherBaseMontagne();
 			faireJouerActeurs();
 		}
 		partieVictoire();
+	}
+	
+	public void afficherBaseMontagne() {
+		System.out.println(partieEnCours.getBaseMontagne().toString());
 	}
 	
 	public void faireJouerActeurs() {
@@ -53,6 +58,9 @@ public class Jeu {
 		System.out.println(jCourant.getCamp().toString());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
+		jCourant.getCamp().retirer(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosJ()));
+		this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+		changementJoueurCourant();
 	}
 	
 	public boolean estPartieFinie() {

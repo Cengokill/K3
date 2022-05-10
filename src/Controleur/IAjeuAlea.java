@@ -26,7 +26,7 @@ public class IAjeuAlea implements IAjeu {
             ia = (Joueur) p.joueur2();
         }
         Coup c;
-        LinkedList<Coup> l = p.CoupsJouables(ia);
+        LinkedList<Coup> l = p.coupsJouables(ia);
         Random r = new Random();
         int alea = r.nextInt(l.size());
         int compt = 0;

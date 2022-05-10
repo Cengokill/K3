@@ -97,8 +97,6 @@ public class Partie {
 			neufPieces.remove(0);
 		}
 		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs différentes. Taille : " + baseMontagne.getHauteur());
-		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " pieces.");
-		System.out.println(baseMontagne.toString());
 	}
 
     public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
