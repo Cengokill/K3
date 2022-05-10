@@ -15,7 +15,5 @@ public class Main {
 			Jeu j=new Jeu();
 			i++;
 		}
-		//System.out.println(j.partieEnCours.joueur1().getCamp().toString());
-		//System.out.println(j.partieEnCours.joueur2().getCamp().toString());
 	}
 }

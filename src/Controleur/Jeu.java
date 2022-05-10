@@ -49,6 +49,7 @@ public class Jeu {
 		}else {
 			jCourant=partieEnCours.joueur2();
 		}
+		System.out.println(jCourant.getCamp().toString());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
 	}

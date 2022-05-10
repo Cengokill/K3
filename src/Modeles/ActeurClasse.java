@@ -66,7 +66,7 @@ public class ActeurClasse {
 	public void afficherCoupsJouables(ArrayList<Coup> arr) {
 		int taille = arr.size();
 		for (int i = 0; i < taille; i++) {
-			System.out.println(arr.get(i). toString());
+			System.out.println("["+i+"] : "+arr.get(i). toString());
 		}
 	}
 }
