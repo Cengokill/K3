@@ -17,12 +17,14 @@ public class IAjeuAlea implements IAjeu {
     // dans le cas ou les joueur / le jeu peut envoyer cette liste de coups
     // Sinon la calculer avec la pyramide actuelle et la pyramide du joueur en cours
 
-    public IAjeuAlea(Joueur ia) {
-        this.ia = ia;
-    }
-
-    public Coup IACoup(Partie p) {
+    public Coup IACoup(Partie p, int numeroJoueur) {
         // mettre a jour les donnees du joueur IA
+        Joueur ia;
+        if (numeroJoueur == 1) {
+            ia = (Joueur) p.joueur1();
+        } else {
+            ia = (Joueur) p.joueur2();
+        }
         Coup c;
         LinkedList<Coup> l = p.CoupsJouables(ia);
         Random r = new Random();

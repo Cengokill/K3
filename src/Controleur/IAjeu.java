@@ -10,5 +10,5 @@ public interface IAjeu {
     // Heuristique de base: si notre nb de coups =0 -> +infini
     // sinon le nombre de coups de l 'adversaire
 
-    public Coup IACoup(Partie p);
+    public Coup IACoup(Partie p, int numeroJoueur);
 }

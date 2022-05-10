@@ -22,7 +22,7 @@ public class PyramideMontagne extends Pyramide {
 		}
 	}
 
-	public LinkedList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pi�ces que l'on peut placer sur
+	public LinkedList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
 														// la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC;
@@ -68,7 +68,7 @@ public class PyramideMontagne extends Pyramide {
 									} else {
 										if (!p.get(p.size() - 1).egal(newC)) {
 											// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
-											// n'est pas identique �
+											// n'est pas identique e
 											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 											p.add(newC);
 										}
@@ -76,7 +76,7 @@ public class PyramideMontagne extends Pyramide {
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
 									if (!p.get(p.size() - 1).egal(newC)) {
 										// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
-										// n'est pas identique �
+										// n'est pas identique e
 										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										p.add(newC);
 									}

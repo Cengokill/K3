@@ -7,7 +7,8 @@ import java.util.LinkedList;
 public class Partie {
 	private Acteur j1;
 	private Acteur j2;
-	private ArrayList<Piece> basePieces;// pieces disponibles ï¿½ se partager entre les joueurs, uniquement ï¿½ la crï¿½ation du jeu
+	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs, uniquement e la creation
+										// du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private LinkedList<Coup> historique;
 	Piece pBleu;
@@ -17,7 +18,7 @@ public class Partie {
 	Piece pNoir;
 	Piece pBlanc;
 	Piece pNaturel;
-	
+
 	public Partie(Acteur j1, Acteur j2) {
 		this.historique = new LinkedList<Coup>();
 		this.basePieces = new ArrayList<Piece>();
@@ -33,50 +34,50 @@ public class Partie {
 		initialiserSac();
 		initBaseMontagne();
 	}
-	
-	public void initialiserSac() {// ajoute toutes les pièces au sac
+
+	public void initialiserSac() {// ajoute toutes les pieces au sac
 		int nb_pieces_par_couleur = 9;
 		int nb_naturels = 6;
 		int nb_blancs = 4;
-		for (int i = 0; i < nb_pieces_par_couleur; i++) {//uniquement pour la base de la montagne
+		for (int i = 0; i < nb_pieces_par_couleur; i++) {// uniquement pour la base de la montagne
 			basePieces.add(pBleu);
 			basePieces.add(pVert);
 			basePieces.add(pJaune);
 			basePieces.add(pRouge);
 			basePieces.add(pNoir);
 		}
-		for (int i = 0; i < nb_naturels; i++) {//uniquement pour les joueurs
+		for (int i = 0; i < nb_naturels; i++) {// uniquement pour les joueurs
 			basePieces.add(pNaturel);
 		}
-		for (int i = 0; i < nb_blancs; i++) {//uniquement pour les joueurs
+		for (int i = 0; i < nb_blancs; i++) {// uniquement pour les joueurs
 			basePieces.add(pBlanc);
 		}
-		Collections.shuffle(basePieces);// mélange les pièces ï¿½ piocher pour les joueurs
-		System.out.println("sac initialisé. Taille : " + basePieces.size());
-	}
-	
-	public void initCampJoueur(Joueur jou) {// création du camp du joueur j
-		/*
-		for (int i = 0; i < 6; i++) {// hauteur
-			for (int j = 0; j < 6 - i; j++) {// largeur
-				Piece element = basePieces.get(0);
-				Position pos = new Position(j, i);
-				PiecePyramide pp = new PiecePyramide(element, pos);
-				jou.getCamp().empiler(pp);
-				basePieces.remove(0);
-				//Piece pAffich = jou.getCamp().getPiece(pos);
-				// System.out.println("piece "+pos.x+","+pos.y+" ajoutée au camp de
-				// "+jou.getNom()+" : "+pAffich.toString());
-			}
-		}
-		*/
-		
-		System.out.println(jou.getCamp().toString());
-		System.out.println("Camp de " + jou.getNom() + " initialisé.");
+		Collections.shuffle(basePieces);// melange les pieces e piocher pour les joueurs
+		System.out.println("sac initialise. Taille : " + basePieces.size());
 	}
 
-	public void initBaseMontagne() {// crï¿½ation de la base de la montagne constituï¿½e de 9 piï¿½ces
-		baseMontagne = new PyramideMontagne(9, 9);// 9 ï¿½tages, 9 piï¿½ces au dernier ï¿½tage
+	public void initCampJoueur(Joueur jou) {// creation du camp du joueur j
+		/*
+		 * for (int i = 0; i < 6; i++) {// hauteur
+		 * for (int j = 0; j < 6 - i; j++) {// largeur
+		 * Piece element = basePieces.get(0);
+		 * Position pos = new Position(j, i);
+		 * PiecePyramide pp = new PiecePyramide(element, pos);
+		 * jou.getCamp().empiler(pp);
+		 * basePieces.remove(0);
+		 * //Piece pAffich = jou.getCamp().getPiece(pos);
+		 * // System.out.println("piece "+pos.x+","+pos.y+" ajoutee au camp de
+		 * // "+jou.getNom()+" : "+pAffich.toString());
+		 * }
+		 * }
+		 */
+
+		System.out.println(jou.getCamp().toString());
+		System.out.println("Camp de " + jou.getNom() + " initialise.");
+	}
+
+	public void initBaseMontagne() {// creation de la base de la montagne constituee de 9 pieces
+		baseMontagne = new PyramideMontagne(9, 9);// 9 etages, 9 pieces au dernier etage
 		for (int i = 0; i < 9; i++) {
 			Piece element = basePieces.get(0);
 			Position pos = new Position(i, 0);
@@ -84,8 +85,8 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			basePieces.remove(0);
 		}
-		System.out.println("Base de la montagne initialisée. Taille : " + baseMontagne.getHauteur());
-		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " pièces.");
+		System.out.println("Base de la montagne initialisee. Taille : " + baseMontagne.getHauteur());
+		System.out.println("Le sac a maintenant une taille de " + basePieces.size() + " pieces.");
 		System.out.println(baseMontagne.toString());
 	}
 
@@ -120,16 +121,17 @@ public class Partie {
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
 	}
-	
+
 	public ArrayList<Piece> getBasePieces() {
 		return this.basePieces;
 	}
-	
+
 	public int getTailleBasePieces() {
 		return this.basePieces.size();
 	}
 
-	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {// voleur vole une piece au joueur victime
+	public boolean volerPiece(Joueur voleur, Joueur victime, PiecePyramide pp) {// voleur vole une piece au joueur
+																				// victime
 		PyramideJoueur campVictime = victime.getCamp();
 		boolean b = campVictime.retirer(pp);
 
@@ -137,7 +139,7 @@ public class Partie {
 			voleur.addPieceVolee(pp.getPiece());// ajout de la piece volee a la liste des pieces volees du joueur voleur
 			return b;
 		} else {// si impossible de retirer la piece
-			System.err.println("La piï¿½ce de peut pas ï¿½tre volï¿½e.");
+			System.err.println("La piece de peut pas etre volee.");
 			return b;
 		}
 	}
