@@ -14,10 +14,19 @@ public class TestStrategie {
             Acteur j1 = new Joueur("BigBrain");
             Acteur j2 = new Joueur("Stupid");
             Partie ktrois = new Partie(j1, j2);
+            for (int i = 0; i < 2; i++) {
+                Piece pb = new Piece(Couleurs.BLANC);
+                Piece pn = new Piece(Couleurs.NATUREL);
+                ktrois.joueur1().addPiecesPiochees(pb);
+                ktrois.joueur1().addPiecesPiochees(pn);
+                ktrois.joueur2().addPiecesPiochees(pb);
+                ktrois.joueur2().addPiecesPiochees(pn);
+            }
 
-            for (int i = 0; i < 21; i++) { // pioche initialiser
+            for (int i = 0; i < 17; i++) { // pioche initialiser
                 Piece p;
-                p = ktrois.joueur1().piocherPiece(ktrois.getBasePieces());
+                p = ktrois.joueur1().piocherPiece(ktrois.getBasePieces()); // Attention pour l'instant il y a les blancs
+                                                                           // et naturels dans le sac
                 ktrois.joueur1().addPiecesPiochees(p);
                 p = ktrois.joueur2().piocherPiece(ktrois.getBasePieces());
                 ktrois.joueur2().addPiecesPiochees(p);
@@ -29,12 +38,14 @@ public class TestStrategie {
             PyramideJoueur pj1 = iaP.CreerPioche(ktrois.joueur1().getPiecesPiochees());
             PyramideJoueur pj2 = iaP.CreerPioche(ktrois.joueur2().getPiecesPiochees());
             System.out.println("Les pyramides des joueurs sont initialisées");
-
+            System.out.println();
             System.out.println("Pyramide joueur 1:");
             System.out.println(pj1.toString());
             System.out.println("Pyramide joueur 2:");
             System.out.println(pj2.toString());
             // Jeu aléatoire
+
+            System.out.println("Le jeu commence");
             int jcourant = 1;
             IAjeuAlea ia = new IAjeuAlea();
 
