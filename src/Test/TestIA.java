@@ -25,6 +25,7 @@ public class TestIA {
                     || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on
                                                                                           // a pas assez de pions
                 Piece p;
+
                 p = ktrois.joueur1().piocherPiece(ktrois.getBasePieces());
                 ktrois.joueur1().addPiecePiochee(p);
                 p = ktrois.joueur2().piocherPiece(ktrois.getBasePieces());
@@ -63,13 +64,10 @@ public class TestIA {
                 } else {
                     jCourant = ktrois.joueur2();
                 }
-                jCourant.getCamp().retirer(new PiecePyramide(c.getPiece(), c.getPosJ())); // Pas de copie?
+                jCourant.getCamp().retirer(new PiecePyramide(c.getPiece(), c.getPosJ()));
 
-                if (joueurCourant == 0) { // Permet de voir si ce n'est pas une copie
-                    System.out.println(ktrois.joueur1().getCamp().toString());
-                } else {
-                    System.out.println(ktrois.joueur2().getCamp().toString());
-                }
+                System.out.println(ktrois.joueur1().getCamp().toString());
+                System.out.println(ktrois.joueur2().getCamp().toString());
 
                 // ajouter a la pyramide montagne
                 ktrois.getBaseMontagne().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
@@ -90,7 +88,9 @@ public class TestIA {
                 victoirej1++;
             }
             nbParties++;
+            ktrois.affichesac();
         }
+
         System.out.println("Taux de victoire du joueur 1: " + (victoirej1 * 100 / (objectif)) + "%");
         System.out.println("Taux de victoire du joueur 2: " + (victoirej2 * 100 / (objectif)) + "%");
 
