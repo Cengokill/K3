@@ -22,8 +22,8 @@ public class TestIA {
             // DISTIBUTION DES PIONS
             ktrois.distribuerBlancEtNaturels(); // On donne les blancs
             while (ktrois.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR
-                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on
-                                                                                          // a pas assez de pions
+                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on a pas
+                                                                                          // assez de pions
                 Piece p;
 
                 p = ktrois.joueur1().piocherPiece(ktrois.getBasePieces());
@@ -59,7 +59,6 @@ public class TestIA {
                 } else {
                     c = iaE.IACoup(ktrois, joueurCourant);
                     if (c == null) {
-                        System.out.println("VIDEEEEEEEEEEEEEEEEEEEEE");
                     }
                 }
                 System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");

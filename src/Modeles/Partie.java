@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Partie implements Cloneable {
+public class Partie {
 	private Acteur j1;
 	private Acteur j2;
 	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation
@@ -247,7 +247,11 @@ public class Partie implements Cloneable {
 		}
 	}
 
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Partie clone() {
+		Joueur cj1 = new Joueur(j1.getNom());
+		Joueur cj2 = new Joueur(j2.getNom());
+		Partie clone = new Partie(cj1, cj2);
+		// Copier le reste de la partie (tout les ints possibles)
+		return clone;
 	}
 }

@@ -8,6 +8,7 @@ import Modeles.*;
 public class MinMax {
     int numerojoueur;
     Coup parfait;
+    Partie copiepartie;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -39,9 +40,11 @@ public class MinMax {
     }
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
+        System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
-        if ((!p.estPartieFinie(joueurcourant)) || (horizon == 0)) {
+        if ((horizon == 0) || (p.estPartieFinie(1)) || (p.estPartieFinie(0))) {
             System.out.println("On est aller a l horizon :" + horizon);
+            System.out.println("Je suis une feuille");
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -57,11 +60,13 @@ public class MinMax {
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext()) {
             Coup c = it.next();
-            Partie np = jouercoup(p, c, joueurcourant);
-            int valeurfils = meilleurConfigAD(np, horizon--);
+            System.out.println("On teste le coup :" + c.toString());
+            jouercoup(p, c, joueurcourant);
+            System.out.println(copiepartie.joueur2().getCamp().toString());
+            System.out.println(copiepartie.getBaseMontagne().toString());
+            int valeurfils = meilleurConfigAD(copiepartie, horizon - 1);
             if (flag && valeurfils > valeurconfig) {
                 parfait = c;
-                System.out.println("Ajout d'un coup parfait");
             }
             valeurconfig = Math.max(valeurconfig, valeurfils);
         }
@@ -70,13 +75,16 @@ public class MinMax {
     }
 
     public int meilleurConfigAD(Partie p, int horizon) {
+        System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
         if (numerojoueur == 0) {
             joueurcourant = 1;
         } else {
             joueurcourant = 0;
         }
-        if ((!p.estPartieFinie(joueurcourant)) || (horizon != 0)) {
+        if ((horizon == 0) || (p.estPartieFinie(1)) || (p.estPartieFinie(0))) {
+            System.out.println("On est aller a l horizon :" + horizon);
+            System.out.println("Je suis une feuille");
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -86,25 +94,29 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
+        affiche(lc);
         int valeurconfig = 10000;
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext()) {
             Coup c = it.next();
-            Partie np = jouercoup(p, c, joueurcourant);
-            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(np, horizon--, false));
+            System.out.println("On teste le coup :" + c.toString());
+            jouercoup(p, c, joueurcourant);
+            System.out.println(copiepartie.getBaseMontagne().toString());
+            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(copiepartie, horizon - 1, false));
         }
         return valeurconfig;
     }
 
-    public Partie jouercoup(Partie p, Coup c, int joueurcourant) { // joue le coup sur une partie Cloner
-        Partie np = new Partie(new Joueur("blc"), new Joueur("menfou"));
-        try {
-            np = (Partie) p.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        np.jouer(c, joueurcourant);
-        return np;
+    public void jouercoup(Partie p, Coup c, int joueurcourant) { // joue le coup sur une partie Cloner
+        copiepartie = (Partie) p.clone();
+        // System.out.println();
+        // System.out.println("On teste le coup : " + c.toString());
+        // System.out.println(copiepartie.joueur2().getCamp().toString());
+        // System.out.println(copiepartie.getBaseMontagne().toString());
+        copiepartie.jouer(c, joueurcourant);
+        // System.out.println(copiepartie.joueur2().getCamp().toString());
+        // System.out.println(copiepartie.getBaseMontagne().toString());
+        System.out.println();
     }
 
     public Coup getparfait() {
