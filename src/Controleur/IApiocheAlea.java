@@ -30,7 +30,7 @@ public class IApiocheAlea implements IApioche {
         LinkedList<Position> lPos = new LinkedList<>();
         for (int etage = 0; etage < 6; etage++) { // A tester peut avoir un bug sur les positions
             for (int largeur = 0; largeur < (6 - etage); largeur++) {
-                pos = new Position(largeur, etage);
+                pos = new Position(etage, largeur);
                 lPos.add(pos);
             }
         }

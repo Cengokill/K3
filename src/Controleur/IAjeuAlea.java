@@ -1,8 +1,9 @@
 package Controleur;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
+
 import Modeles.*;
 
 public class IAjeuAlea implements IAjeu {
@@ -19,17 +20,19 @@ public class IAjeuAlea implements IAjeu {
 
     public Coup IACoup(Partie p, int numeroJoueur) {
         // mettre a jour les donnees du joueur IA
-        Joueur ia;
-        if (numeroJoueur == 1) {
-            ia = (Joueur) p.joueur1();
+        Acteur ia;
+        if (numeroJoueur == 0) {
+            ia = p.joueur1();
         } else {
-            ia = (Joueur) p.joueur2();
+            ia = p.joueur2();
         }
         Coup c;
-        LinkedList<Coup> l = p.coupsJouables(ia);
+        ArrayList<Coup> l = p.coupsJouables(ia);
+
         Random r = new Random();
         int alea = r.nextInt(l.size());
         int compt = 0;
+
         Iterator<Coup> it = l.iterator();
         while (it.hasNext()) {
             c = it.next();
