@@ -36,6 +36,9 @@ public class Jeu {
 			partieEnCours.joueur2().placerPieces();
 		}
 		
+		partieEnCours.joueur1().getCamp().retirer((new Position(5,0)));
+		partieEnCours.joueur1().getCamp().empiler(new PiecePyramide(new Piece(Couleurs.NATUREL),new Position(5,0)));
+		
 		while(!partieEnCours.estPartieFinie(joueurCourant)) {
 			afficherBaseMontagne();
 			faireJouerActeurs();
@@ -59,7 +62,7 @@ public class Jeu {
 		System.out.println(jCourant.getCamp().toString());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
-		jCourant.getCamp().retirer(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosJ()));
+		jCourant.getCamp().retirer(coupDemande.getPosJ());
 		this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 		changementJoueurCourant();
 	}

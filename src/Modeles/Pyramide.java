@@ -47,8 +47,7 @@ public class Pyramide {
         return(caseSupGauche && caseSupDroite);
 	}
 
-	public boolean retirer(PiecePyramide pp) {
-		Position p = pp.getPos();
+	public boolean retirer(Position p) {
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0 || pyramide[p.etage][p.rang] == null) {
 			System.err.println("erreur impossible de retirer la piece.");
 			return false;

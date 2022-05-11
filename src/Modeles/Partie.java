@@ -154,7 +154,7 @@ public class Partie {
 	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur
 																				// victime
 		PyramideJoueur campVictime = victime.getCamp();
-		boolean b = campVictime.retirer(pp);
+		boolean b = campVictime.retirer(pp.getPos());
 
 		if (b) {
 			voleur.addPieceVolee(pp.getPiece());// ajout de la piece volee a la liste des pieces volees du joueur voleur

@@ -24,7 +24,7 @@ public class PyramideMontagne extends Pyramide {
 
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
-		PiecePyramide newC;
+		PiecePyramide newC, pieceNaturelle;
 
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		// derniere place de la pyramide
@@ -57,6 +57,7 @@ public class PyramideMontagne extends Pyramide {
 								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {//si les pieces du dessous existent
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
+									pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
 									if (arr.size() == 0) {
 										arr.add(newC);
 										// System.out.println("ajout : " +
@@ -76,6 +77,7 @@ public class PyramideMontagne extends Pyramide {
 										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										arr.add(newC);
 									}
+									arr.add(pieceNaturelle);
 								}
 							}
 						}
@@ -105,7 +107,7 @@ public class PyramideMontagne extends Pyramide {
 			Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
 
 			if (porteurDroit != null && porteurGauche != null) {
-				if (porteurDroit.getColor() == piece.getColor() || porteurGauche.getColor() == piece.getColor()) {
+				if (piece.getColor()==Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor() || porteurGauche.getColor() == piece.getColor())) {
 					pyramide[p.etage][p.rang] = piece;
 				} else {
 					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
