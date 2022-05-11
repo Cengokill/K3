@@ -32,6 +32,20 @@ public class Pyramide {
 		int porteurGaucheEtage = p.etage-1;
 		return pyramide[porteurDroitEtage][porteurDroitRang] != null && pyramide[porteurGaucheEtage][porteurGaucheRang] !=null;
 	}
+	public boolean estPiecesPorteuses(Position p) {//renvoie true si la piece a la position p a deux pieces porteuses
+		boolean caseSupGauche, caseSupDroite;
+		if (p.rang==0) {
+            caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
+        } else {
+            caseSupGauche = (pyramide[p.etage + 1][p.rang - 1] == null); // on regarde si en haut a gauche est libre
+        }
+        if (p.rang == pyramide[p.etage].length - 1) {
+            caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
+        } else {
+            caseSupDroite = (pyramide[p.etage + 1][p.rang] == null); // on regarde si en haut a droite est libre
+        }
+        return(caseSupGauche && caseSupDroite);
+	}
 
 	public boolean retirer(PiecePyramide pp) {
 		Position p = pp.getPos();

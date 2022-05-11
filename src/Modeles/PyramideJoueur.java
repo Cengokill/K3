@@ -57,7 +57,6 @@ public class PyramideJoueur extends Pyramide{
 		int rang;
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		ArrayList<Position> piecesVerif = new ArrayList<Position>();
-		boolean caseSupGauche, caseSupDroite;
 		piecesVerif.add(new Position(hauteur-1, 0));
 		while(!piecesVerif.isEmpty()) {
 			etage=piecesVerif.get(0).etage;
@@ -66,17 +65,7 @@ public class PyramideJoueur extends Pyramide{
 				piecesVerif.add(new Position(etage-1,rang));
 				piecesVerif.add(new Position(etage-1, rang+1));
 			}else {//case contenant une piece
-				if (etage == 0 || rang==0) {
-                    caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
-                } else {
-                    caseSupGauche = (pyramide[etage + 1][rang - 1] == null); // on regarde si en haut a gauche est libre
-                }
-                if (rang == pyramide[etage].length - 1) {
-                    caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
-                } else {
-                    caseSupDroite = (pyramide[etage + 1][rang] == null); // on regarde si en haut a droite est libre
-                }
-                if(caseSupGauche && caseSupDroite) {//
+                if(super.estPiecesPorteuses( piecesVerif.get(0) )) {//
                 	arr.add(new PiecePyramide(pyramide[etage][rang], piecesVerif.get(0)));
                 }
 			}
