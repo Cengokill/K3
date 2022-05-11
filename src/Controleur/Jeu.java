@@ -35,7 +35,7 @@ public class Jeu {
 			partieEnCours.joueur2().placerPieces();
 		}
 		
-		while(!estPartieFinie()) {
+		while(!partieEnCours.estPartieFinie(joueurCourant)) {
 			afficherBaseMontagne();
 			faireJouerActeurs();
 		}
@@ -61,14 +61,6 @@ public class Jeu {
 		jCourant.getCamp().retirer(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosJ()));
 		this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 		changementJoueurCourant();
-	}
-	
-	public boolean estPartieFinie() {
-		if (joueurCourant == 0) {
-			return this.partieEnCours.joueurPeutJouer(this.partieEnCours.joueur1());
-		}else {
-			return this.partieEnCours.joueurPeutJouer(this.partieEnCours.joueur2());
-		}
 	}
 	
 	public void partieVictoire() {
