@@ -103,14 +103,14 @@ public class Partie {
 				+ baseMontagne.getHauteur());
 	}
 
-	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
+	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables des pieces du joueur
 		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
 		Piece pJoueurCourante, p2;
 		Position pos1, pos2;
 		Coup c;
 		PyramideJoueur pj = j.getCamp();
 		ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
-		ArrayList<PiecePyramide> piecesJoueur = pj.piecesJouables();
+		ArrayList<PiecePyramide> piecesJoueur = j.getPiecesJouables();
 		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
 			pJoueurCourante = pieceJoueur.getPiece();
@@ -158,7 +158,7 @@ public class Partie {
 	}
 
 	public boolean volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
-		ArrayList<PiecePyramide> piecesVolables = victime.getCamp().piecesJouables();
+		ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 		PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 		PyramideJoueur campVictime = victime.getCamp();
 		boolean b = campVictime.retirer(pieceVolee.getPos());

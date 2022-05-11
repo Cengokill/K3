@@ -23,6 +23,16 @@ public class ActeurClasse {
 	public PyramideJoueur getCamp() {
 		return this.campJ;
 	}
+	
+	public ArrayList<PiecePyramide> getPiecesJouables(){
+		ArrayList<PiecePyramide> pJouables = this.campJ.piecesJouables();
+		PiecePyramide pieceVoleeCourante;
+		for(Piece p : this.piecesVolees) {
+			pieceVoleeCourante=new PiecePyramide(p,null);
+			pJouables.add(pieceVoleeCourante);
+		}
+		return pJouables;
+	}
 
 	public ArrayList<Piece> getPiecesVolees() {// piece Volees
 		return this.piecesVolees;
