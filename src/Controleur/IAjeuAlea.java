@@ -28,6 +28,7 @@ public class IAjeuAlea implements IAjeu {
         }
         Coup c;
         ArrayList<Coup> l = p.coupsJouables(ia);
+        affiche(l);
 
         Random r = new Random();
         int alea = r.nextInt(l.size());
@@ -43,5 +44,14 @@ public class IAjeuAlea implements IAjeu {
             }
         }
         return null;
+    }
+
+    public void affiche(ArrayList<Coup> l) {
+        Iterator<Coup> it = l.iterator();
+        System.out.println("Coups possibles");
+        while (it.hasNext()) {
+            System.out.println(it.next().toString());
+        }
+        System.out.println();
     }
 }

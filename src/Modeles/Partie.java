@@ -2,6 +2,7 @@ package Modeles;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class Partie {
 	private Acteur j1;
@@ -33,6 +34,7 @@ public class Partie {
 		pBlanc = new Piece(Couleurs.BLANC);
 		pNaturel = new Piece(Couleurs.NATUREL);
 		initialiserSac();
+		// affichesac();
 		initBaseMontagne();
 	}
 
@@ -180,5 +182,36 @@ public class Partie {
 
 	public Acteur joueur2() {
 		return j2;
+	}
+
+	public void affichesac() {
+		Iterator<Piece> it = basePieces.iterator();
+		System.out.println("Dans le sac il y a:");
+		int noir = 0;
+		int jaune = 0;
+		int rouge = 0;
+		int vert = 0;
+		int bleu = 0;
+		while (it.hasNext()) {
+			Piece p = it.next();
+			if (p.getColor().equals(Couleurs.NOIR)) {
+				noir++;
+			} else if (p.getColor().equals(Couleurs.JAUNE)) {
+				jaune++;
+			} else if (p.getColor().equals(Couleurs.ROUGE)) {
+				rouge++;
+			} else if (p.getColor().equals(Couleurs.VERT)) {
+				vert++;
+			} else if (p.getColor().equals(Couleurs.BLEU)) {
+				bleu++;
+			}
+
+		}
+		System.out.println("Il y a " + noir + " piece noires.");
+		System.out.println("Il y a " + jaune + " piece jaune.");
+		System.out.println("Il y a " + rouge + " piece rouges.");
+		System.out.println("Il y a " + vert + " piece vertes.");
+		System.out.println("Il y a " + bleu + " piece bleues.");
+		System.out.println();
 	}
 }
