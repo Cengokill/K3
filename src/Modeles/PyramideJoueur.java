@@ -53,29 +53,31 @@ public class PyramideJoueur extends Pyramide{
 	}
 	
 	public ArrayList<PiecePyramide> piecesJouables() {//renvoie les pieces que le joueur peut prendre a partir de sa pyramide
+		int etage;
+		int rang;
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		ArrayList<Position> piecesVerif = new ArrayList<Position>();
 		boolean caseSupGauche, caseSupDroite;
 		piecesVerif.add(new Position(hauteur-1, 0));
 		while(!piecesVerif.isEmpty()) {
-			int x=piecesVerif.get(0).etage;
-			int y=piecesVerif.get(0).rang;
-			if(pyramide[y][x]==null) {
-				piecesVerif.add(new Position(x-1,y));
-				piecesVerif.add(new Position(x-1, y+1));
+			etage=piecesVerif.get(0).etage;
+			rang=piecesVerif.get(0).rang;
+			if(pyramide[etage][rang]==null && etage != 0) {
+				piecesVerif.add(new Position(etage-1,rang));
+				piecesVerif.add(new Position(etage-1, rang+1));
 			}else {//case contenant une piece
-				if (x == 0 || y==0) {
+				if (etage == 0 || rang==0) {
                     caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
                 } else {
-                    caseSupGauche = (pyramide[x + 1][y - 1] == null); // on regarde si en haut a gauche est libre
+                    caseSupGauche = (pyramide[etage + 1][rang - 1] == null); // on regarde si en haut a gauche est libre
                 }
-                if (y == pyramide[x].length - 1) {
+                if (rang == pyramide[etage].length - 1) {
                     caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
                 } else {
-                    caseSupDroite = (pyramide[x + 1][y] == null); // on regarde si en haut a droite est libre
+                    caseSupDroite = (pyramide[etage + 1][rang] == null); // on regarde si en haut a droite est libre
                 }
                 if(caseSupGauche && caseSupDroite) {//
-                	arr.add(new PiecePyramide(pyramide[x][y], piecesVerif.get(0)));
+                	arr.add(new PiecePyramide(pyramide[etage][rang], piecesVerif.get(0)));
                 }
 			}
 			piecesVerif.remove(0);
