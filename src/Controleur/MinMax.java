@@ -7,6 +7,7 @@ import Modeles.*;
 
 public class MinMax {
     int numerojoueur;
+    Coup parfait;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -37,7 +38,7 @@ public class MinMax {
 
     }
 
-    public int meilleurConfigJ(Partie p, int horizon) {
+    public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
         int joueurcourant = numerojoueur;
         if ((!p.estPartieFinie(0)) | (!p.estPartieFinie(1)) | (horizon != 0)) {
             return eval(p);
@@ -54,9 +55,14 @@ public class MinMax {
         while (it.hasNext()) {
             Coup c = it.next();
             Partie np = jouercoup(p, c, joueurcourant);
-            valeurconfig = Math.max(valeurconfig, meilleurConfigAD(np, horizon--));
+            int valeurfils = meilleurConfigAD(np, horizon--);
+            if (flag && valeurfils > valeurconfig) {
+                parfait = c;
+            }
+            valeurconfig = Math.max(valeurconfig, valeurfils);
         }
         return valeurconfig;
+
     }
 
     public int meilleurConfigAD(Partie p, int horizon) {
@@ -81,7 +87,7 @@ public class MinMax {
         while (it.hasNext()) {
             Coup c = it.next();
             Partie np = jouercoup(p, c, joueurcourant);
-            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(np, horizon--));
+            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(np, horizon--, false));
         }
         return valeurconfig;
     }
@@ -92,16 +98,13 @@ public class MinMax {
             np = (Partie) p.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
-        } // A voir si c'est une copie ou non
-        Acteur jCourant;
-        if (joueurcourant == 0) {
-            jCourant = np.joueur1();
-        } else {
-            jCourant = np.joueur2();
         }
-        jCourant.getCamp().retirer(c.getPosJ());
-        np.getBaseMontagne().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
+        np.jouer(c, joueurcourant);
         return np;
+    }
+
+    public Coup getparfait() {
+        return parfait;
     }
 
 }

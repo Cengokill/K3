@@ -155,7 +155,8 @@ public class Partie implements Cloneable {
 		return this.basePieces.size();
 	}
 
-	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur victime
+	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur
+																				// victime
 		PyramideJoueur campVictime = victime.getCamp();
 		boolean b = campVictime.retirer(pp.getPos());
 		if (b) {
@@ -221,6 +222,25 @@ public class Partie implements Cloneable {
 		System.out.println("Il y a " + vert + " piece vertes.");
 		System.out.println("Il y a " + bleu + " piece bleues.");
 		System.out.println();
+	}
+
+	public void jouer(Coup c, int joueurcourant) {
+		// retire de sa pyramide
+		if (joueurcourant == 0) {
+			j1.getCamp().retirer(c.getPosJ());
+		} else {
+			j2.getCamp().retirer(c.getPosJ());
+		}
+
+		// ajoute a la pyramide
+		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+			baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
+			// if (baseMontagne.estPorteursMemeCouleur(c.getPosBase())) { // VOLER
+			// Joueur adverse recupere une piece
+			// }
+		} else {
+			System.out.println("Vous avez decide de passer votre tour !");
+		}
 	}
 
 	public Object clone() throws CloneNotSupportedException {

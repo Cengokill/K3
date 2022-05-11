@@ -57,20 +57,12 @@ public class TestIA {
                 System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");
                 System.out.println(c.toString());
 
-                // retirer de notre pyramide
-                Acteur jCourant;
-                if (joueurCourant == 0) {
-                    jCourant = ktrois.joueur1();
-                } else {
-                    jCourant = ktrois.joueur2();
-                }
-                jCourant.getCamp().retirer(c.getPosJ());
+                // Joue
+                ktrois.jouer(c, joueurCourant);
 
+                // Afiichage
                 System.out.println(ktrois.joueur1().getCamp().toString());
                 System.out.println(ktrois.joueur2().getCamp().toString());
-
-                // ajouter a la pyramide montagne
-                ktrois.getBaseMontagne().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
                 System.out.println(ktrois.getBaseMontagne().toString());
 
                 // changer le joueur courant
