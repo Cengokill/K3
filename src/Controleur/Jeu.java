@@ -37,7 +37,7 @@ public class Jeu {
 		}
 		
 		partieEnCours.joueur1().getCamp().retirer((new Position(5,0)));
-		partieEnCours.joueur1().getCamp().empiler(new PiecePyramide(new Piece(Couleurs.NATUREL),new Position(5,0)));
+		partieEnCours.joueur1().getCamp().empiler(new PiecePyramide(new Piece(Couleurs.BLANC),new Position(5,0)));
 		
 		while(!partieEnCours.estPartieFinie(joueurCourant)) {
 			afficherBaseMontagne();
@@ -63,7 +63,11 @@ public class Jeu {
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
 		jCourant.getCamp().retirer(coupDemande.getPosJ());
-		this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
+			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+		}else {
+			System.out.println("Vous avez decide de passer votre tour !");
+		}
 		changementJoueurCourant();
 	}
 	

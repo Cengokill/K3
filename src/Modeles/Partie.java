@@ -102,7 +102,7 @@ public class Partie {
 		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
 				+ baseMontagne.getHauteur());
 	}
-
+	
 	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
 		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
 		Piece pJoueurCourante, p2;
@@ -114,21 +114,24 @@ public class Partie {
 		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
 			pJoueurCourante = pieceJoueur.getPiece();
-			for (PiecePyramide pp : piecesBase) {
-				p2 = pp.getPiece();// une piece courante du camp de la montagne
-				if(pJoueurCourante.getColor() == p2.getColor() && piecesDoublons.isEmpty()) {
-					pos1 = pieceJoueur.getPos();
+			pos1 = pieceJoueur.getPos();
+			if(pJoueurCourante.getColor()==Couleurs.BLANC) {// si la piece courante du joueur est BLANC
+				c = new Coup(pJoueurCourante, pos1, null);
+				coupsPosables.add(c);
+			}else {
+				for (PiecePyramide pp : piecesBase) {
+					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-					c = new Coup(pJoueurCourante, pos1, pos2);
-					piecesDoublons.add(pp);
-					coupsPosables.add(c);
-				}
-				else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
-					pos1 = pieceJoueur.getPos();
-					pos2 = pp.getPos();
-					c = new Coup(pJoueurCourante, pos1, pos2);
-					piecesDoublons.add(pp);
-					coupsPosables.add(c);
+					if(pJoueurCourante.getColor() == p2.getColor() && piecesDoublons.isEmpty()) {
+						c = new Coup(pJoueurCourante, pos1, pos2);
+						piecesDoublons.add(pp);
+						coupsPosables.add(c);
+					}
+					else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
+						c = new Coup(pJoueurCourante, pos1, pos2);
+						piecesDoublons.add(pp);
+						coupsPosables.add(c);
+					}
 				}
 			}
 		}
