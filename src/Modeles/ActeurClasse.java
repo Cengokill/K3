@@ -52,7 +52,7 @@ public class ActeurClasse {
 		return piecesPiochees.size();
 	}
 
-	public Piece piocherPiece(ArrayList<Piece> sac) {// choisis une pi�ce dans le sac
+	public Piece piocherPiece(ArrayList<Piece> sac) {// choisis une piece dans le sac
 		Piece pChoisie = null;
 		if (sac.isEmpty()) {
 			System.err.println("erreur sac vide");

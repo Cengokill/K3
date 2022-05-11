@@ -24,6 +24,14 @@ public class Pyramide {
 		return pyramide[p.etage][p.rang];
 
 	}
+	
+	public boolean aPiecesPorteuses(Position p) {//renvoie true si la piece a la position p a deux pieces porteuses
+		int porteurDroitRang = p.rang;
+		int porteurDroitEtage = p.etage-1;
+		int porteurGaucheRang = p.rang+1;
+		int porteurGaucheEtage = p.etage-1;
+		return pyramide[porteurDroitEtage][porteurDroitRang] != null && pyramide[porteurGaucheEtage][porteurGaucheRang] !=null;
+	}
 
 	public boolean retirer(PiecePyramide pp) {
 		Position p = pp.getPos();

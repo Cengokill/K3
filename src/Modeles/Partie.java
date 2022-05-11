@@ -99,7 +99,7 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			neufPieces.remove(0);
 		}
-		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs diff�rentes. Taille : "
+		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
 				+ baseMontagne.getHauteur());
 	}
 
