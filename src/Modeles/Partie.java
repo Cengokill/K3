@@ -155,11 +155,13 @@ public class Partie implements Cloneable {
 		return this.basePieces.size();
 	}
 
-	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur victime
+	public boolean volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+		ArrayList<PiecePyramide> piecesVolables = victime.getCamp().piecesJouables();
+		PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 		PyramideJoueur campVictime = victime.getCamp();
-		boolean b = campVictime.retirer(pp.getPos());
+		boolean b = campVictime.retirer(pieceVolee.getPos());
 		if (b) {
-			voleur.addPieceVolee(pp.getPiece());// ajout de la piece volee a la liste des pieces volees du joueur voleur
+			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee a la liste des pieces volees du joueur voleur
 			return b;
 		} else {// si impossible de retirer la piece
 			System.err.println("La piece de peut pas etre volee.");

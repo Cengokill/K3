@@ -35,10 +35,6 @@ public class Jeu {
 			partieEnCours.joueur1().placerPieces();
 			partieEnCours.joueur2().placerPieces();
 		}
-		
-		partieEnCours.joueur1().getCamp().retirer((new Position(5,0)));
-		partieEnCours.joueur1().getCamp().empiler(new PiecePyramide(new Piece(Couleurs.BLANC),new Position(5,0)));
-		
 		while(!partieEnCours.estPartieFinie(joueurCourant)) {
 			afficherBaseMontagne();
 			faireJouerActeurs();
@@ -53,11 +49,13 @@ public class Jeu {
 	public void faireJouerActeurs() {
 		Coup coupDemande;
 		ArrayList<Coup> cJ=new ArrayList<Coup>();
-		Acteur jCourant;
+		Acteur jCourant, jPrecedent;
 		if (joueurCourant == 0) {
 			jCourant=partieEnCours.joueur1();
+			jPrecedent=partieEnCours.joueur2();
 		}else {
 			jCourant=partieEnCours.joueur2();
+			jPrecedent=partieEnCours.joueur1();
 		}
 		System.out.println(jCourant.getCamp().toString());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
@@ -66,7 +64,10 @@ public class Jeu {
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){
-				
+				System.out.println("=========== VOL DE PIECE ===========");
+				System.out.println(jPrecedent.getCamp().toString());
+				partieEnCours.volerPiece(jPrecedent, jCourant);
+				System.out.println("Vos pieces volees : "+jPrecedent.toStringPiecesVolees());
 			}
 		}else {
 			System.out.println("Vous avez decide de passer votre tour !");
