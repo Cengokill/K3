@@ -53,13 +53,15 @@ public class PyramideMontagne extends Pyramide {
 						}
 						// on regarde en haut a gauche + en haut a droite
 						if (caseSupGauche && caseSupDroite) { // on regarde s'il y a des pieces porteuses
-							if (j != (pyramide[i].length) && i != 0) {//LE PROBLEME ETAIT ICI j != (pyramide[i].length - 1) ETAIT FAUX
+							if (j != (pyramide[i].length) && i != 0) {
 								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {//si les pieces du dessous existent
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
 									pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
 									if (arr.size() == 0) {
 										arr.add(newC);
+										arr.add(pieceNaturelle);
+										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										// System.out.println("ajout : " +
 										// newC.getPiece().toString()+":"+newC.getPos().toString());
 									} else {
@@ -68,6 +70,8 @@ public class PyramideMontagne extends Pyramide {
 											// n'est pas identique e
 											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 											arr.add(newC);
+											arr.add(pieceNaturelle);
+											//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										}
 									}
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
@@ -76,8 +80,9 @@ public class PyramideMontagne extends Pyramide {
 										// n'est pas identique e
 										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										arr.add(newC);
+										arr.add(pieceNaturelle);
+										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 									}
-									arr.add(pieceNaturelle);
 								}
 							}
 						}
