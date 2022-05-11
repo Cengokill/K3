@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Partie {
+public class Partie implements Cloneable {
 	private Acteur j1;
 	private Acteur j2;
 	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation
@@ -102,7 +102,7 @@ public class Partie {
 		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
 				+ baseMontagne.getHauteur());
 	}
-	
+
 	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
 		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
 		Piece pJoueurCourante, p2;
@@ -115,19 +115,20 @@ public class Partie {
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
 			pJoueurCourante = pieceJoueur.getPiece();
 			pos1 = pieceJoueur.getPos();
-			if(pJoueurCourante.getColor()==Couleurs.BLANC) {// si la piece courante du joueur est BLANC
+			if (pJoueurCourante.getColor() == Couleurs.BLANC) {// si la piece courante du joueur est BLANC
 				c = new Coup(pJoueurCourante, pos1, null);
 				coupsPosables.add(c);
-			}else {
+			} else {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-					if(pJoueurCourante.getColor() == p2.getColor() && piecesDoublons.isEmpty()) {
+					if (pJoueurCourante.getColor() == p2.getColor() && piecesDoublons.isEmpty()) {
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
-					}
-					else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
+					} else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression
+																												// des
+																												// doublons
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
@@ -220,5 +221,9 @@ public class Partie {
 		System.out.println("Il y a " + vert + " piece vertes.");
 		System.out.println("Il y a " + bleu + " piece bleues.");
 		System.out.println();
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }

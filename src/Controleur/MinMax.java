@@ -87,7 +87,12 @@ public class MinMax {
     }
 
     public Partie jouercoup(Partie p, Coup c, int joueurcourant) { // joue le coup sur une partie Cloner
-        Partie np = (Partie) p.clone();
+        Partie np = new Partie(new Joueur("blc"), new Joueur("menfou"));
+        try {
+            np = (Partie) p.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        } // A voir si c'est une copie ou non
         Acteur jCourant;
         if (joueurcourant == 0) {
             jCourant = np.joueur1();
