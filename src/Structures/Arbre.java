@@ -1,1 +1,1 @@
-package structures;
+package Structures;

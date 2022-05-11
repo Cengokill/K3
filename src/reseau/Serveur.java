@@ -1,4 +1,4 @@
-package reseau;
+package Reseau;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

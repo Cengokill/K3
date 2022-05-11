@@ -3,6 +3,7 @@ package Controleur;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,11 +17,11 @@ public class Jeu {
 	public String cheminFichiers, cheminImages, photoProfil;
 	private String chemin;
 	public int volumeEffetsSonores, volumeMusique;
-
+	private final int NB_LIGNES_OPTIONS = 5;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
 
 	public Jeu() {
-		// lireOptions();
+		//lireOptions();
 		Joueur j1 = new Joueur("Gaston");
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
 		partieEnCours = new Partie(j1, j2);
@@ -115,7 +116,7 @@ public class Jeu {
 					message = "Erreur : le fichier Options.txt n'a pas de valeurs correctes pour le volume.";
 					break;
 				case 5:
-					message = "Erreur : le fichier Options.txt est corrompu. Il a �t� r�initialis�.";
+					message = "Erreur : le fichier Options.txt est corrompu. Il a ete reinitialise.";
 					ecrireOptions();
 					break;
 				default:
@@ -125,52 +126,58 @@ public class Jeu {
 		return message;
 	}
 
-	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe d�j�
+	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
+		String nom_fichier = "Options.txt";
+		String userHome = System.getProperty("user.home");
+		this.chemin = userHome + "/Desktop/Jeu_K3/";
+		if(testFichierExistant(this.chemin+nom_fichier)!=0) {
+			ecrireOptions();
+			return;
+		}
 		int[] renvoi = new int[5];
-		// 2 : chemin non trouv�
+		// 2 : chemin non trouve
 		// 3 : nom de fichier inexistant
 		// 4 : lecture du volume impossible
 		// 5 : fichier options.txt corrompu
 		renvoi[0] = 5;
 		int testChemin1, testChemin2, testFichier, testVolume;
-		final int NB_LIGNES_OPTIONS = 6;// NB DE LIGNES DU FICHIER Options.txt = 6
-		String nom_fichier = "Options.txt";
 		ArrayList<String> tab = new ArrayList<String>();
-		try {
-			FileReader reader = new FileReader(chemin + nom_fichier);
-			BufferedReader br = new BufferedReader(reader);
-			String ligne_lue;
-			while ((ligne_lue = br.readLine()) != null) {
-				tab.add(ligne_lue);
+			try {
+				FileReader reader = new FileReader(chemin + nom_fichier);
+				BufferedReader br = new BufferedReader(reader);
+				String ligne_lue;
+				while ((ligne_lue = br.readLine()) != null) {
+					tab.add(ligne_lue);
+				}
+				if (tab.size() != this.NB_LIGNES_OPTIONS) {
+					System.err.println("Erreur : le fichier " + nom_fichier + " a ete modifie. Il contient " + tab.size()+" lignes.");
+				} else {
+					// Emplacement des images
+					// Emplacement de tous les autres fichiers
+					// Autre chose ?
+					// Nom du fichier de la photo de profil du joueur
+					// Volume de la musique
+					// Volume des effets sonores
+					this.cheminImages = tab.get(0);
+					testChemin1 = testCheminExistant(cheminImages);
+					this.cheminFichiers = tab.get(1);
+					testChemin2 = testCheminExistant(cheminImages);
+					this.photoProfil = tab.get(2);
+					testFichier = testFichierExistant(photoProfil);
+					this.volumeEffetsSonores = Integer.parseInt(tab.get(3));
+					this.volumeMusique = Integer.parseInt(tab.get(4));
+					testVolume = testVolume(volumeEffetsSonores, volumeMusique);
+					renvoi[1] = testChemin1;
+					renvoi[2] = testChemin2;
+					renvoi[3] = testFichier;
+					renvoi[4] = testVolume;
+				}
 			}
-			if (tab.size() != NB_LIGNES_OPTIONS) {
-				System.err.println("Erreur : le fichier " + nom_fichier + " est corrompu." + tab.size());
-			} else {
-				// Emplacement des images
-				// Emplacement de tous les autres fichiers
-				// Autre chose ?
-				// Nom du fichier de la photo de profil du joueur
-				// Volume de la musique
-				// Volume des effets sonores
-				this.cheminImages = tab.get(0);
-				testChemin1 = testCheminExistant(cheminImages);
-				this.cheminFichiers = tab.get(1);
-				testChemin2 = testCheminExistant(cheminImages);
-				this.photoProfil = tab.get(2);
-				testFichier = testFichierExistant(photoProfil);
-				this.volumeEffetsSonores = Integer.parseInt(tab.get(3));
-				this.volumeMusique = Integer.parseInt(tab.get(4));
-				testVolume = testVolume(volumeEffetsSonores, volumeMusique);
-				renvoi[1] = testChemin1;
-				renvoi[2] = testChemin2;
-				renvoi[3] = testFichier;
-				renvoi[4] = testVolume;
+			catch (Exception e) {
+				System.err.println("Erreur : le fichier Options.txt est corrompu.");
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			System.err.println("Erreur : le fichier Options.txt est corrompu.");
-			e.printStackTrace();
-		}
-		interpreterReponse(renvoi);// pour l'affichage des message d'erreur � l'�cran
+		interpreterReponse(renvoi);// pour l'affichage des message d'erreur a l'ecran
 	}
 
 	public int testCheminExistant(String c) {// renvoie 0 si le chemin existe, sinon 2
@@ -178,7 +185,7 @@ public class Jeu {
 		try {
 			File myFile = new File(c + nom_test);
 			if (myFile.createNewFile()) {
-				System.out.println("Fichier test cr�er avec succ�s : " + myFile.getName());
+				System.out.println("Fichier test creer avec succes : " + myFile.getName());
 				myFile.delete();
 				return 0;
 			}
@@ -204,8 +211,11 @@ public class Jeu {
 
 	public int testFichierExistant(String nomFichier) {// renvoie 0 si le fichier existe, sinon 3
 		try {
-			File myFile = new File(this.cheminImages + nomFichier);
-			return 0;
+			File myFile = new File(nomFichier);
+			if(myFile.isFile()) {
+				System.out.println("testFichierExistant = 0");
+				return 0;
+			}
 		} catch (Exception e) {
 			System.err.println("Erreur : le fichier " + nomFichier + " est inexistant.");
 			e.printStackTrace();
@@ -213,30 +223,29 @@ public class Jeu {
 		return 3;
 	}
 
-	public void ecrireOptions() {// r�initialise le fichier Options.txt en �crivant des valeurs par d�faut
-		String userHome = System.getProperty("user.home");
-		String desktop = userHome + "/Desktop/Jeu_K3";
-		new File(desktop).mkdirs();
+	public void ecrireOptions() {// reinitialise le fichier Options.txt en ecrivant des valeurs par defaut
+		new File(this.chemin).mkdirs();
 		try {
-			File f = new File(desktop + "/Options.txt");
+			File f = new File(this.chemin + "/Options.txt");
 			try {
 				f.createNewFile();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			FileWriter writer = new FileWriter(f, false);// �crire en mode remplacement
+			FileWriter writer = new FileWriter(f, false);// ecrire en mode remplacement
 			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write(this.cheminImages);
+			bw.write(this.chemin+"Images/");
 			bw.newLine();
-			bw.write(this.cheminFichiers);
+			bw.write(this.chemin+"Fichiers/");
 			bw.newLine();
-			bw.write(this.photoProfil);
+			bw.write("photoProfil.jpg");
 			bw.newLine();
-			bw.write(this.volumeEffetsSonores);
+			bw.write("8");
 			bw.newLine();
-			bw.write(this.volumeMusique);
+			bw.write("5");
 			bw.close();
 			writer.close();
+			System.out.println("Fichier Options.txt creer avec succes.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
