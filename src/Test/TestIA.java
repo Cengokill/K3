@@ -35,6 +35,8 @@ public class TestIA {
             }
 
             // CREATION DES PYRAMIDES
+
+            // PHASE DE JEU
             while (!partieEnCours.estPartieFinie(joueurCourant)) { // Argument partie en cours
                 Coup c;
                 ArrayList<Coup> cJ = new ArrayList<Coup>();
@@ -44,9 +46,9 @@ public class TestIA {
                 } else {
                     jCourant = partieEnCours.joueur2();
                 }
-            }
+                cJ = partieEnCours.coupsJouables(jCourant);
 
-            // PHASE DE JEU
+            }
 
             // GAGNANT
 
