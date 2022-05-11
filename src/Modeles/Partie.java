@@ -7,8 +7,7 @@ import java.util.Iterator;
 public class Partie {
 	private Acteur j1;
 	private Acteur j2;
-	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation
-										// du jeu
+	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private ArrayList<Coup> historique;
 	Piece pBleu;
@@ -116,8 +115,7 @@ public class Partie {
 			pJoueurCourante = pieceJoueur.getPiece();
 			for (PiecePyramide pp : piecesBase) {
 				p2 = pp.getPiece();// une piece courante du camp de la montagne
-				if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des
-																									// doublons
+				if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
 					pos1 = pieceJoueur.getPos();
 					pos2 = pp.getPos();
 					c = new Coup(pJoueurCourante, pos1, pos2);
@@ -145,8 +143,7 @@ public class Partie {
 		return this.basePieces.size();
 	}
 
-	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur
-																				// victime
+	public boolean volerPiece(Acteur voleur, Acteur victime, PiecePyramide pp) {// voleur vole une piece au joueur victime
 		PyramideJoueur campVictime = victime.getCamp();
 		boolean b = campVictime.retirer(pp);
 
@@ -205,7 +202,6 @@ public class Partie {
 			} else if (p.getColor().equals(Couleurs.BLEU)) {
 				bleu++;
 			}
-
 		}
 		System.out.println("Il y a " + noir + " piece noires.");
 		System.out.println("Il y a " + jaune + " piece jaune.");
