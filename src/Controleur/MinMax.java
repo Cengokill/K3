@@ -1,5 +1,7 @@
 package Controleur;
 
+import java.util.ArrayList;
+
 import Modeles.*;
 
 public class MinMax {
@@ -38,6 +40,12 @@ public class MinMax {
         if ((!p.estPartieFinie(0)) | (!p.estPartieFinie(1)) | (profondeur == horizon)) {
             return eval(p);
         }
+        Acteur JoueurCourant;
+        if (numerojoueur == 0) {
+            JoueurCourant = ;   
+        }
+        ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
+
         return 0;
     }
 
