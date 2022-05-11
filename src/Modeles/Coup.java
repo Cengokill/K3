@@ -27,7 +27,11 @@ public class Coup {
 
 	public String toString() {
 		String tableau = new String();
-		tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + posBaseMontagne.toString();
+		if(posBaseMontagne==null) {
+			tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + " Vous pouvez passez votre tour.";
+		}else {
+			tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + posBaseMontagne.toString();
+		}
 		return tableau;
 	}
 

@@ -69,7 +69,6 @@ public class Pyramide {
 			// on regarde ne haut a gauche + en haut a droite
 			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
 				pyramide[p.etage][p.rang] = null;
-				System.out.println("Piece retiree");
 				return true;
 			} else {
 				System.err.println("La piece est une piece porteuse et ne peut pas etre retiree.");
