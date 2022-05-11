@@ -21,7 +21,7 @@ public class PyramideMontagne extends Pyramide {
 			this.pyramide = etage;
 		}
 	}
-
+	
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC, pieceNaturelle;
@@ -88,6 +88,18 @@ public class PyramideMontagne extends Pyramide {
 		return arr;
 	}
 
+	
+	public boolean estPorteursMemeCouleur(Position p) {
+		int porteurDroitRang = p.rang;
+		int porteurDroitEtage = p.etage - 1;
+		Piece porteurDroit = pyramide[porteurDroitEtage][porteurDroitRang];
+		int porteurGaucheRang = porteurDroitRang + 1;
+		int porteurGaucheEtage = p.etage - 1;
+		Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
+		
+		return porteurGauche.getColor()==porteurDroit.getColor();
+	}
+	
 	public void empiler(PiecePyramide pp) {
 		Piece piece = pp.getPiece();
 		Position p = pp.getPos();

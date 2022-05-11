@@ -30,4 +30,6 @@ public interface Acteur {
 	public void afficherCoupsJouables(ArrayList<Coup> arr);
 
 	public void setCamp(PyramideJoueur campJ);
+	
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr);
 }

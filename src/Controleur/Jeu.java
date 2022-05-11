@@ -65,6 +65,9 @@ public class Jeu {
 		jCourant.getCamp().retirer(coupDemande.getPosJ());
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){
+				
+			}
 		}else {
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
