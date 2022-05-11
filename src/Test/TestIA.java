@@ -64,7 +64,7 @@ public class TestIA {
                 } else {
                     jCourant = ktrois.joueur2();
                 }
-                jCourant.getCamp().retirer(new PiecePyramide(c.getPiece(), c.getPosJ()));
+                jCourant.getCamp().retirer(c.getPosJ());
 
                 System.out.println(ktrois.joueur1().getCamp().toString());
                 System.out.println(ktrois.joueur2().getCamp().toString());
