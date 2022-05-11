@@ -14,7 +14,7 @@ public interface Acteur {
 	public PyramideJoueur getCamp();
 
 	public ArrayList<Piece> getPiecesVolees();
-
+	
 	public void addPiecePiochee(Piece p);
 
 	public String toStringPiecesVolees();

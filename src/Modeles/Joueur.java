@@ -34,9 +34,11 @@ public class Joueur extends ActeurClasse implements Acteur {
         }
     }
 	
-	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {//deja des pieces jouables
 		System.out.println(super.getNom()+", veuillez choisir une piece a voler :");
-		arr.piecesJouables()
+		for(int i=0; i<arr.size(); i++) {
+			System.out.println("["+i+"]"+arr.get(i).toString());
+		}
 		Scanner myObj = new Scanner(System.in);
 		String coup = myObj.nextLine();
 		return arr.get(Integer.parseInt(coup));
