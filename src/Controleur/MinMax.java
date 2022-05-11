@@ -1,10 +1,11 @@
 package Controleur;
 
+import java.util.ArrayList;
+
 import Modeles.*;
 
 public class MinMax {
     int numerojoueur;
-    int profondeur = 10; // profondeur de recherche
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -34,8 +35,18 @@ public class MinMax {
 
     }
 
-    public meilleurConfig(Partie p){
-        
+    public int meilleurConfig(Partie p, int horizon) {
+        int profondeur = 1;
+        if ((!p.estPartieFinie(0)) | (!p.estPartieFinie(1)) | (profondeur == horizon)) {
+            return eval(p);
+        }
+        Acteur JoueurCourant;
+        if (numerojoueur == 0) {
+            JoueurCourant = ;   
+        }
+        ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
+
+        return 0;
     }
 
 }
