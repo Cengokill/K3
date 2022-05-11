@@ -4,32 +4,36 @@ import java.util.ArrayList;
 
 public interface Acteur {
 
-	// phase GAMEPLAY
+	// A PRORAMMER / IA
 	public Coup jouer(ArrayList<Coup> arr); // pyramide au milieu
-
-	public void placerPieces();
-
-	public String getNom();
-
-	public PyramideJoueur getCamp();
-
-	public ArrayList<Piece> getPiecesVolees();
 	
-	public void addPiecePiochee(Piece p);
+	public void placerPieces();// deja implemente
+	
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr);
+	
+	// COMMUN
 
-	public String toStringPiecesVolees();
+	public String getNom();// deja implemente
 
-	public ArrayList<Piece> getPiecesPiochees();
+	public PyramideJoueur getCamp();// deja implemente
+	
+	public ArrayList<PiecePyramide> getPiecesJouables();// deja implemente
 
-	public void addPieceVolee(Piece p);
+	public ArrayList<Piece> getPiecesVolees();// deja implemente
+	
+	public void addPiecePiochee(Piece p);// deja implemente
 
-	public int getTaillePiecesPiochees();
+	public String toStringPiecesVolees();// deja implemente
+
+	public ArrayList<Piece> getPiecesPiochees();// deja implemente
+
+	public void addPieceVolee(Piece p);// deja implemente
+
+	public int getTaillePiecesPiochees();// deja implemente
 
 	public Piece piocherPiece(ArrayList<Piece> sac);
 
-	public void afficherCoupsJouables(ArrayList<Coup> arr);
+	public void afficherCoupsJouables(ArrayList<Coup> arr);// deja implemente
 
-	public void setCamp(PyramideJoueur campJ);
-	
-	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr);
+	public void setCamp(PyramideJoueur campJ);// deja implemente	
 }
