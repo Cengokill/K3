@@ -6,7 +6,8 @@ import java.util.Collections;
 public class Partie {
 	private Acteur j1;
 	private Acteur j2;
-	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation du jeu
+	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation
+										// du jeu
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private ArrayList<Coup> historique;
 	Piece pBleu;
@@ -16,8 +17,8 @@ public class Partie {
 	Piece pNoir;
 	Piece pBlanc;
 	Piece pNaturel;
-	private final int NB_PIECES_NATURELS=2;
-	private final int NB_PIECES_BLANCS=2;
+	private final int NB_PIECES_NATURELS = 2;
+	private final int NB_PIECES_BLANCS = 2;
 
 	public Partie(Acteur j1, Acteur j2) {
 		this.historique = new ArrayList<Coup>();
@@ -34,7 +35,7 @@ public class Partie {
 		initialiserSac();
 		initBaseMontagne();
 	}
-	
+
 	public boolean joueurPeutJouer(Acteur j) {
 		return coupsJouables(j).isEmpty();
 	}
@@ -51,13 +52,14 @@ public class Partie {
 		Collections.shuffle(basePieces);// melange les pieces e piocher pour les joueurs
 		System.out.println("sac initialise. Taille : " + basePieces.size());
 	}
-	
-	public void distribuerBlancEtNaturels(){
-		Acteur jCourant= j1;
+
+	public void distribuerBlancEtNaturels() {
+		Acteur jCourant = j1;
 		Piece pNaturel = new Piece(Couleurs.NATUREL);
 		Piece pBlanc = new Piece(Couleurs.BLANC);
-		for(int j=0; j<=1; j++) {
-			if(j==1) jCourant=j2;
+		for (int j = 0; j <= 1; j++) {
+			if (j == 1)
+				jCourant = j2;
 			for (int i = 0; i < NB_PIECES_NATURELS; i++) {
 				jCourant.addPiecePiochee(pNaturel);
 			}
@@ -71,15 +73,15 @@ public class Partie {
 		ArrayList<Piece> neufPieces = new ArrayList<Piece>();
 		ArrayList<Couleurs> quatreCouleurs = new ArrayList<Couleurs>();
 		int i = 0;
-		while(i<basePieces.size() && neufPieces.size()<9) {
-			Piece pCourante=basePieces.get(i);
-			Couleurs cCourante=basePieces.get(i).getColor();
-			if(!quatreCouleurs.contains(cCourante) && quatreCouleurs.size()<4) {
+		while (i < basePieces.size() && neufPieces.size() < 9) {
+			Piece pCourante = basePieces.get(i);
+			Couleurs cCourante = basePieces.get(i).getColor();
+			if (!quatreCouleurs.contains(cCourante) && quatreCouleurs.size() < 4) {
 				quatreCouleurs.add(cCourante);
 				neufPieces.add(pCourante);
 				basePieces.remove(pCourante);
 				i--;
-			}else if(quatreCouleurs.size()>=4){
+			} else if (quatreCouleurs.size() >= 4) {
 				neufPieces.add(pCourante);
 				basePieces.remove(pCourante);
 				i--;
@@ -95,33 +97,35 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			neufPieces.remove(0);
 		}
-		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs différentes. Taille : " + baseMontagne.getHauteur());
+		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs diffï¿½rentes. Taille : "
+				+ baseMontagne.getHauteur());
 	}
 
-    public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
-        ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
-        Piece pJoueurCourante, p2;
-        Position pos1, pos2;
-        Coup c;
-        PyramideJoueur pj = j.getCamp();
-        ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
-        ArrayList<PiecePyramide> piecesJoueur = pj.piecesJouables();
-        ArrayList<PiecePyramide> piecesDoublons = new  ArrayList<PiecePyramide>();
-        for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
-        	pJoueurCourante = pieceJoueur.getPiece();
-            for (PiecePyramide pp : piecesBase) {
-                p2 = pp.getPiece();// une piece courante du camp de la montagne
-                if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
-                    pos1 = pieceJoueur.getPos();
-                    pos2 = pp.getPos();
-                    c = new Coup(pJoueurCourante, pos1, pos2);
-                    piecesDoublons.add(pp);
-                    coupsPosables.add(c);
-                }
-            }
-        }
-        return coupsPosables;
-    }
+	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables du joueur
+		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
+		Piece pJoueurCourante, p2;
+		Position pos1, pos2;
+		Coup c;
+		PyramideJoueur pj = j.getCamp();
+		ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
+		ArrayList<PiecePyramide> piecesJoueur = pj.piecesJouables();
+		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
+		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
+			pJoueurCourante = pieceJoueur.getPiece();
+			for (PiecePyramide pp : piecesBase) {
+				p2 = pp.getPiece();// une piece courante du camp de la montagne
+				if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des
+																									// doublons
+					pos1 = pieceJoueur.getPos();
+					pos2 = pp.getPos();
+					c = new Coup(pJoueurCourante, pos1, pos2);
+					piecesDoublons.add(pp);
+					coupsPosables.add(c);
+				}
+			}
+		}
+		return coupsPosables;
+	}
 
 	public ArrayList<Coup> getHist() {
 		return this.historique;
@@ -159,6 +163,14 @@ public class Partie {
 			Piece pi = arr.get(i).getPiece();
 			Position pos = arr.get(i).getPos();
 			System.out.println(pi.toString() + ":" + pos.toString());
+		}
+	}
+
+	public boolean estPartieFinie(int joueurCourant) {
+		if (joueurCourant == 0) {
+			return joueurPeutJouer(joueur1());
+		} else {
+			return joueurPeutJouer(joueur2());
 		}
 	}
 
