@@ -15,7 +15,7 @@ public class TestIA {
         while (nbParties != objectif) {
             // INITIALISATION DE LA PARTIE
             Joueur j1 = new Joueur("Stupid 1");
-            Joueur j2 = new Joueur("Stupid 2");
+            Joueur j2 = new Joueur("BigBrain");
             Partie ktrois = new Partie(j1, j2);
             int joueurCourant = 0; // Le joueur qui commence est le premier
 
@@ -51,9 +51,17 @@ public class TestIA {
             System.out.println();
             System.out.println("Phase de jeu");
             IAjeuAlea iaJ = new IAjeuAlea();
+            IAjeuExpert iaE = new IAjeuExpert();
             while (!ktrois.estPartieFinie(joueurCourant)) { // Argument partie en cours
                 Coup c;
-                c = iaJ.IACoup(ktrois, joueurCourant);
+                if (joueurCourant == 0) {
+                    c = iaJ.IACoup(ktrois, joueurCourant);
+                } else {
+                    c = iaE.IACoup(ktrois, joueurCourant);
+                    if (c == null) {
+                        System.out.println("VIDEEEEEEEEEEEEEEEEEEEEE");
+                    }
+                }
                 System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");
                 System.out.println(c.toString());
 

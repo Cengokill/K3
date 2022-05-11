@@ -40,7 +40,8 @@ public class MinMax {
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
         int joueurcourant = numerojoueur;
-        if ((!p.estPartieFinie(0)) | (!p.estPartieFinie(1)) | (horizon != 0)) {
+        if ((!p.estPartieFinie(joueurcourant)) || (horizon == 0)) {
+            System.out.println("On est aller a l horizon :" + horizon);
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -50,7 +51,9 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        int valeurconfig = -10000;
+        affiche(lc);
+
+        int valeurconfig = -10001;
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext()) {
             Coup c = it.next();
@@ -58,6 +61,7 @@ public class MinMax {
             int valeurfils = meilleurConfigAD(np, horizon--);
             if (flag && valeurfils > valeurconfig) {
                 parfait = c;
+                System.out.println("Ajout d'un coup parfait");
             }
             valeurconfig = Math.max(valeurconfig, valeurfils);
         }
@@ -72,7 +76,7 @@ public class MinMax {
         } else {
             joueurcourant = 0;
         }
-        if ((!p.estPartieFinie(0)) | (!p.estPartieFinie(1)) | (horizon != 0)) {
+        if ((!p.estPartieFinie(joueurcourant)) || (horizon != 0)) {
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -105,6 +109,15 @@ public class MinMax {
 
     public Coup getparfait() {
         return parfait;
+    }
+
+    public void affiche(ArrayList<Coup> l) {
+        Iterator<Coup> it = l.iterator();
+        System.out.println("Coups possibles");
+        while (it.hasNext()) {
+            System.out.println(it.next().toString());
+        }
+        System.out.println();
     }
 
 }

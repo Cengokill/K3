@@ -122,24 +122,15 @@ public class Partie implements Cloneable {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-<<<<<<< HEAD
 					if (pJoueurCourante.getColor() == p2.getColor() && piecesDoublons.isEmpty()) {
-						//si la piece courante du joueur a la meme couleur que la piece courante de la pyramide
-						c = new Coup(pJoueurCourante, pos1, pos2);
-						piecesDoublons.add(pp);
-						coupsPosables.add(c);
-					} else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression des doublons
-=======
-					if ((pJoueurCourante.getColor() == p2.getColor() || p2.getColor() == Couleurs.NATUREL)
-							&& piecesDoublons.isEmpty()) {
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
-					} else if ((pJoueurCourante.getColor() == p2.getColor() || p2.getColor() == Couleurs.NATUREL)
-							&& !piecesDoublons.contains(pp)) {// suppression des doublons
->>>>>>> 54e25a82023f42a650601ea5dfc940bad1a8f2b5
+					} else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression
+																												// des
+																												// doublons
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
