@@ -114,9 +114,6 @@ public class Partie {
 		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
 			pJoueurCourante = pieceJoueur.getPiece();
-			if (pJoueurCourante == null) { // Pour gerer le cas ou le joueur perd
-				return new ArrayList<Coup>();
-			}
 			pos1 = pieceJoueur.getPos();
 			if (pJoueurCourante.getColor() == Couleurs.BLANC) {// si la piece courante du joueur est BLANC
 				c = new Coup(pJoueurCourante, pos1, null);
