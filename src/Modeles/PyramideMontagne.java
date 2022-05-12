@@ -31,26 +31,32 @@ public class PyramideMontagne extends Pyramide {
 				if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
 					Position pp = new Position(i, j);
 					if(aPiecesPorteuses(pp)){
-						PiecePyramide porteurGauche=new PiecePyramide(new Piece(pyramide[i - 1][j+1].getColor()), new Position(i-1, j));
-						PiecePyramide porteurDroit=new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), new Position(i-1, j));
+						PiecePyramide porteurGauche=new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), new Position(i-1, j));
+						PiecePyramide porteurDroit=new PiecePyramide(new Piece(pyramide[i - 1][j+1].getColor()), new Position(i-1, j+1));
+						PiecePyramide pieceNaturelle=new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
 						Couleurs portGaucheColor=porteurGauche.getPiece().getColor();
 						Couleurs portDroitColor=porteurDroit.getPiece().getColor();
-						if(portGaucheColor!=Couleurs.NATUREL || portDroitColor!=Couleurs.NATUREL) {//si pas de NATUREL
-							PiecePyramide pAjoutG=new PiecePyramide(new Piece(portGaucheColor), new Position(i, j));
+						if(portGaucheColor!=Couleurs.NATUREL && portDroitColor!=Couleurs.NATUREL) {//si pas de NATUREL
+							PiecePyramide pAjoutG=new PiecePyramide(new Piece(portGaucheColor), pp);
+							arr.add(pieceNaturelle);
 							arr.add(pAjoutG);//ajout de la piece de la couleur du porteur gauche avec la position (i,j)
 							if(portDroitColor!=portGaucheColor) {//si les 2 couleurs sont differentes
-								PiecePyramide pAjoutD=new PiecePyramide(new Piece(portDroitColor), new Position(i, j));
+								PiecePyramide pAjoutD=new PiecePyramide(new Piece(portDroitColor), pp);
 								arr.add(pAjoutD);//ajout de la piece de la couleur du porteur droit avec la position (i,j)
 							}
 						}else {
 							for(Couleurs c : Couleurs.values()) {//si NATUREL
-								PiecePyramide pAjout=new PiecePyramide(new Piece(c), new Position(i, j));
+								PiecePyramide pAjout=new PiecePyramide(new Piece(c), pp);
 								arr.add(pAjout);//ajout des pieces de toutes les couleurs a la position (i,j)
 							}
 						}
 					}
 				}
 			}
+		}
+		System.out.println("Pieces posables sur le camp de la montagne :");
+		for(int k=0; k<arr.size(); k++) {
+			System.out.println(arr.get(k).toString());
 		}
 		/*
 		boolean caseSupGauche, caseSupDroite;
