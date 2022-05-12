@@ -35,7 +35,6 @@ public class Partie {
 		pBlanc = new Piece(Couleurs.BLANC);
 		pNaturel = new Piece(Couleurs.NATUREL);
 		initialiserSac();
-		// affichesac();
 		initBaseMontagne();
 	}
 
@@ -63,7 +62,7 @@ public class Partie {
 			basePieces.add(pRouge);
 			basePieces.add(pNoir);
 		}
-		Collections.shuffle(basePieces);// melange les pieces e piocher pour les joueurs
+		Collections.shuffle(basePieces);// melange les pieces a piocher pour les joueurs
 		System.out.println("sac initialise. Taille : " + basePieces.size());
 	}
 
@@ -174,16 +173,14 @@ public class Partie {
 	public boolean volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
 		ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 		PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
-		PyramideJoueur campVictime = victime.getCamp();
-		boolean b = campVictime.retirer(pieceVolee.getPos());
+		boolean b = victime.getCamp().retirer(pieceVolee.getPos());
 		if (b) {
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee a la liste des pieces volees du
 														// joueur voleur
-			return b;
 		} else {// si impossible de retirer la piece
 			System.err.println("La piece de peut pas etre volee.");
-			return b;
 		}
+		return b;
 	}
 
 	public static void afficherCoups(ArrayList<PiecePyramide> arr) {

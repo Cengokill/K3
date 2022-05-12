@@ -48,12 +48,12 @@ public class Jeu {
 		Coup coupDemande;
 		ArrayList<Coup> cJ=new ArrayList<Coup>();
 		Acteur jCourant, jPrecedent;
-		if (partieEnCours.getJoueurCourant() == 0) {
-			jCourant=partieEnCours.joueur1();
-			jPrecedent=partieEnCours.joueur2();
+		if (this.partieEnCours.getJoueurCourant() == 0) {
+			jCourant=this.partieEnCours.joueur1();
+			jPrecedent=this.partieEnCours.joueur2();
 		}else {
-			jCourant=partieEnCours.joueur2();
-			jPrecedent=partieEnCours.joueur1();
+			jCourant=this.partieEnCours.joueur2();
+			jPrecedent=this.partieEnCours.joueur1();
 		}
 		System.out.println("Votre camp :");
 		System.out.println(jCourant.getCamp().toString());
@@ -68,13 +68,15 @@ public class Jeu {
 				afficherBaseMontagne();
 				System.out.println("Camp adverse :");
 				System.out.println(jCourant.getCamp().toString());
-				partieEnCours.volerPiece(jPrecedent, jCourant);
+				this.partieEnCours.volerPiece(jPrecedent, jCourant);
 				System.out.println("Vos pieces volees : "+jPrecedent.toStringPiecesVolees());
+				System.out.println("Camp adverse sans la piece volee :");
+				System.out.println(jCourant.getCamp().toString());
 			}
 		}else {// joue une piece BLANCHE
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
-		partieEnCours.changementJoueurCourant();
+		this.partieEnCours.changementJoueurCourant();
 	}
 	
 	public void partieVictoire() {

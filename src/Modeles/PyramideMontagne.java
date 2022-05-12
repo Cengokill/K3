@@ -23,9 +23,7 @@ public class PyramideMontagne extends Pyramide {
 	}
 
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
-		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
-		
-		
+		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();	
 		for (int i = 1; i <= hauteur - 1; i++) {
 			for (int j = 0; j < pyramide[i].length; j++) {
 				if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
