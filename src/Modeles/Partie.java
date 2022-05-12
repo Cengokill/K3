@@ -63,7 +63,7 @@ public class Partie {
 			basePieces.add(pNoir);
 		}
 		Collections.shuffle(basePieces);// melange les pieces a piocher pour les joueurs
-		//System.out.println("sac initialise. Taille : " + basePieces.size());
+		// System.out.println("sac initialise. Taille : " + basePieces.size());
 	}
 
 	public void distribuerBlancEtNaturels() {
@@ -110,8 +110,9 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			neufPieces.remove(0);
 		}
-		//System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
-		//		+ baseMontagne.getHauteur());
+		// System.out.println("Base de la montagne initialisee avec au moins 3 couleurs
+		// differentes. Taille : "
+		// + baseMontagne.getHauteur());
 	}
 
 	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
@@ -194,9 +195,9 @@ public class Partie {
 
 	public boolean estPartieFinie(int joueurCourant) {
 		if (joueurCourant == 0) {
-			return joueurPeutJouer(joueur1()) || baseMontagne.estPleine();
+			return joueurPeutJouer(joueur1());
 		} else {
-			return joueurPeutJouer(joueur2()) || baseMontagne.estPleine();
+			return joueurPeutJouer(joueur2());
 		}
 	}
 
