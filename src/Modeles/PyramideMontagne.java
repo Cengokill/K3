@@ -21,8 +21,9 @@ public class PyramideMontagne extends Pyramide {
 			this.pyramide = etage;
 		}
 	}
-	
-	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
+
+	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
+														// la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC, pieceNaturelle;
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
@@ -30,9 +31,9 @@ public class PyramideMontagne extends Pyramide {
 		if (pyramide[hauteur - 1][0] == null && pyramide[hauteur - 2][0] != null && pyramide[hauteur - 2][1] != null) {
 			Position pp = new Position(hauteur - 1, 0);
 			newC = new PiecePyramide(new Piece(pyramide[hauteur - 2][0].getColor()), pp);
-			arr.add(newC) ;
+			arr.add(newC);
 			newC = new PiecePyramide(new Piece(pyramide[hauteur - 2][1].getColor()), pp);
-			arr.add(newC) ;
+			arr.add(newC);
 		}
 		// interieur pyramide
 		else {
@@ -41,35 +42,45 @@ public class PyramideMontagne extends Pyramide {
 					// en haut a droite
 					if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
 						if (j == 0) {
-							caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
+							caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe
+													// pas
 						} else {
-							caseSupGauche = (pyramide[i + 1][j - 1] == null); // on regarde si en haut a gauche est libre
+							caseSupGauche = (pyramide[i + 1][j - 1] == null); // on regarde si en haut a gauche est
+																				// libre
 						}
 						if (j == pyramide[i].length - 1) {
-							caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
+							caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe
+													// pas
 						} else {
 							caseSupDroite = (pyramide[i + 1][j] == null); // on regarde si en haut a droite est libre
 						}
 						// on regarde en haut a gauche + en haut a droite
 						if (caseSupGauche && caseSupDroite) { // on regarde s'il y a des pieces porteuses
 							if (j != (pyramide[i].length) && i != 0) {
-								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {//si les pieces du dessous existent
+								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {// si les
+																												// pieces
+																												// du
+																												// dessous
+																												// existent
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
 									pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
 									arr.add(pieceNaturelle);
 									if (arr.size() == 0) {
 										arr.add(newC);
-										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
+										// System.out.println("test :
+										// "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										// System.out.println("ajout : " +
 										// newC.getPiece().toString()+":"+newC.getPos().toString());
 									} else {
-										if (!arr.get(arr.size() - 1).egal(newC)) {//si la piece n'a pas ete ajoutee a arr
+										if (!arr.get(arr.size() - 1).egal(newC)) {// si la piece n'a pas ete ajoutee a
+																					// arr
 											// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
 											// n'est pas identique e
 											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 											arr.add(newC);
-											//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
+											// System.out.println("test :
+											// "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										}
 									}
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
@@ -78,7 +89,8 @@ public class PyramideMontagne extends Pyramide {
 										// n'est pas identique e
 										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										arr.add(newC);
-										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
+										// System.out.println("test :
+										// "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 									}
 								}
 							}
@@ -90,7 +102,6 @@ public class PyramideMontagne extends Pyramide {
 		return arr;
 	}
 
-	
 	public boolean estPorteursMemeCouleur(Position p) {
 		int porteurDroitRang = p.rang;
 		int porteurDroitEtage = p.etage - 1;
@@ -98,10 +109,10 @@ public class PyramideMontagne extends Pyramide {
 		int porteurGaucheRang = porteurDroitRang + 1;
 		int porteurGaucheEtage = p.etage - 1;
 		Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
-		
-		return porteurGauche.getColor()==porteurDroit.getColor();
+
+		return porteurGauche.getColor() == porteurDroit.getColor();
 	}
-	
+
 	public void empiler(PiecePyramide pp) {
 		Piece piece = pp.getPiece();
 		Position p = pp.getPos();
@@ -121,7 +132,9 @@ public class PyramideMontagne extends Pyramide {
 			Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
 
 			if (porteurDroit != null && porteurGauche != null) {
-				if (piece.getColor()==Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor() || porteurGauche.getColor() == piece.getColor())) {
+				if (piece.getColor() == Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor()
+						|| porteurGauche.getColor() == piece.getColor() || porteurDroit.getColor() == Couleurs.NATUREL
+						|| porteurGauche.getColor() == Couleurs.NATUREL)) {
 					pyramide[p.etage][p.rang] = piece;
 				} else {
 					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");

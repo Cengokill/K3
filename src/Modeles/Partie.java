@@ -114,10 +114,10 @@ public class Partie {
 		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
 				+ baseMontagne.getHauteur());
 	}
-	
+
 	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
-		for(int i=0; i<arr.size(); i++) {
-			if(arr.get(i).egal(pp)) {
+		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).egal(pp)) {
 				System.out.println(arr.get(i).toString());
 				return true;
 			}
@@ -143,7 +143,8 @@ public class Partie {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-					if ((pJoueurCourante.getColor() == p2.getColor()) && !contiens(piecesDoublons,pp)) {//|| p2.getColor()==Couleurs.NATUREL
+					if ((pJoueurCourante.getColor() == p2.getColor()) && !contiens(piecesDoublons, pp)) {// ||
+																											// p2.getColor()==Couleurs.NATUREL
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
@@ -248,19 +249,16 @@ public class Partie {
 	}
 
 	public void jouer(Coup c, int joueurcourant) {
-		// retire de sa pyramide
+		// retire de la pyramide joueur
 		if (joueurcourant == 0) {
 			this.j1.getCamp().retirer(c.getPosJ());
 		} else {
 			this.j2.getCamp().retirer(c.getPosJ());
 		}
 
-		// ajoute a la pyramide
-		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+		// ajoute a sa pyramide
+		if (c.getPosBase() != null) {
 			this.baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
-			// if (baseMontagne.estPorteursMemeCouleur(c.getPosBase())) { // VOLER
-			// Joueur adverse recupere une piece
-			// }
 		}
 	}
 
@@ -268,13 +266,13 @@ public class Partie {
 		// retire de la base
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.baseMontagne.retirer(c.getPosBase());
-		} else {
-			System.out.println("Vous avez decide de passer votre tour !");
 		}
 
 		// ajoute a sa pyramide
 		if (joueurcourant == 0) {
 			this.j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+		} else {
+			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		}
 	}
 }
