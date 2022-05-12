@@ -114,6 +114,16 @@ public class Partie {
 		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
 				+ baseMontagne.getHauteur());
 	}
+	
+	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
+		for(int i=0; i<arr.size(); i++) {
+			if(arr.get(i).egal(pp)) {
+				System.out.println(arr.get(i).toString());
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables des pieces du joueur
 		ArrayList<Coup> coupsPosables = new ArrayList<Coup>();
@@ -133,7 +143,7 @@ public class Partie {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-					if ((pJoueurCourante.getColor() == p2.getColor() || p2.getColor()==Couleurs.NATUREL) && !piecesDoublons.contains(pp)) {
+					if ((pJoueurCourante.getColor() == p2.getColor()) && !contiens(piecesDoublons,pp)) {//|| p2.getColor()==Couleurs.NATUREL
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
