@@ -61,7 +61,7 @@ public class TestIA {
                     if (c == null) {
                     }
                 }
-                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");
+                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup ");
                 System.out.println(c.toString());
 
                 // Joue

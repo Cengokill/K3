@@ -12,7 +12,6 @@ public class MinMax {
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
-
     }
 
     public int eval(Partie p) { // Fonction d'évalutaion de la configuration difference entre notre
@@ -60,15 +59,16 @@ public class MinMax {
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext()) {
             Coup c = it.next();
-            System.out.println("On teste le coup :" + c.toString());
-            jouercoup(p, c, joueurcourant);
-            System.out.println(copiepartie.joueur2().getCamp().toString());
-            System.out.println(copiepartie.getBaseMontagne().toString());
-            int valeurfils = meilleurConfigAD(copiepartie, horizon - 1);
+            // System.out.println("On teste le coup :" + c.toString());
+            p.jouer(c, joueurcourant);
+            // System.out.println(p.joueur2().getCamp().toString());
+            // System.out.println(p.getBaseMontagne().toString());
+            int valeurfils = meilleurConfigAD(p, horizon - 1);
             if (flag && valeurfils > valeurconfig) {
                 parfait = c;
             }
             valeurconfig = Math.max(valeurconfig, valeurfils);
+            p.annulercoup(c, joueurcourant);
         }
         return valeurconfig;
 
@@ -99,25 +99,23 @@ public class MinMax {
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext()) {
             Coup c = it.next();
-            System.out.println("On teste le coup :" + c.toString());
-            jouercoup(p, c, joueurcourant);
-            System.out.println(copiepartie.getBaseMontagne().toString());
-            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(copiepartie, horizon - 1, false));
+            // System.out.println("On teste le coup :" + c.toString());
+            p.jouer(c, joueurcourant);
+            // System.out.println(p.getBaseMontagne().toString());
+            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false));
+            p.annulercoup(c, joueurcourant);
         }
         return valeurconfig;
     }
 
-    public void jouercoup(Partie p, Coup c, int joueurcourant) { // joue le coup sur une partie Cloner
-        copiepartie = (Partie) p.clone();
-        // System.out.println();
-        // System.out.println("On teste le coup : " + c.toString());
-        // System.out.println(copiepartie.joueur2().getCamp().toString());
-        // System.out.println(copiepartie.getBaseMontagne().toString());
-        copiepartie.jouer(c, joueurcourant);
-        // System.out.println(copiepartie.joueur2().getCamp().toString());
-        // System.out.println(copiepartie.getBaseMontagne().toString());
-        System.out.println();
-    }
+    /*
+     * public void jouercoup(Partie p, Coup c, int joueurcourant) { // joue le coup
+     * sur une partie Cloner
+     * copiepartie = (Partie) p.clone();
+     * copiepartie.jouer(c, joueurcourant);
+     * System.out.println();
+     * }
+     */
 
     public Coup getparfait() {
         return parfait;
