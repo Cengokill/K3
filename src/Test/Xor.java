@@ -10,6 +10,8 @@ import org.nd4j.linalg.learning.config.Sgd;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 // https://youtu.be/cEWyjcceSG4?t=660
+// https://github.com/eclipse/deeplearning4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/quickstart/modeling/convolution/CIFARClassifier.java
+// https://deeplearning4j.konduit.ai/multi-project/how-to-guides/beginners
 
 public class Xor {
 	public static void main (String... argc) {
