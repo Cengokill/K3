@@ -61,14 +61,13 @@ public class PyramideJoueur extends Pyramide {
 		while (!piecesVerif.isEmpty()) {
 			etage = piecesVerif.get(0).etage;
 			rang = piecesVerif.get(0).rang;
-			if (pyramide[etage][rang] == null) { // modification car une piece de la base a pu etre joue et ne doit pas
-													// etre renvoye(erreur car on renvoie une piece null)
+			if (pyramide[etage][rang] == null) {
 				if (etage != 0) {
 					piecesVerif.add(new Position(etage - 1, rang));
 					piecesVerif.add(new Position(etage - 1, rang + 1));
 				}
 			} else {// case contenant une piece
-				if (super.estPiecesPorteuses(piecesVerif.get(0))) {
+				if (super.estPiecePorteuse(piecesVerif.get(0))) {
 					arr.add(new PiecePyramide(pyramide[etage][rang], piecesVerif.get(0)));
 				}
 			}
@@ -79,13 +78,11 @@ public class PyramideJoueur extends Pyramide {
 	
 	public ArrayList<Position> posDisponibles() {// renvoie les positions des pieces que le joueur peut placer sur sa pyramide
 		ArrayList<Position> arr = new ArrayList<Position>();
-		Position posCourante;
 		int i=0;
 		int max_etage=6;
 		while(i<max_etage) {
-			for(int j=0; j<this.pyramide[i].length; j++) {
-				posCourante=new Position(i,j);
-				if(pyramide[i][j]==null && (i==0 || aPiecesPorteuses(posCourante))) {
+			for(int j=0; j<this.pyramide[i].length; j++) {//pour chaque rang
+				if(pyramide[i][j]==null && (i==0 || aPiecesPorteuses(i,j))) {
 					arr.add(new Position(i,j));
 				}
 			}

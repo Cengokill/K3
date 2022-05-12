@@ -35,7 +35,7 @@ public class PyramideMontagne extends Pyramide {
 			for (int j = 0; j < pyramide[i].length; j++) {
 				if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
 					Position pp = new Position(i, j);
-					if(aPiecesPorteuses(pp)){
+					if(aPiecesPorteuses(i,j)){
 						PiecePyramide porteurGauche=new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), new Position(i-1, j));
 						PiecePyramide porteurDroit=new PiecePyramide(new Piece(pyramide[i - 1][j+1].getColor()), new Position(i-1, j+1));
 						PiecePyramide pieceNaturelle=new PiecePyramide(new Piece(Couleurs.NATUREL), pp);

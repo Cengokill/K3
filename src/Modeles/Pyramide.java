@@ -25,14 +25,11 @@ public class Pyramide {
 
 	}
 	
-	public boolean aPiecesPorteuses(Position p) {//renvoie true si la piece a la position p a deux pieces porteuses
-		int porteurDroitRang = p.rang;
-		int porteurDroitEtage = p.etage-1;
-		int porteurGaucheRang = p.rang+1;
-		int porteurGaucheEtage = p.etage-1;
-		return pyramide[porteurDroitEtage][porteurDroitRang] != null && pyramide[porteurGaucheEtage][porteurGaucheRang] !=null;
+	public boolean aPiecesPorteuses(int etage, int rang) {//renvoie true si la piece a la position p a deux pieces porteuses
+		return pyramide[etage-1][rang] != null && pyramide[etage-1][rang+1] !=null;
 	}
-	public boolean estPiecesPorteuses(Position p) {//renvoie true si la piece a la position p a deux pieces porteuses
+
+	public boolean estPiecePorteuse(Position p) {//renvoie true si la piece a la position p est porteuse
 		boolean caseSupGauche, caseSupDroite;
 		if (p.rang==0) {
             caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
