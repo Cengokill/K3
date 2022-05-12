@@ -59,9 +59,10 @@ public class TestIA {
                 } else {
                     c = iaE.IACoup(ktrois, joueurCourant);
                     if (c == null) {
+                        System.out.println("IAexpert renvoie un coup vide");
                     }
                 }
-                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");
+                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup ");
                 System.out.println(c.toString());
 
                 // Joue
