@@ -114,6 +114,9 @@ public class Partie {
 		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
 			pJoueurCourante = pieceJoueur.getPiece();
+			if (pJoueurCourante == null) { // Pour gerer le cas ou le joueur perd
+				return new ArrayList<Coup>();
+			}
 			pos1 = pieceJoueur.getPos();
 			if (pJoueurCourante.getColor() == Couleurs.BLANC) {// si la piece courante du joueur est BLANC
 				c = new Coup(pJoueurCourante, pos1, null);
@@ -247,11 +250,19 @@ public class Partie {
 		}
 	}
 
-	public Partie clone() {
-		Joueur cj1 = new Joueur(j1.getNom());
-		Joueur cj2 = new Joueur(j2.getNom());
-		Partie clone = new Partie(cj1, cj2);
-		// Copier le reste de la partie (tout les ints possibles)
-		return clone;
+	public void annulercoup(Coup c, int joueurcourant) {
+		// retire de la base
+		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+			baseMontagne.retirer(c.getPosBase());
+		} else {
+			System.out.println("Vous avez decide de passer votre tour !");
+		}
+
+		// ajoute a sa pyramide
+		if (joueurcourant == 0) {
+			j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+		} else {
+			j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+		}
 	}
 }
