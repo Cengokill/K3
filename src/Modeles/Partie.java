@@ -3,6 +3,7 @@ package Modeles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class Partie {
 	private Acteur j1;
@@ -171,17 +172,23 @@ public class Partie {
 		return this.basePieces.size();
 	}
 
-	public boolean volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
-		ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
-		PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
-		boolean b = victime.getCamp().retirer(pieceVolee.getPos());
-		if (b) {
-			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee a la liste des pieces volees du
-														// joueur voleur
-		} else {// si impossible de retirer la piece
-			System.err.println("La piece de peut pas etre volee.");
+	public void volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+		System.out.println(voleur.getNom()+", voulez-vous voler une piece a "+victime.getNom()+" ? 0 : OUI | 1 : NON");
+		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
+		String num = myObj.nextLine();
+		int rep=Integer.parseInt(num);
+		if(rep==0) {
+			System.out.println("=========== VOL DE PIECE ===========");
+			System.out.println("Camp du joueur victime :");
+			System.out.println(victime.getCamp().toString());
+			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
+			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
+			victime.getCamp().retirer(pieceVolee.getPos());
+			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee a la liste des pieces volees du voleur
+			System.out.println("Vos pieces volees : "+voleur.toStringPiecesVolees());
+		}else {
+			System.out.println("Vous avez choisi de ne pas voler une piece a "+victime.getNom()+".");
 		}
-		return b;
 	}
 
 	public static void afficherCoups(ArrayList<PiecePyramide> arr) {

@@ -84,12 +84,7 @@ public class Jeu {
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
-				System.out.println("=========== VOL DE PIECE ===========");
-				afficherBaseMontagne();
-				System.out.println("Camp du joueur victime :");
-				System.out.println(jCourant.getCamp().toString());
 				this.partieEnCours.volerPiece(jPrecedent, jCourant);
-				System.out.println("Vos pieces volees : "+jPrecedent.toStringPiecesVolees());
 			}
 		}else {// joue une piece BLANCHE
 			System.out.println("Vous avez decide de passer votre tour !");

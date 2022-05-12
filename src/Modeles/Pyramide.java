@@ -44,10 +44,9 @@ public class Pyramide {
         return(caseSupGauche && caseSupDroite);
 	}
 
-	public boolean retirer(Position p) {
+	public void retirer(Position p) {
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0 || pyramide[p.etage][p.rang] == null) {
 			System.err.println("erreur impossible de retirer la piece.");
-			return false;
 		} else {
 			// avec piece porteuse
 			boolean caseSupGauche, caseSupDroite;
@@ -66,10 +65,8 @@ public class Pyramide {
 			// on regarde ne haut a gauche + en haut a droite
 			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
 				pyramide[p.etage][p.rang] = null;
-				return true;
 			} else {
 				System.err.println("La piece est une piece porteuse et ne peut pas etre retiree.");
-				return false;
 			}
 		}
 	}
