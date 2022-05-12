@@ -19,7 +19,7 @@ public class PiecePyramide {
 
 	public String toString() {
 		String res = "";
-		res += piece.toString() + " et de position " + pos.toString();
+		res += piece.toString() + " | " + pos.toString();
 		return res;
 	}
 

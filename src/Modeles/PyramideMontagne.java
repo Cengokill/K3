@@ -22,18 +22,33 @@ public class PyramideMontagne extends Pyramide {
 		}
 	}
 	
+	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
+		for(int i=0; i<arr.size(); i++) {
+			if(arr.get(i).egal(pp)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC, pieceNaturelle;
-
+		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		// derniere place de la pyramide
 		if (pyramide[hauteur - 1][0] == null && pyramide[hauteur - 2][0] != null && pyramide[hauteur - 2][1] != null) {
 			Position pp = new Position(hauteur - 1, 0);
 			newC = new PiecePyramide(new Piece(pyramide[hauteur - 2][0].getColor()), pp);
-			arr.add(newC);
+			if(!contiens(arr, newC)) {
+				arr.add(newC) ;
+				piecesDoublons.add(newC);
+			}
 			newC = new PiecePyramide(new Piece(pyramide[hauteur - 2][1].getColor()), pp);
-			arr.add(newC);
+			if(!contiens(arr, newC)) {
+				arr.add(newC) ;
+				piecesDoublons.add(newC);
+			}
 		}
 		// interieur pyramide
 		else {
@@ -58,9 +73,11 @@ public class PyramideMontagne extends Pyramide {
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
 									pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
-									if (arr.size() == 0) {
+									if (arr.size() == 0 && !contiens(arr, newC)) {
 										arr.add(newC);
 										arr.add(pieceNaturelle);
+										piecesDoublons.add(newC);
+										piecesDoublons.add(pieceNaturelle);
 										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										// System.out.println("ajout : " +
 										// newC.getPiece().toString()+":"+newC.getPos().toString());
@@ -71,16 +88,20 @@ public class PyramideMontagne extends Pyramide {
 											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 											arr.add(newC);
 											arr.add(pieceNaturelle);
+											piecesDoublons.add(newC);
+											piecesDoublons.add(pieceNaturelle);
 											//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										}
 									}
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
-									if (!arr.get(arr.size() - 1).egal(newC)) {
+									if (!arr.get(arr.size() - 1).egal(newC) && !contiens(arr, newC)) {
 										// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
 										// n'est pas identique e
 										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										arr.add(newC);
 										arr.add(pieceNaturelle);
+										piecesDoublons.add(newC);
+										piecesDoublons.add(pieceNaturelle);
 										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 									}
 								}
