@@ -39,7 +39,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 		for(int i=0; i<arr.size(); i++) {
 			System.out.println("["+i+"]"+arr.get(i).toString());
 		}
-		Scanner myObj = new Scanner(System.in);
+		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String coup = myObj.nextLine();
 		return arr.get(Integer.parseInt(coup));
 	}
