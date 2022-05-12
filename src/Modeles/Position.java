@@ -11,7 +11,7 @@ public class Position {
 
     public String toString() {
         String res = "";
-        res += etage + "," + rang;
+        res += "("+this.etage + "," + this.rang+")";
         return res;
     }
 }

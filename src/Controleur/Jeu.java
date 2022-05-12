@@ -28,12 +28,15 @@ public class Jeu {
 		valeur_paire=0;
 		//initialisation des blancs et des naturels aux joueurs
 		partieEnCours.distribuerBlancEtNaturels();
+		//initialisation des pieces des deux joueurs
 		while (partieEnCours.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR || partieEnCours.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
+		//ici les joueurs devront creer leur propre camp
+		int i=0, j=0;//indice des pieces a choisir
 		while (partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
-			partieEnCours.joueur1().placerPieces();
-			partieEnCours.joueur2().placerPieces();
+			i=partieEnCours.joueur1().placerPieces(i);
+			j=partieEnCours.joueur2().placerPieces(j);
 		}
 		while(!partieEnCours.estPartieFinie(partieEnCours.joueurCourant)) {
 			faireJouerActeurs();

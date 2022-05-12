@@ -7,7 +7,7 @@ public interface Acteur {
 	// A PRORAMMER / IA
 	public Coup jouer(ArrayList<Coup> arr); // pyramide au milieu
 	
-	public void placerPieces();// deja implemente
+	public int placerPieces(int indice);// deja implemente
 	
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr);
 	

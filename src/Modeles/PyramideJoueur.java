@@ -76,5 +76,22 @@ public class PyramideJoueur extends Pyramide {
 		}
 		return arr;
 	}
+	
+	public ArrayList<Position> posDisponibles() {// renvoie les positions des pieces que le joueur peut placer sur sa pyramide
+		ArrayList<Position> arr = new ArrayList<Position>();
+		Position posCourante;
+		int i=0;
+		int max_etage=6;
+		while(i<max_etage) {
+			for(int j=0; j<this.pyramide[i].length; j++) {
+				posCourante=new Position(i,j);
+				if(pyramide[i][j]==null && (i==0 || aPiecesPorteuses(posCourante))) {
+					arr.add(new Position(i,j));
+				}
+			}
+			i++;
+		}
+		return arr;
+	}
 
 }
