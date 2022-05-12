@@ -194,9 +194,9 @@ public class Partie {
 
 	public boolean estPartieFinie(int joueurCourant) {
 		if (joueurCourant == 0) {
-			return joueurPeutJouer(joueur1());
+			return joueurPeutJouer(joueur1()) || baseMontagne.estPleine();
 		} else {
-			return joueurPeutJouer(joueur2());
+			return joueurPeutJouer(joueur2()) || baseMontagne.estPleine();
 		}
 	}
 

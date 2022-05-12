@@ -3,7 +3,6 @@ package Controleur;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +14,7 @@ public class Jeu {
 	public Partie partieEnCours;
 	public String cheminFichiers, cheminImages, photoProfil;
 	private String chemin;
+	private int num_tour, valeur_paire;
 	public int volumeEffetsSonores, volumeMusique;
 	private final int NB_LIGNES_OPTIONS = 5;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
@@ -24,6 +24,8 @@ public class Jeu {
 		Joueur j1 = new Joueur("Gaston");
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
 		partieEnCours = new Partie(j1, j2);
+		num_tour=1;
+		valeur_paire=0;
 		//initialisation des blancs et des naturels aux joueurs
 		partieEnCours.distribuerBlancEtNaturels();
 		while (partieEnCours.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR || partieEnCours.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) {
@@ -34,7 +36,6 @@ public class Jeu {
 			partieEnCours.joueur2().placerPieces();
 		}
 		while(!partieEnCours.estPartieFinie(partieEnCours.joueurCourant)) {
-			afficherBaseMontagne();
 			faireJouerActeurs();
 		}
 		partieVictoire();
@@ -44,7 +45,17 @@ public class Jeu {
 		System.out.println(this.partieEnCours.getBaseMontagne().toString());
 	}
 	
+	public void afficherTour() {	
+		System.out.println("================ Tour "+this.num_tour+" ================");
+		this.num_tour++;
+	}
+	
 	public void faireJouerActeurs() {
+		if(this.valeur_paire%2==0) {
+			afficherTour();
+			this.valeur_paire++;
+		}
+		afficherBaseMontagne();
 		Coup coupDemande;
 		ArrayList<Coup> cJ=new ArrayList<Coup>();
 		Acteur jCourant, jPrecedent;
@@ -58,20 +69,21 @@ public class Jeu {
 		System.out.println("Votre camp :");
 		System.out.println(jCourant.getCamp().toString());
 		System.out.println("Vos pieces volees : "+jCourant.toStringPiecesVolees());
+		System.out.println("Camp adverse :");
+		System.out.println(jPrecedent.getCamp().toString());
+		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
 		jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
-			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){
+			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				System.out.println("=========== VOL DE PIECE ===========");
 				afficherBaseMontagne();
-				System.out.println("Camp adverse :");
+				System.out.println("Camp du joueur victime :");
 				System.out.println(jCourant.getCamp().toString());
 				this.partieEnCours.volerPiece(jPrecedent, jCourant);
 				System.out.println("Vos pieces volees : "+jPrecedent.toStringPiecesVolees());
-				System.out.println("Camp adverse sans la piece volee :");
-				System.out.println(jCourant.getCamp().toString());
 			}
 		}else {// joue une piece BLANCHE
 			System.out.println("Vous avez decide de passer votre tour !");

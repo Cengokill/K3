@@ -30,7 +30,11 @@ public class Coup {
 		if (posBaseMontagne == null) {
 			tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + " Vous pouvez passez votre tour.";
 		} else {
-			tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + posBaseMontagne.toString();
+			if (posCampJoueur == null) {
+				tableau += piece.toString() + "| Piece volee |" + posBaseMontagne.toString();
+			}else {
+				tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + posBaseMontagne.toString();
+			}
 		}
 		return tableau;
 	}
