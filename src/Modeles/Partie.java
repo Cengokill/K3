@@ -133,7 +133,7 @@ public class Partie {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-					if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {
+					if ((pJoueurCourante.getColor() == p2.getColor() || p2.getColor()==Couleurs.NATUREL) && !piecesDoublons.contains(pp)) {
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
