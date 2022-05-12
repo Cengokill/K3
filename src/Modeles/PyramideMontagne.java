@@ -22,11 +22,39 @@ public class PyramideMontagne extends Pyramide {
 		}
 	}
 
-	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
-														// la pyramide de la base
+	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
+		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
+		
+		
+		for (int i = 1; i <= hauteur - 1; i++) {
+			for (int j = 0; j < pyramide[i].length; j++) {
+				if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
+					Position pp = new Position(i, j);
+					if(aPiecesPorteuses(pp)){
+						PiecePyramide porteurGauche=new PiecePyramide(new Piece(pyramide[i - 1][j+1].getColor()), new Position(i-1, j));
+						PiecePyramide porteurDroit=new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), new Position(i-1, j));
+						Couleurs portGaucheColor=porteurGauche.getPiece().getColor();
+						Couleurs portDroitColor=porteurDroit.getPiece().getColor();
+						if(portGaucheColor!=Couleurs.NATUREL || portDroitColor!=Couleurs.NATUREL) {//si pas de NATUREL
+							PiecePyramide pAjoutG=new PiecePyramide(new Piece(portGaucheColor), new Position(i, j));
+							arr.add(pAjoutG);//ajout de la piece de la couleur du porteur gauche avec la position (i,j)
+							if(portDroitColor!=portGaucheColor) {//si les 2 couleurs sont differentes
+								PiecePyramide pAjoutD=new PiecePyramide(new Piece(portDroitColor), new Position(i, j));
+								arr.add(pAjoutD);//ajout de la piece de la couleur du porteur droit avec la position (i,j)
+							}
+						}else {
+							for(Couleurs c : Couleurs.values()) {//si NATUREL
+								PiecePyramide pAjout=new PiecePyramide(new Piece(c), new Position(i, j));
+								arr.add(pAjout);//ajout des pieces de toutes les couleurs a la position (i,j)
+							}
+						}
+					}
+				}
+			}
+		}
+		/*
 		boolean caseSupGauche, caseSupDroite;
 		PiecePyramide newC, pieceNaturelle;
-		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		// derniere place de la pyramide
 		if (pyramide[hauteur - 1][0] == null && pyramide[hauteur - 2][0] != null && pyramide[hauteur - 2][1] != null) {
 			Position pp = new Position(hauteur - 1, 0);
@@ -99,6 +127,7 @@ public class PyramideMontagne extends Pyramide {
 				}
 			}
 		}
+		*/
 		return arr;
 	}
 
