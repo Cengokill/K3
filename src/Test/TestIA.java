@@ -1,5 +1,8 @@
 package Test;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Controleur.*;
 import Modeles.*;
 
@@ -11,6 +14,7 @@ public class TestIA {
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
+        double t1 = (double) System.currentTimeMillis();
 
         while (nbParties != objectif) {
             // INITIALISATION DE LA PARTIE
@@ -37,19 +41,19 @@ public class TestIA {
             PyramideJoueur pj;
             IApiocheAlea iaP = new IApiocheAlea();
 
-            pj = iaP.CreerPioche(ktrois.joueur1().getPiecesPiochees());
+            pj = iaP.CreerPioche(ktrois, 0);
             ktrois.joueur1().setCamp(pj); // Tester avec get
-            System.out.println(ktrois.joueur1().getCamp().toString());
+            // // System.out.println(ktrois.joueur1().getCamp().toString());
 
-            pj = iaP.CreerPioche(ktrois.joueur2().getPiecesPiochees());
+            pj = iaP.CreerPioche(ktrois, 1);
             ktrois.joueur2().setCamp(pj);
-            System.out.println(ktrois.joueur2().getCamp().toString());
+            // // System.out.println(ktrois.joueur2().getCamp().toString());
 
-            System.out.println(ktrois.getBaseMontagne().toString());
+            // // System.out.println(ktrois.getBaseMontagne().toString());
 
             // PHASE DE JEU
-            System.out.println();
-            System.out.println("Phase de jeu");
+            // // System.out.println();
+            // // System.out.println("Phase de jeu");
             IAjeuAlea iaJ = new IAjeuAlea();
             IAjeuExpert iaE = new IAjeuExpert();
             while (!ktrois.estPartieFinie(joueurCourant)) { // Argument partie en cours
@@ -57,21 +61,24 @@ public class TestIA {
                 if (joueurCourant == 0) {
                     c = iaJ.IACoup(ktrois, joueurCourant);
                 } else {
-                    c = iaE.IACoup(ktrois, joueurCourant);
+                    // ArrayList<Coup> lc = ktrois.coupsJouables(ktrois.joueur2());
+                    // affiche(lc);
+                    c = iaJ.IACoup(ktrois, joueurCourant);
                     if (c == null) {
-                        System.out.println("IAexpert renvoie un coup vide");
+                        // System.out.println("IAexpert renvoie un coup vide");
                     }
                 }
-                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");
-                System.out.println(c.toString());
+                // // System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le
+                // coup");
+                // // System.out.println(c.toString());
 
                 // Joue
                 ktrois.jouer(c, joueurCourant);
 
                 // Afiichage
-                System.out.println(ktrois.joueur1().getCamp().toString());
-                System.out.println(ktrois.joueur2().getCamp().toString());
-                System.out.println(ktrois.getBaseMontagne().toString());
+                // System.out.println(ktrois.joueur1().getCamp().toString());
+                // System.out.println(ktrois.joueur2().getCamp().toString());
+                // System.out.println(ktrois.getBaseMontagne().toString());
 
                 // changer le joueur courant
                 if (joueurCourant == 1) {
@@ -92,7 +99,17 @@ public class TestIA {
         System.out.println("Nombre de partie jouer :" + objectif);
         System.out.println("Taux de victoire du joueur 1: " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
         System.out.println("Taux de victoire du joueur 2: " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
+        double t2 = (double) System.currentTimeMillis();
+        System.out.println("Temps moyen d'une partie: " + (t2 - t1) / (objectif * 1000) + " s");
+    }
 
+    public static void affiche(ArrayList<Coup> l) {
+        Iterator<Coup> it = l.iterator();
+        System.out.println("Coups possibles");
+        while (it.hasNext()) {
+            System.out.println(it.next().toString());
+        }
+        System.out.println();
     }
 
 }

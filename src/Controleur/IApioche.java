@@ -1,9 +1,6 @@
 package Controleur;
 
-import java.util.ArrayList;
-
-import Modeles.Piece;
-import Modeles.PyramideJoueur;
+import Modeles.*;
 
 public interface IApioche {
     // on ne regarde pas la pyramide adverse tant que on n'a pas fini la notre
@@ -18,5 +15,5 @@ public interface IApioche {
     // base
     // IA expert : trop intelligent pour perdre (min-max)
 
-    public PyramideJoueur CreerPioche(ArrayList<Piece> piecesIA);
+    public PyramideJoueur CreerPioche(Partie p, int numerojoueur);
 }

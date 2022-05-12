@@ -28,7 +28,7 @@ public class IAjeuAlea implements IAjeu {
         }
         Coup c;
         ArrayList<Coup> l = p.coupsJouables(ia);
-        affiche(l);
+        // affiche(l);
 
         Random r = new Random();
         int alea = r.nextInt(l.size());

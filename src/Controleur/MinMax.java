@@ -41,9 +41,12 @@ public class MinMax {
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
         // System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
-        if ((horizon == 0) || (p.estPartieFinie(1)) || (p.estPartieFinie(0))) {
+        if ((horizon == 0) || (p.estPartieFinie(joueurcourant))) {
             // System.out.println("On est aller a l horizon :" + horizon);
             // System.out.println("Je suis une feuille");
+            if (horizon == 5) {
+                System.out.println("On est sur une fin de partie");
+            }
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -53,7 +56,6 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        // affiche(lc);
         if (lc.size() == 1) {
             Coup c = lc.get(0);
             p.jouer(c, joueurcourant);
@@ -92,8 +94,8 @@ public class MinMax {
         } else {
             joueurcourant = 0;
         }
-        if ((horizon == 0) || (p.estPartieFinie(1)) || (p.estPartieFinie(0))) {
-            // ystem.out.println("On est aller a l horizon :" + horizon);
+        if ((horizon == 0) || (p.estPartieFinie(joueurcourant))) {
+            // System.out.println("On est aller a l horizon :" + horizon);
             // System.out.println("Je suis une feuille");
             return eval(p);
         }

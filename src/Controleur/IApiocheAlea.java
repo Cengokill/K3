@@ -6,19 +6,14 @@ import Modeles.*;
 
 public class IApiocheAlea implements IApioche {
 
-    // void CreerPioche(LinkedList<Piece> piecesIA, Joueur jc) {
-    // Pyramide pj = new PyramideJoueur(6, 6);
-    // Random r = new Random();
-    // int rand = r.nextInt(piecesIA.size());
+    public PyramideJoueur CreerPioche(Partie p, int numerojoueur) {
+        ArrayList<Piece> piecesIA;
+        if (numerojoueur == 0) {
+            piecesIA = p.joueur1().getPiecesPiochees();
+        } else {
+            piecesIA = p.joueur2().getPiecesPiochees();
+        }
 
-    // Iterator<Piece> it = piecesIA.iterator();
-
-    // while (!piecesIA.isEmpty()) {
-
-    // }
-    // }
-
-    public PyramideJoueur CreerPioche(ArrayList<Piece> piecesIA) {
         if (piecesIA.size() != (6 * 7 / 2)) {
             System.out.println("Il n'y a pas le bon nombre de piece dans le sac pour constuire sa pyramide");
         }
