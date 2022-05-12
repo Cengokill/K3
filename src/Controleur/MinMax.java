@@ -39,11 +39,11 @@ public class MinMax {
     }
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
-        System.out.println("On est a l'horizon :" + horizon);
+        // System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
         if ((horizon == 0) || (p.estPartieFinie(1)) || (p.estPartieFinie(0))) {
-            System.out.println("On est aller a l horizon :" + horizon);
-            System.out.println("Je suis une feuille");
+            // System.out.println("On est aller a l horizon :" + horizon);
+            // System.out.println("Je suis une feuille");
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -53,7 +53,7 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        affiche(lc);
+        // affiche(lc);
         if (lc.size() == 1) {
             Coup c = lc.get(0);
             p.jouer(c, joueurcourant);
@@ -85,7 +85,7 @@ public class MinMax {
     }
 
     public int meilleurConfigAD(Partie p, int horizon) {
-        System.out.println("On est a l'horizon :" + horizon);
+        // System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
         if (numerojoueur == 0) {
             joueurcourant = 1;
@@ -93,8 +93,8 @@ public class MinMax {
             joueurcourant = 0;
         }
         if ((horizon == 0) || (p.estPartieFinie(1)) || (p.estPartieFinie(0))) {
-            System.out.println("On est aller a l horizon :" + horizon);
-            System.out.println("Je suis une feuille");
+            // ystem.out.println("On est aller a l horizon :" + horizon);
+            // System.out.println("Je suis une feuille");
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -104,7 +104,7 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        affiche(lc);
+        // affiche(lc);
         int valeurconfig = 10000;
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext()) {
@@ -117,15 +117,6 @@ public class MinMax {
         }
         return valeurconfig;
     }
-
-    /*
-     * public void jouercoup(Partie p, Coup c, int joueurcourant) { // joue le coup
-     * sur une partie Cloner
-     * copiepartie = (Partie) p.clone();
-     * copiepartie.jouer(c, joueurcourant);
-     * System.out.println();
-     * }
-     */
 
     public Coup getparfait() {
         return parfait;

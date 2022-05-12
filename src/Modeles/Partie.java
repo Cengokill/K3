@@ -52,7 +52,7 @@ public class Partie {
 			basePieces.add(pNoir);
 		}
 		Collections.shuffle(basePieces);// melange les pieces e piocher pour les joueurs
-		System.out.println("sac initialise. Taille : " + basePieces.size());
+		// System.out.println("sac initialise. Taille : " + basePieces.size());
 	}
 
 	public void distribuerBlancEtNaturels() {
@@ -99,8 +99,9 @@ public class Partie {
 			baseMontagne.empiler(pp);
 			neufPieces.remove(0);
 		}
-		System.out.println("Base de la montagne initialisee avec au moins 3 couleurs differentes. Taille : "
-				+ baseMontagne.getHauteur());
+		// System.out.println("Base de la montagne initialisee avec au moins 3 couleurs
+		// differentes. Taille : "
+		// + baseMontagne.getHauteur());
 	}
 
 	public ArrayList<Coup> coupsJouables(Acteur j) {// renvoie les pieces et la pos jouables des pieces du joueur
@@ -135,7 +136,16 @@ public class Partie {
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
-					}
+					} /*
+						 * else if (p2.getColor() == Couleurs.NATUREL && !piecesDoublons.contains(pp)) {
+						 * // maintenant les
+						 * // couleurs naturels
+						 * // sont ajoutes
+						 * c = new Coup(pJoueurCourante, pos1, pos2);
+						 * piecesDoublons.add(pp);
+						 * coupsPosables.add(c);
+						 * }
+						 */
 				}
 			}
 		}
@@ -243,8 +253,6 @@ public class Partie {
 			// if (baseMontagne.estPorteursMemeCouleur(c.getPosBase())) { // VOLER
 			// Joueur adverse recupere une piece
 			// }
-		} else {
-			System.out.println("Vous avez decide de passer votre tour !");
 		}
 	}
 
@@ -252,10 +260,7 @@ public class Partie {
 		// retire de la base
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			baseMontagne.retirer(c.getPosBase());
-		} else {
-			System.out.println("Vous avez decide de passer votre tour !");
 		}
-
 		// ajoute a sa pyramide
 		if (joueurcourant == 0) {
 			j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
