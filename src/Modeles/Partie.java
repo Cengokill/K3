@@ -7,10 +7,10 @@ import java.util.Iterator;
 public class Partie {
 	private Acteur j1;
 	private Acteur j2;
-	private ArrayList<Piece> basePieces;// pieces disponibles e se partager entre les joueurs uniquement a la creation
-										// du jeu
+	private ArrayList<Piece> basePieces;
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private ArrayList<Coup> historique;
+	public int joueurCourant;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -22,6 +22,7 @@ public class Partie {
 	private final int NB_PIECES_BLANCS = 2;
 
 	public Partie(Acteur j1, Acteur j2) {
+		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur al�atoire
 		this.historique = new ArrayList<Coup>();
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
@@ -36,6 +37,17 @@ public class Partie {
 		initialiserSac();
 		// affichesac();
 		initBaseMontagne();
+	}
+
+	public void changementJoueurCourant() {
+		if (this.joueurCourant == 1) {
+			this.joueurCourant = 0;
+		} else
+			this.joueurCourant = 1;
+	}
+
+	public int getJoueurCourant() {
+		return this.joueurCourant;
 	}
 
 	public boolean joueurPeutJouer(Acteur j) {
@@ -109,8 +121,12 @@ public class Partie {
 		Piece pJoueurCourante, p2;
 		Position pos1, pos2;
 		Coup c;
-		PyramideJoueur pj = j.getCamp();
-		ArrayList<PiecePyramide> piecesBase = baseMontagne.piecesPosables();
+		ArrayList<PiecePyramide> piecesBase = this.baseMontagne.piecesPosables();
+		System.out.println("Pieces posables :");
+		for (int i = 0; i < piecesBase.size(); i++) {
+			System.out.println(piecesBase.get(i).toString());
+		}
+		System.out.println("fin");
 		ArrayList<PiecePyramide> piecesJoueur = j.getPiecesJouables();
 		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
@@ -123,29 +139,17 @@ public class Partie {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// une piece courante du camp de la montagne
 					pos2 = pp.getPos();
-					if (pJoueurCourante.getColor() == p2.getColor() && piecesDoublons.isEmpty()) { // pâs de test de
-																									// naturelles
+					if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
-					} else if (pJoueurCourante.getColor() == p2.getColor() && !piecesDoublons.contains(pp)) {// suppression
-																												// des
-																												// doublons
-						c = new Coup(pJoueurCourante, pos1, pos2);
-						piecesDoublons.add(pp);
-						coupsPosables.add(c);
-					} /*
-						 * else if (p2.getColor() == Couleurs.NATUREL && !piecesDoublons.contains(pp)) {
-						 * // maintenant les
-						 * // couleurs naturels
-						 * // sont ajoutes
-						 * c = new Coup(pJoueurCourante, pos1, pos2);
-						 * piecesDoublons.add(pp);
-						 * coupsPosables.add(c);
-						 * }
-						 */
+						for (int i = 0; i < piecesDoublons.size(); i++) {
+							System.out.println(piecesDoublons.get(i).toString());
+						}
+						System.out.println("fin");
+					}
 				}
 			}
 		}
@@ -242,14 +246,14 @@ public class Partie {
 	public void jouer(Coup c, int joueurcourant) {
 		// retire de sa pyramide
 		if (joueurcourant == 0) {
-			j1.getCamp().retirer(c.getPosJ());
+			this.j1.getCamp().retirer(c.getPosJ());
 		} else {
-			j2.getCamp().retirer(c.getPosJ());
+			this.j2.getCamp().retirer(c.getPosJ());
 		}
 
 		// ajoute a la pyramide
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
-			baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
+			this.baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
 			// if (baseMontagne.estPorteursMemeCouleur(c.getPosBase())) { // VOLER
 			// Joueur adverse recupere une piece
 			// }
@@ -263,9 +267,9 @@ public class Partie {
 		}
 		// ajoute a sa pyramide
 		if (joueurcourant == 0) {
-			j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+			this.j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		} else {
-			j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		}
 	}
 }

@@ -13,7 +13,6 @@ import Modeles.*;
 
 public class Jeu {
 	public Partie partieEnCours;
-	public int joueurCourant;
 	public String cheminFichiers, cheminImages, photoProfil;
 	private String chemin;
 	public int volumeEffetsSonores, volumeMusique;
@@ -25,7 +24,6 @@ public class Jeu {
 		Joueur j1 = new Joueur("Gaston");
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
 		partieEnCours = new Partie(j1, j2);
-		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aléatoire
 		//initialisation des blancs et des naturels aux joueurs
 		partieEnCours.distribuerBlancEtNaturels();
 		while (partieEnCours.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR || partieEnCours.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) {
@@ -35,7 +33,7 @@ public class Jeu {
 			partieEnCours.joueur1().placerPieces();
 			partieEnCours.joueur2().placerPieces();
 		}
-		while(!partieEnCours.estPartieFinie(joueurCourant)) {
+		while(!partieEnCours.estPartieFinie(partieEnCours.joueurCourant)) {
 			afficherBaseMontagne();
 			faireJouerActeurs();
 		}
@@ -43,41 +41,45 @@ public class Jeu {
 	}
 	
 	public void afficherBaseMontagne() {
-		System.out.println(partieEnCours.getBaseMontagne().toString());
+		System.out.println(this.partieEnCours.getBaseMontagne().toString());
 	}
 	
 	public void faireJouerActeurs() {
 		Coup coupDemande;
 		ArrayList<Coup> cJ=new ArrayList<Coup>();
 		Acteur jCourant, jPrecedent;
-		if (joueurCourant == 0) {
+		if (partieEnCours.getJoueurCourant() == 0) {
 			jCourant=partieEnCours.joueur1();
 			jPrecedent=partieEnCours.joueur2();
 		}else {
 			jCourant=partieEnCours.joueur2();
 			jPrecedent=partieEnCours.joueur1();
 		}
+		System.out.println("Votre camp :");
 		System.out.println(jCourant.getCamp().toString());
+		System.out.println("Vos pieces volees : "+jCourant.toStringPiecesVolees());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
-		jCourant.getCamp().retirer(coupDemande.getPosJ());
+		jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){
 				System.out.println("=========== VOL DE PIECE ===========");
-				System.out.println(jPrecedent.getCamp().toString());
+				afficherBaseMontagne();
+				System.out.println("Camp adverse :");
+				System.out.println(jCourant.getCamp().toString());
 				partieEnCours.volerPiece(jPrecedent, jCourant);
 				System.out.println("Vos pieces volees : "+jPrecedent.toStringPiecesVolees());
 			}
-		}else {
+		}else {// joue une piece BLANCHE
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
-		changementJoueurCourant();
+		partieEnCours.changementJoueurCourant();
 	}
 	
 	public void partieVictoire() {
 		System.out.println("Fin de la partie.");
-		if (joueurCourant == 0) {
+		if (partieEnCours.getJoueurCourant() == 0) {
 			System.out.print(this.partieEnCours.joueur2().getNom());
 		}else {
 			System.out.print(this.partieEnCours.joueur1().getNom());
@@ -87,21 +89,14 @@ public class Jeu {
 
 	public void piocher() {
 		Piece p;
-		if (joueurCourant == 0) {
+		if (partieEnCours.getJoueurCourant() == 0) {
 			p = this.partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
 			this.partieEnCours.joueur1().addPiecePiochee(p);
 		} else {
 			p = this.partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
 			this.partieEnCours.joueur2().addPiecePiochee(p);
 		}
-		changementJoueurCourant();
-	}
-
-	public void changementJoueurCourant() {
-		if (this.joueurCourant == 1) {
-			this.joueurCourant = 0;
-		} else
-			this.joueurCourant = 1;
+		partieEnCours.changementJoueurCourant();
 	}
 
 	public void sauverPartie(String cheminFichier) {
@@ -260,9 +255,5 @@ public class Jeu {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public int getJoueurCourant() {
-		return this.joueurCourant;
 	}
 }
