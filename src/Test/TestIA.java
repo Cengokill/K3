@@ -10,7 +10,7 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 100000; // nombre de partie de test
+        int objectif = 1000; // nombre de partie de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
@@ -39,17 +39,18 @@ public class TestIA {
 
             // CREATION DES PYRAMIDES
             PyramideJoueur pj;
-            IApiocheAlea iaP = new IApiocheAlea();
+            IApioche iaP = new IApiocheAlea();
+            IApioche iaPE = new IApiocheExpert();
 
-            pj = iaP.CreerPioche(ktrois, 0);
+            pj = iaPE.CreerPioche(ktrois, 0);
             ktrois.joueur1().setCamp(pj); // Tester avec get
-            // // System.out.println(ktrois.joueur1().getCamp().toString());
+            // System.out.println(ktrois.joueur1().getCamp().toString());
 
             pj = iaP.CreerPioche(ktrois, 1);
             ktrois.joueur2().setCamp(pj);
-            // // System.out.println(ktrois.joueur2().getCamp().toString());
+            // System.out.println(ktrois.joueur2().getCamp().toString());
 
-            // // System.out.println(ktrois.getBaseMontagne().toString());
+            // System.out.println(ktrois.getBaseMontagne().toString());
 
             // PHASE DE JEU
             // // System.out.println();
@@ -63,14 +64,14 @@ public class TestIA {
                 } else {
                     // ArrayList<Coup> lc = ktrois.coupsJouables(ktrois.joueur2());
                     // affiche(lc);
-                    c = iaJ.IACoup(ktrois, joueurCourant);
+                    c = iaE.IACoup(ktrois, joueurCourant);
                     if (c == null) {
                         // System.out.println("IAexpert renvoie un coup vide");
                     }
                 }
-                // // System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le
+                // System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le
                 // coup");
-                // // System.out.println(c.toString());
+                // System.out.println(c.toString());
 
                 // Joue
                 ktrois.jouer(c, joueurCourant);

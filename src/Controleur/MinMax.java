@@ -16,26 +16,22 @@ public class MinMax {
 
     public int eval(Partie p) { // Fonction d'évalutaion de la configuration difference entre notre
                                 // nombre de coups jouables et celui de l'adversaire
-        int nbcoupsj1 = p.coupsJouables(p.joueur1()).size();
-        int nbcoupsj2 = p.coupsJouables(p.joueur1()).size();
-        if (numerojoueur == 0) {
-            if (nbcoupsj1 == 0) {
-                return -10000;
-            }
-            if (nbcoupsj2 == 0) {
-                return 10000;
-            }
-            return (nbcoupsj1 - nbcoupsj2);
-        } else {
-            if (nbcoupsj2 == 0) {
-                return -10000;
-            }
-            if (nbcoupsj1 == 0) {
-                return 10000;
-            }
-            return (nbcoupsj2 - nbcoupsj1);
-        }
 
+        int nbcoupsia, nbcoupsadv;
+        if (numerojoueur == 0) {
+            nbcoupsia = p.coupsJouables(p.joueur1()).size();
+            nbcoupsadv = p.coupsJouables(p.joueur2()).size();
+        } else {
+            nbcoupsia = p.coupsJouables(p.joueur2()).size();
+            nbcoupsadv = p.coupsJouables(p.joueur1()).size();
+        }
+        if (nbcoupsia == 0) {
+            return -10000;
+        }
+        if (nbcoupsadv == 0) {
+            return 10000;
+        }
+        return (nbcoupsia - nbcoupsadv);
     }
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
@@ -69,7 +65,7 @@ public class MinMax {
 
         int valeurconfig = -10001;
         Iterator<Coup> it = lc.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext() && valeurconfig != 10000) {
             Coup c = it.next();
             // System.out.println("On teste le coup :" + c.toString());
             p.jouer(c, joueurcourant);
@@ -107,9 +103,9 @@ public class MinMax {
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
         // affiche(lc);
-        int valeurconfig = 10000;
+        int valeurconfig = 10001;
         Iterator<Coup> it = lc.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext() && valeurconfig != -10000) {
             Coup c = it.next();
             // System.out.println("On teste le coup :" + c.toString());
             p.jouer(c, joueurcourant);
