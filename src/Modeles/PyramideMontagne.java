@@ -57,9 +57,9 @@ public class PyramideMontagne extends Pyramide {
 									Position pp = new Position(i, j);
 									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
 									pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
+									arr.add(pieceNaturelle);
 									if (arr.size() == 0) {
 										arr.add(newC);
-										arr.add(pieceNaturelle);
 										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										// System.out.println("ajout : " +
 										// newC.getPiece().toString()+":"+newC.getPos().toString());
@@ -69,7 +69,6 @@ public class PyramideMontagne extends Pyramide {
 											// n'est pas identique e
 											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 											arr.add(newC);
-											arr.add(pieceNaturelle);
 											//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 										}
 									}
@@ -79,7 +78,6 @@ public class PyramideMontagne extends Pyramide {
 										// n'est pas identique e
 										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
 										arr.add(newC);
-										arr.add(pieceNaturelle);
 										//System.out.println("test : "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
 									}
 								}
