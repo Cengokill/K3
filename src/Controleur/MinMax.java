@@ -54,6 +54,16 @@ public class MinMax {
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
         affiche(lc);
+        if (lc.size() == 1) {
+            Coup c = lc.get(0);
+            p.jouer(c, joueurcourant);
+            int uncoup = eval(p);
+            p.annulercoup(c, joueurcourant);
+            if (flag) {
+                parfait = c;
+            }
+            return uncoup;
+        }
 
         int valeurconfig = -10001;
         Iterator<Coup> it = lc.iterator();
