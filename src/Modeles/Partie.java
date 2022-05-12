@@ -141,19 +141,14 @@ public class Partie {
 				coupsPosables.add(c);
 			} else {
 				for (PiecePyramide pp : piecesBase) {
-					p2 = pp.getPiece();// une piece courante du camp de la montagne
-					pos2 = pp.getPos();
-					if ((pJoueurCourante.getColor() == p2.getColor()) && !contiens(piecesDoublons, pp)) {// ||
-																											// p2.getColor()==Couleurs.NATUREL
+					p2 = pp.getPiece();// piece courante du camp de la montagne
+					pos2 = pp.getPos();// position de la piece
+					if (((pJoueurCourante.getColor() == p2.getColor())) && !contiens(piecesDoublons, pp)) {
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
-						for (int i = 0; i < piecesDoublons.size(); i++) {
-							// System.out.println(piecesDoublons.get(i).toString());
-						}
-						// System.out.println("fin");
 					}
 				}
 			}
