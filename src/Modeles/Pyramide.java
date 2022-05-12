@@ -15,6 +15,11 @@ public class Pyramide {
 	public int getHauteur() {
 		return this.hauteur;
 	}
+	
+	public boolean estPleine() {
+		System.out.println("La base de la montagne est PLEINE !");
+		return pyramide[hauteur-1][0]!=null;
+	}
 
 	public Piece getPiece(Position p) {
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
