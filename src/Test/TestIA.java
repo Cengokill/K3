@@ -7,7 +7,7 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 1; // nombre de partie de test
+        int objectif = 100000; // nombre de partie de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
@@ -62,7 +62,7 @@ public class TestIA {
                         System.out.println("IAexpert renvoie un coup vide");
                     }
                 }
-                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup ");
+                System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le coup");
                 System.out.println(c.toString());
 
                 // Joue
@@ -88,11 +88,10 @@ public class TestIA {
                 victoirej1++;
             }
             nbParties++;
-            ktrois.affichesac();
         }
-
-        System.out.println("Taux de victoire du joueur 1: " + (victoirej1 * 100 / (objectif)) + "%");
-        System.out.println("Taux de victoire du joueur 2: " + (victoirej2 * 100 / (objectif)) + "%");
+        System.out.println("Nombre de partie jouer :" + objectif);
+        System.out.println("Taux de victoire du joueur 1: " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
+        System.out.println("Taux de victoire du joueur 2: " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
 
     }
 
