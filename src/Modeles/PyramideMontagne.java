@@ -54,84 +54,10 @@ public class PyramideMontagne extends Pyramide {
 				}
 			}
 		}
+		/*
 		System.out.println("Pieces posables sur le camp de la montagne :");
 		for(int k=0; k<arr.size(); k++) {
 			System.out.println(arr.get(k).toString());
-		}
-		/*
-		boolean caseSupGauche, caseSupDroite;
-		PiecePyramide newC, pieceNaturelle;
-		// derniere place de la pyramide
-		if (pyramide[hauteur - 1][0] == null && pyramide[hauteur - 2][0] != null && pyramide[hauteur - 2][1] != null) {
-			Position pp = new Position(hauteur - 1, 0);
-			newC = new PiecePyramide(new Piece(pyramide[hauteur - 2][0].getColor()), pp);
-			arr.add(newC);
-			newC = new PiecePyramide(new Piece(pyramide[hauteur - 2][1].getColor()), pp);
-			arr.add(newC);
-		}
-		// interieur pyramide
-		else {
-			for (int i = 0; i <= hauteur - 2; i++) {
-				for (int j = 0; j < pyramide[i].length; j++) {
-					// en haut a droite
-					if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
-						if (j == 0) {
-							caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe
-													// pas
-						} else {
-							caseSupGauche = (pyramide[i + 1][j - 1] == null); // on regarde si en haut a gauche est
-																				// libre
-						}
-						if (j == pyramide[i].length - 1) {
-							caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe
-													// pas
-						} else {
-							caseSupDroite = (pyramide[i + 1][j] == null); // on regarde si en haut a droite est libre
-						}
-						// on regarde en haut a gauche + en haut a droite
-						if (caseSupGauche && caseSupDroite) { // on regarde s'il y a des pieces porteuses
-							if (j != (pyramide[i].length) && i != 0) {
-								if (i == 0 || (pyramide[i - 1][j] != null && pyramide[i - 1][j + 1] != null)) {// si les
-																												// pieces
-																												// du
-																												// dessous
-																												// existent
-									Position pp = new Position(i, j);
-									newC = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), pp);
-									pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
-									arr.add(pieceNaturelle);
-									if (arr.size() == 0) {
-										arr.add(newC);
-										// System.out.println("test :
-										// "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
-										// System.out.println("ajout : " +
-										// newC.getPiece().toString()+":"+newC.getPos().toString());
-									} else {
-										if (!arr.get(arr.size() - 1).egal(newC)) {// si la piece n'a pas ete ajoutee a
-																					// arr
-											// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
-											// n'est pas identique e
-											// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
-											arr.add(newC);
-											// System.out.println("test :
-											// "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
-										}
-									}
-									newC = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()), pp);
-									if (!arr.get(arr.size() - 1).egal(newC)) {
-										// System.out.println(newC.getPiece().toString()+":"+newC.getPos().toString()+"
-										// n'est pas identique e
-										// "+p.get(p.size()-1).getPiece().toString()+":"+p.get(p.size()-1).getPos().toString());
-										arr.add(newC);
-										// System.out.println("test :
-										// "+pieceNaturelle.getPiece().toString()+":"+pieceNaturelle.getPos().toString());
-									}
-								}
-							}
-						}
-					}
-				}
-			}
 		}
 		*/
 		return arr;
