@@ -19,7 +19,11 @@ public class PiecePyramide {
 
 	public String toString() {
 		String res = "";
-		res += piece.toString() + " | " + pos.toString();
+		if(pos==null) {
+			res += piece.toString() + " | PAS DE POSITION";
+		}else {
+			res += piece.toString() + " | " + pos.toString();
+		}
 		return res;
 	}
 

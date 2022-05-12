@@ -39,6 +39,8 @@ public class Jeu {
 			i=partieEnCours.joueur1().placerPieces(i);
 			j=partieEnCours.joueur2().placerPieces(j);
 		}
+		System.out.println("Les deux camps des joueurs ont ete creer !");
+		System.out.println("================ Deuxieme phase du jeu ================");
 		while(!partieEnCours.estPartieFinie(partieEnCours.joueurCourant)) {
 			faireJouerActeurs();
 		}
