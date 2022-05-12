@@ -121,11 +121,6 @@ public class Partie {
 		Position pos1, pos2;
 		Coup c;
 		ArrayList<PiecePyramide> piecesBase = this.baseMontagne.piecesPosables();
-		System.out.println("Pieces posables :");
-		for(int i=0; i<piecesBase.size(); i++) {
-			System.out.println(piecesBase.get(i).toString());
-		}
-		System.out.println("fin");
 		ArrayList<PiecePyramide> piecesJoueur = j.getPiecesJouables();
 		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
@@ -145,9 +140,9 @@ public class Partie {
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
 						for(int i=0; i<piecesDoublons.size(); i++) {
-							System.out.println(piecesDoublons.get(i).toString());
+							//System.out.println(piecesDoublons.get(i).toString());
 						}
-						System.out.println("fin");
+						//System.out.println("fin");
 					}
 				}
 			}
