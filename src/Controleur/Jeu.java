@@ -35,6 +35,7 @@ public class Jeu {
 		//ici les joueurs devront creer leur propre camp
 		int i=0, j=0;//indice des pieces a choisir
 		while (partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
+			afficherBaseMontagne();
 			i=partieEnCours.joueur1().placerPieces(i);
 			j=partieEnCours.joueur2().placerPieces(j);
 		}

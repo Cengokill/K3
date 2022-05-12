@@ -50,22 +50,21 @@ public class Joueur extends ActeurClasse implements Acteur {
 	                if(numChaine.equals("+")) {
 	                	System.out.println("Piece suivante demandee.");
 	                	indice++;
-	                	num=-1;
 	                }else {
 	                	if(numChaine.equals("-")) {
 	                		System.out.println("Piece precedente demandee.");
 	                		indice--;
-		                	num=-1;
 	                	}else {
-		                	num=Integer.parseInt(numChaine);
+		                	indice=Integer.parseInt(numChaine);
+		                	num=0;
 	                	}
 	                }
-	                if(num>piecesPiochees.size()-1) {
+	                if(indice>piecesPiochees.size()-1) {
 	                	indice= piecesPiochees.size()-1;
 	                	num=-1;
 	                	System.err.println("Erreur : indice non valide. Recommencez.");
 	                }
-                	if(num<0) {
+                	if(indice<0) {
                 		indice= 0;
                 		num=-1;
                 		System.err.println("Erreur : indice non valide. Recommencez.");
@@ -73,10 +72,10 @@ public class Joueur extends ActeurClasse implements Acteur {
                 }
                 p=piecesPiochees.get(indice);
                 arrPos=super.campJ.posDisponibles();
-                pos=arrPos.get(num);//pos devient la position choisie par le joueur
+                pos=arrPos.get(indice);//pos devient la position choisie par le joueur
                 PiecePyramide pp = new PiecePyramide(p, pos);
                 super.campJ.empiler(pp);
-                super.piecesPiochees.remove(p);
+                super.piecesPiochees.remove(indice);
             }
         }
         return indice;
