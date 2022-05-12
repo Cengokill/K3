@@ -73,9 +73,7 @@ public class Jeu {
 		System.out.println(jPrecedent.getCamp().toString());
 		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
 		cJ=this.partieEnCours.coupsJouables(jCourant);
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
 		coupDemande=jCourant.jouer(cJ);
-		System.out.println("BBBBBBBBBBBBBBBBBBBBBBB");
 		jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
@@ -86,8 +84,6 @@ public class Jeu {
 				System.out.println(jCourant.getCamp().toString());
 				this.partieEnCours.volerPiece(jPrecedent, jCourant);
 				System.out.println("Vos pieces volees : "+jPrecedent.toStringPiecesVolees());
-				System.out.println("Camp adverse sans la piece volee :");
-				System.out.println(jCourant.getCamp().toString());
 			}
 		}else {// joue une piece BLANCHE
 			System.out.println("Vous avez decide de passer votre tour !");

@@ -21,6 +21,13 @@ public class PyramideMontagne extends Pyramide {
 			this.pyramide = etage;
 		}
 	}
+	
+	public boolean estPleine() {
+		if(pyramide[hauteur-1][0]!=null) {
+			System.out.println("La base de la montagne est PLEINE !");
+		}
+		return pyramide[hauteur-1][0]!=null;
+	}
 
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();	
