@@ -22,7 +22,7 @@ public class Partie {
 	private final int NB_PIECES_BLANCS = 2;
 
 	public Partie(Acteur j1, Acteur j2) {
-		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aléatoire
+		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur alï¿½atoire
 		this.historique = new ArrayList<Coup>();
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
@@ -45,11 +45,11 @@ public class Partie {
 		} else
 			this.joueurCourant = 1;
 	}
-	
+
 	public int getJoueurCourant() {
 		return this.joueurCourant;
 	}
-	
+
 	public boolean joueurPeutJouer(Acteur j) {
 		return coupsJouables(j).isEmpty();
 	}
@@ -139,10 +139,10 @@ public class Partie {
 						c = new Coup(pJoueurCourante, pos1, pos2);
 						piecesDoublons.add(pp);
 						coupsPosables.add(c);
-						for(int i=0; i<piecesDoublons.size(); i++) {
-							//System.out.println(piecesDoublons.get(i).toString());
+						for (int i = 0; i < piecesDoublons.size(); i++) {
+							// System.out.println(piecesDoublons.get(i).toString());
 						}
-						//System.out.println("fin");
+						// System.out.println("fin");
 					}
 				}
 			}
@@ -251,8 +251,6 @@ public class Partie {
 			// if (baseMontagne.estPorteursMemeCouleur(c.getPosBase())) { // VOLER
 			// Joueur adverse recupere une piece
 			// }
-		} else {
-			System.out.println("Vous avez decide de passer votre tour !");
 		}
 	}
 
@@ -267,8 +265,6 @@ public class Partie {
 		// ajoute a sa pyramide
 		if (joueurcourant == 0) {
 			this.j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
-		} else {
-			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		}
 	}
 }
