@@ -118,7 +118,6 @@ public class Partie {
 	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
 		for (int i = 0; i < arr.size(); i++) {
 			if (arr.get(i).egal(pp)) {
-				System.out.println(arr.get(i).toString());
 				return true;
 			}
 		}
