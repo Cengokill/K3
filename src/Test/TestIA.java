@@ -10,7 +10,7 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 1000; // nombre de partie de test
+        int objectif = 100000; // nombre de partie de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
@@ -55,16 +55,17 @@ public class TestIA {
             // PHASE DE JEU
             // // System.out.println();
             // // System.out.println("Phase de jeu");
-            IAjeuExpert iaJ = new IAjeuExpert(5);
-            IAjeuExpert iaE = new IAjeuExpert(3);
+            IAjeuAlea iaA = new IAjeuAlea();
+            IAjeuExpert iaJ = new IAjeuExpert(3);
+            IAjeuExpert iaE = new IAjeuExpert(5);
             while (!ktrois.estPartieFinie(joueurCourant)) { // Argument partie en cours
                 Coup c;
                 if (joueurCourant == 0) {
-                    c = iaJ.IACoup(ktrois, joueurCourant);
+                    c = iaA.IACoup(ktrois, joueurCourant);
                 } else {
                     // ArrayList<Coup> lc = ktrois.coupsJouables(ktrois.joueur2());
                     // affiche(lc);
-                    c = iaE.IACoup(ktrois, joueurCourant);
+                    c = iaA.IACoup(ktrois, joueurCourant);
                     if (c == null) {
                         // System.out.println("IAexpert renvoie un coup vide");
                     }
@@ -102,6 +103,7 @@ public class TestIA {
         System.out.println("Taux de victoire du joueur 2: " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
         double t2 = (double) System.currentTimeMillis();
         System.out.println("Temps moyen d'une partie: " + (t2 - t1) / (objectif * 1000) + " s");
+        System.out.println("Temps total de toutes les parties : " + ((t2 - t1) / 1000) + " s");
     }
 
     public static void affiche(ArrayList<Coup> l) {
