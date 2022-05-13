@@ -46,7 +46,7 @@ public class TestIA {
             ktrois.joueur1().setCamp(pj); // Tester avec get
             // System.out.println(ktrois.joueur1().getCamp().toString());
 
-            pj = iaP.CreerPioche(ktrois, 1);
+            pj = iaPE.CreerPioche(ktrois, 1);
             ktrois.joueur2().setCamp(pj);
             // System.out.println(ktrois.joueur2().getCamp().toString());
 
@@ -55,8 +55,8 @@ public class TestIA {
             // PHASE DE JEU
             // // System.out.println();
             // // System.out.println("Phase de jeu");
-            IAjeuAlea iaJ = new IAjeuAlea();
-            IAjeuExpert iaE = new IAjeuExpert();
+            IAjeuExpert iaJ = new IAjeuExpert(5);
+            IAjeuExpert iaE = new IAjeuExpert(3);
             while (!ktrois.estPartieFinie(joueurCourant)) { // Argument partie en cours
                 Coup c;
                 if (joueurCourant == 0) {
