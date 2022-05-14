@@ -10,7 +10,7 @@ public class ActeurClasse {
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
 	protected ArrayList<Coup> historiqueCoups;
 	protected int nb_BlancsJoues;//pieces blanches jouees
-	protected int nb_Mauvais_Coups_Joues;//mauvais coups joues
+	protected int nb_Mauvais_Coups_Joues;//mauvais coups joues (une piece sur 2 pieces de meme couleur)
 
 	public ActeurClasse(String nom) {
 		this.nom = nom;
@@ -26,12 +26,28 @@ public class ActeurClasse {
 		this.historiqueCoups.add(c);
 	}
 	
+	public void retireCoupHist(Coup c) {
+		int taille= this.historiqueCoups.size();
+		if(c.getPosBase()==null) {
+			retireBlancJoue();
+		}
+		this.historiqueCoups.remove(taille-1);
+	}
+	
 	public void addBlancJoue() {
 		this.nb_BlancsJoues++;
 	}
 	
+	public void retireBlancJoue() {
+		this.nb_BlancsJoues--;
+	}
+	
 	public void addMauvaisCoup() {
 		this.nb_Mauvais_Coups_Joues++;
+	}
+	
+	public void retireMauvaisCoup() {
+		this.nb_Mauvais_Coups_Joues--;
 	}
 
 	public String getNom() {// renvoie le nom du joueur
@@ -51,6 +67,17 @@ public class ActeurClasse {
 		}
 		return pJouables;
 	}
+	
+	public Piece piocherPiece(ArrayList<Piece> sac) {// choisis une piece dans le sac
+		Piece pChoisie = null;
+		if (sac.isEmpty()) {
+			System.err.println("erreur sac vide");
+		} else {
+			pChoisie = sac.get(0);
+		}
+		sac.remove(pChoisie);
+		return pChoisie;
+	}
 
 	public ArrayList<Piece> getPiecesVolees() {// piece Volees
 		return this.piecesVolees;
@@ -68,27 +95,16 @@ public class ActeurClasse {
 		return tableau;
 	}
 
+	public void addPieceVolee(Piece p) {
+		this.piecesVolees.add(p);
+	}
+	
 	public ArrayList<Piece> getPiecesPiochees() {// piece Piochees
 		return this.piecesPiochees;
 	}
 
-	public void addPieceVolee(Piece p) {
-		this.piecesVolees.add(p);
-	}
-
 	public int getTaillePiecesPiochees() {
 		return piecesPiochees.size();
-	}
-
-	public Piece piocherPiece(ArrayList<Piece> sac) {// choisis une piece dans le sac
-		Piece pChoisie = null;
-		if (sac.isEmpty()) {
-			System.err.println("erreur sac vide");
-		} else {
-			pChoisie = sac.get(0);
-		}
-		sac.remove(pChoisie);
-		return pChoisie;
 	}
 
 	public void afficherCoupsJouables(ArrayList<Coup> arr) {
@@ -96,9 +112,5 @@ public class ActeurClasse {
 		for (int i = 0; i < taille; i++) {
 			System.out.println("[" + i + "] : " + arr.get(i).toString());
 		}
-	}
-
-	public void setCamp(PyramideJoueur campJ) {
-		this.campJ = campJ;
 	}
 }

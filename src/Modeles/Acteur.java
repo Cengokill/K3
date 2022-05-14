@@ -38,6 +38,4 @@ public interface Acteur {
 	public Piece piocherPiece(ArrayList<Piece> sac);
 
 	public void afficherCoupsJouables(ArrayList<Coup> arr);// deja implemente
-
-	public void setCamp(PyramideJoueur campJ);// deja implemente	
 }

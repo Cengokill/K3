@@ -42,7 +42,7 @@ public class Jeu {
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
 		//PHASE 2
-		while(!partieEnCours.estPartieFinie(partieEnCours.joueurCourant)) {
+		while(!partieEnCours.estPartieFinie()) {
 			faireJouerActeurs();
 		}
 		partieVictoire();

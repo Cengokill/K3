@@ -50,7 +50,23 @@ public class Partie {
 	}
 
 	public boolean joueurPeutJouer(Acteur j) {
-		return coupsJouables(j).isEmpty();
+		return coupsJouables(j).isEmpty() && !this.baseMontagne.estPleine();
+		//si le joueur n'a plus de coups jouables mais que la pyramide est pleine alors il n'a pas perdu
+		//si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine alors il a perdu
+	}
+	
+	public boolean estPartieFinie() {
+		boolean pleine=this.baseMontagne.estPleine();
+		if(pleine) {//egalite
+			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurCourant, 2);
+			return pleine;
+		}else {//un des deux joueurs a perdu
+			if(this.joueurCourant == 0) {
+				return joueurPeutJouer(joueur1());
+			}else {
+				return joueurPeutJouer(joueur2());
+			}
+		}
 	}
 
 	public void initialiserSac() {// ajoute toutes les pieces au sac
@@ -199,22 +215,6 @@ public class Partie {
 		}
 	}
 
-	public boolean estPartieFinie(int joueurCourant) {
-		boolean b=false;
-		boolean pleine=this.baseMontagne.estPleine();
-		if (joueurCourant == 0) {
-			b= pleine || joueurPeutJouer(joueur1());
-		} else {
-			b= pleine || joueurPeutJouer(joueur2());
-		}
-		if(b) {//creer les stats de la partie uniquement si elle est finie
-			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurCourant);
-			return b;
-		}else {
-			return false;
-		}
-	}
-
 	public Acteur joueur1() {
 		return j1;
 	}
@@ -258,12 +258,14 @@ public class Partie {
 		// retire de la pyramide joueur
 		if (joueurcourant == 0) {
 			this.j1.getCamp().retirer(c.getPosJ());
+			this.j1.addCoupHist(c);
 		} else {
 			this.j2.getCamp().retirer(c.getPosJ());
+			this.j2.addCoupHist(c);
 		}
 
-		// ajoute a sa pyramide
-		if (c.getPosBase() != null) {
+		// ajoute a la montagne
+		if (c.getPosBase() != null) {//si pas de blanc joue
 			this.baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
 		}
 	}
