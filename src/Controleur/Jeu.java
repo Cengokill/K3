@@ -56,9 +56,11 @@ public class Jeu {
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
 			/*
+			//chaque joueur doit choisir la piece a empiler sur sa pioche
 			i=this.partieEnCours.joueur1().placerPiece(i);
 			j=this.partieEnCours.joueur2().placerPiece(j);
 			*/
+			//creation des pioches automatiquement sans demander aux joueurs
 			this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
 			this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
 		}
