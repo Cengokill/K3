@@ -39,7 +39,7 @@ public interface Acteur {
 	
 	public ArrayList<PiecePyramide> getPiecesJouables();// deja implemente
 
-	public ArrayList<PiecePyramide> getPiecesVolees();// deja implemente
+	public ArrayList<Piece> getPiecesVolees();// deja implemente
 	
 	public void addPiecePiochee(Piece p);// deja implemente
 
@@ -47,9 +47,9 @@ public interface Acteur {
 
 	public ArrayList<Piece> getPiecesPiochees();// deja implemente
 
-	public void addPieceVolee(PiecePyramide pp);// deja implemente
+	public void addPieceVolee(Piece p);// deja implemente
 	
-	public PiecePyramide retirerDernierePieceVolee();
+	public Piece retirerDernierePieceVolee();
 
 	public int getTaillePiecesPiochees();// deja implemente
 

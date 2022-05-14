@@ -200,7 +200,7 @@ public class Partie {
 
 	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
 	// celle a voler et une deuxieme qui vole la piece donner en argument
-	public void volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
@@ -213,22 +213,13 @@ public class Partie {
 			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 			victime.getCamp().retirer(pieceVolee.getPos());
-			voleur.addPieceVolee(pieceVolee);// ajout de la piece volee aux pieces volees du voleur
+			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
 			voleur.addVol();
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
+			return new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 		} else {
 			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
-		}
-	}
-	
-	public void annulerDernierVol(int joueurvoleur) {
-		PiecePyramide pp;
-		if (joueurvoleur == 0) {
-			pp=this.j1.retirerDernierePieceVolee();//on retire la piece des pieces volees du joueur
-			this.j2.getCamp().empiler(pp);//on empile la piece dans le camp adverse
-		} else {
-			pp=this.j2.retirerDernierePieceVolee();
-			this.j1.getCamp().empiler(pp);
+			return null;
 		}
 	}
 

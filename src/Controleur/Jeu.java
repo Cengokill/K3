@@ -121,6 +121,7 @@ public class Jeu {
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				jCourant.addMauvaisCoup();
 				this.partieEnCours.volerPiece(jPrecedent, jCourant);
+				jPrecedent.addCoupHist(coupDemande);
 			}
 		}else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
