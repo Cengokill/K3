@@ -12,6 +12,7 @@ public class Partie {
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private Statistiques statistiques;//creer a la fin de la partie uniquement
 	public int joueurCourant;
+	public int joueurDebut;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -24,6 +25,7 @@ public class Partie {
 
 	public Partie(Acteur j1, Acteur j2) {
 		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
+		this.joueurDebut=joueurCourant;
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
@@ -58,15 +60,22 @@ public class Partie {
 	public boolean estPartieFinie() {
 		boolean pleine=this.baseMontagne.estPleine();
 		if(pleine) {//egalite
-			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurCourant, 2);
+			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 2);
 			return pleine;
 		}else {//un des deux joueurs a perdu
 			if(this.joueurCourant == 0) {
-				return joueurPeutJouer(joueur1());
+				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
+					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 0);
+					return false;
+				}
 			}else {
-				return joueurPeutJouer(joueur2());
+				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
+					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 1);
+					return false;
+				}
 			}
-		}
+		}//si joueur 1 et joueur 2 peuvent jouer et que la montagne n'est pas pleine
+		return true;
 	}
 
 	public void initialiserSac() {// ajoute toutes les pieces au sac
