@@ -13,23 +13,23 @@ public class TestStrategie {
         while (compt < objectif) {
             Acteur j1 = new Joueur("BigBrain");
             Acteur j2 = new Joueur("Stupid");
-            Partie ktrois = new Partie(j1, j2);
+            Partie ktrois = new Partie(j1, j2, compt);// numero de partie
             for (int i = 0; i < 2; i++) {
                 Piece pb = new Piece(Couleurs.BLANC);
                 Piece pn = new Piece(Couleurs.NATUREL);
-                ktrois.joueur1().addPiecesPiochees(pb);
-                ktrois.joueur1().addPiecesPiochees(pn);
-                ktrois.joueur2().addPiecesPiochees(pb);
-                ktrois.joueur2().addPiecesPiochees(pn);
+                ktrois.joueur1().addPiecePiochee(pb);
+                ktrois.joueur1().addPiecePiochee(pn);
+                ktrois.joueur2().addPiecePiochee(pb);
+                ktrois.joueur2().addPiecePiochee(pn);
             }
 
             for (int i = 0; i < 17; i++) { // pioche initialiser
                 Piece p;
                 p = ktrois.joueur1().piocherPiece(ktrois.getBasePieces()); // Attention pour l'instant il y a les blancs
                                                                            // et naturels dans le sac
-                ktrois.joueur1().addPiecesPiochees(p);
+                ktrois.joueur1().addPiecePiochee(p);
                 p = ktrois.joueur2().piocherPiece(ktrois.getBasePieces());
-                ktrois.joueur2().addPiecesPiochees(p);
+                ktrois.joueur2().addPiecePiochee(p);
             }
             System.out.println("Les pioches des joueurs sont faites");
 
@@ -49,8 +49,8 @@ public class TestStrategie {
             int jcourant = 1;
             IAjeuAlea ia = new IAjeuAlea();
 
-            while (ktrois.CoupsJouables((Joueur) ktrois.joueur1()).size() != 0
-                    && ktrois.CoupsJouables((Joueur) ktrois.joueur2()).size() != 0) {
+            while (ktrois.coupsJouables((Joueur) ktrois.joueur1()).size() != 0
+                    && ktrois.coupsJouables((Joueur) ktrois.joueur2()).size() != 0) {
                 Coup c;
                 c = ia.IACoup(ktrois, jcourant);
                 jouer(ktrois, c, jcourant);
@@ -61,9 +61,9 @@ public class TestStrategie {
                 }
             }
             // resultat gagnant
-            if (ktrois.CoupsJouables((Joueur) ktrois.joueur1()).size() == 0) {
+            if (ktrois.coupsJouables((Joueur) ktrois.joueur1()).size() == 0) {
                 victoirej2++;
-            } else if (ktrois.CoupsJouables((Joueur) ktrois.joueur1()).size() == 0) {
+            } else if (ktrois.coupsJouables((Joueur) ktrois.joueur1()).size() == 0) {
                 victoirej1++;
             }
             compt++;
@@ -76,7 +76,7 @@ public class TestStrategie {
     public static void jouer(Partie ktrois, Coup c, int jcourant) {
         PiecePyramide pp = new PiecePyramide(c.getPiece(), c.getPosBase());
         ktrois.getBaseMontagne().empiler(pp);
-        PiecePyramide ppj = new PiecePyramide(c.getPiece(), c.getposJ());
+        PiecePyramide ppj = new PiecePyramide(c.getPiece(), c.getPosJ());
         switch (jcourant) {
             case 1:
                 ktrois.joueur1().getCamp().empiler(ppj);

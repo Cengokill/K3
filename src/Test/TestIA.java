@@ -10,7 +10,7 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 100000; // nombre de partie de test
+        int objectif = 100; // nombre de parties de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
@@ -20,13 +20,13 @@ public class TestIA {
             // INITIALISATION DE LA PARTIE
             Joueur j1 = new Joueur("Stupid 1");
             Joueur j2 = new Joueur("BigBrain");
-            Partie ktrois = new Partie(j1, j2);
+            Partie ktrois = new Partie(j1, j2, nbParties);//numero de partie
             int joueurCourant = 0; // Le joueur qui commence est le premier
 
             // DISTIBUTION DES PIONS
             ktrois.distribuerBlancEtNaturels(); // On donne les blancs
             while (ktrois.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR
-                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on a pas
+                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on n a pas
                                                                                           // assez de pions
                 Piece p;
 
@@ -58,7 +58,7 @@ public class TestIA {
             IAjeuAlea iaA = new IAjeuAlea();
             IAjeuExpert iaJ = new IAjeuExpert(3);
             IAjeuExpert iaE = new IAjeuExpert(5);
-            while (!ktrois.estPartieFinie(joueurCourant)) { // Argument partie en cours
+            while (!ktrois.estPartieFinie()) { // Argument partie en cours
                 Coup c;
                 if (joueurCourant == 0) {
                     c = iaA.IACoup(ktrois, joueurCourant);

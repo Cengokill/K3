@@ -9,6 +9,8 @@ public interface Acteur {
 	
 	void melangePiecesPiochees();
 	
+	public void setCamp(PyramideJoueur camp);
+	
 	public void placerPiecesRandom(PyramideMontagne pyrM);
 	
 	public void addCoupHist(Coup c);

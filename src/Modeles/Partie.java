@@ -244,7 +244,7 @@ public class Partie {
 	public Acteur joueur2() {
 		return j2;
 	}
-
+	
 	public void afficheSac() {
 		Iterator<Piece> it = basePieces.iterator();
 		System.out.println("Dans le sac il y a:");

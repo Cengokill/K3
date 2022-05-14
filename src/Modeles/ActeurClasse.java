@@ -24,6 +24,10 @@ public class ActeurClasse {
 		campJ = new PyramideJoueur(6, 6);
 	}
 	
+	public void setCamp(PyramideJoueur camp) {
+		this.campJ=camp;
+	}
+
 	public void addCoupHist(Coup c) {
 		this.historiqueCoups.add(c);
 	}
