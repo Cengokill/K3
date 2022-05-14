@@ -207,11 +207,22 @@ public class Partie {
 			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 			victime.getCamp().retirer(pieceVolee.getPos());
-			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee a la liste des pieces volees du
-														// voleur
+			voleur.addPieceVolee(pieceVolee);// ajout de la piece volee aux pieces volees du voleur
+			voleur.addVol();
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
 		} else {
 			System.out.println("Vous avez choisi de ne pas voler une piece a " + victime.getNom() + ".");
+		}
+	}
+	
+	public void annulerDernierVol(int joueurvoleur) {
+		PiecePyramide pp;
+		if (joueurvoleur == 0) {
+			pp=this.j1.retirerDernierePieceVolee();//on retire la piece des pieces volees du joueur
+			this.j2.getCamp().empiler(pp);//on empile la piece dans le camp adverse
+		} else {
+			pp=this.j2.retirerDernierePieceVolee();
+			this.j1.getCamp().empiler(pp);
 		}
 	}
 
@@ -279,7 +290,7 @@ public class Partie {
 		}
 	}
 
-	public void annulercoup(Coup c, int joueurcourant) {
+	public void annulerCoup(Coup c, int joueurcourant) {
 		// retire de la base
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.baseMontagne.retirer(c.getPosBase());

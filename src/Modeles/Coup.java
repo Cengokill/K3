@@ -5,8 +5,8 @@ public class Coup {
 	private Position posCampJoueur;
 	private Position posBaseMontagne;
 
-	// un coup est d�fini par une pi�ce, une position de d�part depuis la pyramide
-	// du joueur et une position d'arriv�e dans la base de la montagne
+	// un coup est defini par une piece, une position de depart depuis la montagne
+	// du joueur et une position d'arrivee dans la base de la montagne
 	public Coup(Piece p, Position pos1, Position pos2) {
 		this.piece = p;
 		this.posCampJoueur = pos1;
@@ -27,13 +27,13 @@ public class Coup {
 
 	public String toString() {
 		String tableau = new String();
-		if (posBaseMontagne == null) {
-			tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + " Vous pouvez passez votre tour.";
+		if (this.posBaseMontagne == null) {
+			tableau += this.piece.toString() + "|" + this.posCampJoueur.toString() + "|" + " Vous pouvez passez votre tour.";
 		} else {
-			if (posCampJoueur == null) {
-				tableau += piece.toString() + "| Piece volee |" + posBaseMontagne.toString();
+			if (this.posCampJoueur == null) {
+				tableau += this.piece.toString() + "| Piece volee |" + this.posBaseMontagne.toString();
 			}else {
-				tableau += piece.toString() + "|" + posCampJoueur.toString() + "|" + posBaseMontagne.toString();
+				tableau += this.piece.toString() + "|" + this.posCampJoueur.toString() + "|" + this.posBaseMontagne.toString();
 			}
 		}
 		return tableau;

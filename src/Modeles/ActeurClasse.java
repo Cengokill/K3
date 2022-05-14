@@ -6,15 +6,16 @@ public class ActeurClasse {
 
 	protected String nom;
 	protected PyramideJoueur campJ;
-	protected ArrayList<Piece> piecesVolees;// pieces que le joueur a volees a l'autre joueur
+	protected ArrayList<PiecePyramide> piecesVolees;// pieces que le joueur a volees a l'autre joueur
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
 	protected ArrayList<Coup> historiqueCoups;
 	protected int nb_BlancsJoues;//pieces blanches jouees
 	protected int nb_Mauvais_Coups_Joues;//mauvais coups joues (une piece sur 2 pieces de meme couleur)
+	protected int nb_Vols;
 
 	public ActeurClasse(String nom) {
 		this.nom = nom;
-		this.piecesVolees = new ArrayList<Piece>();
+		this.piecesVolees = new ArrayList<PiecePyramide>();
 		this.piecesPiochees = new ArrayList<Piece>();
 		this.historiqueCoups=new ArrayList<Coup>();
 		this.nb_BlancsJoues=0;
@@ -24,6 +25,18 @@ public class ActeurClasse {
 	
 	public void addCoupHist(Coup c) {
 		this.historiqueCoups.add(c);
+	}
+	
+	public ArrayList<Coup> getHistCoups() {
+		return this.historiqueCoups;
+	}
+	
+	public int getBlancsJoues() {
+		return this.nb_BlancsJoues;
+	}
+	
+	public int getMauvaisCoupsJoues() {
+		return this.nb_Mauvais_Coups_Joues;
 	}
 	
 	public void retireCoupHist(Coup c) {
@@ -49,6 +62,14 @@ public class ActeurClasse {
 	public void retireMauvaisCoup() {
 		this.nb_Mauvais_Coups_Joues--;
 	}
+	
+	public void addVol() {
+		this.nb_Vols++;
+	}
+	
+	public void retireVol() {
+		this.nb_Vols--;
+	}
 
 	public String getNom() {// renvoie le nom du joueur
 		return this.nom;
@@ -61,8 +82,8 @@ public class ActeurClasse {
 	public ArrayList<PiecePyramide> getPiecesJouables() {
 		ArrayList<PiecePyramide> pJouables = this.campJ.piecesJouables();
 		PiecePyramide pieceVoleeCourante;
-		for (Piece p : this.piecesVolees) {
-			pieceVoleeCourante = new PiecePyramide(p, null);
+		for (PiecePyramide pp : this.piecesVolees) {
+			pieceVoleeCourante = pp;
 			pJouables.add(pieceVoleeCourante);
 		}
 		return pJouables;
@@ -79,7 +100,7 @@ public class ActeurClasse {
 		return pChoisie;
 	}
 
-	public ArrayList<Piece> getPiecesVolees() {// piece Volees
+	public ArrayList<PiecePyramide> getPiecesVolees() {// piece Volees
 		return this.piecesVolees;
 	}
 
@@ -90,13 +111,20 @@ public class ActeurClasse {
 	public String toStringPiecesVolees() {
 		String tableau = new String();
 		for (int i = 0; i < piecesVolees.size(); i++) {
-			tableau += piecesVolees.get(i).toString();
+			tableau += piecesVolees.get(i).getPiece().toString();
 		}
 		return tableau;
 	}
 
-	public void addPieceVolee(Piece p) {
-		this.piecesVolees.add(p);
+	public void addPieceVolee(PiecePyramide pp) {
+		this.piecesVolees.add(pp);
+	}
+	
+	public PiecePyramide retirerDernierePieceVolee() {
+		int taille=this.piecesVolees.size();
+		PiecePyramide pp=this.piecesVolees.get(taille-1);
+		this.piecesVolees.remove(taille-1);
+		return pp;
 	}
 	
 	public ArrayList<Piece> getPiecesPiochees() {// piece Piochees

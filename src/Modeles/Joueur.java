@@ -17,7 +17,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 		return arr.get(Integer.parseInt(coup));
 	}
 
-	public int placerPieces(int indice) {
+	public int placerPiece(int indice) {
 		if(indice>piecesPiochees.size()-1) {
          	indice= piecesPiochees.size()-1;
          	System.err.println("Erreur : indice non valide. Recommencez.");

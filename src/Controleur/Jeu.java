@@ -36,8 +36,8 @@ public class Jeu {
 		int i=0, j=0;//indice des pieces a choisir
 		while (partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
-			i=partieEnCours.joueur1().placerPieces(i);
-			j=partieEnCours.joueur2().placerPieces(j);
+			i=partieEnCours.joueur1().placerPiece(i);
+			j=partieEnCours.joueur2().placerPiece(j);
 		}
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
