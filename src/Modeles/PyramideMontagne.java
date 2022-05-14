@@ -3,6 +3,8 @@ package Modeles;
 import java.util.ArrayList;
 
 public class PyramideMontagne extends Pyramide {
+	
+	protected ArrayList<PiecePyramide> historiquePieces;
 
 	public PyramideMontagne(int largeur, int hauteur) {
 		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
@@ -19,7 +21,13 @@ public class PyramideMontagne extends Pyramide {
 				l = l - 1;
 			}
 			this.pyramide = etage;
+			this.historiquePieces=new ArrayList<PiecePyramide>();
 		}
+	}
+	
+	public void AnnulerDernierePiece() {
+		int taille=this.historiquePieces.size();
+		this.historiquePieces.remove(taille-1);
 	}
 	
 	public boolean estPleine() {
@@ -87,7 +95,8 @@ public class PyramideMontagne extends Pyramide {
 			return;
 		} else if (p.etage == 0) {
 			// pas de piece porteuse
-			pyramide[p.etage][p.rang] = piece;
+			this.pyramide[p.etage][p.rang] = piece;
+			this.historiquePieces.add(pp);
 		} else {
 			// avec piece porteuse
 			int porteurDroitRang = p.rang;
@@ -101,7 +110,8 @@ public class PyramideMontagne extends Pyramide {
 				if (piece.getColor() == Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor()
 						|| porteurGauche.getColor() == piece.getColor() || porteurDroit.getColor() == Couleurs.NATUREL
 						|| porteurGauche.getColor() == Couleurs.NATUREL)) {
-					pyramide[p.etage][p.rang] = piece;
+					this.pyramide[p.etage][p.rang] = piece;
+					this.historiquePieces.add(pp);
 				} else {
 					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
 					return;
@@ -114,6 +124,6 @@ public class PyramideMontagne extends Pyramide {
 	}
 
 	public void ajouter(Piece p, Position pos) {
-		pyramide[pos.etage][pos.rang] = p;
+		this.pyramide[pos.etage][pos.rang] = p;
 	}
 }
