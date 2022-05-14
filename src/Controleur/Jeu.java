@@ -131,6 +131,8 @@ public class Jeu {
 	
 	public void partieVictoire() {
 		afficherBaseMontagne();
+		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
+		System.out.println(this.partieEnCours.joueur2().getCamp().toString());
 		System.out.println("Fin de la partie.");
 		if (partieEnCours.getJoueurCourant() == 0) {
 			System.out.print(this.partieEnCours.joueur2().getNom());

@@ -96,8 +96,9 @@ public class Joueur extends ActeurClasse implements Acteur {
 		//empile toutes les pieces d'un joueur sur son camp aleatoirement
 		Position pos;
         ArrayList<Position> arrPos;
+        int taillePioche=piecesPiochees.size();
         melangePiecesPiochees();
-        while(!estPosable(piecesPiochees.get(0),pyrM)&&!estPosable(piecesPiochees.get(1),pyrM)&&!estPosable(piecesPiochees.get(2),pyrM)){
+        while(!estPosable(piecesPiochees.get(taillePioche-1),pyrM)||!estPosable(piecesPiochees.get(taillePioche-2),pyrM)||!estPosable(piecesPiochees.get(taillePioche-3),pyrM)){
         	melangePiecesPiochees();
         }
         Piece p;

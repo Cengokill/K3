@@ -6,11 +6,11 @@ import Modeles.*;
 public class Main {
 	public static void main(String args[]) {
 		System.out.println("K3");
-		int i=0;
-		while(i<1) {
-			Jeu j=new Jeu("Gaston","Mademoiselle Jeanne");
-			i++;
+		Jeu j=new Jeu("Gaston","Mademoiselle Jeanne");
+		while(!j.partieEnCours.estPartieFinie()) {
+			j=new Jeu("Gaston","Mademoiselle Jeanne");
 		}
+		
 		/*
 		while(i<1) {
 			Joueur j1 = new Joueur("Gaston");
