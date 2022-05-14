@@ -113,15 +113,20 @@ public class Jeu {
 		
 		//fait jouer un joueur
 		cJ=this.partieEnCours.coupsJouables(jCourant);
-		coupDemande=jCourant.jouer(cJ);//le joueur a choisi un coup a jouer
-		jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
+		coupDemande=jCourant.jouer(cJ);//le joueur courant a choisi un coup a jouer
+		if(coupDemande.getPosJ()!=null) {//si le joueur courant ne joue pas une piece volee
+			jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
+		}else {//si le joueur courant decide de jouer une de ses pieces volees
+			jCourant.retirerPieceVolee(coupDemande.getPiece());
+			jCourant.retireVol();
+		}
 		jCourant.addCoupHist(coupDemande);
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				jCourant.addMauvaisCoup();
-				this.partieEnCours.volerPiece(jPrecedent, jCourant);
-				jPrecedent.addCoupHist(coupDemande);
+				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
+				jPrecedent.addCoupHist(vol);
 			}
 		}else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
@@ -131,6 +136,7 @@ public class Jeu {
 	}
 	
 	public void partieVictoire() {
+		this.partieEnCours.getStats().ecrireStats(this.cheminStats+"stats-001.txt",this.partieEnCours);
 		afficherBaseMontagne();
 		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
 		System.out.println(this.partieEnCours.joueur2().getCamp().toString());
@@ -297,6 +303,8 @@ public class Jeu {
 			bw.newLine();
 			bw.write(this.partieEnCours.getBaseMontagne().toString());
 			bw.newLine();
+			bw.write("joueur courant :"+this.partieEnCours.getJoueurCourant());
+			bw.newLine();
 			// ======================= JOUEUR 1 =======================
 			bw.write(" ======================= JOUEUR 1 =======================");
 			bw.newLine();
@@ -330,6 +338,7 @@ public class Jeu {
 				bw.write(this.partieEnCours.joueur2().getHistCoups().get(k).toString());
 				bw.newLine();
 			}
+			bw.close();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();

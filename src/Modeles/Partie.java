@@ -83,6 +83,10 @@ public class Partie {
 		}//si joueur 1 et joueur 2 peuvent jouer et que la montagne n'est pas pleine
 		return true;
 	}
+	
+	public Statistiques getStats() {
+		return this.statistiques;
+	}
 
 	public void initialiserSac() {// ajoute toutes les pieces au sac
 		int nb_pieces_par_couleur = 9;
@@ -240,7 +244,7 @@ public class Partie {
 		return j2;
 	}
 
-	public void affichesac() {
+	public void afficheSac() {
 		Iterator<Piece> it = basePieces.iterator();
 		System.out.println("Dans le sac il y a:");
 		int noir = 0;

@@ -1,5 +1,9 @@
 package Modeles;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Statistiques {
@@ -29,5 +33,47 @@ public class Statistiques {
 		this.nbCoupsMauvaisJ2=acteur2.getMauvaisCoupsJoues();
 		this.nbVolsJ1=acteur1.getNbVols();
 		this.nbVolsJ2=acteur2.getNbVols();
+	}
+	
+	public void ecrireStats(String chemin, Partie p) {
+		File f = new File(chemin);
+		try {
+			f.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
+			BufferedWriter bw = new BufferedWriter(writer);
+			bw.write("======= Statistiques generales =======");
+			bw.newLine();
+			bw.write("Joueur premier coup : "+this.premierCoup);
+			bw.newLine();
+			bw.write("Joueur victorieux : "+this.vainqueur);
+			bw.newLine();
+			bw.write("======= Joueur 1 =======");
+			bw.newLine();
+			bw.write("Nom : "+this.acteur1.getNom());
+			bw.newLine();
+			bw.write("Blancs joues : "+this.nbBlancsJ1);
+			bw.newLine();
+			bw.write("Vols effectues : "+this.nbVolsJ1);
+			bw.newLine();
+			bw.write("Mauvais coups joues : "+this.nbCoupsMauvaisJ1);
+			bw.newLine();
+			bw.write("======= Joueur 1 =======");
+			bw.newLine();
+			bw.write("Nom : "+this.acteur2.getNom());
+			bw.newLine();
+			bw.write("Blancs joues : "+this.nbBlancsJ2);
+			bw.newLine();
+			bw.write("Vols effectues : "+this.nbVolsJ2);
+			bw.newLine();
+			bw.write("Mauvais coups joues : "+this.nbCoupsMauvaisJ2);
+			bw.close();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

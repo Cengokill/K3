@@ -129,10 +129,8 @@ public class ActeurClasse {
 		this.piecesVolees.add(p);
 	}
 	
-	public Piece retirerDernierePieceVolee() {
-		int taille=this.piecesVolees.size();
-		Piece p=this.piecesVolees.get(taille-1);
-		this.piecesVolees.remove(taille-1);
+	public Piece retirerPieceVolee(Piece p) {
+		this.piecesVolees.remove(p);
 		return p;
 	}
 	

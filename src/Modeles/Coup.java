@@ -27,15 +27,19 @@ public class Coup {
 
 	public String toString() {
 		String tableau = new String();
+		String pos_Montagne;
+		String pos_Camp_Joueur;
 		if (this.posBaseMontagne == null) {
-			tableau += this.piece.toString() + "|" + this.posCampJoueur.toString() + "|" + " Vous pouvez passez votre tour.";
-		} else {
-			if (this.posCampJoueur == null) {
-				tableau += this.piece.toString() + "| Piece volee |" + this.posBaseMontagne.toString();
-			}else {
-				tableau += this.piece.toString() + "|" + this.posCampJoueur.toString() + "|" + this.posBaseMontagne.toString();
-			}
+			pos_Montagne="PASSEZ VOTRE TOUR";
+		}else {
+			pos_Montagne=this.posBaseMontagne.toString();
 		}
+		if(this.posCampJoueur == null) {
+			pos_Camp_Joueur="PIECE VOLEE";
+		}else {
+			pos_Camp_Joueur=this.posCampJoueur.toString();
+		}
+		tableau += this.piece.toString() + "|" + pos_Camp_Joueur + "|" + pos_Montagne;
 		return tableau;
 	}
 

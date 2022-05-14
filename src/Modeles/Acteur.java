@@ -49,7 +49,7 @@ public interface Acteur {
 
 	public void addPieceVolee(Piece p);// deja implemente
 	
-	public Piece retirerDernierePieceVolee();
+	public Piece retirerPieceVolee(Piece p);
 
 	public int getTaillePiecesPiochees();// deja implemente
 
