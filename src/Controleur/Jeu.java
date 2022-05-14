@@ -19,7 +19,7 @@ public class Jeu {
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
 
-	public Jeu(String nomJ1, String nomJ2) {
+	public Jeu(String nomJ1, String nomJ2, int numPartie) {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
 		this.cheminImages=chemin+"Images/";
@@ -32,7 +32,7 @@ public class Jeu {
 		lireOptions();
 		Joueur j1 = new Joueur(nomJ1);
 		Joueur j2 = new Joueur(nomJ2);
-		this.partieEnCours = new Partie(j1, j2);
+		this.partieEnCours = new Partie(j1, j2, numPartie);
 		lancerJeu();
 	}
 	
@@ -52,7 +52,7 @@ public class Jeu {
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
-		int i=0, j=0;//indice des pieces a choisir
+		//int i=0, j=0;//indice des pieces a choisir
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
 			/*
@@ -136,7 +136,7 @@ public class Jeu {
 	}
 	
 	public void partieVictoire() {
-		this.partieEnCours.getStats().ecrireStats(this.cheminStats+"stats-001.txt",this.partieEnCours);
+		this.partieEnCours.sauvegarderStatsPartie(this.cheminStats);
 		afficherBaseMontagne();
 		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
 		System.out.println(this.partieEnCours.joueur2().getCamp().toString());
@@ -182,6 +182,7 @@ public class Jeu {
 				while ((ligne_lue = br.readLine()) != null) {
 					tab.add(ligne_lue);
 				}
+				br.close();
 				if (tab.size() != this.NB_LIGNES_OPTIONS) {
 					System.err.println("Erreur : le fichier " + nom_fichier + " a ete modifie. Il contient " + tab.size()+" lignes.");
 					ecrireOptions();

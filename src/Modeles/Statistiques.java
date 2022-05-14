@@ -15,6 +15,7 @@ public class Statistiques {
 	 */
 	Acteur acteur1;
 	Acteur acteur2;
+	Partie p;
 	int premierCoup;
 	int vainqueur;//0 : acteur1 | 1 : acteur2 | |2 : egalite
 	int nbVolsJ1, nbVolsJ2, nbBlancsJ1, nbBlancsJ2, nbCoupsMauvaisJ1, nbCoupsMauvaisJ2;
@@ -35,8 +36,8 @@ public class Statistiques {
 		this.nbVolsJ2=acteur2.getNbVols();
 	}
 	
-	public void ecrireStats(String chemin, Partie p) {
-		File f = new File(chemin);
+	public void ecrireStats(String chemin, int numPartie) {
+		File f = new File(chemin+"00"+numPartie+".txt");
 		try {
 			f.createNewFile();
 		} catch (IOException e1) {

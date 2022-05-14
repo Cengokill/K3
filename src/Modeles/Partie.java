@@ -1,17 +1,13 @@
 package Modeles;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import Controleur.Jeu;
 
 public class Partie {
+	private int numPartie;
 	private Acteur j1;
 	private Acteur j2;
 	private ArrayList<Piece> basePieces;
@@ -29,7 +25,8 @@ public class Partie {
 	private final int NB_PIECES_NATURELS = 2;
 	private final int NB_PIECES_BLANCS = 2;
 
-	public Partie(Acteur j1, Acteur j2) {
+	public Partie(Acteur j1, Acteur j2, int numPartie) {
+		this.numPartie=numPartie;
 		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
 		this.joueurDebut=joueurCourant;
 		this.basePieces = new ArrayList<Piece>();
@@ -63,6 +60,9 @@ public class Partie {
 		//si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine alors il a perdu
 	}
 	
+	public void sauvegarderStatsPartie(String chemin) {
+		this.statistiques.ecrireStats(chemin, this.numPartie);
+	}
 	public boolean estPartieFinie() {
 		boolean pleine=this.baseMontagne.estPleine();
 		if(pleine) {//egalite
@@ -207,6 +207,7 @@ public class Partie {
 	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
+		@SuppressWarnings("resource")
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String num = myObj.nextLine();
 		int rep = Integer.parseInt(num);
