@@ -1,6 +1,7 @@
 package Modeles;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ActeurClasse {
 
@@ -25,6 +26,10 @@ public class ActeurClasse {
 	
 	public void addCoupHist(Coup c) {
 		this.historiqueCoups.add(c);
+	}
+	
+	public void melangePiecesPiochees() {
+		Collections.shuffle(this.piecesPiochees);
 	}
 	
 	public ArrayList<Coup> getHistCoups() {

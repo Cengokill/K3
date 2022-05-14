@@ -55,8 +55,12 @@ public class Jeu {
 		int i=0, j=0;//indice des pieces a choisir
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
+			/*
 			i=this.partieEnCours.joueur1().placerPiece(i);
 			j=this.partieEnCours.joueur2().placerPiece(j);
+			*/
+			this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
+			this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
 		}
 	}
 	

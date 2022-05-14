@@ -7,6 +7,10 @@ public interface Acteur {
 	// A PRORAMMER / IA
 	public Coup jouer(ArrayList<Coup> arr); // pyramide au milieu
 	
+	void melangePiecesPiochees();
+	
+	public void placerPiecesRandom(PyramideMontagne pyrM);
+	
 	public void addCoupHist(Coup c);
 	
 	public void addBlancJoue();
