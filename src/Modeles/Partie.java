@@ -1,9 +1,15 @@
 package Modeles;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
+
+import Controleur.Jeu;
 
 public class Partie {
 	private Acteur j1;
@@ -304,4 +310,5 @@ public class Partie {
 			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		}
 	}
+	
 }

@@ -8,7 +8,7 @@ public class Main {
 		System.out.println("K3");
 		int i=0;
 		while(i<1) {
-			Jeu j=new Jeu();
+			Jeu j=new Jeu("Gaston","Mademoiselle Jeanne");
 			i++;
 		}
 		/*

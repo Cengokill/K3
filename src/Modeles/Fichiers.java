@@ -23,48 +23,7 @@ public class Fichiers {
 		}
 	}
 
-	public void ecrireSauvegarde(Jeu j) {
-		try {
-			FileWriter writer = new FileWriter(f, false);// �crire en mode remplacement
-			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write("hauteur base montagne :" + j.getBaseMontagne().getHauteur());
-			bw.newLine();
-			bw.write("hauteur camp joueur :" + j.joueur1().getCamp().getHauteur());
-			bw.newLine();
-			bw.write("base montagne :");
-			bw.newLine();
-			bw.write(j.getBaseMontagne().toString());
-			bw.write("listeCoups:" + j.getHist().size());
-			for (int k = 0; k < j.getHist().size(); k++) {
-				bw.write(j.getHist().get(k).toString());
-			}
-			bw.newLine();
-			// ======================= JOUEUR 1 =======================
-			bw.write(" ======================= JOUEUR 1 =======================");
-			bw.newLine();
-			bw.write("nom joueur 1:" + j.joueur1().getNom());
-			bw.newLine();
-			bw.write("camp de base:");
-			bw.newLine();
-			bw.write(j.joueur1().getCamp().toString());
-			bw.write("pieces volees:" + j.joueur1().toStringPiecesVolees());
-			bw.newLine();
 
-			// ======================= JOUEUR 2 =======================
-			bw.write(" ======================= JOUEUR 2 =======================");
-			bw.newLine();
-			bw.write("nom joueur 2:" + j.joueur2().getNom());
-			bw.newLine();
-			bw.write("camp de base:");
-			bw.newLine();
-			bw.write(j.joueur2().getCamp().toString());
-			bw.write("pieces volees:" + j.joueur2().toStringPiecesVolees());
-			bw.close();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public Jeu lisSauvegarde() {
 		ArrayList<String> tab = new ArrayList<String>();

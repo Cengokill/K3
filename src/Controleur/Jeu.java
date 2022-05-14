@@ -13,46 +13,60 @@ import Modeles.*;
 public class Jeu {
 	public Partie partieEnCours;
 	public String chemin;
-	public String cheminStats, cheminImages, photoProfil;
+	public String cheminStats, cheminImages, cheminSauvegardes, photoProfil;
 	private int num_tour, valeur_paire;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
 
-	public Jeu() {
+	public Jeu(String nomJ1, String nomJ2) {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
 		this.cheminImages=chemin+"Images/";
+		this.cheminSauvegardes=chemin+"Sauvegardes/";
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();
 		new File(this.cheminImages).mkdirs();
+		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
-		Joueur j1 = new Joueur("Gaston");
-		Joueur j2 = new Joueur("Mademoiselle Jeanne");
+		Joueur j1 = new Joueur(nomJ1);
+		Joueur j2 = new Joueur(nomJ2);
 		this.partieEnCours = new Partie(j1, j2);
+		lancerJeu();
+	}
+	
+	public void lancerJeu() {
 		this.num_tour=1;
 		this.valeur_paire=0;
+		//PHASE 1
+		jouerPhase1();
+		//PHASE 2
+		jouerPhase2();
+	}
+	
+	public void jouerPhase1() {
 		//initialisation des blancs et des naturels aux joueurs
 		this.partieEnCours.distribuerBlancEtNaturels();
 		//initialisation des pieces des deux joueurs
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
-		//PHASE 1
 		int i=0, j=0;//indice des pieces a choisir
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
 			i=this.partieEnCours.joueur1().placerPiece(i);
 			j=this.partieEnCours.joueur2().placerPiece(j);
 		}
+	}
+	
+	public void jouerPhase2() {
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
-		//PHASE 2
-		while(!this.partieEnCours.estPartieFinie()) {
-			faireJouerActeurs();
+		while(!this.partieEnCours.estPartieFinie()) {//explicite
+			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 		}
-		partieVictoire();
+		partieVictoire();//affichage uniquement
 	}
 	
 	public void afficherBaseMontagne() {
@@ -65,14 +79,15 @@ public class Jeu {
 	}
 	
 	public void faireJouerActeurs() {
-		if(this.valeur_paire%2==0) {
-			afficherTour();
-			this.valeur_paire++;
-		}
-		afficherBaseMontagne();
 		Coup coupDemande;
 		ArrayList<Coup> cJ=new ArrayList<Coup>();
 		Acteur jCourant, jPrecedent;
+		
+		if(this.valeur_paire%2==0) {//affichage du numero du tour actuel
+			afficherTour();
+			this.valeur_paire++;
+		}
+		//attribution du joueur courant et precedent
 		if (this.partieEnCours.getJoueurCourant() == 0) {
 			jCourant=this.partieEnCours.joueur1();
 			jPrecedent=this.partieEnCours.joueur2();
@@ -80,14 +95,19 @@ public class Jeu {
 			jCourant=this.partieEnCours.joueur2();
 			jPrecedent=this.partieEnCours.joueur1();
 		}
+		//affichage dans la console de la partie
+		afficherBaseMontagne();
 		System.out.println("Votre camp :");
 		System.out.println(jCourant.getCamp().toString());
 		System.out.println("Vos pieces volees : "+jCourant.toStringPiecesVolees());
 		System.out.println("Camp adverse :");
 		System.out.println(jPrecedent.getCamp().toString());
 		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
+		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
+		
+		//fait jouer un joueur
 		cJ=this.partieEnCours.coupsJouables(jCourant);
-		coupDemande=jCourant.jouer(cJ);
+		coupDemande=jCourant.jouer(cJ);//le joueur a choisi un coup a jouer
 		jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
 		jCourant.addCoupHist(coupDemande);
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
@@ -123,15 +143,6 @@ public class Jeu {
 			this.partieEnCours.joueur2().addPiecePiochee(p);
 		}
 		partieEnCours.changementJoueurCourant();
-	}
-
-	public void sauverPartie(String cheminFichier) {
-		Fichiers files = new Fichiers(cheminFichier);
-		files.ecrireSauvegarde(this);
-	}
-
-	public void chargerPartie(String cheminSauvegardes) {
-		// Fichiers.lisSauvegarde();
 	}
 
 	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
@@ -216,7 +227,6 @@ public class Jeu {
 		try {
 			File myFile = new File(nomFichier);
 			if(myFile.isFile()) {
-				System.out.println("testFichierExistant = 0");
 				return true;
 			}
 		} catch (Exception e) {
@@ -258,4 +268,66 @@ public class Jeu {
 			e.printStackTrace();
 		}
 	}
+	
+	public void sauvegarderPartie(String nomFichier) {
+		File f = new File(this.cheminSauvegardes+nomFichier);
+		try {
+			f.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
+			BufferedWriter bw = new BufferedWriter(writer);
+			bw.write("hauteur base montagne :" + this.partieEnCours.getBaseMontagne().getHauteur());
+			bw.newLine();
+			bw.write("hauteur camp joueur :" + this.partieEnCours.joueur1().getCamp().getHauteur());
+			bw.newLine();
+			bw.write("base montagne :");
+			bw.newLine();
+			bw.write(this.partieEnCours.getBaseMontagne().toString());
+			bw.newLine();
+			// ======================= JOUEUR 1 =======================
+			bw.write(" ======================= JOUEUR 1 =======================");
+			bw.newLine();
+			bw.write("nom joueur 1:" + this.partieEnCours.joueur1().getNom());
+			bw.newLine();
+			bw.write("camp de base:");
+			bw.newLine();
+			bw.write(this.partieEnCours.joueur1().getCamp().toString());
+			bw.write("pieces volees:" + this.partieEnCours.joueur1().toStringPiecesVolees());
+			bw.newLine();
+			int nbCoups=this.partieEnCours.joueur1().getHistCoups().size();
+			bw.write("CoupsJ1:"+nbCoups);
+			for (int k = 0; k < nbCoups; k++) {
+				bw.write(this.partieEnCours.joueur1().getHistCoups().get(k).toString());
+				bw.newLine();
+			}
+
+			// ======================= JOUEUR 2 =======================
+			bw.write(" ======================= JOUEUR 2 =======================");
+			bw.newLine();
+			bw.write("nom joueur 2:" + this.partieEnCours.joueur2().getNom());
+			bw.newLine();
+			bw.write("camp de base:");
+			bw.newLine();
+			bw.write(this.partieEnCours.joueur2().getCamp().toString());
+			bw.write("pieces volees:" + this.partieEnCours.joueur2().toStringPiecesVolees());
+			bw.newLine();
+			nbCoups=this.partieEnCours.joueur2().getHistCoups().size();
+			bw.write("CoupsJ2:"+nbCoups);
+			for (int k = 0; k < nbCoups; k++) {
+				bw.write(this.partieEnCours.joueur2().getHistCoups().get(k).toString());
+				bw.newLine();
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void chargerPartie(String cheminSauvegardes) {
+		// Fichiers.lisSauvegarde();
+	}
+			
 }

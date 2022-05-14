@@ -30,5 +30,4 @@ public class Statistiques {
 		this.nbVolsJ1=acteur1.getNbVols();
 		this.nbVolsJ2=acteur2.getNbVols();
 	}
-
 }
