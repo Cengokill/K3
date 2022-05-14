@@ -8,12 +8,30 @@ public class ActeurClasse {
 	protected PyramideJoueur campJ;
 	protected ArrayList<Piece> piecesVolees;// pieces que le joueur a volees a l'autre joueur
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
+	protected ArrayList<Coup> historiqueCoups;
+	protected int nb_BlancsJoues;//pieces blanches jouees
+	protected int nb_Mauvais_Coups_Joues;//mauvais coups joues
 
 	public ActeurClasse(String nom) {
 		this.nom = nom;
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
+		this.historiqueCoups=new ArrayList<Coup>();
+		this.nb_BlancsJoues=0;
+		this.nb_Mauvais_Coups_Joues=0;
 		campJ = new PyramideJoueur(6, 6);
+	}
+	
+	public void addCoupHist(Coup c) {
+		this.historiqueCoups.add(c);
+	}
+	
+	public void addBlancJoue() {
+		this.nb_BlancsJoues++;
+	}
+	
+	public void addMauvaisCoup() {
+		this.nb_Mauvais_Coups_Joues++;
 	}
 
 	public String getNom() {// renvoie le nom du joueur

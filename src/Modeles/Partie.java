@@ -10,7 +10,7 @@ public class Partie {
 	private Acteur j2;
 	private ArrayList<Piece> basePieces;
 	private PyramideMontagne baseMontagne;// base de la montagne
-	private ArrayList<Coup> historique;
+	private Statistiques statistiques;//creer a la fin de la partie uniquement
 	public int joueurCourant;
 	Piece pBleu;
 	Piece pVert;
@@ -23,8 +23,7 @@ public class Partie {
 	private final int NB_PIECES_BLANCS = 2;
 
 	public Partie(Acteur j1, Acteur j2) {
-		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur al�atoire
-		this.historique = new ArrayList<Coup>();
+		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
@@ -156,10 +155,6 @@ public class Partie {
 		return coupsPosables;
 	}
 
-	public ArrayList<Coup> getHist() {
-		return this.historique;
-	}
-
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
 	}
@@ -205,10 +200,18 @@ public class Partie {
 	}
 
 	public boolean estPartieFinie(int joueurCourant) {
+		boolean b=false;
+		boolean pleine=this.baseMontagne.estPleine();
 		if (joueurCourant == 0) {
-			return joueurPeutJouer(joueur1());
+			b= pleine || joueurPeutJouer(joueur1());
 		} else {
-			return joueurPeutJouer(joueur2());
+			b= pleine || joueurPeutJouer(joueur2());
+		}
+		if(b) {//creer les stats de la partie uniquement si elle est finie
+			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurCourant);
+			return b;
+		}else {
+			return false;
 		}
 	}
 

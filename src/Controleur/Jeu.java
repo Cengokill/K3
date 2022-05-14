@@ -32,7 +32,7 @@ public class Jeu {
 		while (partieEnCours.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR || partieEnCours.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
-		//ici les joueurs devront creer leur propre camp
+		//PHASE 1
 		int i=0, j=0;//indice des pieces a choisir
 		while (partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
@@ -41,6 +41,7 @@ public class Jeu {
 		}
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
+		//PHASE 2
 		while(!partieEnCours.estPartieFinie(partieEnCours.joueurCourant)) {
 			faireJouerActeurs();
 		}
@@ -81,12 +82,15 @@ public class Jeu {
 		cJ=this.partieEnCours.coupsJouables(jCourant);
 		coupDemande=jCourant.jouer(cJ);
 		jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
+		jCourant.addCoupHist(coupDemande);
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
+				jCourant.addMauvaisCoup();
 				this.partieEnCours.volerPiece(jPrecedent, jCourant);
 			}
 		}else {// joue une piece BLANCHE
+			jCourant.addBlancJoue();
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		this.partieEnCours.changementJoueurCourant();
