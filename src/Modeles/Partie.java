@@ -217,7 +217,7 @@ public class Partie {
 			voleur.addVol();
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
 		} else {
-			System.out.println("Vous avez choisi de ne pas voler une piece a " + victime.getNom() + ".");
+			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
 		}
 	}
 	

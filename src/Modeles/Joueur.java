@@ -97,7 +97,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 		Position pos;
         ArrayList<Position> arrPos;
         melangePiecesPiochees();
-        while(!estPosable(piecesPiochees.get(0),pyrM)){
+        while(!estPosable(piecesPiochees.get(0),pyrM)&&!estPosable(piecesPiochees.get(1),pyrM)&&!estPosable(piecesPiochees.get(2),pyrM)){
         	melangePiecesPiochees();
         }
         Piece p;

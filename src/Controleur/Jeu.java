@@ -130,6 +130,7 @@ public class Jeu {
 	}
 	
 	public void partieVictoire() {
+		afficherBaseMontagne();
 		System.out.println("Fin de la partie.");
 		if (partieEnCours.getJoueurCourant() == 0) {
 			System.out.print(this.partieEnCours.joueur2().getNom());
