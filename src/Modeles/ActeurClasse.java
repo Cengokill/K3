@@ -63,6 +63,10 @@ public class ActeurClasse {
 		this.nb_Mauvais_Coups_Joues--;
 	}
 	
+	public int getNbVols() {
+		return this.nb_Vols;
+	}
+	
 	public void addVol() {
 		this.nb_Vols++;
 	}

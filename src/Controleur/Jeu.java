@@ -12,37 +12,44 @@ import Modeles.*;
 
 public class Jeu {
 	public Partie partieEnCours;
-	public String cheminFichiers, cheminImages, photoProfil;
-	private String chemin;
+	public String chemin;
+	public String cheminStats, cheminImages, photoProfil;
 	private int num_tour, valeur_paire;
-	public int volumeEffetsSonores, volumeMusique;
-	private final int NB_LIGNES_OPTIONS = 5;// NB DE LIGNES DU FICHIER Options.txt = 6
+	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
+	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
 
 	public Jeu() {
-		//lireOptions();
+		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
+		this.cheminStats=chemin+"Statistiques/";
+		this.cheminImages=chemin+"Images/";
+		//creer les dossier du jeu s'il n'existent pas
+		new File(this.chemin).mkdirs();
+		new File(this.cheminStats).mkdirs();
+		new File(this.cheminImages).mkdirs();
+		lireOptions();
 		Joueur j1 = new Joueur("Gaston");
 		Joueur j2 = new Joueur("Mademoiselle Jeanne");
-		partieEnCours = new Partie(j1, j2);
-		num_tour=1;
-		valeur_paire=0;
+		this.partieEnCours = new Partie(j1, j2);
+		this.num_tour=1;
+		this.valeur_paire=0;
 		//initialisation des blancs et des naturels aux joueurs
-		partieEnCours.distribuerBlancEtNaturels();
+		this.partieEnCours.distribuerBlancEtNaturels();
 		//initialisation des pieces des deux joueurs
-		while (partieEnCours.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR || partieEnCours.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) {
+		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
 		//PHASE 1
 		int i=0, j=0;//indice des pieces a choisir
-		while (partieEnCours.joueur1().getTaillePiecesPiochees()>0 && partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
+		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			afficherBaseMontagne();
-			i=partieEnCours.joueur1().placerPiece(i);
-			j=partieEnCours.joueur2().placerPiece(j);
+			i=this.partieEnCours.joueur1().placerPiece(i);
+			j=this.partieEnCours.joueur2().placerPiece(j);
 		}
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
 		//PHASE 2
-		while(!partieEnCours.estPartieFinie()) {
+		while(!this.partieEnCours.estPartieFinie()) {
 			faireJouerActeurs();
 		}
 		partieVictoire();
@@ -127,48 +134,22 @@ public class Jeu {
 		// Fichiers.lisSauvegarde();
 	}
 
-	public String interpreterReponse(int[] r) {
-		String message = "";
-		for (int i = 0; i < r.length; i++) {
-			switch (r[i]) {
-				case 2:
-					message = "Erreur : le chemin " + cheminImages + " est inexistant.";
-					break;
-				case 3:
-					message = "Erreur : le fichier" + photoProfil + " n'existe pas.";
-					break;
-				case 4:
-					message = "Erreur : le fichier Options.txt n'a pas de valeurs correctes pour le volume.";
-					break;
-				case 5:
-					message = "Erreur : le fichier Options.txt est corrompu. Il a ete reinitialise.";
-					ecrireOptions();
-					break;
-				default:
-					break;
-			}
-		}
-		return message;
-	}
-
 	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
+		boolean[] renvoi = new boolean[4];
 		String nom_fichier = "Options.txt";
-		String userHome = System.getProperty("user.home");
-		this.chemin = userHome + "/Desktop/Jeu_K3/";
-		if(testFichierExistant(this.chemin+nom_fichier)!=0) {
+		if(!testFichierExistant(this.chemin+nom_fichier)) {
 			ecrireOptions();
+			renvoi[0]=false;
 			return;
 		}
-		int[] renvoi = new int[5];
-		// 2 : chemin non trouve
-		// 3 : nom de fichier inexistant
-		// 4 : lecture du volume impossible
-		// 5 : fichier options.txt corrompu
-		renvoi[0] = 5;
-		int testChemin1, testChemin2, testFichier, testVolume;
+		// 0 : test fichier options
+		// 1 : testPhotoProfil
+		// 2 : testDaltonien
+		// 3 : testVolume
+		boolean testPhotoProfil, testDaltonien, testVolume;
 		ArrayList<String> tab = new ArrayList<String>();
 			try {
-				FileReader reader = new FileReader(chemin + nom_fichier);
+				FileReader reader = new FileReader(this.chemin + nom_fichier);
 				BufferedReader br = new BufferedReader(reader);
 				String ligne_lue;
 				while ((ligne_lue = br.readLine()) != null) {
@@ -176,80 +157,76 @@ public class Jeu {
 				}
 				if (tab.size() != this.NB_LIGNES_OPTIONS) {
 					System.err.println("Erreur : le fichier " + nom_fichier + " a ete modifie. Il contient " + tab.size()+" lignes.");
+					ecrireOptions();
+					renvoi[0]=false;
+					return;
 				} else {
-					// Emplacement des images
-					// Emplacement de tous les autres fichiers
-					// Autre chose ?
 					// Nom du fichier de la photo de profil du joueur
-					// Volume de la musique
+					// Mode daltonien oui/non
 					// Volume des effets sonores
-					this.cheminImages = tab.get(0);
-					testChemin1 = testCheminExistant(cheminImages);
-					this.cheminFichiers = tab.get(1);
-					testChemin2 = testCheminExistant(cheminImages);
-					this.photoProfil = tab.get(2);
-					testFichier = testFichierExistant(photoProfil);
-					this.volumeEffetsSonores = Integer.parseInt(tab.get(3));
-					this.volumeMusique = Integer.parseInt(tab.get(4));
-					testVolume = testVolume(volumeEffetsSonores, volumeMusique);
-					renvoi[1] = testChemin1;
-					renvoi[2] = testChemin2;
-					renvoi[3] = testFichier;
-					renvoi[4] = testVolume;
+					// Volume de la musique
+					this.photoProfil = tab.get(0);
+					testPhotoProfil = testFichierExistant(chemin+photoProfil+".jpg")||testFichierExistant(chemin+photoProfil+".png");
+					this.modeDaltonien=Integer.parseInt(tab.get(1));
+					testDaltonien = verifDaltonien(this.modeDaltonien);
+					this.volumeEffetsSonores = Integer.parseInt(tab.get(2));
+					this.volumeMusique = Integer.parseInt(tab.get(3));
+					testVolume = verifVolume(this.volumeEffetsSonores, this.volumeMusique);
+					renvoi[1] = testPhotoProfil;
+					renvoi[2] = testDaltonien;
+					renvoi[3] = testVolume;
 				}
 			}
 			catch (Exception e) {
 				System.err.println("Erreur : le fichier Options.txt est corrompu.");
 				e.printStackTrace();
 			}
-		interpreterReponse(renvoi);// pour l'affichage des message d'erreur a l'ecran
 	}
-
-	public int testCheminExistant(String c) {// renvoie 0 si le chemin existe, sinon 2
-		String nom_test = "test_fichier_existant";
-		try {
-			File myFile = new File(c + nom_test);
-			if (myFile.createNewFile()) {
-				System.out.println("Fichier test creer avec succes : " + myFile.getName());
-				myFile.delete();
-				return 0;
-			}
-		} catch (IOException e) {
-			System.err.println("Erreur : le chemin " + c + " est inexistant.");
-			e.printStackTrace();
+	
+	public boolean verifDaltonien(int v) {// renvoie true si v est compris entre 0 et 1
+		if(v!=0 && v!=1) {
+			this.modeDaltonien=0;
+			return false;
+		}else {
+			this.modeDaltonien=v;
+			return true;
 		}
-		return 2;
 	}
 
-	public int testVolume(int v1, int v2) {// renvoie 0 si le volume est compris entre 0 et 10, sinon renvoie 4
-		int r = 0;
-		if (v1 >= 10 || v1 < 0) {
+	public boolean verifVolume(int v1, int v2) {// renvoie true si le volume est compris entre 0 et 10
+		boolean b;
+		if (v1 > 10 || v1 < 0) {
 			this.volumeEffetsSonores = 6;
-			r = 4;
+			b=false;
+		}else {
+			this.volumeEffetsSonores = v1;
+			b=true;
 		}
-		if (v2 >= 10 || v2 < 0) {
+		if (v2 > 10 || v2 < 0) {
 			this.volumeMusique = 4;
-			r = 4;
+			b=b&&false;
+		}else {
+			this.volumeMusique = v2;
+			b=b&&true;
 		}
-		return r;
+		return b;
 	}
 
-	public int testFichierExistant(String nomFichier) {// renvoie 0 si le fichier existe, sinon 3
+	public boolean testFichierExistant(String nomFichier) {// renvoie true si le fichier existe
 		try {
 			File myFile = new File(nomFichier);
 			if(myFile.isFile()) {
 				System.out.println("testFichierExistant = 0");
-				return 0;
+				return true;
 			}
 		} catch (Exception e) {
 			System.err.println("Erreur : le fichier " + nomFichier + " est inexistant.");
 			e.printStackTrace();
 		}
-		return 3;
+		return false;
 	}
 
 	public void ecrireOptions() {// reinitialise le fichier Options.txt en ecrivant des valeurs par defaut
-		new File(this.chemin).mkdirs();
 		try {
 			File f = new File(this.chemin + "/Options.txt");
 			try {
@@ -259,18 +236,24 @@ public class Jeu {
 			}
 			FileWriter writer = new FileWriter(f, false);// ecrire en mode remplacement
 			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write(this.chemin+"Images/");
+			// Nom du fichier de la photo de profil du joueur
+			// Mode daltonien oui/non
+			// Volume des effets sonores
+			// Volume de la musique
+			this.photoProfil="Ma_photo_de_profil";
+			this.modeDaltonien=0;
+			this.volumeEffetsSonores=6;
+			this.volumeMusique=4;
+			bw.write(this.photoProfil);
 			bw.newLine();
-			bw.write(this.chemin+"Fichiers/");
+			bw.write(String.valueOf(this.modeDaltonien));
 			bw.newLine();
-			bw.write("photoProfil.jpg");
+			bw.write(String.valueOf(this.volumeEffetsSonores));
 			bw.newLine();
-			bw.write("8");
-			bw.newLine();
-			bw.write("5");
+			bw.write(String.valueOf(this.volumeMusique));
 			bw.close();
 			writer.close();
-			System.out.println("Fichier Options.txt creer avec succes.");
+			System.out.println("Un nouveau fichier Options.txt a ete creer.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

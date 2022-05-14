@@ -19,6 +19,8 @@ public interface Acteur {
 	
 	public int getMauvaisCoupsJoues();
 	
+	public int getNbVols();
+	
 	public void addVol();
 	
 	public void retireVol();
