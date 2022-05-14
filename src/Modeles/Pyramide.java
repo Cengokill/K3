@@ -28,7 +28,6 @@ public class Pyramide {
 			this.pyramide = etage;
 			this.historiquePieces=new ArrayList<PiecePyramide>();
 		}
-		
 	}
 	
 	public boolean estPleine() {
@@ -98,7 +97,8 @@ public class Pyramide {
 			}
 			// on regarde ne haut a gauche + en haut a droite
 			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
-				pyramide[p.etage][p.rang] = null;
+				this.pyramide[p.etage][p.rang] = null;
+				
 			} else {
 				System.err.println("La piece est une piece porteuse et ne peut pas etre retiree.");
 			}

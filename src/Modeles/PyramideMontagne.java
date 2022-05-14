@@ -93,8 +93,4 @@ public class PyramideMontagne extends Pyramide {
 			}
 		}
 	}
-
-	public void ajouter(Piece p, Position pos) {
-		this.pyramide[pos.etage][pos.rang] = p;
-	}
 }
