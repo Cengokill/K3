@@ -11,21 +11,7 @@ public class PyramideJoueur extends Pyramide {
 	 * 0++++++++
 	 */
 	public PyramideJoueur(int largeur, int hauteur) {
-		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
-			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
-		} else {
-			this.largeur = largeur;
-			this.hauteur = hauteur;
-			int l = largeur;
-
-			Piece[][] etage = new Piece[hauteur][];
-			for (int i = 0; i < hauteur; i++) {
-				Piece[] ligne = new Piece[l];
-				etage[i] = ligne;
-				l = l - 1;
-			}
-			this.pyramide = etage;
-		}
+		super(largeur, hauteur);
 	}
 
 	public void empiler(PiecePyramide pp) {

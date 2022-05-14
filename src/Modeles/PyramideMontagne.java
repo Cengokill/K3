@@ -3,38 +3,9 @@ package Modeles;
 import java.util.ArrayList;
 
 public class PyramideMontagne extends Pyramide {
-	
-	protected ArrayList<PiecePyramide> historiquePieces;
 
 	public PyramideMontagne(int largeur, int hauteur) {
-		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
-			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
-		} else {
-			this.largeur = largeur;
-			this.hauteur = hauteur;
-			int l = largeur;
-
-			Piece[][] etage = new Piece[hauteur][];
-			for (int i = 0; i < hauteur; i++) {
-				Piece[] ligne = new Piece[l];
-				etage[i] = ligne;
-				l = l - 1;
-			}
-			this.pyramide = etage;
-			this.historiquePieces=new ArrayList<PiecePyramide>();
-		}
-	}
-	
-	public void AnnulerDernierePiece() {
-		int taille=this.historiquePieces.size();
-		this.historiquePieces.remove(taille-1);
-	}
-	
-	public boolean estPleine() {
-		if(pyramide[hauteur-1][0]!=null) {
-			System.out.println("La base de la montagne est PLEINE !");
-		}
-		return pyramide[hauteur-1][0]!=null;
+		super(largeur, hauteur);
 	}
 
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base

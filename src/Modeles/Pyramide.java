@@ -1,5 +1,7 @@
 package Modeles;
 
+import java.util.ArrayList;
+
 public class Pyramide {
 
 	protected int largeur;
@@ -7,6 +9,34 @@ public class Pyramide {
 	protected Piece[][] pyramide;
 	public int LARGEUR_MAX = 50;
 	public int HAUTEUR_MAX = 50;
+	protected ArrayList<PiecePyramide> historiquePieces;
+	
+	public Pyramide(int largeur, int hauteur) {
+		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
+			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
+		} else {
+			this.largeur = largeur;
+			this.hauteur = hauteur;
+			int l = largeur;
+
+			Piece[][] etage = new Piece[hauteur][];
+			for (int i = 0; i < hauteur; i++) {
+				Piece[] ligne = new Piece[l];
+				etage[i] = ligne;
+				l = l - 1;
+			}
+			this.pyramide = etage;
+			this.historiquePieces=new ArrayList<PiecePyramide>();
+		}
+		
+	}
+	
+	public boolean estPleine() {
+		if(pyramide[hauteur-1][0]!=null) {
+			System.out.println("La pyramide est PLEINE !");
+		}
+		return pyramide[hauteur-1][0]!=null;
+	}
 
 	public int getlargeur() {
 		return this.largeur;
@@ -21,8 +51,12 @@ public class Pyramide {
 			System.err.println("erreur position impossible : " + p.rang + "," + p.etage);
 			return null;
 		}
-		return pyramide[p.etage][p.rang];
-
+		return this.pyramide[p.etage][p.rang];
+	}
+	
+	public void annulerDernierePiece() {
+		int taille=this.historiquePieces.size();
+		this.historiquePieces.remove(taille-1);
 	}
 	
 	public boolean aPiecesPorteuses(int etage, int rang) {//renvoie true si la piece a la position p a deux pieces porteuses

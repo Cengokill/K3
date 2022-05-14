@@ -272,6 +272,7 @@ public class Partie {
 		// retire de la base
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.baseMontagne.retirer(c.getPosBase());
+			this.baseMontagne.annulerDernierePiece();
 		}
 
 		// ajoute a sa pyramide
