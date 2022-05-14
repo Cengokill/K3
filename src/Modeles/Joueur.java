@@ -35,6 +35,7 @@ public class Joueur extends ActeurClasse implements Acteur {
                     return -1;
                 }
                 int num=-1;
+                p=piecesPiochees.get(0);
                 while(num==-1) {
                 	System.out.println(super.campJ.toString());//affichage du camp du joueur
                 	System.out.println("indice : "+indice);
@@ -54,6 +55,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 	                		System.out.println("Piece precedente demandee.");
 	                		indice--;
 	                	}else {
+	                		p=piecesPiochees.get(indice);
 		                	indice=Integer.parseInt(numChaine);
 		                	num=0;
 	                	}
@@ -69,7 +71,6 @@ public class Joueur extends ActeurClasse implements Acteur {
                 		System.err.println("Erreur : indice non valide. Recommencez.");
                 	}
                 }
-                p=piecesPiochees.get(indice);
                 arrPos=super.campJ.posDisponibles();
                 pos=arrPos.get(indice);//pos devient la position choisie par le joueur
                 PiecePyramide pp = new PiecePyramide(p, pos);
