@@ -8,27 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import Modeles.*;
 
 public class Jeu {
 	public Partie partieEnCours;
 	public String chemin;
-	public String cheminStats, cheminImages, cheminSauvegardes, cheminSons, photoProfil;
+	public String cheminStats, cheminImages, cheminSauvegardes, photoProfil;
 	private int num_tour, valeur_paire;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
-	//private SoundPlayer simpleSoundPlayer;
+	private SoundPlayer simpleSoundPlayer;
 
-	public Jeu(String nomJ1, String nomJ2, int numPartie) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	public Jeu(String nomJ1, String nomJ2, int numPartie) {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
 		this.cheminImages=chemin+"Images/";
-		this.cheminSauvegardes=chemin+"Sauvegardes/";
-		this.cheminSons=chemin+"launch1.mp3";
+		this.cheminSauvegardes="Sauvegardes/";
+		this.simpleSoundPlayer = new SoundPlayer();
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();
@@ -78,6 +75,7 @@ public class Jeu {
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 		}
+		simpleSoundPlayer.jouerSon(0);
 		partieVictoire();//affichage uniquement
 	}
 	
