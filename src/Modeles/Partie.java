@@ -332,10 +332,9 @@ public class Partie {
 			jCourant=this.j2;
 			jPrecedent=this.j1;
 		}
-		
 		ArrayList<Coup> cJ=this.coupsJouables(jCourant);
 		Coup coupDemande=jCourant.jouer(cJ);//le joueur courant a choisi un coup a jouer
-		this.addCoupHist(coupDemande);
+		this.addCoupHist(coupDemande);//ajout du coup a l'historique
 		if(coupDemande.getPosJ()!=null) {//si le joueur courant ne joue pas une piece volee
 			jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
 		}else {//si le joueur courant decide de jouer une de ses pieces volees
@@ -347,23 +346,31 @@ public class Partie {
 				Coup vol = this.volerPiece(jPrecedent, jCourant);
 			}
 		}else {// joue une piece BLANCHE
+			jCourant.addBlancJoue();
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 	}
 
-	public void annulerCoup(Coup c, int joueurcourant) {
+	public void annulerCoup(Coup c) {//annule le coup du joueur courant
+		Acteur jCourant;
+		if(this.joueurCourant==0) {
+			jCourant=this.j1;
+		}else{
+			jCourant=this.j2;
+		}
 		// retire de la base
-		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
-			this.baseMontagne.retirer(c.getPosBase());
-			this.baseMontagne.annulerDernierePiece();
+		if (c.getPosBase() != null) {// retire une piece
+			PiecePyramide pp = this.baseMontagne.retirer(c.getPosBase());//ok
+			if(this.baseMontagne.estPorteursMemeCouleur(pp.getPos())) {
+				jCourant.retireMauvaisCoup();
+			}
+		}else {//retire une piece BLANCHE
+			PiecePyramide pp = new PiecePyramide(c.getPiece(), c.getPosJ());
+			jCourant.getCamp().empiler(pp);
+			jCourant.retireBlancJoue();
 		}
-
 		// ajoute a sa pyramide
-		if (joueurcourant == 0) {
-			this.j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
-		} else {
-			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
-		}
+		jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 	}
 	
 	public void sauvegarderPartie(String CheminEtnomFichier) {

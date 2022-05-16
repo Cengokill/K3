@@ -50,7 +50,7 @@ public class Pyramide {
 		return this.pyramide[p.etage][p.rang];
 	}
 	
-	public void annulerDernierePiece() {
+	public void annulerDernierePiece() {//ok
 		int taille=this.historiquePieces.size();
 		this.historiquePieces.remove(taille-1);
 	}
@@ -74,9 +74,10 @@ public class Pyramide {
         return(caseSupGauche && caseSupDroite);
 	}
 
-	public void retirer(Position p) {
+	public PiecePyramide retirer(Position p) {
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0 || pyramide[p.etage][p.rang] == null) {
 			System.err.println("erreur impossible de retirer la piece.");
+			return null;
 		} else {
 			// avec piece porteuse
 			boolean caseSupGauche, caseSupDroite;
@@ -94,10 +95,14 @@ public class Pyramide {
 			}
 			// on regarde ne haut a gauche + en haut a droite
 			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
+				Piece pie=this.pyramide[p.etage][p.rang];
 				this.pyramide[p.etage][p.rang] = null;
+				this.annulerDernierePiece();
+				return new PiecePyramide(pie, p);
 				
 			} else {
 				System.err.println("La piece est une piece porteuse et ne peut pas etre retiree.");
+				return null;
 			}
 		}
 	}

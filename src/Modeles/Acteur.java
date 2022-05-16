@@ -55,27 +55,27 @@ public class Acteur {
 		return this.nom;
 	}
 	// BLANC ------
-	public void addBlancJoue() {
+	public void addBlancJoue() {//ok
 		this.nb_BlancsJoues++;
 	}
-	public void retireBlancJoue() {
+	public void retireBlancJoue() {//ok
 		this.nb_BlancsJoues--;
 	}
 	public int getBlancsJoues() {
 		return this.nb_BlancsJoues;
 	}
 	// MAUVAIS COUP------------
-	public void addMauvaisCoup() {
+	public void addMauvaisCoup() {//ok
 		this.nb_Mauvais_Coups_Joues++;
 	}
-	public void retireMauvaisCoup() {
+	public void retireMauvaisCoup() {//ok
 		this.nb_Mauvais_Coups_Joues--;
 	}
 	public int getMauvaisCoupsJoues() {
 		return this.nb_Mauvais_Coups_Joues;
 	}
 	// VOL -------------------
-	public void addVol() {
+	public void addVol() {//ok
 		this.nb_Vols++;
 	}
 	public void retireVol() {
@@ -95,7 +95,7 @@ public class Acteur {
 		return this.campJ;
 	}
 	// LISTE piecesVolees -------------------
-	public void addPieceVolee(Piece p) {
+	public void addPieceVolee(Piece p) {//ok
 		this.piecesVolees.add(p);
 		this.addVol();
 	}
