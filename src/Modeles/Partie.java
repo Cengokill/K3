@@ -18,8 +18,8 @@ public class Partie {
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private Statistiques statistiques;//creer a la fin de la partie uniquement
 	private String cheminStats;
-	public int joueurCourant;
-	public int joueurDebut;
+	private ArrayList<Coup> historiqueCoups;
+	public int joueurCourant, joueurDebut;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -39,6 +39,7 @@ public class Partie {
 		this.j2 = j2;
 		this.cheminStats=System.getProperty("user.home")+ "/Desktop/Jeu_K3/Statistiques/";//valeur par defaut
 		this.statistiques=new Statistiques(this.cheminStats);
+		this.historiqueCoups=new ArrayList<Coup>();
 		pBleu = new Piece(Couleurs.BLEU);
 		pVert = new Piece(Couleurs.VERT);
 		pJaune = new Piece(Couleurs.JAUNE);
@@ -52,6 +53,33 @@ public class Partie {
 	
 	public void setCheminStats(String s) {
 		this.cheminStats=s;
+	}
+	
+	public ArrayList<Coup> getHistCoups() {
+		return this.historiqueCoups;
+	}
+
+	public void addCoupHist(Coup c) {//gere les vols
+		Acteur j;
+		if (joueurCourant == 1) j=this.j1;
+		else j=this.j2;
+	
+		this.historiqueCoups.add(c);		
+		if(c.getPosBase()==null) {
+			j.addBlancJoue();
+		}
+	}
+	
+	public void retireCoupHist(Coup c, int jCour) {
+		int taille= this.historiqueCoups.size();
+		Acteur j;
+		if (jCour == 1) j=this.j1;
+		else j=this.j2;
+		
+		this.historiqueCoups.remove(taille-1);
+		if(c.getPosBase()==null) {
+			j.retireBlancJoue();
+		}
 	}
 
 	public void changementJoueurCourant() {
@@ -240,7 +268,6 @@ public class Partie {
 			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			victime.getCamp().retirer(pieceVolee.getPos());
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
-			voleur.addCoupHist(vol);// ajout du coup aux coups du voleur
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
 			return vol;
 		} else {
@@ -301,12 +328,9 @@ public class Partie {
 		// retire de la pyramide joueur
 		if (joueurcourant == 0) {
 			this.j1.getCamp().retirer(c.getPosJ());
-			this.j1.addCoupHist(c);
 		} else {
 			this.j2.getCamp().retirer(c.getPosJ());
-			this.j2.addCoupHist(c);
 		}
-
 		// ajoute a la montagne
 		if (c.getPosBase() != null) {//si pas de blanc joue
 			this.baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
