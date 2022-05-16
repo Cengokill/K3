@@ -10,7 +10,7 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 100; // nombre de parties de test
+        int objectif = 1000; // nombre de parties de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
@@ -20,13 +20,14 @@ public class TestIA {
             // INITIALISATION DE LA PARTIE
             Joueur j1 = new Joueur("Stupid 1");
             Joueur j2 = new Joueur("BigBrain");
-            Partie ktrois = new Partie(j1, j2, nbParties);//numero de partie
-            int joueurCourant = 0; // Le joueur qui commence est le premier
+            Partie ktrois = new Partie(j1, j2, nbParties);// numero de partie
+            // Modifier le premier joueur qui commence
 
             // DISTIBUTION DES PIONS
             ktrois.distribuerBlancEtNaturels(); // On donne les blancs
             while (ktrois.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR
-                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on n a pas
+                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on n a
+                                                                                          // pas
                                                                                           // assez de pions
                 Piece p;
 
@@ -53,29 +54,29 @@ public class TestIA {
             // System.out.println(ktrois.getBaseMontagne().toString());
 
             // PHASE DE JEU
-            // // System.out.println();
-            // // System.out.println("Phase de jeu");
+            // System.out.println();
+            // System.out.println("Phase de jeu");
             IAjeuAlea iaA = new IAjeuAlea();
             IAjeuExpert iaJ = new IAjeuExpert(3);
             IAjeuExpert iaE = new IAjeuExpert(5);
             while (!ktrois.estPartieFinie()) { // Argument partie en cours
                 Coup c;
-                if (joueurCourant == 0) {
-                    c = iaA.IACoup(ktrois, joueurCourant);
+                if (ktrois.getJoueurCourant() == 0) {
+                    c = iaA.IACoup(ktrois, ktrois.getJoueurCourant());
                 } else {
                     // ArrayList<Coup> lc = ktrois.coupsJouables(ktrois.joueur2());
                     // affiche(lc);
-                    c = iaA.IACoup(ktrois, joueurCourant);
+                    c = iaA.IACoup(ktrois, ktrois.getJoueurCourant());
                     if (c == null) {
                         // System.out.println("IAexpert renvoie un coup vide");
                     }
                 }
-                // System.out.print("Le joueur numero " + (joueurCourant + 1) + ": joue le
-                // coup");
+                // System.out.print("Le joueur numero " + (ktrois.getJoueurCourant() + 1) + ":
+                // joue le coup");
                 // System.out.println(c.toString());
 
                 // Joue
-                ktrois.jouer(c, joueurCourant);
+                ktrois.jouer(c, ktrois.getJoueurCourant());
 
                 // Afiichage
                 // System.out.println(ktrois.joueur1().getCamp().toString());
@@ -83,15 +84,11 @@ public class TestIA {
                 // System.out.println(ktrois.getBaseMontagne().toString());
 
                 // changer le joueur courant
-                if (joueurCourant == 1) {
-                    joueurCourant = 0;
-                } else {
-                    joueurCourant = 1;
-                }
+                ktrois.changementJoueurCourant();
             }
 
             // GAGNANT
-            if (joueurCourant == 0) {
+            if (ktrois.getJoueurCourant() == 0) {
                 victoirej2++;
             } else {
                 victoirej1++;
