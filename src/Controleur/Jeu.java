@@ -21,7 +21,7 @@ public class Jeu {
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
-	private SoundPlayer simpleSoundPlayer;
+	//private SoundPlayer simpleSoundPlayer;
 
 	public Jeu(String nomJ1, String nomJ2, int numPartie) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -29,7 +29,8 @@ public class Jeu {
 		this.cheminImages=chemin+"Images/";
 		this.cheminSauvegardes=chemin+"Sauvegardes/";
 		this.cheminSons=chemin+"launch1.mp3";
-		this.simpleSoundPlayer = new SoundPlayer(cheminSons);
+		SoundPlayer simpleSoundPlayer = new SoundPlayer(cheminSons);
+		simpleSoundPlayer.playSound();
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();

@@ -1,23 +1,32 @@
 package Modeles;
 
-import java.io.File; 
-import java.util.Scanner; 
-import java.io.IOException; 
-import javax.sound.sampled.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.JOptionPane;
 
 public class SoundPlayer { 
 	
-	public void playSound(String chemin) { 
+	private String chemin;
+	
+	public SoundPlayer(String chemin) {
+		this.chemin=chemin;
+	}
+	
+	public void playSound() { 
 		try {
-			File musicPath=new File(chemin);
+			File musicPath=new File(this.chemin);
 			if(musicPath.exists()) {
-				AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicPath);
+				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
 				Clip clip = AudioSystem.getClip(); 
-				clip.open(audioStream);
+				clip.open(audioInput);
 				clip.start();
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
+				//clip.loop(Clip.LOOP_CONTINUOUSLY);
+				//clip.close();
+				JOptionPane.showMessageDialog(null, "Press ok to stop.");
 			}else {
-				System.err.println("Erreur : "+chemin+" n'existe pas.");
+				System.err.println("Erreur : "+this.chemin+" n'existe pas.");
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
