@@ -55,7 +55,7 @@ public class Partie {
 	}
 
 	public boolean joueurPeutJouer(Acteur j) {
-		return coupsJouables(j).isEmpty() && !this.baseMontagne.estPleine();
+		return !coupsJouables(j).isEmpty();
 		//si le joueur n'a plus de coups jouables mais que la pyramide est pleine alors il n'a pas perdu
 		//si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine alors il a perdu
 	}
@@ -72,16 +72,16 @@ public class Partie {
 			if(this.joueurCourant == 0) {
 				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
 					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 0);
-					return false;
+					return true;
 				}
 			}else {
 				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
 					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 1);
-					return false;
+					return true;
 				}
 			}
 		}//si joueur 1 et joueur 2 peuvent jouer et que la montagne n'est pas pleine
-		return true;
+		return false;
 	}
 	
 	public Statistiques getStats() {

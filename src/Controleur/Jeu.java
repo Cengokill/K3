@@ -29,7 +29,7 @@ public class Jeu {
 		this.cheminImages=chemin+"Images/";
 		this.cheminSauvegardes=chemin+"Sauvegardes/";
 		this.cheminSons=chemin+"launch1.mp3";
-		this.simpleSoundPlayer = new SoundPlayer(cheminSons);
+		//this.simpleSoundPlayer = new SoundPlayer(cheminSons);
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();
@@ -43,7 +43,7 @@ public class Jeu {
 	}
 	
 	public void lancerJeu() {
-		this.simpleSoundPlayer.play();
+		//this.simpleSoundPlayer.play();
 		this.num_tour=1;
 		this.valeur_paire=0;
 		//PHASE 1
@@ -76,6 +76,7 @@ public class Jeu {
 	public void jouerPhase2() {
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
+		System.out.println(!this.partieEnCours.estPartieFinie());
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 		}
