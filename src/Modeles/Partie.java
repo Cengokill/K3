@@ -320,12 +320,17 @@ public class Partie {
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			this.simpleSoundPlayer.jouerSon(2);
+			if(coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
+				this.simpleSoundPlayer.jouerSon(7);
+				System.out.println("kozadokjzejdjkoezjjkozfder");
+			}
 			if(this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				Coup vol = this.volerPiece(jPrecedent, jCourant);
 				if(vol!=null) this.addCoupHist(vol);
 			}
 		}else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
+			this.simpleSoundPlayer.jouerSon(10);
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		changementJoueurCourant();
