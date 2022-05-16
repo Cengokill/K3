@@ -6,7 +6,7 @@ import Modeles.*;
 
 public class IApiocheAlea implements IApioche {
 
-    public PyramideJoueur CreerPioche(Partie p, int numerojoueur) {
+    public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
         ArrayList<Piece> piecesIA;
         if (numerojoueur == 0) {
             piecesIA = p.joueur1().getPiecesPiochees();
@@ -17,7 +17,7 @@ public class IApiocheAlea implements IApioche {
         if (piecesIA.size() != (6 * 7 / 2)) {
             System.out.println("Il n'y a pas le bon nombre de piece dans le sac pour constuire sa pyramide");
         }
-        PyramideJoueur pj = new PyramideJoueur(6, 6);
+        ArrayList<PiecePyramide> pj = new ArrayList<>();
         Random r = new Random();
         Iterator<Piece> it;
         PiecePyramide pp;
@@ -39,7 +39,7 @@ public class IApiocheAlea implements IApioche {
             while (it.hasNext()) { // On cherche la piece qui correspond a l'aléatoire
                 pp = new PiecePyramide(it.next(), pos);
                 if (compt == alea) {
-                    pj.empiler(pp); // on l'ajoute a la pyra et on la retire du sac
+                    pj.add(pp); // on l'ajoute a la pyra et on la retire du sac
                     it.remove();
                 }
                 compt++;

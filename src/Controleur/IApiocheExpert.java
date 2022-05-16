@@ -8,7 +8,7 @@ import Modeles.*;
 
 public class IApiocheExpert implements IApioche {
 
-    public PyramideJoueur CreerPioche(Partie p, int numerojoueur) {
+    public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
         ArrayList<Piece> piecesIA;
         if (numerojoueur == 0) {
             piecesIA = p.joueur1().getPiecesPiochees();
@@ -16,7 +16,6 @@ public class IApiocheExpert implements IApioche {
             piecesIA = p.joueur2().getPiecesPiochees();
         }
         PyramideMontagne pm = p.getBaseMontagne();
-        PyramideJoueur pj = new PyramideJoueur(6, 6);
         ArrayList<PiecePyramide> aempiler = new ArrayList<>();
 
         // creer une liste de position pour savoir quelle position sont deja utilises
@@ -106,22 +105,7 @@ public class IApiocheExpert implements IApioche {
             }
 
         }
-
-        // empiler toutes nos pieces dans la pyramide
-        for (int etage = 0; etage < 6; etage++) {
-            for (int rang = 0; rang < (6 - etage); rang++) {
-                Iterator<PiecePyramide> aplacer = aempiler.iterator();
-                while (aplacer.hasNext()) {
-                    PiecePyramide pp = aplacer.next();
-                    if (pp.getPos().etage == etage && pp.getPos().rang == rang) {
-                        aplacer.remove();
-                        pj.empiler(pp);
-                    }
-                }
-            }
-        }
-
-        return pj;
+        return aempiler;
     }
 
     public int PostoIndice(Position pos) {

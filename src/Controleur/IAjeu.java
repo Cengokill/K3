@@ -1,5 +1,7 @@
 package Controleur;
 
+import java.util.ArrayList;
+
 import Modeles.*;
 
 public interface IAjeu {
@@ -11,4 +13,6 @@ public interface IAjeu {
     // sinon le nombre de coups de l 'adversaire
 
     public Coup IACoup(Partie p, int numeroJoueur);
+
+    public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr);
 }

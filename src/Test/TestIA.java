@@ -10,12 +10,12 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 5; // nombre de parties de test
+        int objectif = 1000; // nombre de parties de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
         double t1 = (double) System.currentTimeMillis();
-        Partie ktrois=null;
+        Partie ktrois = null;
         while (nbParties != objectif) {
             // INITIALISATION DE LA PARTIE
             Joueur j1 = new Joueur("Stupid 1");
@@ -95,7 +95,7 @@ public class TestIA {
             }
             nbParties++;
         }
-        ktrois.combinerStats(0,objectif);
+        ktrois.combinerStats(0, objectif);
         System.out.println("Nombre de parties jouees : " + objectif);
         System.out.println("Taux de victoire du joueur 1 : " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
         System.out.println("Taux de victoire du joueur 2 : " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
