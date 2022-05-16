@@ -108,7 +108,6 @@ public class Jeu {
 			jPrecedent=this.partieEnCours.joueur1();
 		}
 		//affichage dans la console de la partie
-
 		afficherBaseMontagne();
 		System.out.println("Votre camp :");
 		System.out.println(jCourant.getCamp().toString());

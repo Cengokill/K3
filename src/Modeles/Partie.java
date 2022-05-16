@@ -249,33 +249,6 @@ public class Partie {
 		return this.basePieces.size();
 	}
 
-	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
-	// celle a voler et une deuxieme qui vole la piece donner en argument
-	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
-		victime.addMauvaisCoup();
-		System.out.println(
-				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
-		@SuppressWarnings("resource")
-		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
-		String num = myObj.nextLine();
-		int rep = Integer.parseInt(num);
-		if (rep == 0) {
-			System.out.println("=========== VOL DE PIECE ===========");
-			System.out.println("Camp du joueur victime :");
-			System.out.println(victime.getCamp().toString());
-			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
-			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
-			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
-			victime.getCamp().retirer(pieceVolee.getPos());
-			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
-			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
-			return vol;
-		} else {
-			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
-			return null;
-		}
-	}
-
 	public static void afficherCoups(ArrayList<PiecePyramide> arr) {
 		int taille = arr.size();
 		for (int i = 0; i < taille; i++) {
@@ -323,6 +296,7 @@ public class Partie {
 		System.out.println("Il y a " + bleu + " piece bleues.");
 		System.out.println();
 	}
+	
 	public void jouer() {
 		Acteur jCourant, jPrecedent;
 		if(this.joueurCourant==0) {
@@ -344,33 +318,86 @@ public class Partie {
 			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				Coup vol = this.volerPiece(jPrecedent, jCourant);
+				this.addCoupHist(vol);
 			}
 		}else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
+		changementJoueurCourant();
+	}
+	
+	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
+	// celle a voler et une deuxieme qui vole la piece donner en argument
+	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+		victime.addMauvaisCoup();
+		System.out.println(
+				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
+		@SuppressWarnings("resource")
+		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
+		String num = myObj.nextLine();
+		int rep = Integer.parseInt(num);
+		if (rep == 0) {
+			System.out.println("=========== VOL DE PIECE ===========");
+			System.out.println("Camp du joueur victime :");
+			System.out.println(victime.getCamp().toString());
+			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
+			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
+			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
+			victime.getCamp().retirer(pieceVolee.getPos());
+			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
+			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
+			return vol;
+		} else {
+			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
+			return null;
+		}
 	}
 
 	public void annulerCoup(Coup c) {//annule le coup du joueur courant
-		Acteur jCourant;
+		Acteur jCourant, jPrecedent;
 		if(this.joueurCourant==0) {
 			jCourant=this.j1;
+			jPrecedent=this.j2;
 		}else{
 			jCourant=this.j2;
+			jPrecedent=this.j1;
 		}
-		// retire de la base
-		if (c.getPosBase() != null) {// retire une piece
+		/*
+		 * un coup standard est defini par :
+		 * - une piece
+		 * - une position du camp joueur
+		 * - une position du camp montagne
+		 * 
+		 * un coup vole :
+		 * - une piece
+		 * - une position du camp joueur victime
+		 * - null
+		 * un coup blanc :
+		 * - une piece
+		 * - une position du camp joueur
+		 * - null
+		 */
+		if (c.getPosBase() != null) {// retire une piece normale
 			PiecePyramide pp = this.baseMontagne.retirer(c.getPosBase());//ok
 			if(this.baseMontagne.estPorteursMemeCouleur(pp.getPos())) {
 				jCourant.retireMauvaisCoup();
+				jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+				System.out.println("Mauvais coup annule !");
 			}
 		}else {//retire une piece BLANCHE
 			PiecePyramide pp = new PiecePyramide(c.getPiece(), c.getPosJ());
-			jCourant.getCamp().empiler(pp);
-			jCourant.retireBlancJoue();
+			if(c.getPiece().getColor().equals(Couleurs.BLANC)) {
+				//annulation d'un coup blanc
+				jCourant.getCamp().empiler(pp);
+				jCourant.retireBlancJoue();
+				System.out.println("Coup blanc annule !");
+			}else {//annulation d'un VOL
+				jPrecedent.getCamp().empiler(pp);//on empile la piece dans le camp de la victime de vol
+				jCourant.retirerPieceVolee(c.getPiece());
+				System.out.println("Vol annule !");
+			}
 		}
-		// ajoute a sa pyramide
-		jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 	}
 	
 	public void sauvegarderPartie(String CheminEtnomFichier) {
@@ -403,10 +430,10 @@ public class Partie {
 			bw.write(this.joueur1().getCamp().toString());
 			bw.write("pieces volees:" + this.joueur1().toStringPiecesVolees());
 			bw.newLine();
-			int nbCoups=this.joueur1().getHistCoups().size();
+			int nbCoups=this.getHistCoups().size();
 			bw.write("CoupsJ1:"+nbCoups);
 			for (int k = 0; k < nbCoups; k++) {
-				bw.write(this.joueur1().getHistCoups().get(k).toString());
+				bw.write(this.getHistCoups().get(k).toString());
 				bw.newLine();
 			}
 
@@ -420,10 +447,10 @@ public class Partie {
 			bw.write(this.joueur2().getCamp().toString());
 			bw.write("pieces volees:" + this.joueur2().toStringPiecesVolees());
 			bw.newLine();
-			nbCoups=this.joueur2().getHistCoups().size();
+			nbCoups=this.getHistCoups().size();
 			bw.write("CoupsJ2:"+nbCoups);
 			for (int k = 0; k < nbCoups; k++) {
-				bw.write(this.joueur2().getHistCoups().get(k).toString());
+				bw.write(this.getHistCoups().get(k).toString());
 				bw.newLine();
 			}
 			bw.close();

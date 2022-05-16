@@ -99,7 +99,7 @@ public class Acteur {
 		this.piecesVolees.add(p);
 		this.addVol();
 	}
-	public Piece retirerPieceVolee(Piece p) {
+	public Piece retirerPieceVolee(Piece p) {//ok
 		this.piecesVolees.remove(p);
 		this.retireVol();
 		return p;
