@@ -29,7 +29,7 @@ public class Jeu {
 		this.cheminImages=chemin+"Images/";
 		this.cheminSauvegardes=chemin+"Sauvegardes/";
 		this.cheminSons=chemin+"launch1.mp3";
-		//this.simpleSoundPlayer = new SoundPlayer(cheminSons);
+		this.simpleSoundPlayer = new SoundPlayer(cheminSons);
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();

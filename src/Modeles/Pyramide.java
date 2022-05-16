@@ -32,7 +32,7 @@ public class Pyramide {
 	
 	public boolean estPleine() {
 		if(pyramide[hauteur-1][0]!=null) {
-			System.out.println("La pyramide est PLEINE !");
+			//System.out.println("La pyramide est PLEINE !");
 		}
 		return pyramide[hauteur-1][0]!=null;
 	}

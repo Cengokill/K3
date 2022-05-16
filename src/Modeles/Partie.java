@@ -102,6 +102,10 @@ public class Partie {
 	public Statistiques getStats() {
 		return this.statistiques;
 	}
+	
+	public void combinerStats(int a, int b) {
+		this.statistiques.combinerStats(a, b);
+	}
 
 	public void initialiserSac() {// ajoute toutes les pieces au sac
 		int nb_pieces_par_couleur = 9;

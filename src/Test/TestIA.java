@@ -10,17 +10,17 @@ public class TestIA {
     private final static int TAILLE_CAMP_JOUEUR = 21;
 
     public static void main(String[] args) {
-        int objectif = 1000; // nombre de parties de test
+        int objectif = 5; // nombre de parties de test
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
         double t1 = (double) System.currentTimeMillis();
-
+        Partie ktrois=null;
         while (nbParties != objectif) {
             // INITIALISATION DE LA PARTIE
             Joueur j1 = new Joueur("Stupid 1");
             Joueur j2 = new Joueur("BigBrain");
-            Partie ktrois = new Partie(j1, j2, nbParties);// numero de partie
+            ktrois = new Partie(j1, j2, nbParties);// numero de partie
             // Modifier le premier joueur qui commence
 
             // DISTIBUTION DES PIONS
@@ -95,11 +95,12 @@ public class TestIA {
             }
             nbParties++;
         }
-        System.out.println("Nombre de partie jouer :" + objectif);
-        System.out.println("Taux de victoire du joueur 1: " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
-        System.out.println("Taux de victoire du joueur 2: " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
+        ktrois.combinerStats(0,objectif);
+        System.out.println("Nombre de parties jouees : " + objectif);
+        System.out.println("Taux de victoire du joueur 1 : " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
+        System.out.println("Taux de victoire du joueur 2 : " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
         double t2 = (double) System.currentTimeMillis();
-        System.out.println("Temps moyen d'une partie: " + (t2 - t1) / (objectif * 1000) + " s");
+        System.out.println("Temps moyen d'une partie : " + (t2 - t1) / (objectif * 1000) + " s");
         System.out.println("Temps total de toutes les parties : " + ((t2 - t1) / 1000) + " s");
     }
 

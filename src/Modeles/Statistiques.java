@@ -57,21 +57,21 @@ public class Statistiques {
 			bw.newLine();
 			bw.write(this.acteur2.getNom());
 			bw.newLine();
-			bw.write(this.premierCoup);
+			bw.write(String.valueOf(this.vainqueur));
 			bw.newLine();
-			bw.write(this.vainqueur);
+			bw.write(String.valueOf(this.premierCoup));
 			bw.newLine();
-			bw.write(this.nbBlancsJ1);
+			bw.write(String.valueOf(this.nbBlancsJ1));
 			bw.newLine();
-			bw.write(+this.nbVolsJ1);
+			bw.write(String.valueOf(+this.nbVolsJ1));
 			bw.newLine();
-			bw.write(this.nbCoupsMauvaisJ1);
+			bw.write(String.valueOf(this.nbCoupsMauvaisJ1));
 			bw.newLine();
-			bw.write(this.nbBlancsJ2);
+			bw.write(String.valueOf(this.nbBlancsJ2));
 			bw.newLine();
-			bw.write(this.nbVolsJ2);
+			bw.write(String.valueOf(this.nbVolsJ2));
 			bw.newLine();
-			bw.write(this.nbCoupsMauvaisJ2);
+			bw.write(String.valueOf(this.nbCoupsMauvaisJ2));
 			bw.close();
 			writer.close();
 		} catch (IOException e) {
@@ -81,11 +81,11 @@ public class Statistiques {
 	
 	public void combinerStats(int num1, int num2) {
 		ArrayList<String> arr=new ArrayList<String>();
+		ArrayList<String> tab = new ArrayList<String>();
 		String fichier="";
 		FileReader reader;
 		BufferedReader br;
 		String ligne_lue;
-		ArrayList<String> tab = new ArrayList<String>();
 		String nomJ1, nomJ2;
 		int nbPremiersCoupsJ1=0;
 		int nbPremiersCoupsJ2=0;
@@ -106,58 +106,58 @@ public class Statistiques {
 				tab.add(ligne_lue);
 			}
 			br.close();
-			nomJ1=tab.get(0);//1. bw.write(this.acteur1.getNom());
-			nomJ2=tab.get(1);//2. bw.write(this.acteur2.getNom());
-			arr.add(nomJ1);
-			arr.add(nomJ2);
+			nomJ1=tab.get(0);//1. acteur1.getNom()
+			nomJ2=tab.get(1);//2. acteur2.getNom()
 			//fichiers suivants
 			int k=0;
-			for(int i=num1+1; i<num2+1; i++) {
+			for(int i=num1+1; i<num2; i++) {
 				fichier=this.cheminStats+"00"+i+".txt";
 				reader = new FileReader(fichier);
 				br = new BufferedReader(reader);
 				while ((ligne_lue = br.readLine()) != null) {
-					if(k>2) {
+					if(k>2) {//on n'ajoute pas les noms des joueurs
 						tab.add(ligne_lue);
 					}
 					k++;
 				}
 				br.close();
 				k=0;
-				//0 premierCoup
-				//1 vainqueur
-				//2 nbBlancsJ1
-				//3 nbVolsJ1
-				//4 nbCoupsMauvaisJ1
-				//5 nbBlancsJ2
-				//6 nbVolsJ2
-				//7 nbCoupsMauvaisJ2
-				if(tab.get(0).equals(nomJ1)) {
+				//0 nomJ1
+				//1 nomJ2
+				//2 vainqueur
+				//3 Qui premier coup
+				//4 nbBlancsJ1
+				//5 nbVolsJ1
+				//6 nbCoupsMauvaisJ1
+				//7 nbBlancsJ2
+				//8 nbVolsJ2
+				//9 nbCoupsMauvaisJ2
+				if(tab.get(2).equals("0")) {
+					nbVictoiresJ1++;
+				}else {//"1"
+					nbVictoiresJ2++;
+				}
+				if(tab.get(3).equals(nomJ1)) {
 					nbPremiersCoupsJ1++;
 				}else {
 					nbPremiersCoupsJ2++;
 				}
-				if(tab.get(1).equals(nomJ1)) {
-					nbVictoiresJ1++;
-				}else {
-					nbVictoiresJ2++;
-				}
-				nbBlancsJouesJ1+=Integer.parseInt(tab.get(2));
-				nbVolsJ1+=Integer.parseInt(tab.get(3));
-				nbMauvaisCoupsJ1+=Integer.parseInt(tab.get(4));
-				nbBlancsJouesJ2+=Integer.parseInt(tab.get(5));
-				nbVolsJ2+=Integer.parseInt(tab.get(6));
-				nbMauvaisCoupsJ2+=Integer.parseInt(tab.get(7));
+				nbBlancsJouesJ1+=Integer.parseInt(tab.get(4));
+				nbVolsJ1+=Integer.parseInt(tab.get(5));
+				nbMauvaisCoupsJ1+=Integer.parseInt(tab.get(6));
+				nbBlancsJouesJ2+=Integer.parseInt(tab.get(7));
+				nbVolsJ2+=Integer.parseInt(tab.get(8));
+				nbMauvaisCoupsJ2+=Integer.parseInt(tab.get(9));
 			}
-			arr.add(String.valueOf(num1));
-			arr.add(String.valueOf(num2));
 			arr.add(nomJ1);
+			arr.add(nomJ2);
+			arr.add(String.valueOf(num1));
+			arr.add(String.valueOf(num2-1));
 			arr.add(String.valueOf(nbVictoiresJ1));
 			arr.add(String.valueOf(nbPremiersCoupsJ1));
 			arr.add(String.valueOf(nbBlancsJouesJ1));
 			arr.add(String.valueOf(nbVolsJ1));
 			arr.add(String.valueOf(nbMauvaisCoupsJ1));
-			arr.add(nomJ2);
 			arr.add(String.valueOf(nbVictoiresJ2));
 			arr.add(String.valueOf(nbPremiersCoupsJ2));
 			arr.add(String.valueOf(nbBlancsJouesJ2));
@@ -172,7 +172,7 @@ public class Statistiques {
 	}
 	
 	public void ecrireStatsGenerales(ArrayList<String> arr) {
-		File f = new File(this.cheminStats+"Stats_parties_"+arr.get(0)+"-"+arr.get(1)+".txt");
+		File f = new File(this.cheminStats+"Stats_parties_"+arr.get(2)+"-"+arr.get(3)+".txt");
 		try {
 			f.createNewFile();
 		} catch (IOException e1) {
@@ -181,20 +181,26 @@ public class Statistiques {
 		try {
 			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
 			BufferedWriter bw = new BufferedWriter(writer);
+			int nbEgalites=Integer.parseInt(arr.get(3))-Integer.parseInt(arr.get(2))-Integer.parseInt(arr.get(4))+Integer.parseInt(arr.get(9));
 			bw.write("======= Statistiques generales =======");
-			bw.write("======= "+arr.get(2)+" =======");
 			bw.newLine();
-			bw.write("Nombre de victoires : "+arr.get(3));
 			bw.newLine();
-			bw.write("Nombre de fois ou il a commence : "+arr.get(4));
+			bw.write("Nombre d'egalites : "+String.valueOf(nbEgalites));
 			bw.newLine();
-			bw.write("Pieces Blanches jouees : "+arr.get(5));
+			bw.write("======= "+arr.get(0)+" =======");
 			bw.newLine();
-			bw.write("Vols effectues : "+arr.get(6));
+			bw.write("Nombre de victoires : "+arr.get(4));
 			bw.newLine();
-			bw.write("Mauvais coups joues : "+arr.get(7));
+			bw.write("Nombre de fois ou il a commence : "+arr.get(5));
 			bw.newLine();
-			bw.write("======= "+arr.get(8)+" =======");
+			bw.write("Pieces Blanches jouees : "+arr.get(6));
+			bw.newLine();
+			bw.write("Vols effectues : "+arr.get(7));
+			bw.newLine();
+			bw.write("Mauvais coups joues : "+arr.get(8));
+			bw.newLine();
+			bw.newLine();
+			bw.write("======= "+arr.get(1)+" =======");
 			bw.newLine();
 			bw.write("Nombre de victoires : "+arr.get(9));
 			bw.newLine();
@@ -205,6 +211,7 @@ public class Statistiques {
 			bw.write("Vols effectues : "+arr.get(12));
 			bw.newLine();
 			bw.write("Mauvais coups joues : "+arr.get(13));
+			bw.close();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
