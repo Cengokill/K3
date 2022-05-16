@@ -16,7 +16,6 @@ public class MinMax {
 
     public int eval(Partie p) { // Fonction d'évalutaion de la configuration difference entre notre
                                 // nombre de coups jouables et celui de l'adversaire
-
         int nbcoupsia, nbcoupsadv;
         if (numerojoueur == 0) {
             nbcoupsia = p.coupsJouables(p.joueur1()).size();
@@ -52,7 +51,7 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        if (lc.size() == 1) {
+        if (lc.size() == 1) { // Si un seul coup possible on le renvoie
             Coup c = lc.get(0);
             p.jouer(c, joueurcourant);
             int uncoup = eval(p);
@@ -62,7 +61,6 @@ public class MinMax {
             }
             return uncoup;
         }
-
         int valeurconfig = -10001;
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig != 10000) {
