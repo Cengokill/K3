@@ -13,13 +13,11 @@ public interface Acteur {
 	
 	public void placerPiecesRandom(PyramideMontagne pyrM);
 	
-	public void addCoupHist(Coup c);
-	
 	public void addBlancJoue();
+
+	public void retireBlancJoue();
 	
 	public void addMauvaisCoup();
-	
-	public ArrayList<Coup> getHistCoups();
 	
 	public int getBlancsJoues();
 	
