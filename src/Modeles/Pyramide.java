@@ -178,7 +178,7 @@ public class Pyramide {
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
 			System.err.println("Erreur : la position (" + p.rang + "," + p.etage + ") est impossible.");
 			return;
-		} if(this.pyramide[p.etage][p.rang] != null) {
+		} else if(this.pyramide[p.etage][p.rang] != null) {
 			System.err.println("la place est deja prise");
 		}
 		else if (p.etage == 0) {
