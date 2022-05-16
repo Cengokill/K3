@@ -39,6 +39,7 @@ public class Jeu {
 		Joueur j1 = new Joueur(nomJ1);
 		Joueur j2 = new Joueur(nomJ2);
 		this.partieEnCours = new Partie(j1, j2, numPartie);
+		this.partieEnCours.setCheminStats(cheminStats);
 		lancerJeu();
 	}
 	

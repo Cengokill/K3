@@ -17,6 +17,7 @@ public class Partie {
 	private ArrayList<Piece> basePieces;
 	private PyramideMontagne baseMontagne;// base de la montagne
 	private Statistiques statistiques;//creer a la fin de la partie uniquement
+	private String cheminStats;
 	public int joueurCourant;
 	public int joueurDebut;
 	Piece pBleu;
@@ -36,6 +37,7 @@ public class Partie {
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
+		this.cheminStats=System.getProperty("user.home")+ "/Desktop/Jeu_K3/Statistiques/";//valeur par defaut
 		pBleu = new Piece(Couleurs.BLEU);
 		pVert = new Piece(Couleurs.VERT);
 		pJaune = new Piece(Couleurs.JAUNE);
@@ -45,6 +47,10 @@ public class Partie {
 		pNaturel = new Piece(Couleurs.NATUREL);
 		initialiserSac();
 		initBaseMontagne();
+	}
+	
+	public void setCheminStats(String s) {
+		this.cheminStats=s;
 	}
 
 	public void changementJoueurCourant() {
@@ -67,20 +73,24 @@ public class Partie {
 	public void sauvegarderStatsPartie(String chemin) {
 		this.statistiques.ecrireStats(chemin, this.numPartie);
 	}
+	
 	public boolean estPartieFinie() {
 		boolean pleine=this.baseMontagne.estPleine();
 		if(pleine) {//egalite
 			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 2);
+			sauvegarderStatsPartie(this.cheminStats);
 			return pleine;
 		}else {//un des deux joueurs a perdu
 			if(this.joueurCourant == 0) {
 				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
 					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 0);
+					sauvegarderStatsPartie(this.cheminStats);
 					return true;
 				}
 			}else {
 				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
 					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 1);
+					sauvegarderStatsPartie(this.cheminStats);
 					return true;
 				}
 			}
