@@ -1,5 +1,9 @@
 package Modeles;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -304,6 +308,66 @@ public class Partie {
 			this.j1.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		} else {
 			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+		}
+	}
+	
+	public void sauvegarderPartie(String CheminEtnomFichier) {
+		File f = new File(CheminEtnomFichier);
+		try {
+			f.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
+			BufferedWriter bw = new BufferedWriter(writer);
+			bw.write("hauteur base montagne :" + this.getBaseMontagne().getHauteur());
+			bw.newLine();
+			bw.write("hauteur camp joueur :" + this.joueur1().getCamp().getHauteur());
+			bw.newLine();
+			bw.write("base montagne :");
+			bw.newLine();
+			bw.write(this.getBaseMontagne().toString());
+			bw.newLine();
+			bw.write("joueur courant :"+this.getJoueurCourant());
+			bw.newLine();
+			// ======================= JOUEUR 1 =======================
+			bw.write(" ======================= JOUEUR 1 =======================");
+			bw.newLine();
+			bw.write("nom joueur 1:" + this.joueur1().getNom());
+			bw.newLine();
+			bw.write("camp de base:");
+			bw.newLine();
+			bw.write(this.joueur1().getCamp().toString());
+			bw.write("pieces volees:" + this.joueur1().toStringPiecesVolees());
+			bw.newLine();
+			int nbCoups=this.joueur1().getHistCoups().size();
+			bw.write("CoupsJ1:"+nbCoups);
+			for (int k = 0; k < nbCoups; k++) {
+				bw.write(this.joueur1().getHistCoups().get(k).toString());
+				bw.newLine();
+			}
+
+			// ======================= JOUEUR 2 =======================
+			bw.write(" ======================= JOUEUR 2 =======================");
+			bw.newLine();
+			bw.write("nom joueur 2:" + this.joueur2().getNom());
+			bw.newLine();
+			bw.write("camp de base:");
+			bw.newLine();
+			bw.write(this.joueur2().getCamp().toString());
+			bw.write("pieces volees:" + this.joueur2().toStringPiecesVolees());
+			bw.newLine();
+			nbCoups=this.joueur2().getHistCoups().size();
+			bw.write("CoupsJ2:"+nbCoups);
+			for (int k = 0; k < nbCoups; k++) {
+				bw.write(this.joueur2().getHistCoups().get(k).toString());
+				bw.newLine();
+			}
+			bw.close();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

@@ -295,64 +295,8 @@ public class Jeu {
 		}
 	}
 	
-	public void sauvegarderPartie(String nomFichier) {
-		File f = new File(this.cheminSauvegardes+nomFichier);
-		try {
-			f.createNewFile();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
-			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write("hauteur base montagne :" + this.partieEnCours.getBaseMontagne().getHauteur());
-			bw.newLine();
-			bw.write("hauteur camp joueur :" + this.partieEnCours.joueur1().getCamp().getHauteur());
-			bw.newLine();
-			bw.write("base montagne :");
-			bw.newLine();
-			bw.write(this.partieEnCours.getBaseMontagne().toString());
-			bw.newLine();
-			bw.write("joueur courant :"+this.partieEnCours.getJoueurCourant());
-			bw.newLine();
-			// ======================= JOUEUR 1 =======================
-			bw.write(" ======================= JOUEUR 1 =======================");
-			bw.newLine();
-			bw.write("nom joueur 1:" + this.partieEnCours.joueur1().getNom());
-			bw.newLine();
-			bw.write("camp de base:");
-			bw.newLine();
-			bw.write(this.partieEnCours.joueur1().getCamp().toString());
-			bw.write("pieces volees:" + this.partieEnCours.joueur1().toStringPiecesVolees());
-			bw.newLine();
-			int nbCoups=this.partieEnCours.joueur1().getHistCoups().size();
-			bw.write("CoupsJ1:"+nbCoups);
-			for (int k = 0; k < nbCoups; k++) {
-				bw.write(this.partieEnCours.joueur1().getHistCoups().get(k).toString());
-				bw.newLine();
-			}
-
-			// ======================= JOUEUR 2 =======================
-			bw.write(" ======================= JOUEUR 2 =======================");
-			bw.newLine();
-			bw.write("nom joueur 2:" + this.partieEnCours.joueur2().getNom());
-			bw.newLine();
-			bw.write("camp de base:");
-			bw.newLine();
-			bw.write(this.partieEnCours.joueur2().getCamp().toString());
-			bw.write("pieces volees:" + this.partieEnCours.joueur2().toStringPiecesVolees());
-			bw.newLine();
-			nbCoups=this.partieEnCours.joueur2().getHistCoups().size();
-			bw.write("CoupsJ2:"+nbCoups);
-			for (int k = 0; k < nbCoups; k++) {
-				bw.write(this.partieEnCours.joueur2().getHistCoups().get(k).toString());
-				bw.newLine();
-			}
-			bw.close();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void sauvegarderUnePartie(String nomFichier) {
+		this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+nomFichier);
 	}
 	
 	public void chargerPartie(String cheminSauvegardes) {
