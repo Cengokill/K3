@@ -8,7 +8,7 @@ import Modeles.*;
 public class MinMax {
     int numerojoueur;
     Coup parfait;
-    Partie copiepartie;
+    PiecePyramide avoler;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -127,4 +127,7 @@ public class MinMax {
         System.out.println();
     }
 
+    public PiecePyramide PieceAVoler() {
+        return avoler;
+    }
 }
