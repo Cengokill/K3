@@ -29,6 +29,9 @@ public class ActeurClasse {
 	}
 
 	public void addCoupHist(Coup c) {
+		if(c.getPosBase()==null) {
+			this.addBlancJoue();
+		}
 		this.historiqueCoups.add(c);
 	}
 	
@@ -131,10 +134,12 @@ public class ActeurClasse {
 
 	public void addPieceVolee(Piece p) {
 		this.piecesVolees.add(p);
+		this.addVol();
 	}
 	
 	public Piece retirerPieceVolee(Piece p) {
 		this.piecesVolees.remove(p);
+		this.retireVol();
 		return p;
 	}
 	

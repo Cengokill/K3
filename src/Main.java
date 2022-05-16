@@ -10,11 +10,12 @@ import Modeles.SoundPlayer;
 public class Main {
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		System.out.println("K3");
+		/*
 		String chemin="C:/Users/Killian/Desktop/Développement Eclipse/Espace de travail/K3/src/Ressources/";
 		String cheminSons=chemin+"launch1.wav";
 		SoundPlayer simpleSoundPlayer = new SoundPlayer(cheminSons);
 		simpleSoundPlayer.playSound();
-		System.out.println("test");
-		//Jeu j=new Jeu("Gaston","Mademoiselle Jeanne",1);
+		*/
+		Jeu j=new Jeu("Gaston","Mademoiselle Jeanne",1);
 	}
 }

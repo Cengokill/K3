@@ -29,8 +29,6 @@ public class Jeu {
 		this.cheminImages=chemin+"Images/";
 		this.cheminSauvegardes=chemin+"Sauvegardes/";
 		this.cheminSons=chemin+"launch1.mp3";
-		SoundPlayer simpleSoundPlayer = new SoundPlayer(cheminSons);
-		simpleSoundPlayer.playSound();
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();
@@ -45,7 +43,6 @@ public class Jeu {
 	}
 	
 	public void lancerJeu() {
-		//this.simpleSoundPlayer.play();
 		this.num_tour=1;
 		this.valeur_paire=0;
 		//PHASE 1
@@ -75,9 +72,10 @@ public class Jeu {
 	}
 	
 	public void jouerPhase2() {
+		/*
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
-		System.out.println(!this.partieEnCours.estPartieFinie());
+		*/
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 		}
@@ -129,19 +127,14 @@ public class Jeu {
 			jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
 		}else {//si le joueur courant decide de jouer une de ses pieces volees
 			jCourant.retirerPieceVolee(coupDemande.getPiece());
-			jCourant.retireVol();
 		}
-		jCourant.addCoupHist(coupDemande);
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
 			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
-				jCourant.addMauvaisCoup();
 				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
-				jPrecedent.addCoupHist(vol);
 			}
 		}else {// joue une piece BLANCHE
-			jCourant.addBlancJoue();
-			System.out.println("Vous avez decide de passer votre tour !");
+			//System.out.println("Vous avez decide de passer votre tour !");
 		}
 		this.partieEnCours.changementJoueurCourant();
 	}

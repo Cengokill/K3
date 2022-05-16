@@ -224,6 +224,7 @@ public class Partie {
 	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
 	// celle a voler et une deuxieme qui vole la piece donner en argument
 	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+		victime.addMauvaisCoup();
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
 		@SuppressWarnings("resource")
@@ -236,11 +237,12 @@ public class Partie {
 			System.out.println(victime.getCamp().toString());
 			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
+			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			victime.getCamp().retirer(pieceVolee.getPos());
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
-			voleur.addVol();
+			voleur.addCoupHist(vol);// ajout du coup aux coups du voleur
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
-			return new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
+			return vol;
 		} else {
 			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
 			return null;
