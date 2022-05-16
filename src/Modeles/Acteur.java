@@ -7,11 +7,33 @@ public interface Acteur {
 	// A PRORAMMER / IA
 	public Coup jouer(ArrayList<Coup> arr); // pyramide au milieu
 	
-	public int placerPieces(int indice);// deja implemente
+	void melangePiecesPiochees();
+	
+	public void setCamp(PyramideJoueur camp);
+	
+	public void placerPiecesRandom(PyramideMontagne pyrM);
+	
+	public void addCoupHist(Coup c);
+	
+	public void addBlancJoue();
+	
+	public void addMauvaisCoup();
+	
+	public ArrayList<Coup> getHistCoups();
+	
+	public int getBlancsJoues();
+	
+	public int getMauvaisCoupsJoues();
+	
+	public int getNbVols();
+	
+	public void addVol();
+	
+	public void retireVol();
+	
+	public int placerPiece(int indice);// deja implemente
 	
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr);
-	
-	// COMMUN
 
 	public String getNom();// deja implemente
 
@@ -28,12 +50,12 @@ public interface Acteur {
 	public ArrayList<Piece> getPiecesPiochees();// deja implemente
 
 	public void addPieceVolee(Piece p);// deja implemente
+	
+	public Piece retirerPieceVolee(Piece p);
 
 	public int getTaillePiecesPiochees();// deja implemente
 
 	public Piece piocherPiece(ArrayList<Piece> sac);
 
 	public void afficherCoupsJouables(ArrayList<Coup> arr);// deja implemente
-
-	public void setCamp(PyramideJoueur campJ);// deja implemente	
 }

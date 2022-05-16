@@ -36,7 +36,7 @@ public class MinMax {
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
         // System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
-        if ((horizon == 0) || (p.estPartieFinie(joueurcourant))) {
+        if ((horizon == 0) || (p.estPartieFinie())) {
             // System.out.println("On est aller a l horizon :" + horizon);
             // System.out.println("Je suis une feuille");
             if (horizon == 5) {
@@ -55,7 +55,7 @@ public class MinMax {
             Coup c = lc.get(0);
             p.jouer(c, joueurcourant);
             int uncoup = eval(p);
-            p.annulercoup(c, joueurcourant);
+            p.annulerCoup(c, joueurcourant);
             if (flag) {
                 parfait = c;
             }
@@ -74,7 +74,7 @@ public class MinMax {
                 parfait = c;
             }
             valeurconfig = Math.max(valeurconfig, valeurfils);
-            p.annulercoup(c, joueurcourant);
+            p.annulerCoup(c, joueurcourant);
         }
         return valeurconfig;
 
@@ -88,7 +88,7 @@ public class MinMax {
         } else {
             joueurcourant = 0;
         }
-        if ((horizon == 0) || (p.estPartieFinie(joueurcourant))) {
+        if ((horizon == 0) || (p.estPartieFinie())) {
             // System.out.println("On est aller a l horizon :" + horizon);
             // System.out.println("Je suis une feuille");
             return eval(p);
@@ -109,7 +109,7 @@ public class MinMax {
             p.jouer(c, joueurcourant);
             // System.out.println(p.getBaseMontagne().toString());
             valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false));
-            p.annulercoup(c, joueurcourant);
+            p.annulerCoup(c, joueurcourant);
         }
         return valeurconfig;
     }

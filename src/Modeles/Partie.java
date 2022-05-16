@@ -5,13 +5,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
+
 public class Partie {
+	private int numPartie;
 	private Acteur j1;
 	private Acteur j2;
 	private ArrayList<Piece> basePieces;
 	private PyramideMontagne baseMontagne;// base de la montagne
-	private ArrayList<Coup> historique;
+	private Statistiques statistiques;//creer a la fin de la partie uniquement
 	public int joueurCourant;
+	public int joueurDebut;
 	Piece pBleu;
 	Piece pVert;
 	Piece pJaune;
@@ -22,9 +25,10 @@ public class Partie {
 	private final int NB_PIECES_NATURELS = 2;
 	private final int NB_PIECES_BLANCS = 2;
 
-	public Partie(Acteur j1, Acteur j2) {
-		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur al�atoire
-		this.historique = new ArrayList<Coup>();
+	public Partie(Acteur j1, Acteur j2, int numPartie) {
+		this.numPartie=numPartie;
+		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
+		this.joueurDebut=joueurCourant;
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
@@ -51,7 +55,37 @@ public class Partie {
 	}
 
 	public boolean joueurPeutJouer(Acteur j) {
-		return coupsJouables(j).isEmpty();
+		return coupsJouables(j).isEmpty() && !this.baseMontagne.estPleine();
+		//si le joueur n'a plus de coups jouables mais que la pyramide est pleine alors il n'a pas perdu
+		//si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine alors il a perdu
+	}
+	
+	public void sauvegarderStatsPartie(String chemin) {
+		this.statistiques.ecrireStats(chemin, this.numPartie);
+	}
+	public boolean estPartieFinie() {
+		boolean pleine=this.baseMontagne.estPleine();
+		if(pleine) {//egalite
+			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 2);
+			return pleine;
+		}else {//un des deux joueurs a perdu
+			if(this.joueurCourant == 0) {
+				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
+					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 0);
+					return false;
+				}
+			}else {
+				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
+					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 1);
+					return false;
+				}
+			}
+		}//si joueur 1 et joueur 2 peuvent jouer et que la montagne n'est pas pleine
+		return true;
+	}
+	
+	public Statistiques getStats() {
+		return this.statistiques;
 	}
 
 	public void initialiserSac() {// ajoute toutes les pieces au sac
@@ -156,10 +190,6 @@ public class Partie {
 		return coupsPosables;
 	}
 
-	public ArrayList<Coup> getHist() {
-		return this.historique;
-	}
-
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
 	}
@@ -174,9 +204,10 @@ public class Partie {
 
 	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
 	// celle a voler et une deuxieme qui vole la piece donner en argument
-	public void volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
+		@SuppressWarnings("resource")
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String num = myObj.nextLine();
 		int rep = Integer.parseInt(num);
@@ -187,11 +218,13 @@ public class Partie {
 			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 			victime.getCamp().retirer(pieceVolee.getPos());
-			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee a la liste des pieces volees du
-														// voleur
+			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
+			voleur.addVol();
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
+			return new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 		} else {
-			System.out.println("Vous avez choisi de ne pas voler une piece a " + victime.getNom() + ".");
+			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
+			return null;
 		}
 	}
 
@@ -204,14 +237,6 @@ public class Partie {
 		}
 	}
 
-	public boolean estPartieFinie(int joueurCourant) {
-		if (joueurCourant == 0) {
-			return joueurPeutJouer(joueur1());
-		} else {
-			return joueurPeutJouer(joueur2());
-		}
-	}
-
 	public Acteur joueur1() {
 		return j1;
 	}
@@ -219,8 +244,8 @@ public class Partie {
 	public Acteur joueur2() {
 		return j2;
 	}
-
-	public void affichesac() {
+	
+	public void afficheSac() {
 		Iterator<Piece> it = basePieces.iterator();
 		System.out.println("Dans le sac il y a:");
 		int noir = 0;
@@ -255,20 +280,23 @@ public class Partie {
 		// retire de la pyramide joueur
 		if (joueurcourant == 0) {
 			this.j1.getCamp().retirer(c.getPosJ());
+			this.j1.addCoupHist(c);
 		} else {
 			this.j2.getCamp().retirer(c.getPosJ());
+			this.j2.addCoupHist(c);
 		}
 
-		// ajoute a sa pyramide
-		if (c.getPosBase() != null) {
+		// ajoute a la montagne
+		if (c.getPosBase() != null) {//si pas de blanc joue
 			this.baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
 		}
 	}
 
-	public void annulercoup(Coup c, int joueurcourant) {
+	public void annulerCoup(Coup c, int joueurcourant) {
 		// retire de la base
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.baseMontagne.retirer(c.getPosBase());
+			this.baseMontagne.annulerDernierePiece();
 		}
 
 		// ajoute a sa pyramide
@@ -278,4 +306,5 @@ public class Partie {
 			this.j2.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 		}
 	}
+	
 }

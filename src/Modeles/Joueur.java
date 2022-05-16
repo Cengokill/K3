@@ -10,14 +10,13 @@ public class Joueur extends ActeurClasse implements Acteur {
 	}
 	
 	public Coup jouer(ArrayList<Coup> arr) {
-		System.out.println(super.getNom()+", veuillez jouer un coup :");
 		super.afficherCoupsJouables(arr);
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String coup = myObj.nextLine();
 		return arr.get(Integer.parseInt(coup));
 	}
 
-	public int placerPieces(int indice) {
+	public int placerPiece(int indice) {
 		if(indice>piecesPiochees.size()-1) {
          	indice= piecesPiochees.size()-1;
          	System.err.println("Erreur : indice non valide. Recommencez.");
@@ -36,6 +35,7 @@ public class Joueur extends ActeurClasse implements Acteur {
                     return -1;
                 }
                 int num=-1;
+                p=piecesPiochees.get(0);
                 while(num==-1) {
                 	System.out.println(super.campJ.toString());//affichage du camp du joueur
                 	System.out.println("indice : "+indice);
@@ -55,6 +55,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 	                		System.out.println("Piece precedente demandee.");
 	                		indice--;
 	                	}else {
+	                		p=piecesPiochees.get(indice);
 		                	indice=Integer.parseInt(numChaine);
 		                	num=0;
 	                	}
@@ -70,7 +71,6 @@ public class Joueur extends ActeurClasse implements Acteur {
                 		System.err.println("Erreur : indice non valide. Recommencez.");
                 	}
                 }
-                p=piecesPiochees.get(indice);
                 arrPos=super.campJ.posDisponibles();
                 pos=arrPos.get(indice);//pos devient la position choisie par le joueur
                 PiecePyramide pp = new PiecePyramide(p, pos);
@@ -80,6 +80,39 @@ public class Joueur extends ActeurClasse implements Acteur {
         }
         return indice;
     }
+	
+	public boolean estPosable(Piece p, PyramideMontagne pyrM) {
+		//renvoie true si la premiere piece de la pioche dun joueur peut etre empilee sur le camp de la montagne
+		ArrayList<PiecePyramide> pieces_Posables=pyrM.piecesPosables();		
+		for(PiecePyramide pCour : pieces_Posables) {
+			if(pCour.getPiece().getColor().equals(p.getColor())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void placerPiecesRandom(PyramideMontagne pyrM) {
+		//empile toutes les pieces d'un joueur sur son camp aleatoirement
+		Position pos;
+        ArrayList<Position> arrPos;
+        int taillePioche=piecesPiochees.size();
+        melangePiecesPiochees();
+        while(!estPosable(piecesPiochees.get(taillePioche-1),pyrM)||!estPosable(piecesPiochees.get(taillePioche-2),pyrM)||!estPosable(piecesPiochees.get(taillePioche-3),pyrM)){
+        	melangePiecesPiochees();
+        }
+        Piece p;
+        for(int i=0; i<6; i++) {
+            for(int j=0; j<6-i; j++) {
+            	p=piecesPiochees.get(0);
+                arrPos=super.campJ.posDisponibles();
+                pos=arrPos.get(0);//pos devient la position choisie par le joueur
+                PiecePyramide pp = new PiecePyramide(p, pos);
+                super.campJ.empiler(pp);
+                super.piecesPiochees.remove(0);
+            }
+        }
+	}
 	
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {//deja des pieces volables
 		System.out.println(super.getNom()+", veuillez choisir une piece a voler :");

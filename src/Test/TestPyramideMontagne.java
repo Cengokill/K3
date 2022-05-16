@@ -16,7 +16,7 @@ public class TestPyramideMontagne {
             System.out.println(p.toString() + " de position" + coord.toString());
         }
         // Affiche les pieces qui sont posables sur la pyramide
-        LinkedList<PiecePyramide> posables = baseMontagne.piecesPosables();
+        ArrayList<PiecePyramide> posables = baseMontagne.piecesPosables();
         Iterator<PiecePyramide> it = posables.iterator();
         System.out.println("Pieces posables: ");
         while (it.hasNext()) {

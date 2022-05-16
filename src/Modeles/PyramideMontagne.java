@@ -5,28 +5,7 @@ import java.util.ArrayList;
 public class PyramideMontagne extends Pyramide {
 
 	public PyramideMontagne(int largeur, int hauteur) {
-		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
-			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
-		} else {
-			this.largeur = largeur;
-			this.hauteur = hauteur;
-			int l = largeur;
-
-			Piece[][] etage = new Piece[hauteur][];
-			for (int i = 0; i < hauteur; i++) {
-				Piece[] ligne = new Piece[l];
-				etage[i] = ligne;
-				l = l - 1;
-			}
-			this.pyramide = etage;
-		}
-	}
-	
-	public boolean estPleine() {
-		if(pyramide[hauteur-1][0]!=null) {
-			System.out.println("La base de la montagne est PLEINE !");
-		}
-		return pyramide[hauteur-1][0]!=null;
+		super(largeur, hauteur);
 	}
 
 	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
@@ -87,7 +66,8 @@ public class PyramideMontagne extends Pyramide {
 			return;
 		} else if (p.etage == 0) {
 			// pas de piece porteuse
-			pyramide[p.etage][p.rang] = piece;
+			this.pyramide[p.etage][p.rang] = piece;
+			this.historiquePieces.add(pp);
 		} else {
 			// avec piece porteuse
 			int porteurDroitRang = p.rang;
@@ -101,7 +81,8 @@ public class PyramideMontagne extends Pyramide {
 				if (piece.getColor() == Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor()
 						|| porteurGauche.getColor() == piece.getColor() || porteurDroit.getColor() == Couleurs.NATUREL
 						|| porteurGauche.getColor() == Couleurs.NATUREL)) {
-					pyramide[p.etage][p.rang] = piece;
+					this.pyramide[p.etage][p.rang] = piece;
+					this.historiquePieces.add(pp);
 				} else {
 					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
 					return;
@@ -111,9 +92,5 @@ public class PyramideMontagne extends Pyramide {
 				return;
 			}
 		}
-	}
-
-	public void ajouter(Piece p, Position pos) {
-		pyramide[pos.etage][pos.rang] = p;
 	}
 }
