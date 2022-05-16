@@ -38,12 +38,6 @@ public class PyramideMontagne extends Pyramide {
 				}
 			}
 		}
-		/*
-		System.out.println("Pieces posables sur le camp de la montagne :");
-		for(int k=0; k<arr.size(); k++) {
-			System.out.println(arr.get(k).toString());
-		}
-		*/
 		return arr;
 	}
 
@@ -58,39 +52,9 @@ public class PyramideMontagne extends Pyramide {
 		return porteurGauche.getColor() == porteurDroit.getColor();
 	}
 
-	public void empiler(PiecePyramide pp) {
-		Piece piece = pp.getPiece();
-		Position p = pp.getPos();
-		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
-			System.err.println("Erreur : la position (" + p.rang + "," + p.etage + ") est impossible.");
-			return;
-		} else if (p.etage == 0) {
-			// pas de piece porteuse
-			this.pyramide[p.etage][p.rang] = piece;
-			this.historiquePieces.add(pp);
-		} else {
-			// avec piece porteuse
-			int porteurDroitRang = p.rang;
-			int porteurDroitEtage = p.etage - 1;
-			Piece porteurDroit = pyramide[porteurDroitEtage][porteurDroitRang];
-			int porteurGaucheRang = porteurDroitRang + 1;
-			int porteurGaucheEtage = p.etage - 1;
-			Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
-
-			if (porteurDroit != null && porteurGauche != null) {
-				if (piece.getColor() == Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor()
-						|| porteurGauche.getColor() == piece.getColor() || porteurDroit.getColor() == Couleurs.NATUREL
-						|| porteurGauche.getColor() == Couleurs.NATUREL)) {
-					this.pyramide[p.etage][p.rang] = piece;
-					this.historiquePieces.add(pp);
-				} else {
-					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
-					return;
-				}
-			} else {
-				System.err.println("Impossible d'empiler une piece sur du vide. Il faut au moins 2 pieces porteuses.");
-				return;
-			}
-		}
+	public boolean conditionEmpiler(Piece piece, Piece porteurDroit, Piece porteurGauche) { //vérification que les pieces porteuse possède la meme couleur que la piece posée
+		return (piece.getColor() == Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor()
+				|| porteurGauche.getColor() == piece.getColor() || porteurDroit.getColor() == Couleurs.NATUREL
+				|| porteurGauche.getColor() == Couleurs.NATUREL));
 	}
 }

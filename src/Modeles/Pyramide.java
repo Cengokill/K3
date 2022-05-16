@@ -31,9 +31,6 @@ public class Pyramide {
 	}
 	
 	public boolean estPleine() {
-		if(pyramide[hauteur-1][0]!=null) {
-			//System.out.println("La pyramide est PLEINE !");
-		}
 		return pyramide[hauteur-1][0]!=null;
 	}
 
@@ -174,5 +171,45 @@ public class Pyramide {
 		}
 		return tableau;
 	}
+	
+	public void empiler(PiecePyramide pp) {
+		Piece piece = pp.getPiece();
+		Position p = pp.getPos();
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
+			System.err.println("Erreur : la position (" + p.rang + "," + p.etage + ") est impossible.");
+			return;
+		} if(this.pyramide[p.etage][p.rang] != null) {
+			System.err.println("la place est deja prise");
+		}
+		else if (p.etage == 0) {
+			// pas de piece porteuse
+			this.pyramide[p.etage][p.rang] = piece;
+			this.historiquePieces.add(pp);
+		} else {
+			// avec piece porteuse
+			int porteurDroitRang = p.rang;
+			int porteurDroitEtage = p.etage - 1;
+			Piece porteurDroit = pyramide[porteurDroitEtage][porteurDroitRang];
+			int porteurGaucheRang = porteurDroitRang + 1;
+			int porteurGaucheEtage = p.etage - 1;
+			Piece porteurGauche = pyramide[porteurGaucheEtage][porteurGaucheRang];
 
+			if (porteurDroit != null && porteurGauche != null) {
+				if (conditionEmpiler(piece, porteurGauche, porteurDroit)) {
+					this.pyramide[p.etage][p.rang] = piece;
+					this.historiquePieces.add(pp);
+				} else {
+					System.err.println("La piece n'est pas de la bonne couleur qu'une des 2 pieces porteuses.");
+					return;
+				}
+			} else {
+				System.err.println("Impossible d'empiler une piece sur du vide. Il faut au moins 2 pieces porteuses.");
+				return;
+			}
+		}
+	}
+	
+	public boolean conditionEmpiler(Piece piece, Piece porteurDroit, Piece porteurGauche) {
+		return true;
+	}
 }

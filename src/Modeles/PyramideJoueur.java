@@ -14,33 +14,12 @@ public class PyramideJoueur extends Pyramide {
 		super(largeur, hauteur);
 	}
 
-	public void empiler(PiecePyramide pp) {
-		Piece piece = pp.getPiece();
-		Position p = pp.getPos();
-		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
-			System.err.println("Erreur position impossible : " + p.rang + "," + p.etage);
-		} else if (p.etage == 0) {
-			// pas de piece porteuse
-			pyramide[p.etage][p.rang] = piece;
-		} else {
-			// avec piece porteuse
-			int porteurDroitRang = p.rang;
-			int porteurDroitEtage = p.etage - 1;
-			int porteurGaucheRang = porteurDroitRang + 1;
-			int porteurGaucheEtage = p.etage - 1;
-			if (pyramide[porteurDroitEtage][porteurDroitRang] != null
-					&& pyramide[porteurGaucheEtage][porteurGaucheRang] != null) {
-				pyramide[p.etage][p.rang] = piece;
-			} else {
-				System.err.println("La piece n'a pas de piece porteuse.");
-			}
-		}
-	}
 
 	public ArrayList<PiecePyramide> piecesJouables() {// renvoie les pieces que le joueur peut prendre a partir de sa
 														// pyramide
 		int etage;
 		int rang;
+		PiecePyramide newPieceJouable;
 		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		ArrayList<Position> piecesVerif = new ArrayList<Position>();
 		piecesVerif.add(new Position(hauteur - 1, 0));
@@ -54,7 +33,10 @@ public class PyramideJoueur extends Pyramide {
 				}
 			} else {// case contenant une piece
 				if (super.estPiecePorteuse(piecesVerif.get(0))) {
-					arr.add(new PiecePyramide(pyramide[etage][rang], piecesVerif.get(0)));
+					newPieceJouable = new PiecePyramide(pyramide[etage][rang], piecesVerif.get(0));
+					if(!arr.contains(newPieceJouable)) {
+						arr.add(newPieceJouable);
+					}
 				}
 			}
 			piecesVerif.remove(0);
