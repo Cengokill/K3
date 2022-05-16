@@ -347,10 +347,15 @@ public class Partie {
 			System.out.println("=========== VOL DE PIECE ===========");
 			System.out.println("Camp du joueur victime :");
 			System.out.println(victime.getCamp().toString());
+			System.out.println("Ses pieces volees :"+victime.toStringPiecesVolees());
 			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
-			victime.getCamp().retirer(pieceVolee.getPos());
+			if(pieceVolee.getPos()==null) {//si le voleur vole une piece volee
+				victime.retirerPieceVolee(pieceVolee.getPiece());
+			}else {
+				victime.getCamp().retirer(pieceVolee.getPos());
+			}
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
 			return vol;
