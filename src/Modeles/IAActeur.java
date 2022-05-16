@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Controleur.*;
 
 public class IAActeur extends ActeurClasse implements Acteur {
-    IAjeu jeu; // CREER METHODE QUI RENVOIE LA PIECE A VOLER
+    IAjeu jeu;
     IApioche pioche;
     int numerojoueur;
 
