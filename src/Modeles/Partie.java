@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -29,8 +30,10 @@ public class Partie {
 	Piece pNaturel;
 	private final int NB_PIECES_NATURELS = 2;
 	private final int NB_PIECES_BLANCS = 2;
+	private SoundPlayer simpleSoundPlayer;
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
+		this.simpleSoundPlayer = new SoundPlayer();
 		this.numPartie=numPartie;
 		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
 		this.joueurDebut=joueurCourant;
@@ -64,7 +67,7 @@ public class Partie {
 		if (joueurCourant == 1) j=this.j1;
 		else j=this.j2;
 	
-		this.historiqueCoups.add(c);		
+		this.historiqueCoups.add(c);
 		if(c.getPosBase()==null) {
 			j.addBlancJoue();
 		}
@@ -316,9 +319,10 @@ public class Partie {
 		}
 		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+			this.simpleSoundPlayer.jouerSon(2);
 			if(this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				Coup vol = this.volerPiece(jPrecedent, jCourant);
-				this.addCoupHist(vol);
+				if(vol!=null) this.addCoupHist(vol);
 			}
 		}else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();

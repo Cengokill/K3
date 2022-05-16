@@ -4,7 +4,6 @@ public class Coup {
 	private Piece piece;
 	private Position posCampJoueur;
 	private Position posBaseMontagne;
-	private Position posCampAdversaire;
 
 	// un coup est defini par une piece, une position de depart depuis la montagne
 	// du joueur et une position d'arrivee dans la base de la montagne

@@ -29,7 +29,7 @@ public class Acteur {
 		campJ = new PyramideJoueur(6, 6);
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
-		this.simpleSoundPlayer = new SoundPlayer("C:/Users/Killian/Desktop/Développement Eclipse/Espace de travail/K3/res/Sounds/");
+		this.simpleSoundPlayer = new SoundPlayer();
 	}
 	
 	
@@ -178,7 +178,7 @@ public class Acteur {
                 arrPos=this.campJ.posDisponibles();
                 pos=arrPos.get(0);//pos devient la position choisie par le joueur
                 PiecePyramide pp = new PiecePyramide(p, pos);
-                simpleSoundPlayer.jouerSon(1);
+                //simpleSoundPlayer.jouerSon(1);
                 this.campJ.empiler(pp);
                 piecesPiochees.remove(0);
             }

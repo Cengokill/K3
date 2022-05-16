@@ -75,7 +75,6 @@ public class Jeu {
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 		}
-		simpleSoundPlayer.jouerSon(0);
 		partieVictoire();//affichage uniquement
 	}
 	
@@ -120,6 +119,7 @@ public class Jeu {
 	}
 	
 	public void partieVictoire() {
+		this.simpleSoundPlayer.jouerSon(0);
 		afficherBaseMontagne();
 		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
 		System.out.println(this.partieEnCours.joueur2().getCamp().toString());

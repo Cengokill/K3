@@ -13,10 +13,13 @@ public class SoundPlayer {
 	
 	public SoundPlayer() {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
-		this.chemin="C:/Users/Killian/Desktop/Développement Eclipse/Espace de travail/K3/res/Sounds/";
+		this.chemin="./res/Sounds/";
 		cheminsSons[0] = chemin+"victoire.wav";//ok
-		cheminsSons[1] = chemin+"poserPieceCamp.wav";//ok
-		cheminsSons[2] = chemin+"poserPieceMontagne.wav";
+		cheminsSons[1] = chemin+"poserPieceCamp.wav";
+		cheminsSons[2] = chemin+"PoserPieceMontagne/poserPieceMontagne1.wav";
+		cheminsSons[3] = chemin+"PoserPieceMontagne/poserPieceMontagne2.wav";
+		cheminsSons[4] = chemin+"PoserPieceMontagne/poserPieceMontagne3.wav";
+		/*
 		cheminsSons[3] = chemin+"poserPieceNaturelle.wav";
 		cheminsSons[4] = chemin+"lancementPartie.wav";
 		cheminsSons[5] = chemin+"melange.wav";
@@ -27,7 +30,7 @@ public class SoundPlayer {
 		cheminsSons[10] = chemin+"joueurFiniCamp.wav";
 		cheminsSons[11] = chemin+"joueurPerdu.wav";
 		cheminsSons[12] = chemin+"joueurGagne.wav";
-		System.out.println(cheminsSons[0]);
+		*/
 	}
 	
 	public void setFile(int i) {
@@ -45,7 +48,8 @@ public class SoundPlayer {
 	}
 	
 	public void jouerSon(int i) {
-		setFile(i);
+		int r=Aleatoire.genInt(i,i+2);
+		setFile(r);
 		play();
 	}
 	
