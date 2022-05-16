@@ -49,7 +49,6 @@ public class SoundPlayer {
 			AudioInputStream input = AudioSystem.getAudioInputStream(f);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
-			System.out.println(cheminsSons[i]);
 		}catch(Exception e){
 			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[i]);
 			System.err.println("Chemin actuel : "+this.chemin);

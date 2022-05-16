@@ -14,7 +14,6 @@ public class Joueur extends Acteur {
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String coupString = myObj.nextLine();
 		Coup c = arr.get(Integer.parseInt(coupString));
-		System.out.println("coup : "+c);
 		return c;
 	}
 	

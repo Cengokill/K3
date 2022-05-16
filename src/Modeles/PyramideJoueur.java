@@ -13,7 +13,17 @@ public class PyramideJoueur extends Pyramide {
 	public PyramideJoueur(int largeur, int hauteur) {
 		super(largeur, hauteur);
 	}
-
+	
+	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
+		PiecePyramide pCour;
+		for(int i=0; i<arr.size(); i++) {
+			pCour=arr.get(i);
+			if(pp.egal(pCour)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public ArrayList<PiecePyramide> piecesJouables() {// renvoie les pieces que le joueur peut prendre a partir de sa
 														// pyramide
@@ -34,7 +44,7 @@ public class PyramideJoueur extends Pyramide {
 			} else {// case contenant une piece
 				if (super.estPiecePorteuse(piecesVerif.get(0))) {
 					newPieceJouable = new PiecePyramide(pyramide[etage][rang], piecesVerif.get(0));
-					if(!arr.contains(newPieceJouable)) {
+					if(!contiens(arr,newPieceJouable)) {
 						arr.add(newPieceJouable);
 					}
 				}

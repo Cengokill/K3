@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Scanner;
-
 
 public class Partie {
 	private int numPartie;
@@ -322,7 +320,6 @@ public class Partie {
 			this.simpleSoundPlayer.jouerSon(2);
 			if(coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
 				this.simpleSoundPlayer.jouerSon(7);
-				System.out.println("kozadokjzejdjkoezjjkozfder");
 			}
 			if(this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
 				Coup vol = this.volerPiece(jPrecedent, jCourant);
