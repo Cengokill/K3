@@ -62,7 +62,6 @@ public class Jeu {
 		}
 		//int i=0, j=0;//indice des pieces a choisir
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
-			afficherBaseMontagne();
 			/*
 			//chaque joueur doit choisir la piece a empiler sur sa pioche
 			i=this.partieEnCours.joueur1().placerPiece(i);
@@ -99,7 +98,7 @@ public class Jeu {
 		Acteur jCourant, jPrecedent;
 		
 		if(this.valeur_paire%2==0) {//affichage du numero du tour actuel
-			afficherTour();
+			//afficherTour();
 			this.valeur_paire++;
 		}
 		//attribution du joueur courant et precedent
@@ -111,6 +110,7 @@ public class Jeu {
 			jPrecedent=this.partieEnCours.joueur1();
 		}
 		//affichage dans la console de la partie
+		/*
 		afficherBaseMontagne();
 		System.out.println("Votre camp :");
 		System.out.println(jCourant.getCamp().toString());
@@ -119,6 +119,7 @@ public class Jeu {
 		System.out.println(jPrecedent.getCamp().toString());
 		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
 		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
+		*/
 		
 		//fait jouer un joueur
 		cJ=this.partieEnCours.coupsJouables(jCourant);
@@ -145,17 +146,16 @@ public class Jeu {
 	}
 	
 	public void partieVictoire() {
-		this.partieEnCours.sauvegarderStatsPartie(this.cheminStats);
 		afficherBaseMontagne();
-		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
-		System.out.println(this.partieEnCours.joueur2().getCamp().toString());
-		System.out.println("Fin de la partie.");
+		//System.out.println(this.partieEnCours.joueur1().getCamp().toString());
+		//System.out.println(this.partieEnCours.joueur2().getCamp().toString());
+		//System.out.println("Fin de la partie.");
 		if (partieEnCours.getJoueurCourant() == 0) {
-			System.out.print(this.partieEnCours.joueur2().getNom());
+			//System.out.print(this.partieEnCours.joueur2().getNom());
 		}else {
-			System.out.print(this.partieEnCours.joueur1().getNom());
+			//System.out.print(this.partieEnCours.joueur1().getNom());
 		}
-		System.out.println(" a gagné !");
+		//System.out.println(" a gagné !");
 	}
 
 	public void piocher() {

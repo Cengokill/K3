@@ -38,6 +38,7 @@ public class Partie {
 		this.j1 = j1;
 		this.j2 = j2;
 		this.cheminStats=System.getProperty("user.home")+ "/Desktop/Jeu_K3/Statistiques/";//valeur par defaut
+		this.statistiques=new Statistiques(this.cheminStats);
 		pBleu = new Piece(Couleurs.BLEU);
 		pVert = new Piece(Couleurs.VERT);
 		pJaune = new Piece(Couleurs.JAUNE);
@@ -70,27 +71,27 @@ public class Partie {
 		//si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine alors il a perdu
 	}
 	
-	public void sauvegarderStatsPartie(String chemin) {
-		this.statistiques.ecrireStats(chemin, this.numPartie);
+	public void sauvegarderStatsPartie() {
+		this.statistiques.ecrireStats(this.numPartie);
 	}
 	
 	public boolean estPartieFinie() {
 		boolean pleine=this.baseMontagne.estPleine();
 		if(pleine) {//egalite
-			this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 2);
-			sauvegarderStatsPartie(this.cheminStats);
+			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2);
+			sauvegarderStatsPartie();
 			return pleine;
 		}else {//un des deux joueurs a perdu
 			if(this.joueurCourant == 0) {
 				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
-					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 0);
-					sauvegarderStatsPartie(this.cheminStats);
+					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0);
+					sauvegarderStatsPartie();
 					return true;
 				}
 			}else {
 				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
-					this.statistiques=new Statistiques(this.j1, this.j2, this.joueurDebut, 1);
-					sauvegarderStatsPartie(this.cheminStats);
+					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1);
+					sauvegarderStatsPartie();
 					return true;
 				}
 			}
