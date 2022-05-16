@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Modeles.*;
+import Reseau.*;
 
 public class Jeu {
 	public Partie partieEnCours;
@@ -32,14 +33,29 @@ public class Jeu {
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
+		//lancer une partie
+		lancerPartieJcJ(nomJ1, nomJ2, numPartie);
+		//ouvrir le menu de lancement de partie
+	}
+	
+	public void lancerPartieEnLigne(String nomJ1, int difficulte) {
+		Serveur serveur = new Serveur();
+		Client client = new Client();
+	}
+	
+	public void lancerPartieJcIA(String nomJ1, String nomJ2, int difficulte) {
+		return;
+	}
+	
+	public void lancerPartieIaContreIA(String nomJ1, String nomJ2, int difficulte) {
+		return;
+	}
+	
+	public void lancerPartieJcJ(String nomJ1, String nomJ2, int numPartie) {
 		Joueur j1 = new Joueur(nomJ1);
 		Joueur j2 = new Joueur(nomJ2);
 		this.partieEnCours = new Partie(j1, j2, numPartie);
 		this.partieEnCours.setCheminStats(cheminStats);
-		lancerJeu();
-	}
-	
-	public void lancerJeu() {
 		this.num_tour=1;
 		this.valeur_paire=0;
 		//PHASE 1
