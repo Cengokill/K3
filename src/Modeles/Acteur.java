@@ -5,19 +5,18 @@ import java.util.Collections;
 
 public class Acteur {
 	
-	//variable STATS
-	protected String nom;
+	// variables STATS
 	protected int nb_BlancsJoues;//pieces blanches jouees
 	protected int nb_Mauvais_Coups_Joues;//mauvais coups joues (une piece sur 2 pieces de meme couleur)
 	protected int nb_Vols;
 	
-	//variable GAMEPLAY
+	// variables GAMEPLAY
+	protected String nom;
 	protected PyramideJoueur campJ;
 	protected ArrayList<Piece> piecesVolees;// pieces que le joueur a volees a l'autre joueur
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
 	
-	
-	//Constructeur
+	// Constructeur
 	public Acteur(String nom) {
 		//variable STATS
 		this.nom = nom;
@@ -32,7 +31,7 @@ public class Acteur {
 	}
 	
 	
-	// FONCTION A IMPLEMENTER DANS IA && JOUEUR HUMAIN -------------------------------------------------------------------
+	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN -------------------------------------------------------------------
 	public Coup jouer(ArrayList<Coup> arr) // pyramide au milieu
 	{
 		return null;
@@ -49,13 +48,13 @@ public class Acteur {
 	}
 	//---------------------------------------------------------------------------------------------------------------------
 
-	//variable STATS --------------------------------------------
+	// METHODES STATS --------------------------------------------
 	
 	//NOM du joueur -------
 	public String getNom() {// renvoie le nom du joueur
 		return this.nom;
 	}
-	//BLANC ------
+	// BLANC ------
 	public void addBlancJoue() {
 		this.nb_BlancsJoues++;
 	}
@@ -65,7 +64,7 @@ public class Acteur {
 	public int getBlancsJoues() {
 		return this.nb_BlancsJoues;
 	}
-	//MAUVAIS COUP------------
+	// MAUVAIS COUP------------
 	public void addMauvaisCoup() {
 		this.nb_Mauvais_Coups_Joues++;
 	}
@@ -75,7 +74,7 @@ public class Acteur {
 	public int getMauvaisCoupsJoues() {
 		return this.nb_Mauvais_Coups_Joues;
 	}
-	//VOL -------------------
+	// VOL -------------------
 	public void addVol() {
 		this.nb_Vols++;
 	}
@@ -86,16 +85,16 @@ public class Acteur {
 		return this.nb_Vols;
 	}
 
-	//VARIABLE GAMEPLAY -----------------------------------------------------
+	// VARIABLES GAMEPLAY -----------------------------------------------------
 	
-	//PYRAMIDE JOUEUR CAMP -------------------
+	// PYRAMIDE JOUEUR CAMP -------------------
 	public void setCamp(PyramideJoueur camp) {
 		this.campJ=camp;
 	}
 	public PyramideJoueur getCamp() {
 		return this.campJ;
 	}
-	//LISTE piecesVolees -------------------
+	// LISTE piecesVolees -------------------
 	public void addPieceVolee(Piece p) {
 		this.piecesVolees.add(p);
 		this.addVol();
@@ -115,7 +114,7 @@ public class Acteur {
 		}
 		return tableau;
 	}
-	//LISTE piecesPiochees -------------------
+	// LISTE piecesPiochees -------------------
 	public void addPiecePiochee(Piece p) {
 		this.piecesPiochees.add(p);
 	}
@@ -126,7 +125,7 @@ public class Acteur {
 		return piecesPiochees.size();
 	}
 	
-	//FONCTION GAMEPLAY ------------------------------------------------------
+	// METHODES GAMEPLAY ------------------------------------------------------
 	
 	// INTERACTION PYRAMIDE ----------
 	public ArrayList<PiecePyramide> getPiecesJouables() {
