@@ -5,7 +5,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Controleur.*;
-import Modeles.SoundPlayer;
+//import Modeles.SoundPlayer;
 
 public class Main {
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {

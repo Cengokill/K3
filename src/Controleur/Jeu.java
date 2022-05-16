@@ -72,7 +72,6 @@ public class Jeu {
 	}
 	
 	public void jouerPhase2() {
-
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
 
@@ -119,25 +118,8 @@ public class Jeu {
 		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
 		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
 
-		
 		//fait jouer un joueur
-		cJ=this.partieEnCours.coupsJouables(jCourant);
-		coupDemande=jCourant.jouer(cJ);//le joueur courant a choisi un coup a jouer
-		this.partieEnCours.addCoupHist(coupDemande);
-		if(coupDemande.getPosJ()!=null) {//si le joueur courant ne joue pas une piece volee
-			jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
-		}else {//si le joueur courant decide de jouer une de ses pieces volees
-			jCourant.retirerPieceVolee(coupDemande.getPiece());
-		}
-		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
-			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
-			if(this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
-				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
-			}
-		}else {// joue une piece BLANCHE
-			System.out.println("Vous avez decide de passer votre tour !");
-		}
-		this.partieEnCours.changementJoueurCourant();
+		this.partieEnCours.jouer();
 	}
 	
 	public void partieVictoire() {

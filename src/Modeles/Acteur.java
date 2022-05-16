@@ -43,16 +43,12 @@ public class Acteur {
 		return null;
 	}
 	
-	public PiecePyramide VoleePiece() // revoit la piece de la pyramide (en face) a volée
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) // revoit la piece de la pyramide (en face) a volée
 	{
 		return null;
 	}
 	//---------------------------------------------------------------------------------------------------------------------
 
-		
-
-
-	
 	//variable STATS --------------------------------------------
 	
 	//NOM du joueur -------
@@ -89,10 +85,7 @@ public class Acteur {
 	public int getNbVols() {
 		return this.nb_Vols;
 	}
-	
-	
-	
-	
+
 	//VARIABLE GAMEPLAY -----------------------------------------------------
 	
 	//PYRAMIDE JOUEUR CAMP -------------------
@@ -133,10 +126,6 @@ public class Acteur {
 		return piecesPiochees.size();
 	}
 	
-	
-	
-	
-	
 	//FONCTION GAMEPLAY ------------------------------------------------------
 	
 	// INTERACTION PYRAMIDE ----------
@@ -170,5 +159,38 @@ public class Acteur {
 		}
 		sac.remove(pChoisie);
 		return pChoisie;
+	}
+	
+	public void placerPiecesRandom(PyramideMontagne pyrM) {
+		//empile toutes les pieces d'un joueur sur son camp aleatoirement
+		Position pos;
+        ArrayList<Position> arrPos;
+        int taillePioche=piecesPiochees.size();
+        melangePiecesPiochees();
+        while(!estPosable(piecesPiochees.get(taillePioche-1),pyrM)||!estPosable(piecesPiochees.get(taillePioche-2),pyrM)||!estPosable(piecesPiochees.get(taillePioche-3),pyrM)){
+        	melangePiecesPiochees();
+        }
+        Piece p;
+        for(int i=0; i<6; i++) {
+            for(int j=0; j<6-i; j++) {
+            	p=this.piecesPiochees.get(0);
+                arrPos=this.campJ.posDisponibles();
+                pos=arrPos.get(0);//pos devient la position choisie par le joueur
+                PiecePyramide pp = new PiecePyramide(p, pos);
+                this.campJ.empiler(pp);
+                piecesPiochees.remove(0);
+            }
+        }
+	}
+	
+	public boolean estPosable(Piece p, PyramideMontagne pyrM) {
+		//renvoie true si la premiere piece de la pioche dun joueur peut etre empilee sur le camp de la montagne
+		ArrayList<PiecePyramide> pieces_Posables=pyrM.piecesPosables();		
+		for(PiecePyramide pCour : pieces_Posables) {
+			if(pCour.getPiece().getColor().equals(p.getColor())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -21,20 +21,19 @@ public class Statistiques {
 	int premierCoup;
 	int vainqueur;//0 : acteur1 | 1 : acteur2 | |2 : egalite
 	int nbVolsJ1, nbVolsJ2, nbBlancsJ1, nbBlancsJ2, nbCoupsMauvaisJ1, nbCoupsMauvaisJ2;
-	ArrayList<Coup> coupsJ1, coupsJ2;
+	ArrayList<Coup> histCoups;
 	String cheminStats;
 
 	public Statistiques(String chemin) {
 		this.cheminStats=chemin;
 	}
 	
-	public void initStats(Acteur acteur1, Acteur acteur2, int joueurDebut, int vainqueur) {
+	public void initStats(Acteur acteur1, Acteur acteur2, int joueurDebut, int vainqueur, ArrayList<Coup> histCoups) {
 		this.acteur1=acteur1;
 		this.acteur2=acteur2;
 		this.premierCoup=joueurDebut;
 		this.vainqueur=vainqueur;
-		this.coupsJ1=acteur1.getHistCoups();
-		this.coupsJ2=acteur2.getHistCoups();
+		this.histCoups=histCoups;
 		this.nbBlancsJ1=acteur1.getBlancsJoues();
 		this.nbBlancsJ2=acteur2.getBlancsJoues();
 		this.nbCoupsMauvaisJ1=acteur1.getMauvaisCoupsJoues();

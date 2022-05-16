@@ -106,19 +106,19 @@ public class Partie {
 	public boolean estPartieFinie() {
 		boolean pleine=this.baseMontagne.estPleine();
 		if(pleine) {//egalite
-			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2);
+			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2, historiqueCoups);
 			sauvegarderStatsPartie();
 			return pleine;
 		}else {//un des deux joueurs a perdu
 			if(this.joueurCourant == 0) {
 				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
-					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0);
+					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0, historiqueCoups);
 					sauvegarderStatsPartie();
 					return true;
 				}
 			}else {
 				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
-					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1);
+					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1, historiqueCoups);
 					sauvegarderStatsPartie();
 					return true;
 				}
@@ -323,17 +323,31 @@ public class Partie {
 		System.out.println("Il y a " + bleu + " piece bleues.");
 		System.out.println();
 	}
-
-	public void jouer(Coup c, int joueurcourant) {
-		// retire de la pyramide joueur
-		if (joueurcourant == 0) {
-			this.j1.getCamp().retirer(c.getPosJ());
-		} else {
-			this.j2.getCamp().retirer(c.getPosJ());
+	public void jouer() {
+		Acteur jCourant, jPrecedent;
+		if(this.joueurCourant==0) {
+			jCourant=this.j1;
+			jPrecedent=this.j2;
+		}else{
+			jCourant=this.j2;
+			jPrecedent=this.j1;
 		}
-		// ajoute a la montagne
-		if (c.getPosBase() != null) {//si pas de blanc joue
-			this.baseMontagne.empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
+		
+		ArrayList<Coup> cJ=this.coupsJouables(jCourant);
+		Coup coupDemande=jCourant.jouer(cJ);//le joueur courant a choisi un coup a jouer
+		this.addCoupHist(coupDemande);
+		if(coupDemande.getPosJ()!=null) {//si le joueur courant ne joue pas une piece volee
+			jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
+		}else {//si le joueur courant decide de jouer une de ses pieces volees
+			jCourant.retirerPieceVolee(coupDemande.getPiece());
+		}
+		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
+			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+			if(this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
+				Coup vol = this.volerPiece(jPrecedent, jCourant);
+			}
+		}else {// joue une piece BLANCHE
+			System.out.println("Vous avez decide de passer votre tour !");
 		}
 	}
 

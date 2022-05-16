@@ -3,7 +3,7 @@ package Modeles;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Joueur extends ActeurClasse implements Acteur {
+public class Joueur extends Acteur {
 
 	public Joueur(String nom) {
 		super(nom);
@@ -18,7 +18,7 @@ public class Joueur extends ActeurClasse implements Acteur {
 	}
 	
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {//deja des pieces volables
-		//System.out.println(super.getNom()+", veuillez choisir une piece a voler :");
+		System.out.println(super.getNom()+", veuillez choisir une piece a voler :");
 		for(int i=0; i<arr.size(); i++) {
 			System.out.println("["+i+"]"+arr.get(i).toString());
 		}
