@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Controleur.*;
 
-public class IAActeur extends ActeurClasse implements Acteur {
+public class IAActeur extends Acteur {
     IAjeu jeu;
     IApioche pioche;
     int numerojoueur;
@@ -12,18 +12,18 @@ public class IAActeur extends ActeurClasse implements Acteur {
     public IAActeur(String nom, int diff, int numerojoueur) {
         super(nom);
         this.numerojoueur = numerojoueur;
-        switch (diff) { //Construit nos IAs suivant la diffciulté choisis
+        switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:
                 pioche = new IApiocheAlea();
                 jeu = new IAjeuAlea();
                 break;
             case 1:
-                pioche = ;
-                jeu = ;
+                pioche = new IApiocheExpert();
+                jeu = new IAjeuExpert(3);
                 break;
             case 2:
                 pioche = new IApiocheExpert();
-                jeu = new IAjeuExpert(10); //definir la pronfondeur de recherche pour les prochains coups
+                jeu = new IAjeuExpert(10); // definir la pronfondeur de recherche pour les prochains coups
                 break;
             default:
                 break;
@@ -35,7 +35,7 @@ public class IAActeur extends ActeurClasse implements Acteur {
     }
 
     @Override
-    public Coup jouer(Partie encours) { // Pas encore de gestion de vol
+    public Coup jouer(ArrayList<Coup> arr, Partie encours) { // Pas encore de gestion de vol
         return jeu.IACoup(encours, numerojoueur);
     }
 

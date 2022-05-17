@@ -314,7 +314,7 @@ public class Partie {
 			jPrecedent = this.j1;
 		}
 		ArrayList<Coup> cJ = this.coupsJouables(jCourant);
-		Coup coupDemande = jCourant.jouer(cJ);// le joueur courant a choisi un coup a jouer
+		Coup coupDemande = jCourant.jouer(cJ, this);// le joueur courant a choisi un coup a jouer
 		this.addCoupHist(coupDemande);// ajout du coup a l'historique
 		if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
 			jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant
