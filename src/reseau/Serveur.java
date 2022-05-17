@@ -17,6 +17,7 @@ public class Serveur {
 	//PrintWriter out;
 	BufferedReader in;
 	String inputLine;
+	String message;
 	boolean ready;
 
 	public Serveur(String nomJ, int difficulte) throws IOException {
