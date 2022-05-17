@@ -34,17 +34,17 @@ public class Acteur {
 	
 	
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN -------------------------------------------------------------------
-	public Coup jouer(ArrayList<Coup> arr) // pyramide au milieu
+	public Coup jouer(ArrayList<Coup> arr,  Partie encours) // pyramide au milieu
 	{
 		return null;
 	}
 	
-	public ArrayList<PiecePyramide> Phase1() // revoit une liste de piece a posée dans t'as pyramide (phase 1)
+	public ArrayList<PiecePyramide> Phase1() // revoit une liste de piece a posÃ©e dans t'as pyramide (phase 1)
 	{
 		return null;
 	}
 	
-	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) // revoit la piece de la pyramide (en face) a volée
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) // revoit la piece de la pyramide (en face) a volÃ©e
 	{
 		return null;
 	}
