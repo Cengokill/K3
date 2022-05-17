@@ -34,14 +34,8 @@ public class MinMax {
     }
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
-        // System.out.println("On est a l'horizon :" + horizon);
         int joueurcourant = numerojoueur;
         if ((horizon == 0) || (p.estPartieFinie())) {
-            // System.out.println("On est aller a l horizon :" + horizon);
-            // System.out.println("Je suis une feuille");
-            if (horizon == 5) {
-                System.out.println("On est sur une fin de partie");
-            }
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -53,9 +47,9 @@ public class MinMax {
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
         if (lc.size() == 1) { // Si un seul coup possible on le renvoie
             Coup c = lc.get(0);
-            p.jouer(c, joueurcourant);
+            p.IAjoueCoup(c, joueurcourant);
             int uncoup = eval(p);
-            p.annulerCoup(c, joueurcourant);
+            p.IAannulCoup(c, joueurcourant);
             if (flag) {
                 parfait = c;
             }
@@ -65,23 +59,31 @@ public class MinMax {
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig != 10000) {
             Coup c = it.next();
-            // System.out.println("On teste le coup :" + c.toString());
-            p.jouer(c, joueurcourant);
-            // System.out.println(p.joueur2().getCamp().toString());
-            // System.out.println(p.getBaseMontagne().toString());
-            int valeurfils = meilleurConfigAD(p, horizon - 1);
+            p.IAjoueCoup(c, joueurcourant); // joue le coup
+            // Si une piece peut etre voler
+            // Alors pour toutes les pieces voler
+            // vole la piece
+            // evalue la config
+            // maj de la valeur de config actu
+            // annul vol
+            // Sinon
+            // calcule la valeur de la config
+            // si new valeur> old valeur && premier tour on enregistre le coup
+            // maj valeur
+            // annule le coup
+
+            int valeurfils = meilleurConfigAD(p, horizon - 1, flag);
             if (flag && valeurfils > valeurconfig) {
                 parfait = c;
             }
             valeurconfig = Math.max(valeurconfig, valeurfils);
-            p.annulerCoup(c, joueurcourant);
+            p.IAannulCoup(c, joueurcourant);
         }
         return valeurconfig;
 
     }
 
-    public int meilleurConfigAD(Partie p, int horizon) {
-        // System.out.println("On est a l'horizon :" + horizon);
+    public int meilleurConfigAD(Partie p, int horizon, boolean flag) {
         int joueurcourant = numerojoueur;
         if (numerojoueur == 0) {
             joueurcourant = 1;
@@ -89,8 +91,6 @@ public class MinMax {
             joueurcourant = 0;
         }
         if ((horizon == 0) || (p.estPartieFinie())) {
-            // System.out.println("On est aller a l horizon :" + horizon);
-            // System.out.println("Je suis une feuille");
             return eval(p);
         }
         Acteur JoueurCourant;
@@ -100,16 +100,28 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        // affiche(lc);
         int valeurconfig = 10001;
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig != -10000) {
             Coup c = it.next();
-            // System.out.println("On teste le coup :" + c.toString());
-            p.jouer(c, joueurcourant);
-            // System.out.println(p.getBaseMontagne().toString());
+            p.IAjoueCoup(c, joueurcourant);
+            // Si une piece peut etre voler
+            // Alors pour toutes les pieces voler
+            // vole la piece
+            // evalue la config
+            // maj de la valeur de config actu
+            // annul vol
+            // Sinon
+            // calcule la valeur de la config
+            // si new valeur< old valeur
+            // enregistre coup
+            // si deuxieme tour
+            // enregistre avoler verifier si min ou max
+            // maj valeur
+            // annule le coup
+
             valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false));
-            p.annulerCoup(c, joueurcourant);
+            p.IAannulCoup(c, joueurcourant);
         }
         return valeurconfig;
     }

@@ -15,7 +15,7 @@ public class Partie {
 	private Acteur j2;
 	private ArrayList<Piece> basePieces;
 	private PyramideMontagne baseMontagne;// base de la montagne
-	private Statistiques statistiques;//creer a la fin de la partie uniquement
+	private Statistiques statistiques;// creer a la fin de la partie uniquement
 	private String cheminStats;
 	private ArrayList<Coup> historiqueCoups;
 	public int joueurCourant, joueurDebut;
@@ -32,15 +32,15 @@ public class Partie {
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
 		this.simpleSoundPlayer = new SoundPlayer();
-		this.numPartie=numPartie;
+		this.numPartie = numPartie;
 		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
-		this.joueurDebut=joueurCourant;
+		this.joueurDebut = joueurCourant;
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
-		this.cheminStats=System.getProperty("user.home")+ "/Desktop/Jeu_K3/Statistiques/";//valeur par defaut
-		this.statistiques=new Statistiques(this.cheminStats);
-		this.historiqueCoups=new ArrayList<Coup>();
+		this.cheminStats = System.getProperty("user.home") + "/Desktop/Jeu_K3/Statistiques/";// valeur par defaut
+		this.statistiques = new Statistiques(this.cheminStats);
+		this.historiqueCoups = new ArrayList<Coup>();
 		pBleu = new Piece(Couleurs.BLEU);
 		pVert = new Piece(Couleurs.VERT);
 		pJaune = new Piece(Couleurs.JAUNE);
@@ -51,34 +51,38 @@ public class Partie {
 		initialiserSac();
 		initBaseMontagne();
 	}
-	
+
 	public void setCheminStats(String s) {
-		this.cheminStats=s;
+		this.cheminStats = s;
 	}
-	
+
 	public ArrayList<Coup> getHistCoups() {
 		return this.historiqueCoups;
 	}
 
-	public void addCoupHist(Coup c) {//gere les vols
+	public void addCoupHist(Coup c) {// gere les vols
 		Acteur j;
-		if (joueurCourant == 1) j=this.j1;
-		else j=this.j2;
-	
+		if (joueurCourant == 1)
+			j = this.j1;
+		else
+			j = this.j2;
+
 		this.historiqueCoups.add(c);
-		if(c.getPosBase()==null) {
+		if (c.getPosBase() == null) {
 			j.addBlancJoue();
 		}
 	}
-	
+
 	public void retireCoupHist(Coup c, int jCour) {
-		int taille= this.historiqueCoups.size();
+		int taille = this.historiqueCoups.size();
 		Acteur j;
-		if (jCour == 1) j=this.j1;
-		else j=this.j2;
-		
-		this.historiqueCoups.remove(taille-1);
-		if(c.getPosBase()==null) {
+		if (jCour == 1)
+			j = this.j1;
+		else
+			j = this.j2;
+
+		this.historiqueCoups.remove(taille - 1);
+		if (c.getPosBase() == null) {
 			j.retireBlancJoue();
 		}
 	}
@@ -96,42 +100,44 @@ public class Partie {
 
 	public boolean joueurPeutJouer(Acteur j) {
 		return !coupsJouables(j).isEmpty();
-		//si le joueur n'a plus de coups jouables mais que la pyramide est pleine alors il n'a pas perdu
-		//si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine alors il a perdu
+		// si le joueur n'a plus de coups jouables mais que la pyramide est pleine alors
+		// il n'a pas perdu
+		// si le joueur n'a plus de coups jouables et que la pyramide n'est pas pleine
+		// alors il a perdu
 	}
-	
+
 	public void sauvegarderStatsPartie() {
 		this.statistiques.ecrireStats(this.numPartie);
 	}
-	
+
 	public boolean estPartieFinie() {
-		boolean pleine=this.baseMontagne.estPleine();
-		if(pleine) {//egalite
+		boolean pleine = this.baseMontagne.estPleine();
+		if (pleine) {// egalite
 			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2, historiqueCoups);
 			sauvegarderStatsPartie();
 			return pleine;
-		}else {//un des deux joueurs a perdu
-			if(this.joueurCourant == 0) {
-				if(!joueurPeutJouer(joueur1())){//joueur 1 a perdu
+		} else {// un des deux joueurs a perdu
+			if (this.joueurCourant == 0) {
+				if (!joueurPeutJouer(joueur1())) {// joueur 1 a perdu
 					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0, historiqueCoups);
 					sauvegarderStatsPartie();
 					return true;
 				}
-			}else {
-				if(!joueurPeutJouer(joueur2())){//joueur 2 a perdu
+			} else {
+				if (!joueurPeutJouer(joueur2())) {// joueur 2 a perdu
 					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1, historiqueCoups);
 					sauvegarderStatsPartie();
 					return true;
 				}
 			}
-		}//si joueur 1 et joueur 2 peuvent jouer et que la montagne n'est pas pleine
+		} // si joueur 1 et joueur 2 peuvent jouer et que la montagne n'est pas pleine
 		return false;
 	}
-	
+
 	public Statistiques getStats() {
 		return this.statistiques;
 	}
-	
+
 	public void combinerStats(int a, int b) {
 		this.statistiques.combinerStats(a, b);
 	}
@@ -266,7 +272,7 @@ public class Partie {
 	public Acteur joueur2() {
 		return j2;
 	}
-	
+
 	public void afficheSac() {
 		Iterator<Piece> it = basePieces.iterator();
 		System.out.println("Dans le sac il y a:");
@@ -297,42 +303,43 @@ public class Partie {
 		System.out.println("Il y a " + bleu + " piece bleues.");
 		System.out.println();
 	}
-	
+
 	public void jouer() {
 		Acteur jCourant, jPrecedent;
-		if(this.joueurCourant==0) {
-			jCourant=this.j1;
-			jPrecedent=this.j2;
-		}else{
-			jCourant=this.j2;
-			jPrecedent=this.j1;
+		if (this.joueurCourant == 0) {
+			jCourant = this.j1;
+			jPrecedent = this.j2;
+		} else {
+			jCourant = this.j2;
+			jPrecedent = this.j1;
 		}
-		ArrayList<Coup> cJ=this.coupsJouables(jCourant);
-		Coup coupDemande=jCourant.jouer(cJ);//le joueur courant a choisi un coup a jouer
-		this.addCoupHist(coupDemande);//ajout du coup a l'historique
-		if(coupDemande.getPosJ()!=null) {//si le joueur courant ne joue pas une piece volee
-			jCourant.getCamp().retirer(coupDemande.getPosJ());//retire la piece jouee du camp du joueur courant
-		}else {//si le joueur courant decide de jouer une de ses pieces volees
+		ArrayList<Coup> cJ = this.coupsJouables(jCourant);
+		Coup coupDemande = jCourant.jouer(cJ);// le joueur courant a choisi un coup a jouer
+		this.addCoupHist(coupDemande);// ajout du coup a l'historique
+		if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
+			jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant
+		} else {// si le joueur courant decide de jouer une de ses pieces volees
 			jCourant.retirerPieceVolee(coupDemande.getPiece());
 		}
-		if(coupDemande.getPosBase()!=null) {//si le joueur ne choisit pas de jouer une piece BLANCHE
-			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(),coupDemande.getPosBase()));
+		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
 			this.simpleSoundPlayer.jouerSon(2);
-			if(coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
+			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
 				this.simpleSoundPlayer.jouerSon(7);
 			}
-			if(this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())){//si vol possible
+			if (this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
 				Coup vol = this.volerPiece(jPrecedent, jCourant);
-				if(vol!=null) this.addCoupHist(vol);
+				if (vol != null)
+					this.addCoupHist(vol);
 			}
-		}else {// joue une piece BLANCHE
+		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
 			this.simpleSoundPlayer.jouerSon(10);
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		changementJoueurCourant();
 	}
-	
+
 	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
 	// celle a voler et une deuxieme qui vole la piece donner en argument
 	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
@@ -347,13 +354,13 @@ public class Partie {
 			System.out.println("=========== VOL DE PIECE ===========");
 			System.out.println("Camp du joueur victime :");
 			System.out.println(victime.getCamp().toString());
-			System.out.println("Ses pieces volees :"+victime.toStringPiecesVolees());
+			System.out.println("Ses pieces volees :" + victime.toStringPiecesVolees());
 			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
 			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
 			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
-			if(pieceVolee.getPos()==null) {//si le voleur vole une piece volee
+			if (pieceVolee.getPos() == null) {// si le voleur vole une piece volee
 				victime.retirerPieceVolee(pieceVolee.getPiece());
-			}else {
+			} else {
 				victime.getCamp().retirer(pieceVolee.getPos());
 			}
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
@@ -365,14 +372,14 @@ public class Partie {
 		}
 	}
 
-	public void annulerCoup(Coup c) {//annule le coup du joueur courant
+	public void annulerCoup(Coup c) {// annule le coup du joueur courant
 		Acteur jCourant, jPrecedent;
-		if(this.joueurCourant==0) {
-			jCourant=this.j1;
-			jPrecedent=this.j2;
-		}else{
-			jCourant=this.j2;
-			jPrecedent=this.j1;
+		if (this.joueurCourant == 0) {
+			jCourant = this.j1;
+			jPrecedent = this.j2;
+		} else {
+			jCourant = this.j2;
+			jPrecedent = this.j1;
 		}
 		/*
 		 * un coup standard est defini par :
@@ -390,27 +397,27 @@ public class Partie {
 		 * - null
 		 */
 		if (c.getPosBase() != null) {// retire une piece normale
-			PiecePyramide pp = this.baseMontagne.retirer(c.getPosBase());//ok
-			if(this.baseMontagne.estPorteursMemeCouleur(pp.getPos())) {
+			PiecePyramide pp = this.baseMontagne.retirer(c.getPosBase());// ok
+			if (this.baseMontagne.estPorteursMemeCouleur(pp.getPos())) {
 				jCourant.retireMauvaisCoup();
 				jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 				System.out.println("Mauvais coup annule !");
 			}
-		}else {//retire une piece BLANCHE
+		} else {// retire une piece BLANCHE
 			PiecePyramide pp = new PiecePyramide(c.getPiece(), c.getPosJ());
-			if(c.getPiece().getColor().equals(Couleurs.BLANC)) {
-				//annulation d'un coup blanc
+			if (c.getPiece().getColor().equals(Couleurs.BLANC)) {
+				// annulation d'un coup blanc
 				jCourant.getCamp().empiler(pp);
 				jCourant.retireBlancJoue();
 				System.out.println("Coup blanc annule !");
-			}else {//annulation d'un VOL
-				jPrecedent.getCamp().empiler(pp);//on empile la piece dans le camp de la victime de vol
+			} else {// annulation d'un VOL
+				jPrecedent.getCamp().empiler(pp);// on empile la piece dans le camp de la victime de vol
 				jCourant.retirerPieceVolee(c.getPiece());
 				System.out.println("Vol annule !");
 			}
 		}
 	}
-	
+
 	public void sauvegarderPartie(String CheminEtnomFichier) {
 		File f = new File(CheminEtnomFichier);
 		try {
@@ -429,7 +436,7 @@ public class Partie {
 			bw.newLine();
 			bw.write(this.getBaseMontagne().toString());
 			bw.newLine();
-			bw.write("joueur courant :"+this.getJoueurCourant());
+			bw.write("joueur courant :" + this.getJoueurCourant());
 			bw.newLine();
 			// ======================= JOUEUR 1 =======================
 			bw.write(" ======================= JOUEUR 1 =======================");
@@ -441,8 +448,8 @@ public class Partie {
 			bw.write(this.joueur1().getCamp().toString());
 			bw.write("pieces volees:" + this.joueur1().toStringPiecesVolees());
 			bw.newLine();
-			int nbCoups=this.getHistCoups().size();
-			bw.write("CoupsJ1:"+nbCoups);
+			int nbCoups = this.getHistCoups().size();
+			bw.write("CoupsJ1:" + nbCoups);
 			for (int k = 0; k < nbCoups; k++) {
 				bw.write(this.getHistCoups().get(k).toString());
 				bw.newLine();
@@ -458,8 +465,8 @@ public class Partie {
 			bw.write(this.joueur2().getCamp().toString());
 			bw.write("pieces volees:" + this.joueur2().toStringPiecesVolees());
 			bw.newLine();
-			nbCoups=this.getHistCoups().size();
-			bw.write("CoupsJ2:"+nbCoups);
+			nbCoups = this.getHistCoups().size();
+			bw.write("CoupsJ2:" + nbCoups);
 			for (int k = 0; k < nbCoups; k++) {
 				bw.write(this.getHistCoups().get(k).toString());
 				bw.newLine();
@@ -470,5 +477,83 @@ public class Partie {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public boolean IAjoueCoup(Coup c, int joueurcourant) {
+		Acteur jCourant;
+		if (joueurcourant == 0) {
+			jCourant = this.j1;
+		} else {
+			jCourant = this.j2;
+		}
+
+		if (c.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
+			jCourant.getCamp().retirer(c.getPosJ());// retire la piece jouee du camp du joueur courant
+		} else {// si le joueur courant decide de jouer une de ses pieces volees
+			jCourant.retirerPieceVolee(c.getPiece());
+		}
+
+		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+			this.getBaseMontagne().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
+		} else {// joue une piece BLANCHE
+			jCourant.addBlancJoue();
+		}
+
+		return this.getBaseMontagne().estPorteursMemeCouleur(c.getPosBase());
+	}
+
+	public void IAannulCoup(Coup c, int joueurcourant) {
+		Acteur jCourant;
+		if (joueurcourant == 0) {
+			jCourant = this.j1;
+		} else {
+			jCourant = this.j2;
+		}
+		if (c.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
+			jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));// retire la piece jouee du camp
+																						// du joueur courant
+		} else {// si le joueur courant decide de jouer une de ses pieces volees
+			jCourant.addPieceVolee(c.getPiece());
+		}
+
+		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+			this.getBaseMontagne().retirer(c.getPosBase());
+		}
+	}
+
+	public void IAvol(PiecePyramide pp, int joueurcourant) { // le joueur courant se fait voler une piece
+		Acteur jCourant, jPrecedent;
+		if (joueurCourant == 0) {
+			jCourant = this.j1;
+			jPrecedent = this.j2;
+		} else {
+			jCourant = this.j2;
+			jPrecedent = this.j1;
+		}
+
+		if (pp.getPos() == null) {// si le voleur vole une piece volee
+			jCourant.retirerPieceVolee(pp.getPiece());
+		} else {
+			jCourant.getCamp().retirer(pp.getPos());
+		}
+		jPrecedent.addPieceVolee(pp.getPiece());// ajout de la piece volee aux pieces volees du voleur
+	}
+
+	public void IAannulvol(PiecePyramide pp, int joueurcourant) {
+		Acteur jCourant, jPrecedent;
+		if (joueurCourant == 0) {
+			jCourant = this.j1;
+			jPrecedent = this.j2;
+		} else {
+			jCourant = this.j2;
+			jPrecedent = this.j1;
+		}
+
+		if (pp.getPos() == null) {
+			jCourant.addPieceVolee(pp.getPiece());
+		} else {
+			jCourant.getCamp().empiler(pp);
+		}
+		jPrecedent.retirerPieceVolee(pp.getPiece());
+	}
+
 }

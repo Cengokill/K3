@@ -1,6 +1,7 @@
 package Controleur;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import Modeles.*;
 
@@ -15,11 +16,18 @@ public class IAjeuExpert implements IAjeu {
     public Coup IACoup(Partie p, int numeroJoueur) {
         MinMax mm = new MinMax(numeroJoueur);
         mm.meilleurConfigJ(p, horizon, true);
-        avoler = MinMax.PieceAVoler();
+        avoler = mm.PieceAVoler();
         return mm.getparfait();
     }
 
     public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr) {
+        Iterator<PiecePyramide> it = arr.iterator();
+        while (it.hasNext()) {
+            PiecePyramide temp = it.next();
+            if (temp.getPiece() == avoler.getPiece() && temp.getPos() == avoler.getPos()) {
+                System.out.println("La piece a voler existe bien");
+            }
+        }
         return avoler;
     }
 
