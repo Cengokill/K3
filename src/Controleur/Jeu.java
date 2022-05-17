@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalTime;
 
 import Modeles.*;
 import Reseau.*;
@@ -35,12 +36,35 @@ public class Jeu {
 		lireOptions();
 		//lancer une partie
 		lancerPartieJcJ(nomJ1, nomJ2, numPartie);
-		//ouvrir le menu de lancement de partie
 	}
 	
-	public void lancerPartieEnLigne(String nomJ1, int difficulte) {
-		Serveur serveur = new Serveur();
-		Client client = new Client();
+	public void lancerPartieEnLigne(String nomJ, int difficulte) throws IOException {
+		Serveur serveur = new Serveur(nomJ, difficulte);
+		int dateAncienne = LocalTime.now().getSecond();
+		int dateCourante;
+		while(!serveur.getReady()) {
+			dateCourante=LocalTime.now().getSecond();
+			if(dateAncienne-dateCourante>10) {
+				System.err.println("Temp de connection depasse.");
+				return;
+			}
+		}
+		//creation de la partie
+		Joueur j1 = new Joueur(nomJ);
+		Joueur j2 = new Joueur(serveur.getClientName());
+		this.partieEnCours = new Partie(j1, j2, 500);
+		this.partieEnCours.setCheminStats(cheminStats);
+		this.num_tour=1;
+		this.valeur_paire=0;
+		//PHASE 1
+		jouerPhase1();
+		//PHASE 2
+		jouerPhase2();
+		
+	}
+	
+	public void rejoindrePartieEnLigne(String nomJ) throws IOException {
+		Client client = new Client(nomJ);
 	}
 	
 	public void lancerPartieJcIA(String nomJ1, String nomJ2, int difficulte) {

@@ -14,8 +14,8 @@ public class Client {
 	String s1;
 	String nom_client;
 
-	public void main(String arcs[]) throws UnknownHostException, IOException {
-		this.nom_client = "Killian";
+	public Client(String nomJ) throws UnknownHostException, IOException {
+		this.nom_client = nomJ;
 		this.ip_serveur = "127.0.0.1";
 		this.port_serveur = 1997;
 		this.client = new Socket(ip_serveur, port_serveur);
