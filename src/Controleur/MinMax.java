@@ -59,25 +59,33 @@ public class MinMax {
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig != 10000) {
             Coup c = it.next();
-            p.IAjoueCoup(c, joueurcourant); // joue le coup
             // Si une piece peut etre voler
-            // Alors pour toutes les pieces voler
-            // vole la piece
-            // evalue la config
-            // maj de la valeur de config actu
-            // annul vol
-            // Sinon
-            // calcule la valeur de la config
-            // si new valeur> old valeur && premier tour on enregistre le coup
-            // maj valeur
-            // annule le coup
+            if (p.IAjoueCoup(c, joueurcourant)) { // PEUT AVOIR PBS EFFICACITES
+                // Alors pour toutes les pieces voler
+                ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
+                Iterator<PiecePyramide> volables = piecesVolables.iterator();
+                while (volables.hasNext()) {
+                    PiecePyramide next = volables.next();
+                    p.IAvol(next, joueurcourant); // vole la piece
+                    int stock = meilleurConfigAD(p, horizon - 1, flag); // evalue la config
+                    if (stock > valeurconfig) { // maj de la valeur de config actu
+                        valeurconfig = stock;
+                        if (flag) {
+                            parfait = c;
+                        }
+                    }
+                    p.IAannulvol(next, joueurcourant); // annul vol
+                }
 
-            int valeurfils = meilleurConfigAD(p, horizon - 1, flag);
-            if (flag && valeurfils > valeurconfig) {
-                parfait = c;
+            } else {
+                int valeurfils = meilleurConfigAD(p, horizon - 1, flag);// calcule la valeur de la config
+                if (flag && valeurfils > valeurconfig) { // si new valeur> old valeur && premier tour on enregistre le
+                                                         // coup
+                    parfait = c;
+                }
+                valeurconfig = Math.max(valeurconfig, valeurfils); // maj valeur
             }
-            valeurconfig = Math.max(valeurconfig, valeurfils);
-            p.IAannulCoup(c, joueurcourant);
+            p.IAannulCoup(c, joueurcourant); // annule le coup
         }
         return valeurconfig;
 
@@ -104,23 +112,27 @@ public class MinMax {
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig != -10000) {
             Coup c = it.next();
-            p.IAjoueCoup(c, joueurcourant);
             // Si une piece peut etre voler
-            // Alors pour toutes les pieces voler
-            // vole la piece
-            // evalue la config
-            // maj de la valeur de config actu
-            // annul vol
-            // Sinon
-            // calcule la valeur de la config
-            // si new valeur< old valeur
-            // enregistre coup
-            // si deuxieme tour
-            // enregistre avoler verifier si min ou max
-            // maj valeur
-            // annule le coup
+            if (p.IAjoueCoup(c, joueurcourant)) { // PEUT AVOIR PBS EFFICACITES
+                // Alors pour toutes les pieces voler
+                ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
+                Iterator<PiecePyramide> volables = piecesVolables.iterator();
+                while (volables.hasNext()) {
+                    PiecePyramide next = volables.next();
+                    p.IAvol(next, joueurcourant); // vole la piece
+                    int stock = meilleurConfigJ(p, horizon - 1, false); // evalue la config
+                    if (stock < valeurconfig) { // maj de la valeur de config actu
+                        valeurconfig = stock;
+                        if (flag) {
+                            avoler = next;
+                        }
+                    }
+                    p.IAannulvol(next, joueurcourant); // annul vol
+                }
 
-            valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false));
+            } else {
+                valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false)); // maj valeur
+            }
             p.IAannulCoup(c, joueurcourant);
         }
         return valeurconfig;
