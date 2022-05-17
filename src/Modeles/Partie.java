@@ -31,7 +31,6 @@ public class Partie {
 	private SoundPlayer simpleSoundPlayer;
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
-		this.simpleSoundPlayer = new SoundPlayer();
 		this.numPartie = numPartie;
 		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
 		this.joueurDebut = joueurCourant;

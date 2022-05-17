@@ -4,16 +4,19 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class SoundPlayer extends Thread { 
 	private Clip clip;
 	private String[] cheminsSons = new String[25];//stocker les chemins des sons
 	private String chemin;
 	private int numSon;
+	private FloatControl volumeLevel;
 	
-	public SoundPlayer() {
+	public SoundPlayer(int volumeSounds, int volumeMusic) {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin="./res/Sounds/";
+		// EFFETS SONORES
 		cheminsSons[0] = chemin+"victoire.wav";//ok
 		cheminsSons[1] = chemin+"PoserPieceCamp/poserPieceCamp1.wav";
 		cheminsSons[2] = chemin+"PoserPieceCamp/poserPieceCamp2.wav";
@@ -40,6 +43,15 @@ public class SoundPlayer extends Thread {
 		cheminsSons[11] = chemin+"joueurPerdu.wav";
 		cheminsSons[12] = chemin+"joueurGagne.wav";
 		*/
+		// MUSIQUES
+		/*
+		cheminsSons[14] = chemin+"/musiqueAccueil1.wav";
+		cheminsSons[14] = chemin+"/musiqueAccueil2.wav";
+		cheminsSons[14] = chemin+"/musiqueAccueil3.wav";
+		cheminsSons[14] = chemin+"/musiqueEnPartie1.wav";
+		cheminsSons[14] = chemin+"/musiqueEnPartie2.wav";
+		cheminsSons[14] = chemin+"/musiqueEnPartie3.wav";
+		*/
 	}
 	
 	public void run() {
@@ -57,14 +69,25 @@ public class SoundPlayer extends Thread {
 		}
 	}
 	
+	public void setVolume(int v) {
+		float volume;
+		if(v>6.0f)
+			volume=6.0f;
+		else if(v<-80.0f) volume=0.0f;
+		else volume=(float)v;
+		this.volumeLevel.setValue(volume);
+	}
+	
 	public void setFile(int i) {
-		this.numSon=14;
+		this.numSon=i;
 		File f;
 		try {
 			f=new File(cheminsSons[numSon]);
 			AudioInputStream input = AudioSystem.getAudioInputStream(f);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
+			volumeLevel=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+			
 		}catch(Exception e){
 			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[numSon]);
 			System.err.println("Chemin actuel : "+this.chemin);
