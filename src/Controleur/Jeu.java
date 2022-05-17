@@ -23,6 +23,7 @@ public class Jeu {
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayer;
 	public Plateau plateau;
+	Thread [] t;
 
 	public Jeu(String nomJ1, String nomJ2, int numPartie) {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -39,7 +40,9 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		simpleSoundPlayer.jouerSonTimeRandom();
+		t = new Thread[2];
+		simpleSoundPlayer.setFile(14);
+		simpleSoundPlayer.start();
 		setParametresPartie(0,0,"Killian","Said");
 		lancerPartie();
 	}

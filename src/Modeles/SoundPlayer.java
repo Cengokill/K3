@@ -5,12 +5,11 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class SoundPlayer { 
-	
+public class SoundPlayer extends Thread { 
 	private Clip clip;
 	private String[] cheminsSons = new String[25];//stocker les chemins des sons
 	private String chemin;
-	Thread [] t;
+	private int numSon;
 	
 	public SoundPlayer() {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -43,15 +42,31 @@ public class SoundPlayer {
 		*/
 	}
 	
+	public void run() {
+		super.run();
+		if(this.numSon==14) {
+			int r=Aleatoire.genInt(10000,60000);
+			try {
+			    Thread.sleep(r);
+			} catch (InterruptedException ie) {
+			    // ...
+			}
+			this.clip.start();
+		}else {
+			this.clip.start();
+		}
+	}
+	
 	public void setFile(int i) {
+		this.numSon=14;
 		File f;
 		try {
-			f=new File(cheminsSons[i]);
+			f=new File(cheminsSons[numSon]);
 			AudioInputStream input = AudioSystem.getAudioInputStream(f);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
 		}catch(Exception e){
-			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[i]);
+			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[numSon]);
 			System.err.println("Chemin actuel : "+this.chemin);
 		}
 	}
@@ -81,9 +96,10 @@ public class SoundPlayer {
 	public void loop() {
 		this.clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-	
+	/*
 	public void stop() {
 		this.clip.stop();
 	}
+	*/
 } 
 
