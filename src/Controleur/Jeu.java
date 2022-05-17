@@ -42,14 +42,15 @@ public class Jeu {
 		plateau = new Plateau();
 		//lancer une partie
 		t = new Thread[20];
-		simpleSoundPlayer.setFile(23);
-		simpleSoundPlayer.setVolume(0);
+		simpleSoundPlayer.setFile(27);
+		simpleSoundPlayer.setVolume(-15);
 		simpleSoundPlayer.start();
 		try {
-		    Thread.sleep(3000);
+		    Thread.sleep(5000);
 		} catch (InterruptedException ie) {
 		    // ...
 		}
+		simpleSoundPlayer.stopSound();
 		System.exit(0);
 		setParametresPartie(0,0,0,"Killian","Said");
 		lancerPartie();

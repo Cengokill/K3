@@ -43,9 +43,11 @@ public class SoundPlayer extends Thread {
 		cheminsSons[21] = chemin+"/VolerPiece/sifflement1.wav";
 		cheminsSons[22] = chemin+"/VolerPiece/sifflement2.wav";
 		cheminsSons[23] = chemin+"/VolerPiece/sifflement3.wav";
+		cheminsSons[24] = chemin+"/LancementPartie/Lancement1.wav";
+		cheminsSons[25] = chemin+"/LancementPartie/Lancement2.wav";
+		cheminsSons[26] = chemin+"/LancementPartie/Lancement3.wav";
+		cheminsSons[27] = chemin+"/musiqueFond.wav";
 		/*
-		cheminsSons[4] = chemin+"lancementPartie.wav";
-		cheminsSons[5] = chemin+"melange.wav";
 		cheminsSons[6] = chemin+"launch1.wav";
 		cheminsSons[7] = chemin+"votre_tour.wav";
 		cheminsSons[10] = chemin+"joueurFiniCamp.wav";
