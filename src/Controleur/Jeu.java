@@ -11,16 +11,18 @@ import java.time.LocalTime;
 
 import Modeles.*;
 import Reseau.*;
+import Vue.Plateau;
 
 public class Jeu {
 	public Partie partieEnCours;
-	public String chemin;
-	public String cheminStats, cheminImages, cheminSauvegardes, photoProfil;
-	private int num_tour, valeur_paire;
+	public String nomActeur1, nomActeur2;
+	public String chemin, cheminStats, cheminImages, cheminSauvegardes, photoProfil;
+	private int num_tour, valeur_paire, typeActeurs, difficulte;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayer;
+	public Plateau plateau;
 
 	public Jeu(String nomJ1, String nomJ2, int numPartie) {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -34,8 +36,38 @@ public class Jeu {
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
+		//initialiser les parties graphiques
+		plateau = new Plateau();
 		//lancer une partie
-		lancerPartieJcJ(nomJ1, nomJ2, numPartie);
+		lancerPartie();
+	}
+	
+	public void setParametresPartie(int t, int d, String nom1, String nom2) {
+		this.typeActeurs=t;
+		this.difficulte=d;
+		this.nomActeur1=nom1;
+		this.nomActeur2=nom2;
+	}
+	
+	public void lancerPartie() {
+		if(typeActeurs==0) {//Joueur contre joueur
+			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
+		}
+		else if(typeActeurs==1) {//IA contre joueur
+			
+		}else {//IA contre IA
+			Acteur j1 = new Acteur("Ordinateur 1");
+			Acteur j2 = new Acteur("Ordinateur 2");
+			this.partieEnCours = new Partie(j1, j2, 1000);
+			this.partieEnCours.setCheminStats(cheminStats);
+			this.num_tour=1;
+			this.valeur_paire=0;
+			//UTILISER this.difficulte
+			//PHASE 1
+			jouerPhase1();//a modifier
+			//PHASE 2
+			jouerPhase2();//a modifier
+		}
 	}
 	
 	public void lancerPartieEnLigne(String nomJ, int difficulte) throws IOException {
@@ -60,19 +92,10 @@ public class Jeu {
 		jouerPhase1();
 		//PHASE 2
 		jouerPhase2();
-		
 	}
 	
 	public void rejoindrePartieEnLigne(String nomJ) throws IOException {
 		Client client = new Client(nomJ);
-	}
-	
-	public void lancerPartieJcIA(String nomJ1, String nomJ2, int difficulte) {
-		return;
-	}
-	
-	public void lancerPartieIaContreIA(String nomJ1, String nomJ2, int difficulte) {
-		return;
 	}
 	
 	public void lancerPartieJcJ(String nomJ1, String nomJ2, int numPartie) {
