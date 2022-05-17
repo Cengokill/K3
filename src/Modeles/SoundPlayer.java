@@ -68,7 +68,6 @@ public class SoundPlayer extends Thread {
 			this.clip.start();
 		}
 	}
-	
 	public void setVolume(int v) {
 		float volume;
 		if(v>6.0f)
@@ -86,7 +85,7 @@ public class SoundPlayer extends Thread {
 			AudioInputStream input = AudioSystem.getAudioInputStream(f);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
-			volumeLevel=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+			this.volumeLevel=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
 			
 		}catch(Exception e){
 			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[numSon]);
@@ -119,10 +118,9 @@ public class SoundPlayer extends Thread {
 	public void loop() {
 		this.clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-	/*
-	public void stop() {
+	
+	public void stopSound() {
 		this.clip.stop();
 	}
-	*/
 } 
 

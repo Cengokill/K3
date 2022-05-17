@@ -27,8 +27,8 @@ public class Joueur extends Acteur {
 		return arr.get(Integer.parseInt(num));
 	}
 	
-	public ArrayList<PiecePyramide> phase1(int indice) {
-		//demande au joueur de placer toutes les pieces de son camp et renvoie son camp
+	public PiecePyramide phase1() {
+		//demande au joueur de placer une les pieces de son camp et renvoie son camp
 		if(indice>piecesPiochees.size()-1) {
          	indice= piecesPiochees.size()-1;
          	System.err.println("Erreur : indice non valide. Recommencez.");

@@ -36,23 +36,29 @@ public class Jeu {
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
+		//initialiser le son
 		this.simpleSoundPlayer = new SoundPlayer(volumeEffetsSonores, volumeMusique);
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		t = new Thread[2];
-		simpleSoundPlayer.setFile(0);
-		simpleSoundPlayer.setVolume(-50);
+		t = new Thread[20];
+		simpleSoundPlayer.setFile(1);
+		simpleSoundPlayer.setVolume(0);
 		simpleSoundPlayer.start();
+		try {
+		    Thread.sleep(3000);
+		} catch (InterruptedException ie) {
+		    // ...
+		}
+		System.exit(0);
 		setParametresPartie(0,0,0,"Killian","Said");
 		lancerPartie();
-		System.exit(0);
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, String nom1, String nom2) {
-		this.typeActeurs=t;
-		this.difficulte1=d1;
-		this.difficulte2=d2;
+		this.typeActeurs=t;// IA ou joueur
+		this.difficulte1=d1;// si 2 AI, difficulte IA 1
+		this.difficulte2=d2;// si 2 AI, difficulte IA 2
 		this.nomActeur1=nom1;
 		this.nomActeur2=nom2;
 	}
@@ -62,7 +68,7 @@ public class Jeu {
 			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
 		}
 		else if(this.typeActeurs==1) {//IA contre joueur
-
+			
 		}else {//IA contre IA
 			Acteur j1 = new Acteur("Ordinateur 1");
 			Acteur j2 = new Acteur("Ordinateur 2");
@@ -126,12 +132,14 @@ public class Jeu {
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
-		int i=0, j=0;//indice des pieces a choisir
+		//int i=0, j=0;//indice des pieces a choisir
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			
 			//chaque joueur doit choisir la piece a empiler sur sa pioche
+			/*
 			i=this.partieEnCours.joueur1().empiler(i);
 			j=this.partieEnCours.joueur2().placerPiece(j);
+			*/
 			
 			//creation des pioches automatiquement sans demander aux joueurs
 			this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
