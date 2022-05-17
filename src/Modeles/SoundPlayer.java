@@ -11,12 +11,11 @@ public class SoundPlayer extends Thread {
 	private String[] cheminsSons = new String[25];//stocker les chemins des sons
 	private String chemin;
 	private int numSon;
-	private float volumeLevel;
+	private FloatControl volumeLevel;
 	
 	public SoundPlayer(int volumeSounds, int volumeMusic) {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin="./res/Sounds/";
-		this.volumeLevel=1;
 		// EFFETS SONORES
 		cheminsSons[0] = chemin+"victoire.wav";//ok
 		cheminsSons[1] = chemin+"PoserPieceCamp/poserPieceCamp1.wav";
@@ -70,13 +69,13 @@ public class SoundPlayer extends Thread {
 		}
 	}
 	
-	public void setVolume(float f) {
-	    FloatControl control = (FloatControl)this.clip.getControl(FloatControl.Type.MASTER_GAIN);
-	    control.setValue(getVolume(
-	}
-	
-	public void getVolume() {
-		
+	public void setVolume(int v) {
+		float volume;
+		if(v>6.0f)
+			volume=6.0f;
+		else if(v<-80.0f) volume=0.0f;
+		else volume=(float)v;
+		this.volumeLevel.setValue(volume);
 	}
 	
 	public void setFile(int i) {
@@ -87,6 +86,8 @@ public class SoundPlayer extends Thread {
 			AudioInputStream input = AudioSystem.getAudioInputStream(f);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
+			volumeLevel=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+			
 		}catch(Exception e){
 			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[numSon]);
 			System.err.println("Chemin actuel : "+this.chemin);

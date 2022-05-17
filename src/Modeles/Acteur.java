@@ -15,7 +15,6 @@ public class Acteur {
 	protected PyramideJoueur campJ;
 	protected ArrayList<Piece> piecesVolees;// pieces que le joueur a volees a l'autre joueur
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
-	protected SoundPlayer simpleSoundPlayer;
 	
 	// Constructeur
 	public Acteur(String nom) {
@@ -29,7 +28,6 @@ public class Acteur {
 		campJ = new PyramideJoueur(6, 6);
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
-		this.simpleSoundPlayer = new SoundPlayer();
 	}
 	
 	
@@ -39,7 +37,7 @@ public class Acteur {
 		return null;
 	}
 	
-	public ArrayList<PiecePyramide> Phase1() // revoit une liste de piece a posée dans t'as pyramide (phase 1)
+	public ArrayList<PiecePyramide> phase1() // revoit une liste de piece a posée dans t'as pyramide (phase 1)
 	{
 		return null;
 	}
@@ -178,7 +176,6 @@ public class Acteur {
                 arrPos=this.campJ.posDisponibles();
                 pos=arrPos.get(0);//pos devient la position choisie par le joueur
                 PiecePyramide pp = new PiecePyramide(p, pos);
-                //simpleSoundPlayer.jouerSon(1);
                 this.campJ.empiler(pp);
                 piecesPiochees.remove(0);
             }

@@ -41,10 +41,10 @@ public class Jeu {
 		plateau = new Plateau();
 		//lancer une partie
 		t = new Thread[2];
-		simpleSoundPlayer.setFile(1);
-		simpleSoundPlayer.setVolume(500);
+		simpleSoundPlayer.setFile(0);
+		simpleSoundPlayer.setVolume(-50);
 		simpleSoundPlayer.start();
-		setParametresPartie(0,0,"Killian","Said");
+		setParametresPartie(0,0,0,"Killian","Said");
 		lancerPartie();
 		System.exit(0);
 	}
@@ -130,8 +130,8 @@ public class Jeu {
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
 			
 			//chaque joueur doit choisir la piece a empiler sur sa pioche
-			//i=this.partieEnCours.joueur1().empiler(i);
-			//j=this.partieEnCours.joueur2().placerPiece(j);
+			i=this.partieEnCours.joueur1().empiler(i);
+			j=this.partieEnCours.joueur2().placerPiece(j);
 			
 			//creation des pioches automatiquement sans demander aux joueurs
 			this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
@@ -342,8 +342,10 @@ public class Jeu {
 	}
 	
 	public void sauvegarderUnePartie() {
+		/*
 		String nomFichier = bp_sauvvegardeActionPerformed();//argument ?
 		this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+nomFichier);
+		*/
 	}
 	
 	public void chargerPartie(String cheminSauvegardes) {
