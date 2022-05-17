@@ -10,6 +10,7 @@ public class SoundPlayer {
 	private Clip clip;
 	private String[] cheminsSons = new String[25];//stocker les chemins des sons
 	private String chemin;
+	Thread [] t;
 	
 	public SoundPlayer() {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -61,7 +62,7 @@ public class SoundPlayer {
 		play();
 	}
 	
-	/*
+
 	public void jouerSonTimeRandom() {
 		setFile(14);
 		int r=Aleatoire.genInt(1000,6000);
@@ -72,7 +73,6 @@ public class SoundPlayer {
 		}
 		play();
 	}
-	*/
 	
 	public void play() {
 		this.clip.start();

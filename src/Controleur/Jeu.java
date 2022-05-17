@@ -39,6 +39,8 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
+		simpleSoundPlayer.jouerSonTimeRandom();
+		setParametresPartie(0,0,"Killian","Said");
 		lancerPartie();
 	}
 	
@@ -50,16 +52,16 @@ public class Jeu {
 	}
 	
 	public void lancerPartie() {
-		if(typeActeurs==0) {//Joueur contre joueur
+		if(this.typeActeurs==0) {//Joueur contre joueur
 			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
 		}
-		else if(typeActeurs==1) {//IA contre joueur
-			
+		else if(this.typeActeurs==1) {//IA contre joueur
+
 		}else {//IA contre IA
 			Acteur j1 = new Acteur("Ordinateur 1");
 			Acteur j2 = new Acteur("Ordinateur 2");
 			this.partieEnCours = new Partie(j1, j2, 1000);
-			this.partieEnCours.setCheminStats(cheminStats);
+			this.partieEnCours.setCheminStats(this.cheminStats);
 			this.num_tour=1;
 			this.valeur_paire=0;
 			//UTILISER this.difficulte
@@ -118,13 +120,13 @@ public class Jeu {
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
 			piocher();
 		}
-		//int i=0, j=0;//indice des pieces a choisir
+		int i=0, j=0;//indice des pieces a choisir
 		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
-			/*
+			
 			//chaque joueur doit choisir la piece a empiler sur sa pioche
-			i=this.partieEnCours.joueur1().placerPiece(i);
-			j=this.partieEnCours.joueur2().placerPiece(j);
-			*/
+			//i=this.partieEnCours.joueur1().empiler(i);
+			//j=this.partieEnCours.joueur2().placerPiece(j);
+			
 			//creation des pioches automatiquement sans demander aux joueurs
 			this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
 			this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
