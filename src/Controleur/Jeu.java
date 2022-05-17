@@ -11,13 +11,13 @@ import java.time.LocalTime;
 
 import Modeles.*;
 import Reseau.*;
-import Vue.Plateau;
+import Vue.*;
 
 public class Jeu {
 	public Partie partieEnCours;
 	public String nomActeur1, nomActeur2;
 	public String chemin, cheminStats, cheminImages, cheminSauvegardes, photoProfil;
-	private int num_tour, valeur_paire, typeActeurs, difficulte;
+	private int num_tour, valeur_paire, typeActeurs, difficulte1, difficulte2;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
@@ -30,26 +30,29 @@ public class Jeu {
 		this.cheminStats=chemin+"Statistiques/";
 		this.cheminImages=chemin+"Images/";
 		this.cheminSauvegardes="Sauvegardes/";
-		this.simpleSoundPlayer = new SoundPlayer();
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
+		this.simpleSoundPlayer = new SoundPlayer(volumeEffetsSonores, volumeMusique);
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
 		t = new Thread[2];
-		simpleSoundPlayer.setFile(14);
+		simpleSoundPlayer.setFile(1);
+		simpleSoundPlayer.setVolume(500);
 		simpleSoundPlayer.start();
 		setParametresPartie(0,0,"Killian","Said");
 		lancerPartie();
+		System.exit(0);
 	}
 	
-	public void setParametresPartie(int t, int d, String nom1, String nom2) {
+	public void setParametresPartie(int t, int d1, int d2, String nom1, String nom2) {
 		this.typeActeurs=t;
-		this.difficulte=d;
+		this.difficulte1=d1;
+		this.difficulte2=d2;
 		this.nomActeur1=nom1;
 		this.nomActeur2=nom2;
 	}
@@ -338,7 +341,8 @@ public class Jeu {
 		}
 	}
 	
-	public void sauvegarderUnePartie(String nomFichier) {
+	public void sauvegarderUnePartie() {
+		String nomFichier = bp_sauvvegardeActionPerformed();//argument ?
 		this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+nomFichier);
 	}
 	

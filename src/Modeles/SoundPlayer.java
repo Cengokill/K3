@@ -4,16 +4,20 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class SoundPlayer extends Thread { 
 	private Clip clip;
 	private String[] cheminsSons = new String[25];//stocker les chemins des sons
 	private String chemin;
 	private int numSon;
+	private float volumeLevel;
 	
-	public SoundPlayer() {
+	public SoundPlayer(int volumeSounds, int volumeMusic) {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin="./res/Sounds/";
+		this.volumeLevel=1;
+		// EFFETS SONORES
 		cheminsSons[0] = chemin+"victoire.wav";//ok
 		cheminsSons[1] = chemin+"PoserPieceCamp/poserPieceCamp1.wav";
 		cheminsSons[2] = chemin+"PoserPieceCamp/poserPieceCamp2.wav";
@@ -40,6 +44,15 @@ public class SoundPlayer extends Thread {
 		cheminsSons[11] = chemin+"joueurPerdu.wav";
 		cheminsSons[12] = chemin+"joueurGagne.wav";
 		*/
+		// MUSIQUES
+		/*
+		cheminsSons[14] = chemin+"/musiqueAccueil1.wav";
+		cheminsSons[14] = chemin+"/musiqueAccueil2.wav";
+		cheminsSons[14] = chemin+"/musiqueAccueil3.wav";
+		cheminsSons[14] = chemin+"/musiqueEnPartie1.wav";
+		cheminsSons[14] = chemin+"/musiqueEnPartie2.wav";
+		cheminsSons[14] = chemin+"/musiqueEnPartie3.wav";
+		*/
 	}
 	
 	public void run() {
@@ -57,8 +70,17 @@ public class SoundPlayer extends Thread {
 		}
 	}
 	
+	public void setVolume(float f) {
+	    FloatControl control = (FloatControl)this.clip.getControl(FloatControl.Type.MASTER_GAIN);
+	    control.setValue(getVolume(
+	}
+	
+	public void getVolume() {
+		
+	}
+	
 	public void setFile(int i) {
-		this.numSon=14;
+		this.numSon=i;
 		File f;
 		try {
 			f=new File(cheminsSons[numSon]);
