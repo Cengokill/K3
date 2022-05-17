@@ -6,14 +6,16 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-public class SoundPlayer extends Thread { 
+public class SoundPlayer { 
 	private Clip clip;
-	private String[] cheminsSons = new String[40];//stocker les chemins des sons
+	private String[] cheminsSons = new String[50];//stocker les chemins des sons
 	private String chemin;
-	private int numSon;
+	private int numSon, volumeSounds, volumeMusic;
 	private FloatControl volumeLevel;
 	
 	public SoundPlayer(int volumeSounds, int volumeMusic) {
+		this.volumeSounds=volumeSounds;
+		this.volumeMusic=volumeMusic;
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin="./res/Sounds/";
 		// EFFETS SONORES
@@ -34,19 +36,22 @@ public class SoundPlayer extends Thread {
 		cheminsSons[12] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
 		cheminsSons[13] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
 		cheminsSons[14] = chemin+"/cave1.wav";
-		cheminsSons[15] = chemin+"/Cliquer/cliquer1.wav";
-		cheminsSons[16] = chemin+"/Cliquer/cliquer2.wav";
-		cheminsSons[17] = chemin+"/Cliquer/cliquer3.wav";
-		cheminsSons[18] = chemin+"/ChargerFenetre/chargerFenetre1.wav";
-		cheminsSons[19] = chemin+"/ChargerFenetre/chargerFenetre2.wav";
-		cheminsSons[20] = chemin+"/ChargerFenetre/chargerFenetre3.wav";
-		cheminsSons[21] = chemin+"/VolerPiece/sifflement1.wav";
-		cheminsSons[22] = chemin+"/VolerPiece/sifflement2.wav";
-		cheminsSons[23] = chemin+"/VolerPiece/sifflement3.wav";
-		cheminsSons[24] = chemin+"/LancementPartie/Lancement1.wav";
-		cheminsSons[25] = chemin+"/LancementPartie/Lancement2.wav";
-		cheminsSons[26] = chemin+"/LancementPartie/Lancement3.wav";
-		cheminsSons[27] = chemin+"/musiqueFond.wav";
+		cheminsSons[15] = chemin+"Cliquer/cliquer1.wav";
+		cheminsSons[16] = chemin+"Cliquer/cliquer2.wav";
+		cheminsSons[17] = chemin+"Cliquer/cliquer3.wav";
+		cheminsSons[18] = chemin+"ChargerFenetre/chargerFenetre1.wav";
+		cheminsSons[19] = chemin+"ChargerFenetre/chargerFenetre2.wav";
+		cheminsSons[20] = chemin+"ChargerFenetre/chargerFenetre3.wav";
+		cheminsSons[21] = chemin+"VolerPiece/sifflement1.wav";
+		cheminsSons[22] = chemin+"VolerPiece/sifflement2.wav";
+		cheminsSons[23] = chemin+"VolerPiece/sifflement3.wav";
+		cheminsSons[24] = chemin+"LancementPartie/Lancement1.wav";
+		cheminsSons[25] = chemin+"LancementPartie/Lancement2.wav";
+		cheminsSons[26] = chemin+"LancementPartie/Lancement3.wav";
+		cheminsSons[27] = chemin+"Victoire/victoire1.wav";
+		cheminsSons[28] = chemin+"Victoire/victoire2.wav";
+		cheminsSons[29] = chemin+"Victoire/victoire3.wav";
+		cheminsSons[43] = chemin+"/musiqueFond.wav";
 		/*
 		cheminsSons[6] = chemin+"launch1.wav";
 		cheminsSons[7] = chemin+"votre_tour.wav";
@@ -65,8 +70,50 @@ public class SoundPlayer extends Thread {
 		*/
 	}
 	
+	public float Volume10ToRange(int v) {// de -50 à 6
+		float volume;
+		switch(v) {
+			case 0:
+				volume= (float)-80;
+				break;
+			case 1:
+				volume = (float)-71.4;
+				break;
+			case 2:
+				volume = (float)-62.8;
+				break;
+			case 3:
+				volume = (float)-54.2;
+				break;
+			case 4:
+				volume = (float)-45.6;
+				break;
+			case 5:
+				volume = (float)-37;
+				break;
+			case 6:
+				volume = (float)-28.4;
+				break;
+			case 7:
+				volume = (float)-19.8;
+				break;
+			case 8:
+				volume = (float)-11.2;
+				break;
+			case 9:
+				volume = (float)-2.6;
+				break;
+			case 10:
+				volume = (float)6;
+				break;
+			default:
+				volume=5;
+		}
+		return volume;
+	}
+	
 	public void run() {
-		super.run();
+		//super.run();
 		if(this.numSon==0) {
 			int r=Aleatoire.genInt(10000,60000);
 			try {
@@ -74,45 +121,49 @@ public class SoundPlayer extends Thread {
 			} catch (InterruptedException ie) {
 			    // ...
 			}
-			this.clip.start();
+			jouerSon();
 		}else {
-			this.clip.start();
+			jouerSon();
 		}
 	}
+	
+	public void setNumSon(int i) {
+		this.numSon=i;
+	}
 	public void setVolume(int v) {
-		float volume;
-		if(v>6.0f)
-			volume=6.0f;
-		else if(v<-80.0f) volume=0.0f;
-		else volume=(float)v;
-		this.volumeLevel.setValue(volume);
+		float volumeConverti=Volume10ToRange(v);
+		this.volumeLevel.setValue(volumeConverti);
+	}
+	
+	public void jouerSon() {
+		int r=Aleatoire.genInt(this.numSon,this.numSon+2);
+		setFile(r);
+		if(this.numSon<=42) {
+			setVolume(this.volumeSounds);
+		}else {
+			setVolume(this.volumeMusic);
+		}
+		play();
 	}
 	
 	public void setFile(int i) {
-		this.numSon=i;
+		System.out.println("------------------------------------");
 		File f;
 		try {
-			f=new File(cheminsSons[numSon]);
+			f=new File(cheminsSons[i]);
 			AudioInputStream input = AudioSystem.getAudioInputStream(f);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
 			this.volumeLevel=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
 			
 		}catch(Exception e){
-			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[numSon]);
+			System.err.println("Impossible d'ouvrir le fichier son "+cheminsSons[i]);
 			System.err.println("Chemin actuel : "+this.chemin);
 		}
 	}
-	
-	public void jouerSon(int i) {
-		int r=Aleatoire.genInt(i,i+2);
-		setFile(r);
-		play();
-	}
-	
 
 	public void jouerSonTimeRandom() {
-		setFile(14);
+		setFile(0);
 		int r=Aleatoire.genInt(1000,6000);
 		try {
 		    Thread.sleep(r);

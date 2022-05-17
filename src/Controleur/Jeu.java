@@ -23,7 +23,7 @@ public class Jeu {
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayer;
 	public Plateau plateau;
-	Thread [] t;
+	//Thread [] t;
 
 	public Jeu(String nomJ1, String nomJ2, int numPartie) {
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -37,21 +37,11 @@ public class Jeu {
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayer = new SoundPlayer(volumeEffetsSonores, volumeMusique);
+		this.simpleSoundPlayer = new SoundPlayer(10, 10);
+		simpleSoundPlayer.jouerSonTimeRandom();
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		t = new Thread[20];
-		simpleSoundPlayer.setFile(27);
-		simpleSoundPlayer.setVolume(-15);
-		simpleSoundPlayer.start();
-		try {
-		    Thread.sleep(5000);
-		} catch (InterruptedException ie) {
-		    // ...
-		}
-		simpleSoundPlayer.stopSound();
-		System.exit(0);
 		setParametresPartie(0,0,0,"Killian","Said");
 		lancerPartie();
 	}
@@ -195,11 +185,51 @@ public class Jeu {
 		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
 
 		//fait jouer un joueur
-		this.partieEnCours.jouer();
+		jouer();
+	}
+	
+	public void jouer() {
+		Acteur jCourant, jPrecedent;
+		if (this.partieEnCours.joueurCourant == 0) {
+			jCourant = this.partieEnCours.joueur1();
+			jPrecedent = this.partieEnCours.joueur2();
+		} else {
+			jCourant = this.partieEnCours.joueur2();
+			jPrecedent = this.partieEnCours.joueur1();
+		}
+		ArrayList<Coup> cJ = this.partieEnCours.coupsJouables(jCourant);
+		Coup coupDemande = jCourant.jouer(cJ, this.partieEnCours);// le joueur courant a choisi un coup a jouer
+		this.partieEnCours.addCoupHist(coupDemande);// ajout du coup a l'historique
+		if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
+			jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant
+		} else {// si le joueur courant decide de jouer une de ses pieces volees
+			jCourant.retirerPieceVolee(coupDemande.getPiece());
+		}
+		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
+			this.simpleSoundPlayer.setNumSon(4);
+			this.simpleSoundPlayer.run();
+			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
+				this.simpleSoundPlayer.setNumSon(7);
+				this.simpleSoundPlayer.run();
+			}
+			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
+				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
+				if (vol != null)
+					this.partieEnCours.addCoupHist(vol);
+			}
+		} else {// joue une piece BLANCHE
+			jCourant.addBlancJoue();
+			this.simpleSoundPlayer.setNumSon(10);
+			this.simpleSoundPlayer.run();
+			System.out.println("Vous avez decide de passer votre tour !");
+		}
+		partieEnCours.changementJoueurCourant();
 	}
 	
 	public void partieVictoire() {
-		this.simpleSoundPlayer.jouerSon(0);
+		this.simpleSoundPlayer.setNumSon(27);
+		this.simpleSoundPlayer.run();
 		afficherBaseMontagne();
 		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
 		System.out.println(this.partieEnCours.joueur2().getCamp().toString());

@@ -303,42 +303,6 @@ public class Partie {
 		System.out.println();
 	}
 
-	public void jouer() {
-		Acteur jCourant, jPrecedent;
-		if (this.joueurCourant == 0) {
-			jCourant = this.j1;
-			jPrecedent = this.j2;
-		} else {
-			jCourant = this.j2;
-			jPrecedent = this.j1;
-		}
-		ArrayList<Coup> cJ = this.coupsJouables(jCourant);
-		Coup coupDemande = jCourant.jouer(cJ, this);// le joueur courant a choisi un coup a jouer
-		this.addCoupHist(coupDemande);// ajout du coup a l'historique
-		if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
-			jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant
-		} else {// si le joueur courant decide de jouer une de ses pieces volees
-			jCourant.retirerPieceVolee(coupDemande.getPiece());
-		}
-		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
-			this.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
-			this.simpleSoundPlayer.jouerSon(2);
-			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
-				this.simpleSoundPlayer.jouerSon(7);
-			}
-			if (this.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
-				Coup vol = this.volerPiece(jPrecedent, jCourant);
-				if (vol != null)
-					this.addCoupHist(vol);
-			}
-		} else {// joue une piece BLANCHE
-			jCourant.addBlancJoue();
-			this.simpleSoundPlayer.jouerSon(10);
-			System.out.println("Vous avez decide de passer votre tour !");
-		}
-		changementJoueurCourant();
-	}
-
 	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
 	// celle a voler et une deuxieme qui vole la piece donner en argument
 	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
