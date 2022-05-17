@@ -35,7 +35,7 @@ public class IAActeur extends Acteur {
     }
 
     @Override
-    public Coup jouer(ArrayList<Coup> arr, Partie encours) { // Pas encore de gestion de vol
+    public Coup jouer(ArrayList<Coup> arr, Partie encours) {
         return jeu.IACoup(encours, numerojoueur);
     }
 
