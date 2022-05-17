@@ -42,7 +42,7 @@ public class Jeu {
 		plateau = new Plateau();
 		//lancer une partie
 		t = new Thread[20];
-		simpleSoundPlayer.setFile(1);
+		simpleSoundPlayer.setFile(23);
 		simpleSoundPlayer.setVolume(0);
 		simpleSoundPlayer.start();
 		try {

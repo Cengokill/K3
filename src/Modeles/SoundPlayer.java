@@ -8,7 +8,7 @@ import javax.sound.sampled.FloatControl;
 
 public class SoundPlayer extends Thread { 
 	private Clip clip;
-	private String[] cheminsSons = new String[25];//stocker les chemins des sons
+	private String[] cheminsSons = new String[40];//stocker les chemins des sons
 	private String chemin;
 	private int numSon;
 	private FloatControl volumeLevel;
@@ -17,7 +17,7 @@ public class SoundPlayer extends Thread {
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin="./res/Sounds/";
 		// EFFETS SONORES
-		cheminsSons[0] = chemin+"victoire.wav";//ok
+		cheminsSons[0] = chemin+"/cave1.wav";
 		cheminsSons[1] = chemin+"PoserPieceCamp/poserPieceCamp1.wav";
 		cheminsSons[2] = chemin+"PoserPieceCamp/poserPieceCamp2.wav";
 		cheminsSons[3] = chemin+"PoserPieceCamp/poserPieceCamp3.wav";
@@ -34,6 +34,15 @@ public class SoundPlayer extends Thread {
 		cheminsSons[12] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
 		cheminsSons[13] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
 		cheminsSons[14] = chemin+"/cave1.wav";
+		cheminsSons[15] = chemin+"/Cliquer/cliquer1.wav";
+		cheminsSons[16] = chemin+"/Cliquer/cliquer2.wav";
+		cheminsSons[17] = chemin+"/Cliquer/cliquer3.wav";
+		cheminsSons[18] = chemin+"/ChargerFenetre/chargerFenetre1.wav";
+		cheminsSons[19] = chemin+"/ChargerFenetre/chargerFenetre2.wav";
+		cheminsSons[20] = chemin+"/ChargerFenetre/chargerFenetre3.wav";
+		cheminsSons[21] = chemin+"/VolerPiece/sifflement1.wav";
+		cheminsSons[22] = chemin+"/VolerPiece/sifflement2.wav";
+		cheminsSons[23] = chemin+"/VolerPiece/sifflement3.wav";
 		/*
 		cheminsSons[4] = chemin+"lancementPartie.wav";
 		cheminsSons[5] = chemin+"melange.wav";
@@ -56,7 +65,7 @@ public class SoundPlayer extends Thread {
 	
 	public void run() {
 		super.run();
-		if(this.numSon==14) {
+		if(this.numSon==0) {
 			int r=Aleatoire.genInt(10000,60000);
 			try {
 			    Thread.sleep(r);
