@@ -28,7 +28,6 @@ public class Partie {
 	Piece pNaturel;
 	private final int NB_PIECES_NATURELS = 2;
 	private final int NB_PIECES_BLANCS = 2;
-	private SoundPlayer simpleSoundPlayer;
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
 		this.numPartie = numPartie;
