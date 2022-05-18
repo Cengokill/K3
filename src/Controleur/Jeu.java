@@ -21,7 +21,7 @@ public class Jeu {
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
-	private SoundPlayer simpleSoundPlayer;
+	private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	public Plateau plateau;
 	//Thread [] t;
 
@@ -37,8 +37,15 @@ public class Jeu {
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayer = new SoundPlayer(10, 10);
-		simpleSoundPlayer.jouerSonTimeRandom();
+		this.simpleSoundPlayerMusic = new SoundPlayer(8, 5);
+		this.simpleSoundPlayerSon = new SoundPlayer(8, 5);
+		this.simpleSoundPlayerMusic.setNumSon(43);
+		this.simpleSoundPlayerMusic.jouerSon();
+		try {
+		    Thread.sleep(00);
+		} catch (InterruptedException ie) {
+		    // ...
+		}
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
@@ -55,6 +62,9 @@ public class Jeu {
 	}
 	
 	public void lancerPartie() {
+		this.simpleSoundPlayerMusic.stopSound();//stopper la mussique d'accueil du jeu
+		this.simpleSoundPlayerSon.setNumSon(29);
+		this.simpleSoundPlayerSon.jouerSon();
 		if(this.typeActeurs==0) {//Joueur contre joueur
 			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
 		}
@@ -185,6 +195,8 @@ public class Jeu {
 		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
 
 		//fait jouer un joueur
+		this.simpleSoundPlayerSon.setNumSon(35);
+		this.simpleSoundPlayerSon.jouerSon();
 		jouer();
 	}
 	
@@ -207,29 +219,33 @@ public class Jeu {
 		}
 		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
-			this.simpleSoundPlayer.setNumSon(4);
-			this.simpleSoundPlayer.run();
+			this.simpleSoundPlayerSon.setNumSon(4);
+			this.simpleSoundPlayerSon.jouerSon();
 			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
-				this.simpleSoundPlayer.setNumSon(7);
-				this.simpleSoundPlayer.run();
+				this.simpleSoundPlayerSon.setNumSon(7);
+				this.simpleSoundPlayerSon.jouerSon();
 			}
 			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
+				this.simpleSoundPlayerSon.setNumSon(23);
+				this.simpleSoundPlayerSon.jouerSon();
 				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
-				if (vol != null)
+				if (vol != null)//si le joueur vole une piece
+					this.simpleSoundPlayerSon.setNumSon(26);
+					this.simpleSoundPlayerSon.jouerSon();
 					this.partieEnCours.addCoupHist(vol);
 			}
 		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
-			this.simpleSoundPlayer.setNumSon(10);
-			this.simpleSoundPlayer.run();
+			this.simpleSoundPlayerSon.setNumSon(10);
+			this.simpleSoundPlayerSon.jouerSon();
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		partieEnCours.changementJoueurCourant();
 	}
 	
 	public void partieVictoire() {
-		this.simpleSoundPlayer.setNumSon(27);
-		this.simpleSoundPlayer.run();
+		this.simpleSoundPlayerSon.setNumSon(32);
+		this.simpleSoundPlayerSon.jouerSon();
 		afficherBaseMontagne();
 		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
 		System.out.println(this.partieEnCours.joueur2().getCamp().toString());

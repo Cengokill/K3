@@ -23,38 +23,42 @@ public class SoundPlayer {
 		cheminsSons[1] = chemin+"PoserPieceCamp/poserPieceCamp1.wav";
 		cheminsSons[2] = chemin+"PoserPieceCamp/poserPieceCamp2.wav";
 		cheminsSons[3] = chemin+"PoserPieceCamp/poserPieceCamp3.wav";
-		cheminsSons[4] = chemin+"PoserPieceMontagne/poserPieceMontagne1.wav";
+		cheminsSons[4] = chemin+"PoserPieceMontagne/poserPieceMontagne1.wav";//ok
 		cheminsSons[5] = chemin+"PoserPieceMontagne/poserPieceMontagne2.wav";
 		cheminsSons[6] = chemin+"PoserPieceMontagne/poserPieceMontagne3.wav";
-		cheminsSons[7] = chemin+"PoserPieceNaturelle/poserPieceNaturelle1.wav";
+		cheminsSons[7] = chemin+"PoserPieceNaturelle/poserPieceNaturelle1.wav";//ok
 		cheminsSons[8] = chemin+"PoserPieceNaturelle/poserPieceNaturelle2.wav";
 		cheminsSons[9] = chemin+"PoserPieceNaturelle/poserPieceNaturelle3.wav";
-		cheminsSons[10] = chemin+"PasserTour/passerTour1.wav";
+		cheminsSons[10] = chemin+"PasserTour/passerTour1.wav";//ok
 		cheminsSons[11] = chemin+"PasserTour/passerTour2.wav";
 		cheminsSons[12] = chemin+"PasserTour/passerTour3.wav";
-		cheminsSons[11] = chemin+"JouerCoupBlanc/jouerCoupBlanc1.wav";
-		cheminsSons[12] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
-		cheminsSons[13] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
-		cheminsSons[14] = chemin+"/cave1.wav";
-		cheminsSons[15] = chemin+"Cliquer/cliquer1.wav";
-		cheminsSons[16] = chemin+"Cliquer/cliquer2.wav";
-		cheminsSons[17] = chemin+"Cliquer/cliquer3.wav";
-		cheminsSons[18] = chemin+"ChargerFenetre/chargerFenetre1.wav";
-		cheminsSons[19] = chemin+"ChargerFenetre/chargerFenetre2.wav";
-		cheminsSons[20] = chemin+"ChargerFenetre/chargerFenetre3.wav";
-		cheminsSons[21] = chemin+"VolerPiece/sifflement1.wav";
-		cheminsSons[22] = chemin+"VolerPiece/sifflement2.wav";
-		cheminsSons[23] = chemin+"VolerPiece/sifflement3.wav";
-		cheminsSons[24] = chemin+"LancementPartie/Lancement1.wav";
-		cheminsSons[25] = chemin+"LancementPartie/Lancement2.wav";
-		cheminsSons[26] = chemin+"LancementPartie/Lancement3.wav";
-		cheminsSons[27] = chemin+"Victoire/victoire1.wav";
-		cheminsSons[28] = chemin+"Victoire/victoire2.wav";
-		cheminsSons[29] = chemin+"Victoire/victoire3.wav";
+		cheminsSons[13] = chemin+"JouerCoupBlanc/jouerCoupBlanc1.wav";
+		cheminsSons[14] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
+		cheminsSons[15] = chemin+"JouerCoupBlanc/jouerCoupBlanc2.wav";
+		cheminsSons[16] = chemin+"/cave1.wav";//ok
+		cheminsSons[17] = chemin+"Cliquer/cliquer1.wav";//ok
+		cheminsSons[18] = chemin+"Cliquer/cliquer2.wav";
+		cheminsSons[19] = chemin+"Cliquer/cliquer3.wav";
+		cheminsSons[20] = chemin+"ChargerFenetre/chargerFenetre1.wav";//ok
+		cheminsSons[21] = chemin+"ChargerFenetre/chargerFenetre2.wav";
+		cheminsSons[22] = chemin+"ChargerFenetre/chargerFenetre3.wav";
+		cheminsSons[23] = chemin+"DemandeVol/demandeVol1.wav";//ok
+		cheminsSons[24] = chemin+"DemandeVol/demandeVol2.wav";
+		cheminsSons[25] = chemin+"DemandeVol/demandeVol3.wav";
+		cheminsSons[26] = chemin+"VolerPiece/sifflement1.wav";//ok
+		cheminsSons[27] = chemin+"VolerPiece/sifflement2.wav";
+		cheminsSons[28] = chemin+"VolerPiece/sifflement3.wav";
+		cheminsSons[29] = chemin+"LancementPartie/Lancement1.wav";//ok
+		cheminsSons[30] = chemin+"LancementPartie/Lancement2.wav";
+		cheminsSons[31] = chemin+"LancementPartie/Lancement3.wav";
+		cheminsSons[32] = chemin+"Victoire/victoire1.wav";//ok
+		cheminsSons[33] = chemin+"Victoire/victoire2.wav";
+		cheminsSons[34] = chemin+"Victoire/victoire3.wav";
+		cheminsSons[35] = chemin+"DebutTour/debutTour1.wav";//ok
+		cheminsSons[36] = chemin+"DebutTour/debutTour2.wav";
+		cheminsSons[37] = chemin+"DebutTour/debutTour3.wav";
 		cheminsSons[43] = chemin+"/musiqueFond.wav";
 		/*
-		cheminsSons[6] = chemin+"launch1.wav";
-		cheminsSons[7] = chemin+"votre_tour.wav";
 		cheminsSons[10] = chemin+"joueurFiniCamp.wav";
 		cheminsSons[11] = chemin+"joueurPerdu.wav";
 		cheminsSons[12] = chemin+"joueurGagne.wav";
@@ -68,48 +72,6 @@ public class SoundPlayer {
 		cheminsSons[14] = chemin+"/musiqueEnPartie2.wav";
 		cheminsSons[14] = chemin+"/musiqueEnPartie3.wav";
 		*/
-	}
-	
-	public float Volume10ToRange(int v) {// de -50 à 6
-		float volume;
-		switch(v) {
-			case 0:
-				volume= (float)-80;
-				break;
-			case 1:
-				volume = (float)-71.4;
-				break;
-			case 2:
-				volume = (float)-62.8;
-				break;
-			case 3:
-				volume = (float)-54.2;
-				break;
-			case 4:
-				volume = (float)-45.6;
-				break;
-			case 5:
-				volume = (float)-37;
-				break;
-			case 6:
-				volume = (float)-28.4;
-				break;
-			case 7:
-				volume = (float)-19.8;
-				break;
-			case 8:
-				volume = (float)-11.2;
-				break;
-			case 9:
-				volume = (float)-2.6;
-				break;
-			case 10:
-				volume = (float)6;
-				break;
-			default:
-				volume=5;
-		}
-		return volume;
 	}
 	
 	public void run() {
@@ -136,11 +98,12 @@ public class SoundPlayer {
 	}
 	
 	public void jouerSon() {
-		int r=Aleatoire.genInt(this.numSon,this.numSon+2);
-		setFile(r);
 		if(this.numSon<=42) {
+			int r=Aleatoire.genInt(this.numSon,this.numSon+2);
+			setFile(r);
 			setVolume(this.volumeSounds);
 		}else {
+			setFile(this.numSon);
 			setVolume(this.volumeMusic);
 		}
 		play();
@@ -183,6 +146,49 @@ public class SoundPlayer {
 	
 	public void stopSound() {
 		this.clip.stop();
+	}
+	
+	public float Volume10ToRange(int v) {// de -50 à 6
+		float volume;
+		switch(v) {
+			case 0:
+				volume= (float)-80;
+				break;
+			case 1:
+				//volume = (float)-71.4;
+				volume = (float)-37;
+				break;
+			case 2:
+				volume = (float)-32.7;
+				break;
+			case 3:
+				volume = (float)-28.4;
+				break;
+			case 4:
+				volume = (float)-24.1;
+				break;
+			case 5:
+				volume = (float)-19.8;
+				break;
+			case 6:
+				volume = (float)-15.5;
+				break;
+			case 7:
+				volume = (float)-11.2;
+				break;
+			case 8:
+				volume = (float)-6.9;
+				break;
+			case 9:
+				volume = (float)1.7;
+				break;
+			case 10:
+				volume = (float)6;
+				break;
+			default:
+				volume=5;
+		}
+		return volume;
 	}
 } 
 
