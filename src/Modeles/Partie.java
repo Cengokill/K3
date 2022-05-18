@@ -31,8 +31,7 @@ public class Partie {
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
 		this.numPartie = numPartie;
-		//this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
-		this.joueurCourant=0;
+		this.joueurCourant = Aleatoire.genInt(0, 1);// choix du joueur aleatoire
 		this.joueurDebut = joueurCourant;
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;

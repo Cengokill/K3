@@ -163,7 +163,7 @@ public class Jeu {
 		
 	public void jouerPhase1() {
 		ArrayList<PiecePyramide> arr;
-		int acteurCourant;
+		Acteur acteurCourant;
 		//initialisation des blancs et des naturels aux joueurs
 		this.partieEnCours.distribuerBlancEtNaturels();
 		//initialisation des pieces des deux joueurs
@@ -172,41 +172,32 @@ public class Jeu {
 		}
 		lancerPhase1();
 		timer(6000);
-		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0) {
-			
-			//chaque joueur doit choisir la piece a empiler sur sa pioche
-			arr = this.partieEnCours.joueur1().phase1(this.partieEnCours);
-			timer(10);
-			if(!arr.isEmpty()){
-				for(PiecePyramide p : arr) {
-					timer(this.partieEnCours.joueur1().tempsReflexion());
-					if(this.partieEnCours.joueur1().getCamp().empiler(p)) {
-						this.partieEnCours.joueur1().removePiecePiochee(p.getPiece());
-						this.panel.repaint();
-						this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
-						this.simpleSoundPlayerSon.jouerSon();
+		for(int i=0; i<2; i++) {
+			if(this.partieEnCours.getJoueurCourant()==0) {
+				acteurCourant=this.partieEnCours.joueur1();
+			}else {
+				acteurCourant=this.partieEnCours.joueur2();
+			}
+			while (acteurCourant.getTaillePiecesPiochees()>0) {
+				
+				//chaque joueur doit choisir la piece a empiler sur sa pioche
+				arr = acteurCourant.phase1(this.partieEnCours);
+				timer(10);
+				if(!arr.isEmpty()){
+					for(PiecePyramide p : arr) {
+						timer(acteurCourant.tempsReflexion());
+						if(acteurCourant.getCamp().empiler(p)) {
+							acteurCourant.removePiecePiochee(p.getPiece());
+							this.panel.repaint();
+							this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
+							this.simpleSoundPlayerSon.jouerSon();
+						}
 					}
 				}
 			}
-		}
-		timer(300);
-		this.partieEnCours.changementJoueurCourant();
-		this.panel.repaint();
-		System.out.println("au joueur 2 de jouer");
-		while (this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
-			arr = this.partieEnCours.joueur2().phase1(this.partieEnCours);
-			timer(10);
-			if(!arr.isEmpty()){
-				for(PiecePyramide p : arr) {
-					timer(this.partieEnCours.joueur2().tempsReflexion());
-					if(this.partieEnCours.joueur2().getCamp().empiler(p)) {
-						this.partieEnCours.joueur2().removePiecePiochee(p.getPiece());
-						this.panel.repaint();
-						this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
-						this.simpleSoundPlayerSon.jouerSon();
-					}
-				}
-			}
+			timer(2000);
+			this.partieEnCours.changementJoueurCourant();
+			this.panel.repaint();
 		}
 		//this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
 		/*
