@@ -45,8 +45,8 @@ public class Jeu {
 		//initialiser le son
 		this.simpleSoundPlayerMusic = new SoundPlayer(8, 8);
 		this.simpleSoundPlayerSon = new SoundPlayer(10, 0);
-		this.simpleSoundPlayerMusic.setNumSon(43);
-		this.simpleSoundPlayerMusic.jouerSon();
+		//this.simpleSoundPlayerMusic.setNumSon(43);
+		//this.simpleSoundPlayerMusic.jouerSon();
 		try {
 		    Thread.sleep(1000);
 		} catch (InterruptedException ie) {
@@ -82,7 +82,7 @@ public class Jeu {
 	}
 	
 	public void lancerPartie() {
-		this.simpleSoundPlayerMusic.stopSound();//stopper la mussique d'accueil du jeu
+		//this.simpleSoundPlayerMusic.stopSound();//stopper la mussique d'accueil du jeu
 		this.simpleSoundPlayerSon.setNumSon(29);//son de lancement de partie
 		this.simpleSoundPlayerSon.jouerSon();
 		//this.simpleSoundPlayerMusic.setNumSon(?); MUSIQUE DE LA PARTIE
@@ -171,7 +171,7 @@ public class Jeu {
 			piocher();
 		}
 		lancerPhase1();
-		timer(6000);
+		timer(1000);
 		for(int i=0; i<2; i++) {
 			if(this.partieEnCours.getJoueurCourant()==0) {
 				acteurCourant=this.partieEnCours.joueur1();
@@ -179,7 +179,6 @@ public class Jeu {
 				acteurCourant=this.partieEnCours.joueur2();
 			}
 			while (acteurCourant.getTaillePiecesPiochees()>0) {
-				
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
 				timer(10);

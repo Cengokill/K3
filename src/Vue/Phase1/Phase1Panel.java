@@ -148,7 +148,7 @@ public class Phase1Panel extends JPanel{
 			g.fillRect(OldX, OldY, 10, 10);
 			*/
 			g.setColor(getpetitcolor(pieceSelectionnee));
-			g.fillRect(currentX, currentY, TAILLE_CUBES/2, TAILLE_CUBES/2);
+			g.fillRect(currentX, currentY, (int)(TAILLE_CUBES/1.5), (int)(TAILLE_CUBES/1.5));
 		}
 	}
 	
