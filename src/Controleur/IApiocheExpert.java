@@ -9,11 +9,16 @@ import Modeles.*;
 public class IApiocheExpert implements IApioche {
 
     public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
-        ArrayList<Piece> piecesIA;
+        ArrayList<Piece> piecesIA = new ArrayList<>();
         if (numerojoueur == 0) {
-            piecesIA = p.joueur1().getPiecesPiochees();
+            for (Piece aplacer : p.joueur1().getPiecesPiochees()) {
+                piecesIA.add(aplacer);
+            }
+            ;
         } else {
-            piecesIA = p.joueur2().getPiecesPiochees();
+            for (Piece aplacer : p.joueur2().getPiecesPiochees()) {
+                piecesIA.add(aplacer);
+            }
         }
         PyramideMontagne pm = p.getBaseMontagne();
         ArrayList<PiecePyramide> aempiler = new ArrayList<>();
@@ -21,7 +26,7 @@ public class IApiocheExpert implements IApioche {
         // creer une liste de position pour savoir quelle position sont deja utilises
         HashSet<Integer> allpos = new HashSet<>();
 
-        // On place nos joker a des endroits deja dÃ©finis
+        // On place nos joker a des endroits deja définis
         aempiler.add(new PiecePyramide(new Piece(Couleurs.NATUREL), new Position(1, 0)));
         aempiler.add(new PiecePyramide(new Piece(Couleurs.BLANC), new Position(1, 4)));
         aempiler.add(new PiecePyramide(new Piece(Couleurs.NATUREL), new Position(3, 2)));
@@ -76,7 +81,7 @@ public class IApiocheExpert implements IApioche {
                 it.remove();
             } else {
                 if (cpres.contains(piece.getColor()) || nbpib >= 5) { // si la piece est dans la montagne on la place
-                                                                      // alÃ©atoirement sinon on la place en bas
+                                                                      // aléatoirement sinon on la place en bas
                     boolean estajouter = false;
                     for (int etage = 5; etage >= 0; etage--) {
                         for (int rang = 0; rang < (6 - etage); rang++) {

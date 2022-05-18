@@ -142,6 +142,16 @@ public class Acteur {
 	public int getTaillePiecesPiochees() {
 		return piecesPiochees.size();
 	}
+	
+	public void removePiecePiochee(Piece p) {
+		int x=this.piecesPiochees.size();
+		this.piecesPiochees.remove(p);
+		if(x==this.piecesPiochees.size()) {
+			System.out.println(this.piecesPiochees.toString());
+			System.err.println(p.toString()+" pas retiree");
+		}
+		//System.out.println("taille pieces piochees : "+this.piecesPiochees.size());
+	}
 
 	// METHODES GAMEPLAY ------------------------------------------------------
 
@@ -213,5 +223,9 @@ public class Acteur {
 			}
 		}
 		return false;
+	}
+	
+	//FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR
+	public void setPiecesPosees(PiecePyramide p) {
 	}
 }

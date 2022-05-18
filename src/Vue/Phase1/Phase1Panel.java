@@ -44,7 +44,9 @@ public class Phase1Panel extends JPanel{
 	
 	public void empiler(Position positionPiecePyramide) {
 		Acteur a = initAffichageJoueurs();
-		if(a.getCamp().empiler(new PiecePyramide(pieceSelectionnee,positionPiecePyramide))) {
+		PiecePyramide pp=new PiecePyramide(pieceSelectionnee,positionPiecePyramide);
+		if(a.getCamp().empiler(pp)) {
+			a.setPiecesPosees(pp);
 			pieceSelectionnee = null;
 			a.getPiecesPiochees().remove(a.getCamp().getPiece(positionPiecePyramide));
 			this.repaint();
