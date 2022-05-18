@@ -105,7 +105,23 @@ public class IApiocheExpert implements IApioche {
             }
 
         }
-        return aempiler;
+
+        ArrayList<PiecePyramide> trier = new ArrayList<>();
+        ArrayList<Position> toutespos = new ArrayList<>();
+        for (int etage = 0; etage < 6; etage++) {
+            for (int rang = 0; rang < (6 - etage); rang++) {
+                toutespos.add(new Position(etage, rang));
+            }
+        }
+        for (Position pos : toutespos) {
+            for (PiecePyramide pp2 : aempiler) {
+                if (pp2.getPos().etage == pos.etage && pp2.getPos().rang == pos.rang) {
+                    trier.add(pp2);
+                }
+            }
+        }
+
+        return trier;
     }
 
     public int PostoIndice(Position pos) {

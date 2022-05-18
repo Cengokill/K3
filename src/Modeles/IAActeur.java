@@ -30,7 +30,7 @@ public class IAActeur extends Acteur {
         }
     }
 
-    public ArrayList<PiecePyramide> Phase1(Partie encours) {
+    public ArrayList<PiecePyramide> phase1(Partie encours) {
         return pioche.CreerPioche(encours, numerojoueur);
     }
 

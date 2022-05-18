@@ -2,8 +2,8 @@ package Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
-import Controleur.*;
 import Modeles.*;
 
 public class TestJcIA {
@@ -14,6 +14,7 @@ public class TestJcIA {
         int victoirej1 = 0;
         int victoirej2 = 0;
         int matchnull = 0;
+        final int TAILLE_CAMP_JOUEUR = 21;
 
         // Chronometre du temps de toutes les parties
         double t1 = (double) System.currentTimeMillis();
@@ -22,73 +23,71 @@ public class TestJcIA {
         while (nbParties != objectif) { // On créer des parties jusqu a avoir le bon nombre de partie jouer
 
             // INITIALISATION DE LA PARTIE
-            Acteur j1 = new Joueur("Stupid 1");
-            Acteur j2 = new IAActeur("BigBrain", 2, 1);
+            Acteur j1 = new Joueur("BOB");
+            Acteur j2 = new IAActeur("IA", 2, 1);
 
             ktrois = new Partie(j1, j2, nbParties);// numero de partie
             // Modifier le premier joueur qui commence
-            ktrois.joueurCourant = 0;
-            ktrois.joueurDebut = 0;
+            // ktrois.joueurCourant = 0; A TESTER
+            // ktrois.joueurDebut = 0;
 
             // DISTIBUTION DES PIONS
             ktrois.distribuerBlancEtNaturels(); // On donne les blancs
             while (ktrois.joueur1().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR
-                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) { // On pioche tant qu on n a
-                                                                                          // pas
-                                                                                          // assez de pions
-                Piece p;
-
-                p = ktrois.joueur1().piocherPiece(ktrois.getBasePieces());
-                ktrois.joueur1().addPiecePiochee(p);
-                p = ktrois.joueur2().piocherPiece(ktrois.getBasePieces());
-                ktrois.joueur2().addPiecePiochee(p);
-
+                    || ktrois.joueur2().getTaillePiecesPiochees() < TAILLE_CAMP_JOUEUR) {
+                piocher(ktrois);
             }
 
             // CREATION DES PYRAMIDES
-            PyramideJoueur pj;
-            IApioche iaP = new IApiocheAlea();
-            IApioche iaPE = new IApiocheExpert();
-
-            pj = iaPE.CreerPioche(ktrois, 0);
-            ktrois.joueur1().setCamp(pj); // Tester avec get
-            // System.out.println(ktrois.joueur1().getCamp().toString());
-
-            pj = iaPE.CreerPioche(ktrois, 1);
-            ktrois.joueur2().setCamp(pj);
-            // System.out.println(ktrois.joueur2().getCamp().toString());
-
-            // System.out.println(ktrois.getBaseMontagne().toString());
+            System.out.println("Phase de Création");
+            while (ktrois.joueur1().getTaillePiecesPiochees() > 0 && ktrois.joueur2().getTaillePiecesPiochees() > 0) {
+                construirepyraJ(ktrois);
+                construirepyraIA(ktrois);
+            }
+            // AFFICHAGE PYRA JOUEUR ET MONTAGNE
+            System.out.println("Pyramide de " + ktrois.joueur1().getNom());
+            System.out.println(ktrois.joueur1().getCamp().toString());
+            System.out.println("Pyramide de " + ktrois.joueur2().getNom());
+            System.out.println(ktrois.joueur2().getCamp().toString());
+            System.out.println("Pyramide de jeu");
+            System.out.println(ktrois.getBaseMontagne().toString());
 
             // PHASE DE JEU
-            // System.out.println();
-            // System.out.println("Phase de jeu");
-            IAjeuAlea iaA = new IAjeuAlea();
-            IAjeuExpert iaJ = new IAjeuExpert(3);
-            IAjeuExpert iaE = new IAjeuExpert(5);
+            System.out.println();
+            System.out.println("Phase de jeu");
             while (!ktrois.estPartieFinie()) { // Argument partie en cours
                 Coup c;
-                if (ktrois.getJoueurCourant() == 0) {
-                    c = iaA.IACoup(ktrois, ktrois.getJoueurCourant());
+                Acteur jCourant;
+
+                if (ktrois.joueurCourant == 0) {
+                    jCourant = ktrois.joueur1();
                 } else {
-                    // ArrayList<Coup> lc = ktrois.coupsJouables(ktrois.joueur2());
-                    // affiche(lc);
-                    c = iaA.IACoup(ktrois, ktrois.getJoueurCourant());
-                    if (c == null) {
-                        // System.out.println("IAexpert renvoie un coup vide");
-                    }
+                    jCourant = ktrois.joueur2();
                 }
-                // System.out.print("Le joueur numero " + (ktrois.getJoueurCourant() + 1) + ":
-                // joue le coup");
-                // System.out.println(c.toString());
+                ArrayList<Coup> arr = ktrois.coupsJouables(jCourant);
+                c = jCourant.jouer(arr, ktrois);
+                System.out.print("Le joueur " + jCourant.getNom() + " joue le coup");
+                System.out.println(c.toString());
 
                 // Joue
-                ktrois.jouer(c, ktrois.getJoueurCourant());
+                if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) {
+                    ArrayList<PiecePyramide> accessibles = jCourant.getPiecesJouables();
+                    if (ktrois.getJoueurCourant() == 0) {
+                        jCourant = ktrois.joueur2();
+                    } else {
+                        jCourant = ktrois.joueur1();
+                    }
+                    PiecePyramide vol = jCourant.choixVol(accessibles);
+                    ktrois.IAvol(vol, ktrois.joueurCourant);
+                }
 
                 // Afiichage
-                // System.out.println(ktrois.joueur1().getCamp().toString());
-                // System.out.println(ktrois.joueur2().getCamp().toString());
-                // System.out.println(ktrois.getBaseMontagne().toString());
+                System.out.println("Pyramide de " + ktrois.joueur1().getNom());
+                System.out.println(ktrois.joueur1().getCamp().toString());
+                System.out.println("Pyramide de " + ktrois.joueur2().getNom());
+                System.out.println(ktrois.joueur2().getCamp().toString());
+                System.out.println("Pyramide de jeu");
+                System.out.println(ktrois.getBaseMontagne().toString());
 
                 // changer le joueur courant
                 ktrois.changementJoueurCourant();
@@ -120,4 +119,76 @@ public class TestJcIA {
         System.out.println();
     }
 
+    public static void piocher(Partie partieEnCours) {
+        Piece p;
+        if (partieEnCours.getJoueurCourant() == 0) {
+            p = partieEnCours.joueur1().piocherPiece(partieEnCours.getBasePieces());
+            partieEnCours.joueur1().addPiecePiochee(p);
+        } else {
+            p = partieEnCours.joueur2().piocherPiece(partieEnCours.getBasePieces());
+            partieEnCours.joueur2().addPiecePiochee(p);
+        }
+        partieEnCours.changementJoueurCourant();
+    }
+
+    public static void construirepyraJ(Partie ktrois) {
+        // Créer liste des positions
+        Acteur j1 = ktrois.joueur1();
+        ArrayList<Position> allpos = new ArrayList<>();
+        for (int etage = 0; etage < 6; etage++) {
+            for (int rang = 0; rang < (6 - etage); rang++) {
+                allpos.add(new Position(etage, rang));
+            }
+        }
+
+        Iterator<Position> it = allpos.iterator();
+        Scanner s = new Scanner(System.in);
+        System.out.println("Le joueur " + j1.getNom() + " doit choisir comment empiler ses pieces:");
+        while (it.hasNext()) {
+            Position pos = it.next();
+            System.out.println("Pyramide de " + ktrois.joueur1().getNom());
+            System.out.println(ktrois.joueur1().getCamp().toString());
+            System.out.println("Choix pour la position " + pos.toString());
+            PiecePyramide pp = new PiecePyramide(demandPiece(j1, s), pos);
+            j1.getCamp().empiler(pp);
+        }
+        s.close();
+
+    }
+
+    public static void construirepyraIA(Partie encours) {
+        // empiler en fonction ia.phase1
+        ArrayList<PiecePyramide> pieces = encours.joueur2().phase1(encours);
+
+        for (PiecePyramide piece : pieces) { // a voir si mieux qu'utiliser des iterateurs
+            encours.joueur2().getCamp().empiler(piece);
+        }
+    }
+
+    public static Piece demandPiece(Acteur j1, Scanner s) {
+        // lister les pieces restantes
+        ArrayList<Piece> posables = j1.getPiecesPiochees();
+        int compt = 0;
+        int res = 0; // par default premiere piece possible
+        for (Piece p : posables) {
+            System.out.println("Piece " + p.toString() + "posables. Numero [" + compt + "]");
+            compt++;
+        }
+        // demander un numero a l'utilisateur
+        try {
+            System.out.print("Quel piece voulez vous jouez? ");
+            res = s.nextInt();
+            while (res >= compt) {
+                System.out.println("Le numero ne correspond pas a une piece.");
+                System.out.print("Quel piece voulez vous jouez? ");
+                res = s.nextInt();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        // renvoyer la piece correspondante
+        Piece retour = posables.get(res);
+        posables.remove(res);
+        return retour;
+    }
 }
