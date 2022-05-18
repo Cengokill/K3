@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Joueur extends Acteur {
-
+	private PiecePyramide piecePosee;
+	
 	public Joueur(String nom) {
 		super(nom);
 	}
@@ -27,8 +28,13 @@ public class Joueur extends Acteur {
 		return arr.get(num);
 	}
 
-	public PiecePyramide phase1() {
-		return null;
+	public ArrayList<PiecePyramide> phase1(Partie encours) {
+		 ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
+		if(this.piecePosee!=null) {
+			arr.add(this.piecePosee);
+			this.piecePosee=null;
+		}
+		return arr;
 	}
 
 	public String toStringArrPos(ArrayList<Position> arr) {
@@ -43,6 +49,10 @@ public class Joueur extends Acteur {
 			chaine += "[" + i + "] : " + arr.get(i).toString() + carSep;
 		}
 		return chaine;
+	}
+	
+	public void setPiecesPosees(PiecePyramide p) {
+		this.piecePosee=p;
 	}
 
 }

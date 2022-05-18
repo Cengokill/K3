@@ -27,6 +27,8 @@ public class Jeu {
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	public Plateau plateau;
+	public JFrame window;
+	public Phase1Panel panel;
 	//Thread [] t;
 
 	public Jeu(String nomJ1, String nomJ2, int numPartie) {
@@ -42,33 +44,33 @@ public class Jeu {
 		lireOptions();
 		//initialiser le son
 		this.simpleSoundPlayerMusic = new SoundPlayer(8, 8);
-		this.simpleSoundPlayerSon = new SoundPlayer(8, 0);
+		this.simpleSoundPlayerSon = new SoundPlayer(10, 0);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.jouerSon();
 		try {
-		    Thread.sleep(00);
+		    Thread.sleep(1000);
 		} catch (InterruptedException ie) {
 		    // ...
 		}
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(0,0,0,"Killian","Said");
+		setParametresPartie(1,0,0,"Killian","Ordinateur");
 		lancerPartie();
 		//lancerPhase1();
 	}
 	
 	public void lancerPhase1() {
-		JFrame window = new JFrame("phase1");
-		Phase1Panel panel = new Phase1Panel(this.partieEnCours);
-		window.setContentPane(panel);
+		this.window = new JFrame("phase1");
+		this.panel = new Phase1Panel(this.partieEnCours);
+		this.window.setContentPane(panel);
 		
-		panel.addMouseListener(new ecouteurClick(panel));
+		this.panel.addMouseListener(new ecouteurClick(panel));
 		
-		window.setSize(1200,1080);
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.window.setSize(1200,1080);
+		this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		window.setVisible(true);
+		this.window.setVisible(true);
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, String nom1, String nom2) {
@@ -89,7 +91,7 @@ public class Jeu {
 			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
 		}
 		else if(this.typeActeurs==1) {//IA contre joueur
-			
+			lancerPartieJcIA(this.nomActeur1, this.nomActeur2, 0);
 		}else {//IA contre IA
 			Acteur j1 = new Acteur("Ordinateur 1");
 			Acteur j2 = new Acteur("Ordinateur 2");
@@ -133,6 +135,19 @@ public class Jeu {
 		Client client = new Client(nomJ);
 	}
 	
+	public void lancerPartieJcIA(String nomJ1, String nomJ2, int numPartie) {
+		Acteur j1 = new IAActeur(nomJ2, 1, 0);
+		Acteur j2 = new Joueur(nomJ1);
+		this.partieEnCours = new Partie(j1, j2, numPartie);
+		this.partieEnCours.setCheminStats(cheminStats);
+		this.num_tour=1;
+		this.valeur_paire=0;
+		//PHASE 1
+		jouerPhase1();
+		//PHASE 2
+		jouerPhase2();
+	}
+	
 	public void lancerPartieJcJ(String nomJ1, String nomJ2, int numPartie) {
 		Joueur j1 = new Joueur(nomJ1);
 		Joueur j2 = new Joueur(nomJ2);
@@ -145,8 +160,10 @@ public class Jeu {
 		//PHASE 2
 		jouerPhase2();
 	}
-	
+		
 	public void jouerPhase1() {
+		ArrayList<PiecePyramide> arr;
+		Acteur acteurCourant;
 		//initialisation des blancs et des naturels aux joueurs
 		this.partieEnCours.distribuerBlancEtNaturels();
 		//initialisation des pieces des deux joueurs
@@ -154,29 +171,45 @@ public class Jeu {
 			piocher();
 		}
 		lancerPhase1();
-		try {
-		    Thread.sleep(4000);
-		} catch (InterruptedException ie) {
-		    // ...
+		timer(6000);
+		for(int i=0; i<2; i++) {
+			if(this.partieEnCours.getJoueurCourant()==0) {
+				acteurCourant=this.partieEnCours.joueur1();
+			}else {
+				acteurCourant=this.partieEnCours.joueur2();
+			}
+			while (acteurCourant.getTaillePiecesPiochees()>0) {
+				
+				//chaque joueur doit choisir la piece a empiler sur sa pioche
+				arr = acteurCourant.phase1(this.partieEnCours);
+				timer(10);
+				if(!arr.isEmpty()){
+					for(PiecePyramide p : arr) {
+						timer(acteurCourant.tempsReflexion());
+						if(acteurCourant.getCamp().empiler(p)) {
+							acteurCourant.removePiecePiochee(p.getPiece());
+							this.panel.repaint();
+							this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
+							this.simpleSoundPlayerSon.jouerSon();
+						}
+					}
+				}
+			}
+			timer(2000);
+			this.partieEnCours.changementJoueurCourant();
+			this.panel.repaint();
 		}
-		while (this.partieEnCours.joueur1().getTaillePiecesPiochees()>0 && this.partieEnCours.joueur2().getTaillePiecesPiochees()>0) {
-			
-			//chaque joueur doit choisir la piece a empiler sur sa pioche
-			
-			this.partieEnCours.joueur1().phase1(this.partieEnCours);
-			//this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
-			/*
-			//creation des pioches automatiquement sans demander aux joueurs
-			this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
-			this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
-			*/
-		}
+		//this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
+		/*
+		//creation des pioches automatiquement sans demander aux joueurs
+		this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
+		this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
+		*/
 	}
 	
 	public void jouerPhase2() {
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
-
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 		}
@@ -418,6 +451,14 @@ public class Jeu {
 			System.out.println("Un nouveau fichier Options.txt a ete creer.");
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void timer(int t) {
+		try {
+		    Thread.sleep(t);
+		} catch (InterruptedException ie) {
+		    // ...
 		}
 	}
 	

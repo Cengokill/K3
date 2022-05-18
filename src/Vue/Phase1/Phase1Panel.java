@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JPanel;
 
 import Modeles.*;
@@ -17,11 +19,20 @@ public class Phase1Panel extends JPanel{
 	public int OldY = 0;
 	public int currentX = 0;
 	public int currentY = 0;
+	public int TAILLE_CUBES = 40;
+	public int POS_PIECE_CHOISIE;
+	public int POS_BASE_JOUEUR;
+	public int POS_PIOCHE;
+	public int POS_BASE_MONTAGNE;
 	
 	public Phase1Panel(Partie partieEnCours){
 		this.partieEnCours=partieEnCours;
 		DragListener dragListener = new DragListener();
 		this.addMouseMotionListener(dragListener);
+		this.POS_PIECE_CHOISIE = 0;
+		this.POS_BASE_JOUEUR = 100;
+		this.POS_PIOCHE = POS_BASE_JOUEUR+(TAILLE_CUBES+1)*(partieEnCours.joueur1().getCamp().getHauteur()+2);
+		this.POS_BASE_MONTAGNE = POS_PIOCHE+TAILLE_CUBES+1;
 	}
 	
 	public Acteur initAffichageJoueurs() {
@@ -44,11 +55,10 @@ public class Phase1Panel extends JPanel{
 	
 	public void empiler(Position positionPiecePyramide) {
 		Acteur a = initAffichageJoueurs();
-		if(a.getCamp().empiler(new PiecePyramide(pieceSelectionnee,positionPiecePyramide))) {
-			pieceSelectionnee = null;
-			a.getPiecesPiochees().remove(a.getCamp().getPiece(positionPiecePyramide));
-			this.repaint();
-		}
+		PiecePyramide pp=new PiecePyramide(pieceSelectionnee,positionPiecePyramide);
+		a.setPiecesPosees(pp);
+		pieceSelectionnee = null;
+		this.repaint();
 	}
 	
 	public Color getpetitcolor(Piece p) {
@@ -88,7 +98,7 @@ public class Phase1Panel extends JPanel{
 		for(int i = 0; i < a.getPiecesPiochees().size(); i++) {
 			Piece p = a.getPiecesPiochees().get(i);
 			g.setColor(getpetitcolor(p));
-			g.fillRect(i*20, 200+a.getCamp().getHauteur()*20, 19, 19);
+			g.fillRect(i*(TAILLE_CUBES+1), POS_PIOCHE, TAILLE_CUBES, TAILLE_CUBES);
 		}
 	}
 	
@@ -100,7 +110,7 @@ public class Phase1Panel extends JPanel{
 				positionPiecePyramide = new Position(etage,rang);
 				Piece pieceJoueur = a.getCamp().getPiece(positionPiecePyramide);
 				g.setColor(getpetitcolor(pieceJoueur));
-				g.fillRect(rang*20, 100+a.getCamp().getHauteur()*20 - etage*20, 19, 19);
+				g.fillRect(rang*(TAILLE_CUBES+1), POS_BASE_JOUEUR+a.getCamp().getHauteur()*(TAILLE_CUBES+1) - etage*(TAILLE_CUBES+1), TAILLE_CUBES, TAILLE_CUBES);
 			}
 		}
 	}
@@ -108,14 +118,27 @@ public class Phase1Panel extends JPanel{
 	public void afficheBaseMontagne(Graphics g) {
 		PyramideMontagne m = this.partieEnCours.getBaseMontagne();
 		Position positionPiecePyramide;
+		afficherNomJoueur(g);
 		for(int etage = 0; etage < m.getHauteur(); etage++) {
 			for(int rang = 0; rang < m.getLargeur() - etage; rang++) {
 				positionPiecePyramide = new Position(etage,rang);
 				Piece piece = m.getPiece(positionPiecePyramide);
 				g.setColor(getpetitcolor(piece));
-				g.fillRect(rang*20, 500+m.getHauteur()*20 - etage*20, 19, 19);
+				g.fillRect(rang*(TAILLE_CUBES+1), POS_BASE_MONTAGNE+m.getHauteur()*(TAILLE_CUBES+1) - etage*(TAILLE_CUBES+1), TAILLE_CUBES, TAILLE_CUBES);
 			}
 		}
+	}
+	
+	public void afficherNomJoueur(Graphics g) {
+		String nom;
+		if(this.partieEnCours.getJoueurCourant()==0) {
+			nom = this.partieEnCours.joueur1().getNom();
+		}else {
+			nom = this.partieEnCours.joueur2().getNom();
+		}
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Courier New", Font.BOLD, 25));
+		g.drawString(nom, 300, POS_BASE_JOUEUR-POS_PIECE_CHOISIE+TAILLE_CUBES);
 	}
 	
 	public void dragNdrop(Graphics g) {
@@ -124,9 +147,8 @@ public class Phase1Panel extends JPanel{
 			g.setColor(this.getBackground()); // petite trainner a supprimer
 			g.fillRect(OldX, OldY, 10, 10);
 			*/
-			
 			g.setColor(getpetitcolor(pieceSelectionnee));
-			g.fillRect(currentX, currentY, 10, 10);
+			g.fillRect(currentX, currentY, TAILLE_CUBES/2, TAILLE_CUBES/2);
 		}
 	}
 	

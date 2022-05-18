@@ -29,6 +29,11 @@ public class IAActeur extends Acteur {
                 break;
         }
     }
+    
+	public int tempsReflexion() {
+		int r=Aleatoire.genInt(100,400);
+		return r;
+	}
 
     public ArrayList<PiecePyramide> phase1(Partie encours) {
         return pioche.CreerPioche(encours, numerojoueur);

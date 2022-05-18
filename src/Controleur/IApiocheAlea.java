@@ -41,7 +41,7 @@ public class IApiocheAlea implements IApioche {
             compt = 0;
             pos = it2.next();
             it = piecesIA.iterator();
-            while (it.hasNext()) { // On cherche la piece qui correspond a l'alÃ©atoire
+            while (it.hasNext()) { // On cherche la piece qui correspond a l'aléatoire
                 pp = new PiecePyramide(it.next(), pos);
                 if (compt == alea) {
                     pj.add(pp); // on l'ajoute a la pyra et on la retire du sac
