@@ -42,10 +42,13 @@ public class MinMax {
             return eval(p);
         }
         Acteur JoueurCourant;
+        Acteur JoueurPrecedent;
         if (joueurcourant == 0) {
             JoueurCourant = p.joueur1();
+            JoueurPrecedent = p.joueur2();
         } else {
             JoueurCourant = p.joueur2();
+            JoueurPrecedent = p.joueur1();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
         if (lc.size() == 1) { // Si un seul coup possible on le renvoie
@@ -63,9 +66,14 @@ public class MinMax {
         while (it.hasNext() && valeurconfig != 10000) {
             Coup c = it.next();
             // Si une piece peut etre voler
-            if (p.IAjoueCoup(c, joueurcourant)) { // PEUT AVOIR PBS EFFICACITES
+            if (p.IAjoueCoup(c, joueurcourant)) {
                 // Alors pour toutes les pieces voler
                 ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
+                // System.out.println("Le joueur " + JoueurPrecedent.getNom() + " peut voler
+                // :");
+                // for (PiecePyramide ttt : piecesVolables) {
+                // System.out.println(ttt.toString());
+                // }
                 Iterator<PiecePyramide> volables = piecesVolables.iterator();
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
@@ -91,14 +99,14 @@ public class MinMax {
             p.IAannulCoup(c, joueurcourant); // annule le coup
         }
         if (flag) {
-            System.out.println("on cherche le coup pour l'ia");
+            System.out.println("on a trouve le coup pour l'ia");
         }
         return valeurconfig;
 
     }
 
     public int meilleurConfigAD(Partie p, int horizon, boolean flag) {
-        int joueurcourant = numerojoueur;
+        int joueurcourant = 100;
         if (numerojoueur == 0) {
             joueurcourant = 1;
         } else {
@@ -108,10 +116,13 @@ public class MinMax {
             return eval(p);
         }
         Acteur JoueurCourant;
+        Acteur JoueurPrecedent;
         if (joueurcourant == 0) {
             JoueurCourant = p.joueur1();
+            JoueurPrecedent = p.joueur2();
         } else {
             JoueurCourant = p.joueur2();
+            JoueurPrecedent = p.joueur1();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
         int valeurconfig = 10001;
@@ -122,6 +133,11 @@ public class MinMax {
             if (p.IAjoueCoup(c, joueurcourant)) { // PEUT AVOIR PBS EFFICACITES
                 // Alors pour toutes les pieces voler
                 ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
+                // System.out.println("Le joueur " + JoueurPrecedent.getNom() + " peut voler
+                // :");
+                // for (PiecePyramide ttt : piecesVolables) {
+                // System.out.println(ttt.toString());
+                // }
                 Iterator<PiecePyramide> volables = piecesVolables.iterator();
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();

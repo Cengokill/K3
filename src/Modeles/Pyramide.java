@@ -67,6 +67,7 @@ public class Pyramide {
 		} else {
 			caseSupGauche = (pyramide[p.etage + 1][p.rang - 1] == null); // on regarde si en haut a gauche est libre
 		}
+
 		if (p.rang == pyramide[p.etage].length - 1) {
 			caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
 		} else {

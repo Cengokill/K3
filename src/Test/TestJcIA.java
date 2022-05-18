@@ -44,6 +44,9 @@ public class TestJcIA {
             // CREATION DES PYRAMIDES
             System.out.println("Le joueur numero " + (ktrois.joueurDebut + 1) + " commence la partie");
             System.out.println("Phase de Création");
+            System.out.println("Pyramide de jeu");
+            System.out.println(ktrois.getBaseMontagne().toString());
+
             while (ktrois.joueur1().getTaillePiecesPiochees() > 0 && ktrois.joueur2().getTaillePiecesPiochees() > 0) {
                 construirepyraJ(ktrois, s);
                 construirepyraIA(ktrois);
@@ -51,8 +54,10 @@ public class TestJcIA {
             // AFFICHAGE PYRA JOUEUR ET MONTAGNE
             System.out.println("Pyramide de " + ktrois.joueur1().getNom());
             System.out.println(ktrois.joueur1().getCamp().toString());
+            System.out.println("Liste des pieces volées: " + ktrois.joueur1().toStringPiecesVolees());
             System.out.println("Pyramide de " + ktrois.joueur2().getNom());
             System.out.println(ktrois.joueur2().getCamp().toString());
+            System.out.println("Liste des pieces volées: " + ktrois.joueur2().toStringPiecesVolees());
             System.out.println("Pyramide de jeu");
             System.out.println(ktrois.getBaseMontagne().toString());
 
@@ -91,10 +96,15 @@ public class TestJcIA {
                 }
 
                 // Afiichage
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println("Pyramide de " + ktrois.joueur1().getNom());
                 System.out.println(ktrois.joueur1().getCamp().toString());
+                System.out.println("Liste des pieces volées: " + ktrois.joueur1().toStringPiecesVolees());
                 System.out.println("Pyramide de " + ktrois.joueur2().getNom());
                 System.out.println(ktrois.joueur2().getCamp().toString());
+                System.out.println("Liste des pieces volées: " + ktrois.joueur2().toStringPiecesVolees());
                 System.out.println("Pyramide de jeu");
                 System.out.println(ktrois.getBaseMontagne().toString());
 
@@ -169,6 +179,7 @@ public class TestJcIA {
 
         for (PiecePyramide piece : pieces) { // a voir si mieux qu'utiliser des iterateurs
             encours.joueur2().getCamp().empiler(piece);
+            encours.joueur2().getPiecesPiochees().remove(piece.getPiece());
         }
     }
 
