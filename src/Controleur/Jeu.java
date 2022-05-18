@@ -63,8 +63,10 @@ public class Jeu {
 	
 	public void lancerPartie() {
 		this.simpleSoundPlayerMusic.stopSound();//stopper la mussique d'accueil du jeu
-		this.simpleSoundPlayerSon.setNumSon(29);
+		this.simpleSoundPlayerSon.setNumSon(29);//son de lancement de partie
 		this.simpleSoundPlayerSon.jouerSon();
+		//this.simpleSoundPlayerMusic.setNumSon(?); MUSIQUE DE LA PARTIE
+		//this.simpleSoundPlayerMusic.jouerSon();
 		if(this.typeActeurs==0) {//Joueur contre joueur
 			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
 		}
