@@ -23,8 +23,8 @@ public class Joueur extends Acteur {
 			System.out.println("[" + i + "]" + arr.get(i).toString());
 		}
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
-		String num = myObj.nextLine();
-		return arr.get(Integer.parseInt(num));
+		int num = myObj.nextInt();
+		return arr.get(num);
 	}
 
 	public PiecePyramide phase1() {

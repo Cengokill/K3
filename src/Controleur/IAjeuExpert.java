@@ -2,6 +2,7 @@ package Controleur;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import Modeles.*;
 
@@ -21,16 +22,13 @@ public class IAjeuExpert implements IAjeu {
     }
 
     public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr) {
-        Iterator<PiecePyramide> it = arr.iterator();
-        while (it.hasNext()) {
-            PiecePyramide temp = it.next();
-            if (temp.getPiece() == avoler.getPiece() && temp.getPos() == avoler.getPos()) {
-                System.out.println("La piece a voler existe bien");
-            }
+        if (avoler == null) {
+            Random r = new Random();
+            int index = r.nextInt(arr.size());
+            return arr.get(index);
         }
         return avoler;
     }
-
     // voler piece: mode agressif: Voler les pieces importantes de l'adversaire
     // mode défensif: Voler les pieces permettant un maximum de coups au joueur
     // courant

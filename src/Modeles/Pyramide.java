@@ -10,7 +10,7 @@ public class Pyramide {
 	public int LARGEUR_MAX = 50;
 	public int HAUTEUR_MAX = 50;
 	protected ArrayList<PiecePyramide> historiquePieces;
-	
+
 	public Pyramide(int largeur, int hauteur) {
 		if (largeur <= 0 || hauteur <= 0 || hauteur >= LARGEUR_MAX || largeur >= HAUTEUR_MAX) {
 			System.err.println("erreur taille impossible : " + largeur + "," + hauteur);
@@ -26,12 +26,12 @@ public class Pyramide {
 				l = l - 1;
 			}
 			this.pyramide = etage;
-			this.historiquePieces=new ArrayList<PiecePyramide>();
+			this.historiquePieces = new ArrayList<PiecePyramide>();
 		}
 	}
-	
+
 	public boolean estPleine() {
-		return pyramide[hauteur-1][0]!=null;
+		return pyramide[hauteur - 1][0] != null;
 	}
 
 	public int getlargeur() {
@@ -49,33 +49,35 @@ public class Pyramide {
 		}
 		return this.pyramide[p.etage][p.rang];
 	}
-	
-	public void annulerDernierePiece() {//ok
-		int taille=this.historiquePieces.size();
-		this.historiquePieces.remove(taille-1);
-	}
-	
-	public boolean aPiecesPorteuses(int etage, int rang) {//renvoie true si la piece a la position p a deux pieces porteuses
-		return pyramide[etage-1][rang] != null && pyramide[etage-1][rang+1] !=null;
+
+	public void annulerDernierePiece() {// ok
+		int taille = this.historiquePieces.size();
+		this.historiquePieces.remove(taille - 1);
 	}
 
-	public boolean estPiecePorteuse(Position p) {//renvoie true si la piece a la position p est porteuse
+	public boolean aPiecesPorteuses(int etage, int rang) {// renvoie true si la piece a la position p a deux pieces
+															// porteuses
+		return pyramide[etage - 1][rang] != null && pyramide[etage - 1][rang + 1] != null;
+	}
+
+	public boolean estPiecePorteuse(Position p) {// renvoie true si la piece a la position p est porteuse
 		boolean caseSupGauche, caseSupDroite;
-		if (p.rang==0) {
-            caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
-        } else {
-            caseSupGauche = (pyramide[p.etage + 1][p.rang - 1] == null); // on regarde si en haut a gauche est libre
-        }
-        if (p.rang == pyramide[p.etage].length - 1) {
-            caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
-        } else {
-            caseSupDroite = (pyramide[p.etage + 1][p.rang] == null); // on regarde si en haut a droite est libre
-        }
-        return(caseSupGauche && caseSupDroite);
+		if (p.rang == 0) {
+			caseSupGauche = true; // si c'est la premiere case de la ligne en haut a gauche qui n'existe pas
+		} else {
+			caseSupGauche = (pyramide[p.etage + 1][p.rang - 1] == null); // on regarde si en haut a gauche est libre
+		}
+		if (p.rang == pyramide[p.etage].length - 1) {
+			caseSupDroite = true; // si c'est la derniere case de la ligne en haut a droite qui n'existe pas
+		} else {
+			caseSupDroite = (pyramide[p.etage + 1][p.rang] == null); // on regarde si en haut a droite est libre
+		}
+		return (caseSupGauche && caseSupDroite);
 	}
 
 	public PiecePyramide retirer(Position p) {
-		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0 || pyramide[p.etage][p.rang] == null) {
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0
+				|| pyramide[p.etage][p.rang] == null) {
 			System.err.println("erreur impossible de retirer la piece.");
 			return null;
 		} else {
@@ -95,11 +97,11 @@ public class Pyramide {
 			}
 			// on regarde ne haut a gauche + en haut a droite
 			if (caseSupGauche && caseSupDroite) { // on regarde si il ya des pieces porteuses
-				Piece pie=this.pyramide[p.etage][p.rang];
+				Piece pie = this.pyramide[p.etage][p.rang];
 				this.pyramide[p.etage][p.rang] = null;
 				this.annulerDernierePiece();
 				return new PiecePyramide(pie, p);
-				
+
 			} else {
 				System.err.println("La piece est une piece porteuse et ne peut pas etre retiree.");
 				return null;
@@ -109,36 +111,36 @@ public class Pyramide {
 
 	public String toString() {
 		String tableau = new String();
-		String ligne="";
-		String debut="";
+		String ligne = "";
+		String debut = "";
 		for (int i = hauteur - 1; i >= 0; i--) {
-			switch(i) {
-			case 8:
-				debut="        ";
-				break;
-			case 7:
-				debut="       ";
-				break;
-			case 6:
-				debut="      ";
-				break;
-			case 5:
-				debut="     ";
-				break;
-			case 4:
-				debut="    ";
-				break;
-			case 3:
-				debut="   ";
-				break;
-			case 2:
-				debut="  ";
-				break;
-			case 1:
-				debut=" ";
-				break;
-			case 0:
-				debut="";
+			switch (i) {
+				case 8:
+					debut = "        ";
+					break;
+				case 7:
+					debut = "       ";
+					break;
+				case 6:
+					debut = "      ";
+					break;
+				case 5:
+					debut = "     ";
+					break;
+				case 4:
+					debut = "    ";
+					break;
+				case 3:
+					debut = "   ";
+					break;
+				case 2:
+					debut = "  ";
+					break;
+				case 1:
+					debut = " ";
+					break;
+				case 0:
+					debut = "";
 			}
 			for (int j = 0; j < pyramide[i].length; j++) {
 				if (pyramide[i][j] != null) {
@@ -170,23 +172,22 @@ public class Pyramide {
 				ligne += ' ';
 			}
 			ligne += System.getProperty("line.separator");
-			ligne=debut+ligne;
-			tableau+=ligne;
-			ligne="";
+			ligne = debut + ligne;
+			tableau += ligne;
+			ligne = "";
 		}
 		return tableau;
 	}
-	
+
 	public void empiler(PiecePyramide pp) {
 		Piece piece = pp.getPiece();
 		Position p = pp.getPos();
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
-			System.err.println("Erreur : la position (" + p.rang + "," + p.etage + ") est impossible.");
+			System.err.println("Erreur : la position (" + p.etage + "," + p.rang + ") est impossible.");
 			return;
-		} else if(this.pyramide[p.etage][p.rang] != null) {
+		} else if (this.pyramide[p.etage][p.rang] != null) {
 			System.err.println("la place est deja prise");
-		}
-		else if (p.etage == 0) {
+		} else if (p.etage == 0) {
 			// pas de piece porteuse
 			this.pyramide[p.etage][p.rang] = piece;
 			this.historiquePieces.add(pp);
@@ -213,7 +214,7 @@ public class Pyramide {
 			}
 		}
 	}
-	
+
 	public boolean conditionEmpiler(Piece piece, Piece porteurDroit, Piece porteurGauche) {
 		return true;
 	}
