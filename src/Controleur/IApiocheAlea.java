@@ -7,11 +7,16 @@ import Modeles.*;
 public class IApiocheAlea implements IApioche {
 
     public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
-        ArrayList<Piece> piecesIA;
+        ArrayList<Piece> piecesIA = new ArrayList<>();
         if (numerojoueur == 0) {
-            piecesIA = p.joueur1().getPiecesPiochees();
+            for (Piece aplacer : p.joueur1().getPiecesPiochees()) {
+                piecesIA.add(aplacer);
+            }
+            ;
         } else {
-            piecesIA = p.joueur2().getPiecesPiochees();
+            for (Piece aplacer : p.joueur2().getPiecesPiochees()) {
+                piecesIA.add(aplacer);
+            }
         }
 
         if (piecesIA.size() != (6 * 7 / 2)) {
