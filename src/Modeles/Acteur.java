@@ -35,7 +35,7 @@ public class Acteur {
 	public int tempsReflexion() {
 		return 0;
 	}
-	
+
 	public Coup jouer(ArrayList<Coup> arr, Partie encours) // pyramide au milieu
 	{
 		return null;
@@ -146,11 +146,11 @@ public class Acteur {
 	public int getTaillePiecesPiochees() {
 		return piecesPiochees.size();
 	}
-	
+
 	public void removePiecePiochee(Piece p) {
-		int taille=this.piecesPiochees.size();
-		for(int i=0; i<taille; i++) {
-			if(piecesPiochees.get(i).getColor().equals(p.getColor())) {
+		int taille = this.piecesPiochees.size();
+		for (int i = 0; i < taille; i++) {
+			if (piecesPiochees.get(i).getColor().equals(p.getColor())) {
 				piecesPiochees.remove(i);
 				return;
 			}
@@ -228,8 +228,8 @@ public class Acteur {
 		}
 		return false;
 	}
-	
-	//FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR
+
+	// FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR
 	public void setPiecesPosees(PiecePyramide p) {
 	}
 }

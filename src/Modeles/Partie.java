@@ -435,7 +435,7 @@ public class Partie {
 	}
 
 	public boolean IAjoueCoup(Coup c, int joueurcourant) {
-		System.out.println("on joue un coup");
+		// System.out.println("on joue un coup");
 		Acteur jCourant;
 		if (joueurcourant == 0) {
 			jCourant = this.j1;
@@ -459,7 +459,7 @@ public class Partie {
 	}
 
 	public void IAannulCoup(Coup c, int joueurcourant) {
-		System.out.println("on annule un coup");
+		// System.out.println("on annule un coup");
 		Acteur jCourant;
 		if (joueurcourant == 0) {
 			jCourant = this.j1;
@@ -479,9 +479,8 @@ public class Partie {
 	}
 
 	public void IAvol(PiecePyramide pp, int joueurcourant) { // le joueur courant se fait voler une piece
-		System.out.println("on vole");
 		Acteur jCourant, jPrecedent;
-		if (joueurCourant == 0) {
+		if (joueurcourant == 0) {
 			jCourant = this.j1;
 			jPrecedent = this.j2;
 		} else {
@@ -492,15 +491,26 @@ public class Partie {
 		if (pp.getPos() == null) {// si le voleur vole une piece volee
 			jCourant.retirerPieceVolee(pp.getPiece());
 		} else {
-			jCourant.getCamp().retirer(pp.getPos());
+			if (jCourant.getCamp().retirer(pp.getPos()) == null) {
+				System.out.println("on vole");
+				System.out.println("Le joueur " + jPrecedent.getNom() + " veut voler la piece " + pp.toString());
+				System.out.println("Configuration actuelle");
+				System.out.println("Pyramide de " + this.joueur1().getNom());
+				System.out.println(this.joueur1().getCamp().toString());
+				System.out.println("Liste des pieces volées: " + this.joueur1().toStringPiecesVolees());
+				System.out.println("Pyramide de " + this.joueur2().getNom());
+				System.out.println(this.joueur2().getCamp().toString());
+				System.out.println("Liste des pieces volées: " + this.joueur2().toStringPiecesVolees());
+				System.out.println("Pyramide de jeu");
+				System.out.println(this.getBaseMontagne().toString());
+			}
 		}
 		jPrecedent.addPieceVolee(pp.getPiece());// ajout de la piece volee aux pieces volees du voleur
 	}
 
 	public void IAannulvol(PiecePyramide pp, int joueurcourant) {
-		System.out.println("on annule un vol");
 		Acteur jCourant, jPrecedent;
-		if (joueurCourant == 0) {
+		if (joueurcourant == 0) {
 			jCourant = this.j1;
 			jPrecedent = this.j2;
 		} else {
@@ -511,7 +521,19 @@ public class Partie {
 		if (pp.getPos() == null) {
 			jCourant.addPieceVolee(pp.getPiece());
 		} else {
-			jCourant.getCamp().empiler(pp);
+			if (!jCourant.getCamp().empiler(pp)) {
+				System.out.println("on annule un vol");
+				System.out.println("Le joueur " + jPrecedent.getNom() + " annule le vole de la piece " + pp.toString());
+				System.out.println("Configuration actuelle");
+				System.out.println("Pyramide de " + this.joueur1().getNom());
+				System.out.println(this.joueur1().getCamp().toString());
+				System.out.println("Liste des pieces volées: " + this.joueur1().toStringPiecesVolees());
+				System.out.println("Pyramide de " + this.joueur2().getNom());
+				System.out.println(this.joueur2().getCamp().toString());
+				System.out.println("Liste des pieces volées: " + this.joueur2().toStringPiecesVolees());
+				System.out.println("Pyramide de jeu");
+				System.out.println(this.getBaseMontagne().toString());
+			}
 		}
 		jPrecedent.retirerPieceVolee(pp.getPiece());
 	}
