@@ -127,7 +127,7 @@ public class Acteur {
 	}
 
 	public String toStringPiecesVolees() {
-		String tableau = "Piece volée";
+		String tableau = "Piece volee";
 		for (int i = 0; i < piecesVolees.size(); i++) {
 			tableau += piecesVolees.get(i).toString();
 		}
