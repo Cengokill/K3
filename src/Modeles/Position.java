@@ -14,4 +14,10 @@ public class Position {
         res += "("+this.etage + "," + this.rang+")";
         return res;
     }
+    
+    public boolean egal(Position pos) {
+    	int etage2=pos.etage;
+    	int rang2=pos.rang;
+    	return etage2==this.etage && rang2==this.rang;
+    }
 }
