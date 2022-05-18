@@ -34,6 +34,9 @@ public class MinMax {
     }
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
+        if (flag) {
+            System.out.println("on cherche le coup pour l'ia");
+        }
         int joueurcourant = numerojoueur;
         if ((horizon == 0) || (p.estPartieFinie())) {
             return eval(p);
@@ -86,6 +89,9 @@ public class MinMax {
                 valeurconfig = Math.max(valeurconfig, valeurfils); // maj valeur
             }
             p.IAannulCoup(c, joueurcourant); // annule le coup
+        }
+        if (flag) {
+            System.out.println("on cherche le coup pour l'ia");
         }
         return valeurconfig;
 

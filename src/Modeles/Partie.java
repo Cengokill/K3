@@ -436,6 +436,7 @@ public class Partie {
 	}
 
 	public boolean IAjoueCoup(Coup c, int joueurcourant) {
+		System.out.println("on joue un coup");
 		Acteur jCourant;
 		if (joueurcourant == 0) {
 			jCourant = this.j1;
@@ -453,12 +454,13 @@ public class Partie {
 			this.getBaseMontagne().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
 		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
+			return false;
 		}
-
 		return this.getBaseMontagne().estPorteursMemeCouleur(c.getPosBase());
 	}
 
 	public void IAannulCoup(Coup c, int joueurcourant) {
+		System.out.println("on annule un coup");
 		Acteur jCourant;
 		if (joueurcourant == 0) {
 			jCourant = this.j1;
@@ -466,7 +468,7 @@ public class Partie {
 			jCourant = this.j2;
 		}
 		if (c.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
-			jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));// retire la piece jouee du camp
+			jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));// retire la piece jouee du camp
 																						// du joueur courant
 		} else {// si le joueur courant decide de jouer une de ses pieces volees
 			jCourant.addPieceVolee(c.getPiece());
@@ -478,6 +480,7 @@ public class Partie {
 	}
 
 	public void IAvol(PiecePyramide pp, int joueurcourant) { // le joueur courant se fait voler une piece
+		System.out.println("on vole");
 		Acteur jCourant, jPrecedent;
 		if (joueurCourant == 0) {
 			jCourant = this.j1;
@@ -496,6 +499,7 @@ public class Partie {
 	}
 
 	public void IAannulvol(PiecePyramide pp, int joueurcourant) {
+		System.out.println("on annule un vol");
 		Acteur jCourant, jPrecedent;
 		if (joueurCourant == 0) {
 			jCourant = this.j1;

@@ -23,8 +23,11 @@ public class TestJcIA {
         while (nbParties != objectif) { // On créer des parties jusqu a avoir le bon nombre de partie jouer
 
             // INITIALISATION DE LA PARTIE
-            Acteur j1 = new Joueur("BOB");
-            Acteur j2 = new IAActeur("IA", 2, 1);
+            Scanner s = new Scanner(System.in);
+            System.out.print("Quel est votre nom? ");
+            String name = s.nextLine();
+            Acteur j1 = new Joueur(name);
+            Acteur j2 = new IAActeur("IA", 1, 1);
 
             ktrois = new Partie(j1, j2, nbParties);// numero de partie
             // Modifier le premier joueur qui commence
@@ -39,9 +42,10 @@ public class TestJcIA {
             }
 
             // CREATION DES PYRAMIDES
+            System.out.println("Le joueur numero " + (ktrois.joueurDebut + 1) + " commence la partie");
             System.out.println("Phase de Création");
             while (ktrois.joueur1().getTaillePiecesPiochees() > 0 && ktrois.joueur2().getTaillePiecesPiochees() > 0) {
-                construirepyraJ(ktrois);
+                construirepyraJ(ktrois, s);
                 construirepyraIA(ktrois);
             }
             // AFFICHAGE PYRA JOUEUR ET MONTAGNE
@@ -65,12 +69,17 @@ public class TestJcIA {
                     jCourant = ktrois.joueur2();
                 }
                 ArrayList<Coup> arr = ktrois.coupsJouables(jCourant);
-                c = jCourant.jouer(arr, ktrois);
+                if (ktrois.joueurCourant == 0) {
+                    c = choixCoup(ktrois, s);
+                } else {
+                    c = jCourant.jouer(arr, ktrois);
+                }
                 System.out.print("Le joueur " + jCourant.getNom() + " joue le coup");
                 System.out.println(c.toString());
 
                 // Joue
-                if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) {
+                if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) { // On peut se faire voler une piece
+                    System.out.println("on recuppere les pieces volables de " + jCourant.getNom());
                     ArrayList<PiecePyramide> accessibles = jCourant.getPiecesJouables();
                     if (ktrois.getJoueurCourant() == 0) {
                         jCourant = ktrois.joueur2();
@@ -100,6 +109,7 @@ public class TestJcIA {
                 victoirej1++;
             }
             nbParties++;
+            s.close();
         }
         ktrois.combinerStats(0, objectif);
         System.out.println("Nombre de parties jouees : " + objectif);
@@ -131,7 +141,7 @@ public class TestJcIA {
         partieEnCours.changementJoueurCourant();
     }
 
-    public static void construirepyraJ(Partie ktrois) {
+    public static void construirepyraJ(Partie ktrois, Scanner s) {
         // Créer liste des positions
         Acteur j1 = ktrois.joueur1();
         ArrayList<Position> allpos = new ArrayList<>();
@@ -142,7 +152,6 @@ public class TestJcIA {
         }
 
         Iterator<Position> it = allpos.iterator();
-        Scanner s = new Scanner(System.in);
         System.out.println("Le joueur " + j1.getNom() + " doit choisir comment empiler ses pieces:");
         while (it.hasNext()) {
             Position pos = it.next();
@@ -152,8 +161,6 @@ public class TestJcIA {
             PiecePyramide pp = new PiecePyramide(demandPiece(j1, s), pos);
             j1.getCamp().empiler(pp);
         }
-        s.close();
-
     }
 
     public static void construirepyraIA(Partie encours) {
@@ -190,5 +197,30 @@ public class TestJcIA {
         Piece retour = posables.get(res);
         posables.remove(res);
         return retour;
+    }
+
+    public static Coup choixCoup(Partie ktrois, Scanner s) {
+        Acteur j1 = ktrois.joueur1();
+        int res = 0;
+        ArrayList<Coup> jouables = ktrois.coupsJouables(j1);
+        int compt = 0;
+        for (Coup coup : jouables) {
+            System.out.println("Coup " + coup.toString() + " jouable. Numero [" + compt + "]");
+            compt++;
+        }
+
+        try {
+            System.out.print("Quel coup voulez vous jouez? ");
+            res = s.nextInt();
+            while (res >= compt) {
+                System.out.println("Le numero ne correspond pas a un coup.");
+                System.out.print("Quel coup voulez vous jouez? ");
+                res = s.nextInt();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return jouables.get(res);
+
     }
 }
