@@ -32,6 +32,10 @@ public class Acteur {
 
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
 	// -------------------------------------------------------------------
+	public int tempsReflexion() {
+		return 0;
+	}
+	
 	public Coup jouer(ArrayList<Coup> arr, Partie encours) // pyramide au milieu
 	{
 		return null;
@@ -144,13 +148,13 @@ public class Acteur {
 	}
 	
 	public void removePiecePiochee(Piece p) {
-		int x=this.piecesPiochees.size();
-		this.piecesPiochees.remove(p);
-		if(x==this.piecesPiochees.size()) {
-			System.out.println(this.piecesPiochees.toString());
-			System.err.println(p.toString()+" pas retiree");
+		int taille=this.piecesPiochees.size();
+		for(int i=0; i<taille; i++) {
+			if(piecesPiochees.get(i).getColor().equals(p.getColor())) {
+				piecesPiochees.remove(i);
+				return;
+			}
 		}
-		//System.out.println("taille pieces piochees : "+this.piecesPiochees.size());
 	}
 
 	// METHODES GAMEPLAY ------------------------------------------------------
