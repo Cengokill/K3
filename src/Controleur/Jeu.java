@@ -63,6 +63,9 @@ public class Jeu {
 	
 	public void modifVolume() {
 		Slider slider = new Slider();
+		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique);
+		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores);
+		ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique);
 	}
 	
 	public void lancerPhase1() {
@@ -336,7 +339,7 @@ public class Jeu {
 		boolean[] renvoi = new boolean[4];
 		String nom_fichier = "Options.txt";
 		if(!testFichierExistant(this.chemin+nom_fichier)) {
-			ecrireOptions();
+			ecrireInitOptions();
 			renvoi[0]=false;
 			return;
 		}
@@ -357,7 +360,7 @@ public class Jeu {
 				br.close();
 				if (tab.size() != this.NB_LIGNES_OPTIONS) {
 					System.err.println("Erreur : le fichier " + nom_fichier + " a ete modifie. Il contient " + tab.size()+" lignes.");
-					ecrireOptions();
+					ecrireInitOptions();
 					renvoi[0]=false;
 					return;
 				} else {
@@ -425,7 +428,7 @@ public class Jeu {
 		return false;
 	}
 
-	public void ecrireOptions() {// reinitialise le fichier Options.txt en ecrivant des valeurs par defaut
+	public void ecrireInitOptions() {// reinitialise le fichier Options.txt en ecrivant des valeurs par defaut
 		try {
 			File f = new File(this.chemin + "/Options.txt");
 			try {
@@ -457,6 +460,36 @@ public class Jeu {
 			e.printStackTrace();
 		}
 	}
+	
+	public void ecrireOptions(String photoProfil, int modeDaltonien, int volumeEffetsSonores, int volumeMusique) {
+		try {
+			File f = new File(this.chemin + "/Options.txt");
+			try {
+					f.createNewFile();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			FileWriter writer = new FileWriter(f, false);// ecrire en mode remplacement
+			BufferedWriter bw = new BufferedWriter(writer);
+			// Nom du fichier de la photo de profil du joueur
+			// Mode daltonien oui/non
+			// Volume des effets sonores
+			// Volume de la musique
+			bw.write(photoProfil);
+			bw.newLine();
+			bw.write(String.valueOf(modeDaltonien));
+			bw.newLine();
+			bw.write(String.valueOf(volumeEffetsSonores));
+			bw.newLine();
+			bw.write(String.valueOf(volumeMusique));
+			bw.close();
+			writer.close();
+			System.out.println("Le fichier Options.txt a ete modifie.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	public void timer(int t) {
 		try {
