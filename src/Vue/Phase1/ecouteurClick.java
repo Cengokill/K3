@@ -22,12 +22,15 @@ public class ecouteurClick implements MouseListener {
 			return null;
 		}
 		
+		realx-=((panel.TAILLE_CUBES+1)/2)*y;
 		int x = realx / (panel.TAILLE_CUBES+1);
-		x-=((panel.TAILLE_CUBES+1)/2)*y;
+		System.out.println(x+" , "+y);
+		
+		System.out.println(x+" , "+y);
 		if(x<0) {
 			return null;
 		}
-		System.out.println(x+" , "+y);
+		
 		
 		return new Position(y,x);
 	}
