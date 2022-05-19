@@ -58,7 +58,7 @@ public class Jeu {
 		setParametresPartie(1,0,0,"Killian","Ordinateur");
 		//lancerPartie();
 		//lancerPhase1();
-		modifVolume();
+		//modifVolume();
 	}
 	
 	public void modifVolume() {
