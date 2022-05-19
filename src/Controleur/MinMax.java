@@ -9,6 +9,7 @@ public class MinMax {
     int numerojoueur;
     Coup parfait;
     PiecePyramide avoler;
+    double tf, td;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -34,24 +35,29 @@ public class MinMax {
     }
 
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
+
         if (flag) {
             System.out.println("on cherche le coup pour l'ia");
+            td = (double) System.currentTimeMillis();
         }
+
+        // EVALUTION---------------------------------------------------
         int joueurcourant = numerojoueur;
         if ((horizon == 0) || (p.estPartieFinie())) {
             return eval(p);
         }
+
+        // RECUPERE JCOURANT-------------------------------------------
         Acteur JoueurCourant;
-        Acteur JoueurPrecedent;
         if (joueurcourant == 0) {
             JoueurCourant = p.joueur1();
-            JoueurPrecedent = p.joueur2();
         } else {
             JoueurCourant = p.joueur2();
-            JoueurPrecedent = p.joueur1();
         }
+
+        // UN SEUL COUP POSSIBLE--------------------------------------
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
-        if (lc.size() == 1) { // Si un seul coup possible on le renvoie
+        if (lc.size() == 1) {
             Coup c = lc.get(0);
             p.IAjoueCoup(c, joueurcourant);
             int uncoup = eval(p);
@@ -61,31 +67,34 @@ public class MinMax {
             }
             return uncoup;
         }
+
+        // RECHERCHE DE LA VALEURE DE LA MEILLEURE CONFIG-------------
         int valeurconfig = -10001;
         Iterator<Coup> it = lc.iterator();
-        while (it.hasNext() && valeurconfig != 10000) {
+        while (it.hasNext() && valeurconfig != 10000) { // On itere sur les coups possibles
             Coup c = it.next();
-            // Si une piece peut etre voler
-            if (p.IAjoueCoup(c, joueurcourant)) {
-                // Alors pour toutes les pieces voler
+
+            // On joue le coup
+            if (p.IAjoueCoup(c, joueurcourant)) { // Si on peut se faire voler une piece
                 ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
-                // System.out.println("Le joueur " + JoueurPrecedent.getNom() + " peut voler
-                // :");
-                // for (PiecePyramide ttt : piecesVolables) {
-                // System.out.println(ttt.toString());
-                // }
                 Iterator<PiecePyramide> volables = piecesVolables.iterator();
+                // On simule tout les vols possibles
+                int confvol = 10001;
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
                     int stock = meilleurConfigAD(p, horizon - 1, flag); // evalue la config
-                    if (stock > valeurconfig) { // maj de la valeur de config actu
-                        valeurconfig = stock;
-                        if (flag) {
-                            parfait = c;
-                        }
+                    if (stock < confvol) { // maj de la valeur de config actu
+                        confvol = stock;
                     }
                     p.IAannulvol(next, joueurcourant); // annul vol
+                }
+                // Pire vol qui peut nous arriver
+                if (valeurconfig < confvol) { // Si le pire vol est meilleur que toutes les configs tester
+                    valeurconfig = confvol;
+                    if (flag) {
+                        parfait = c;
+                    }
                 }
 
             } else {
@@ -100,6 +109,8 @@ public class MinMax {
         }
         if (flag) {
             System.out.println("on a trouve le coup pour l'ia");
+            tf = (double) System.currentTimeMillis();
+            System.out.println((tf - td) / 1000 + " s de recherche");
         }
         return valeurconfig;
 
@@ -116,42 +127,35 @@ public class MinMax {
             return eval(p);
         }
         Acteur JoueurCourant;
-        Acteur JoueurPrecedent;
         if (joueurcourant == 0) {
             JoueurCourant = p.joueur1();
-            JoueurPrecedent = p.joueur2();
         } else {
             JoueurCourant = p.joueur2();
-            JoueurPrecedent = p.joueur1();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
         int valeurconfig = 10001;
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig != -10000) {
             Coup c = it.next();
-            // Si une piece peut etre voler
-            if (p.IAjoueCoup(c, joueurcourant)) { // PEUT AVOIR PBS EFFICACITES
-                // Alors pour toutes les pieces voler
+            if (p.IAjoueCoup(c, joueurcourant)) {
                 ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
-                // System.out.println("Le joueur " + JoueurPrecedent.getNom() + " peut voler
-                // :");
-                // for (PiecePyramide ttt : piecesVolables) {
-                // System.out.println(ttt.toString());
-                // }
                 Iterator<PiecePyramide> volables = piecesVolables.iterator();
+                int confvol = -10001;
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
                     int stock = meilleurConfigJ(p, horizon - 1, false); // evalue la config
-                    if (stock < valeurconfig) { // maj de la valeur de config actu
-                        valeurconfig = stock;
-                        if (flag) {
+                    if (stock > confvol) { // maj de la valeur de config actu
+                        confvol = stock;
+                        if (flag) { // A CHANGER EN STRUCTURE
                             avoler = next;
                         }
                     }
                     p.IAannulvol(next, joueurcourant); // annul vol
                 }
-
+                if (valeurconfig > confvol) {
+                    valeurconfig = confvol;
+                }
             } else {
                 valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false)); // maj valeur
             }
