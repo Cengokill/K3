@@ -44,7 +44,43 @@ public class Coup {
 	}
 	
 	public boolean egal(Coup coup2) {
-		return coup2.getPiece().equals(this.piece) && coup2.getPosJ().egal(this.posCampJoueur) && coup2.getPosBase().egal(this.posBaseMontagne);
+		if(coup2.getPosJ()==null) {//coup2.getPosJ()==null
+			if(this.getPosJ()==null) {//coup2.getPosJ()==null ET this.getPosJ()==null
+				if(coup2.getPosBase()==null) {//coup2.getPosJ()==null ET this.getPosJ()==null ET coup2.getPosBase()==null
+					if(this.getPosBase()==null) {//coup2.getPosJ()==null ET this.getPosJ()==null ET coup2.getPosBase()==null ET this.getPosBase()==null
+						return coup2.getPiece().equals(this.piece);
+					}else {
+						return false;
+					}
+				}else {//coup2.getPosJ()==null ET this.getPosJ()==null ET coup2.getPosBase()!=null
+					if(this.getPosBase()==null) {//coup2.getPosJ()==null ET this.getPosJ()==null ET coup2.getPosBase()!=null ET this.getPosBase()==null)
+						return false;
+					}else {//coup2.getPosJ()==null ET this.getPosJ()==null ET coup2.getPosBase()!=null ET this.getPosBase()!=null)
+						return coup2.getPiece().equals(this.piece) && coup2.getPosBase().egal(this.getPosBase());
+					}
+				}
+			}else {//coup2.getPosJ()==null ET this.getPosJ()!=null
+				return false;
+			}
+		}else {//coup2.getPosJ()!=null
+			if(this.getPosJ()==null) {//coup2.getPosJ()!=null ET this.getPosJ()==null
+				return false;
+			}else {//coup2.getPosJ()!=null ET this.getPosJ()!=null
+				if(coup2.getPosBase()==null) {//coup2.getPosJ()!=null ET this.getPosJ()!=null ET coup2.getPosBase()==null
+					if(this.getPosBase()==null) {//coup2.getPosJ()!=null ET this.getPosJ()!=null ET coup2.getPosBase()==null ET this.getPosBase()==null
+						return coup2.getPiece().equals(this.piece) && coup2.getPosJ().egal(this.getPosJ());
+					}else {//coup2.getPosJ()!=null ET this.getPosJ()!=null ET coup2.getPosBase()==null ET this.getPosBase()!=null
+						return false;
+					}
+				}else {//coup2.getPosJ()!=null ET this.getPosJ()!=null ET coup2.getPosBase()!=null
+					if(this.getPosBase()==null) {//coup2.getPosJ()!=null ET this.getPosJ()!=null ET coup2.getPosBase()!=null ET this.getPosBase()==null
+						return false;
+					}else {//coup2.getPosJ()!=null ET this.getPosJ()!=null ET coup2.getPosBase()!=null ET this.getPosBase()!=null
+						return coup2.getPiece().equals(this.piece) && coup2.getPosJ().egal(this.getPosJ()) && coup2.getPosBase().egal(this.getPosBase());
+					}
+				}
+			}
+		}
 	}
 
 }
