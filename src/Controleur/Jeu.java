@@ -56,8 +56,13 @@ public class Jeu {
 		plateau = new Plateau();
 		//lancer une partie
 		setParametresPartie(1,0,0,"Killian","Ordinateur");
-		lancerPartie();
+		//lancerPartie();
 		//lancerPhase1();
+		modifVolume();
+	}
+	
+	public void modifVolume() {
+		Slider slider = new Slider();
 	}
 	
 	public void lancerPhase1() {
