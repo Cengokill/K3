@@ -27,8 +27,6 @@ public class Phase1Panel extends JPanel{
 	
 	public Phase1Panel(Partie partieEnCours){
 		this.partieEnCours=partieEnCours;
-		DragListener dragListener = new DragListener();
-		this.addMouseMotionListener(dragListener);
 		this.POS_PIECE_CHOISIE = 0;
 		this.POS_BASE_JOUEUR = 100;
 		this.POS_PIOCHE = POS_BASE_JOUEUR+(TAILLE_CUBES+1)*(partieEnCours.joueur1().getCamp().getHauteur()+2);
@@ -163,14 +161,6 @@ public class Phase1Panel extends JPanel{
 		dragNdrop(g);
 	}
 	
-	private class DragListener extends MouseMotionAdapter{	
-		public void mouseMoved(MouseEvent e) {
-			OldX = currentX;
-			OldY = currentY;
-			currentX = e.getX();
-			currentY = e.getY();
-			repaint();
-		}
-	}
+	
 	
 }
