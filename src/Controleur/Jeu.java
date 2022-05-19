@@ -213,7 +213,7 @@ public class Jeu {
 		System.out.println("================ Deuxieme phase du jeu ================");
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
-			timer(2000);
+			timer(200);
 		}
 		partieVictoire();//affichage uniquement
 	}

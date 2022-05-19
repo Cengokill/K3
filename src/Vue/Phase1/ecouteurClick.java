@@ -1,6 +1,9 @@
 package Vue.Phase1;
 
 import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
@@ -105,7 +108,15 @@ public class ecouteurClick implements MouseListener {
 		// TODO Auto-generated method stub
 	}
 	
-	public class DragListener extends MouseMotionAdapter{	
+	public class DragListener extends MouseMotionAdapter{
+		Toolkit tkit=Toolkit.getDefaultToolkit();
+		//Extractig the Images for the custom cursor
+		Image mainFermee = tkit.getImage("curseurMain.png");
+		Image curseurPlus = tkit.getImage("curseurMainAjoutee.png");
+		//Creating two custom cursors
+		Point point = new Point(0,0); //Creating a Point object
+		Cursor cursor1 = tkit.createCustomCursor(mainFermee, point, "CodeSpeedy");
+		Cursor cursor2 = tkit.createCustomCursor(curseurPlus, point, "YellowCursor");
 		public void mouseMoved(MouseEvent e) {
 			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
 				panel.OldX = panel.currentX;
