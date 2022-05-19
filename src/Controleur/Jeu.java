@@ -95,8 +95,8 @@ public class Jeu {
 		else if(this.typeActeurs==1) {//IA contre joueur
 			lancerPartieJcIA(this.nomActeur1, this.nomActeur2, 0);
 		}else {//IA contre IA
-			Acteur j1 = new Acteur("Ordinateur 1");
-			Acteur j2 = new Acteur("Ordinateur 2");
+			Acteur j1 = new IAActeur(this.nomActeur1, this.difficulte1, 0);
+			Acteur j2 = new IAActeur(this.nomActeur2, this.difficulte2, 1);
 			this.partieEnCours = new Partie(j1, j2, 1000);
 			this.partieEnCours.setCheminStats(this.cheminStats);
 			this.num_tour=1;
