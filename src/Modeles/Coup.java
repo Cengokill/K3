@@ -42,5 +42,9 @@ public class Coup {
 		tableau += this.piece.toString() + "|" + pos_Camp_Joueur + "|" + pos_Montagne;
 		return tableau;
 	}
+	
+	public boolean egal(Coup coup2) {
+		return coup2.getPiece().equals(this.piece) && coup2.getPosJ().egal(this.posCampJoueur) && coup2.getPosBase().egal(this.posBaseMontagne);
+	}
 
 }

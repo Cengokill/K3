@@ -202,9 +202,9 @@ public class Partie {
 		// + baseMontagne.getHauteur());
 	}
 
-	public boolean contiens(ArrayList<PiecePyramide> arr, PiecePyramide pp) {
+	public boolean contiens(ArrayList<Coup> arr, Coup c) {
 		for (int i = 0; i < arr.size(); i++) {
-			if (arr.get(i).egal(pp)) {
+			if (arr.get(i).egal(c)) {
 				return true;
 			}
 		}
@@ -218,7 +218,7 @@ public class Partie {
 		Coup c;
 		ArrayList<PiecePyramide> piecesBase = this.baseMontagne.piecesPosables();
 		ArrayList<PiecePyramide> piecesJoueur = j.getPiecesJouables();
-		ArrayList<PiecePyramide> piecesDoublons = new ArrayList<PiecePyramide>();
+		ArrayList<Coup> coupsDoublons = new ArrayList<Coup>();
 		for (PiecePyramide pieceJoueur : piecesJoueur) {// pour chaque piece du joueur
 			pJoueurCourante = pieceJoueur.getPiece();
 			pos1 = pieceJoueur.getPos();
@@ -229,11 +229,12 @@ public class Partie {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// piece courante du camp de la montagne
 					pos2 = pp.getPos();// position de la piece
-					if (((pJoueurCourante.getColor() == p2.getColor())) && !contiens(piecesDoublons, pieceJoueur)) {
+					c = new Coup(pJoueurCourante, pos1, pos2);
+					if (((pJoueurCourante.getColor() == p2.getColor())) && !contiens(coupsDoublons, c)) {
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
-						piecesDoublons.add(pieceJoueur);
+						coupsDoublons.add(c);
 						coupsPosables.add(c);
 					}
 				}
