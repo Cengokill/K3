@@ -31,7 +31,8 @@ public class Jeu {
 	public Phase1Panel panel;
 	//Thread [] t;
 
-	public Jeu(String nomJ1, String nomJ2, int numPartie) {
+	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit) {
+		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
 		this.cheminImages=chemin+"Images/";
@@ -55,9 +56,8 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(1,0,0,"Killian","Ordinateur");
-		//lancerPartie();
-		//lancerPhase1();
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		lancerPartie();
 		//modifVolume();
 	}
 	
@@ -69,16 +69,10 @@ public class Jeu {
 	}
 	
 	public void lancerPhase1() {
-		this.window = new JFrame("phase1");
 		this.panel = new Phase1Panel(this.partieEnCours);
 		this.window.setContentPane(panel);
-		
 		this.panel.addMouseListener(new ecouteurClick(panel));
-		
-		this.window.setSize(1200,1080);
-		this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		this.window.setVisible(true);
+		window.setVisible(true);
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, String nom1, String nom2) {
@@ -491,7 +485,7 @@ public class Jeu {
 	}
 
 	
-	public void timer(int t) {
+	public static void timer(int t) {
 		try {
 		    Thread.sleep(t);
 		} catch (InterruptedException ie) {
