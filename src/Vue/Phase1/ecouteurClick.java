@@ -30,7 +30,7 @@ public class ecouteurClick implements MouseListener {
 	public void setCustomCurseur() {
 		Toolkit tkit=Toolkit.getDefaultToolkit();
 		//Extractig the Images for the custom cursor
-		Image mainFermee = tkit.getImage(this.chemin+"curseurMain.png");
+		Image mainFermee = tkit.getImage(this.chemin+"hand-closed.png");
 		Image curseurPlus = tkit.getImage(this.chemin+"curseurMainAjouter.png");
 		//Creating two custom cursors
 		Point point = new Point(0,0); //Creating a Point object
