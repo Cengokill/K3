@@ -90,10 +90,6 @@ public class Phase1Panel extends JPanel{
 	}
 	
 	public void affichePioche(Graphics g) {
-		/*
-		g.setColor(Color.white);
-		g.fillRect(piecesPiochees.size()*20, 200+pyramideDuJoueur.hauteur*20, 19, 19);
-		*/
 		Acteur a = initAffichageJoueurs();
 		for(int i = 0; i < a.getPiecesPiochees().size(); i++) {
 			Piece p = a.getPiecesPiochees().get(i);
@@ -105,13 +101,15 @@ public class Phase1Panel extends JPanel{
 	public void affichePyramide(Graphics g) {
 		Acteur a = initAffichageJoueurs();
 		Position positionPiecePyramide;
+		int decalage=0;
 		for(int etage = 0; etage < a.getCamp().getHauteur(); etage++) {
 			for(int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
 				positionPiecePyramide = new Position(etage,rang);
 				Piece pieceJoueur = a.getCamp().getPiece(positionPiecePyramide);
 				g.setColor(getpetitcolor(pieceJoueur));
-				g.fillRect(rang*(TAILLE_CUBES+1), POS_BASE_JOUEUR+a.getCamp().getHauteur()*(TAILLE_CUBES+1) - etage*(TAILLE_CUBES+1), TAILLE_CUBES, TAILLE_CUBES);
+				g.fillRect(decalage+rang*(TAILLE_CUBES+1), POS_BASE_JOUEUR+a.getCamp().getHauteur()*(TAILLE_CUBES+1) - etage*(TAILLE_CUBES+1), TAILLE_CUBES, TAILLE_CUBES);
 			}
+			decalage += (TAILLE_CUBES+1)/2;
 		}
 	}
 	
@@ -119,13 +117,15 @@ public class Phase1Panel extends JPanel{
 		PyramideMontagne m = this.partieEnCours.getBaseMontagne();
 		Position positionPiecePyramide;
 		afficherNomJoueur(g);
+		int decalage=0;
 		for(int etage = 0; etage < m.getHauteur(); etage++) {
 			for(int rang = 0; rang < m.getLargeur() - etage; rang++) {
 				positionPiecePyramide = new Position(etage,rang);
 				Piece piece = m.getPiece(positionPiecePyramide);
 				g.setColor(getpetitcolor(piece));
-				g.fillRect(rang*(TAILLE_CUBES+1), POS_BASE_MONTAGNE+m.getHauteur()*(TAILLE_CUBES+1) - etage*(TAILLE_CUBES+1), TAILLE_CUBES, TAILLE_CUBES);
+				g.fillRect(decalage+rang*(TAILLE_CUBES+1), POS_BASE_MONTAGNE+m.getHauteur()*(TAILLE_CUBES+1) - etage*(TAILLE_CUBES+1), TAILLE_CUBES, TAILLE_CUBES);
 			}
+			decalage += (TAILLE_CUBES+1)/2;
 		}
 	}
 	

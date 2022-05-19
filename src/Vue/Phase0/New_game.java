@@ -19,8 +19,6 @@ public class New_game {
 	public JFrame window;
 	public InitPartie partie;
 
-    public final String CHEMIN = "C:\\Users\\Océanne\\Documents\\NetBeansProjects\\K3\\src\\ressources\\";
-
     public New_game(JFrame window, InitPartie partie) {
     	this.partie=partie;
     	this.window=window;

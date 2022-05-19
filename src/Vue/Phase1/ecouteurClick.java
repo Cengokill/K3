@@ -16,15 +16,19 @@ public class ecouteurClick implements MouseListener {
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
-		int x = realx / (panel.TAILLE_CUBES+1);
-		if(x<0) {
-			return null;
-		}
 		Acteur a = panel.initAffichageJoueurs();
 		int y = a.getCamp().getHauteur() - realy / (panel.TAILLE_CUBES+1);
 		if(y<0) {
 			return null;
 		}
+		
+		int x = realx / (panel.TAILLE_CUBES+1);
+		x-=((panel.TAILLE_CUBES+1)/2)*y;
+		if(x<0) {
+			return null;
+		}
+		System.out.println(x+" , "+y);
+		
 		return new Position(y,x);
 	}
 	
