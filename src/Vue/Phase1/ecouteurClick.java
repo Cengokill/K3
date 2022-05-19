@@ -1,12 +1,16 @@
 package Vue.Phase1;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.ImageIcon;
 
 import Modeles.Acteur;
 import Modeles.Joueur;
@@ -30,8 +34,14 @@ public class ecouteurClick implements MouseListener {
 	public void setCustomCurseur() {
 		Toolkit tkit=Toolkit.getDefaultToolkit();
 		//Extractig the Images for the custom cursor
+		/*
+		ImageIcon mainFermee = new ImageIcon(this.getClass().getResource(this.chemin+"hand-closed.png"));
+		ImageIcon curseurPlus = new ImageIcon(this.getClass().getResource(this.chemin+"hand-depose.png"));
+		Image img = curseurPlus.getImage();
+		resizeImage(img,g2d);
+		*/
 		Image mainFermee = tkit.getImage(this.chemin+"hand-closed.png");
-		Image curseurPlus = tkit.getImage(this.chemin+"curseurMainAjouter.png");
+		Image curseurPlus = tkit.getImage(this.chemin+"hand-depose.png");
 		//Creating two custom cursors
 		Point point = new Point(0,0); //Creating a Point object
 		this.cursor1 = tkit.createCustomCursor(mainFermee, point, "mainFermee");
