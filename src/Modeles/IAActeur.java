@@ -19,7 +19,7 @@ public class IAActeur extends Acteur {
                 break;
             case 1:
                 pioche = new IApiocheExpert();
-                jeu = new IAjeuExpert(3);
+                jeu = new IAjeuExpert(5);
                 break;
             case 2:
                 pioche = new IApiocheExpert();
@@ -29,11 +29,11 @@ public class IAActeur extends Acteur {
                 break;
         }
     }
-    
-	public int tempsReflexion() {
-		int r=Aleatoire.genInt(100,400);
-		return r;
-	}
+
+    public int tempsReflexion() {
+        int r = Aleatoire.genInt(100, 400);
+        return r;
+    }
 
     public ArrayList<PiecePyramide> phase1(Partie encours) {
         return pioche.CreerPioche(encours, numerojoueur);
