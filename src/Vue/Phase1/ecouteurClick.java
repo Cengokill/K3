@@ -12,16 +12,16 @@ public class ecouteurClick implements MouseListener {
 	
 	public Position clickpyramide(MouseEvent e){
 		int startx = 0;
-		int starty = 100;
+		int starty = panel.POS_BASE_JOUEUR;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
-		int x = realx / 20;
+		int x = realx / (panel.TAILLE_CUBES+1);
 		if(x<0) {
 			return null;
 		}
 		Acteur a = panel.initAffichageJoueurs();
-		int y = a.getCamp().getHauteur() - realy / 20;
+		int y = a.getCamp().getHauteur() - realy / (panel.TAILLE_CUBES+1);
 		if(y<0) {
 			return null;
 		}
@@ -31,15 +31,15 @@ public class ecouteurClick implements MouseListener {
 	public int clickPioche(MouseEvent e){
 		Acteur a = panel.initAffichageJoueurs();
 		int startx = 0;
-		int starty = 200 + a.getCamp().getHauteur()*20;
+		int starty = panel.POS_PIOCHE;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
-		int x = realx / 20;
+		int x = realx / (panel.TAILLE_CUBES+1);
 		if(x<0 || x >= a.getPiecesPiochees().size()) {
 			return -1;
 		}
-		if(realy < 0 || realy > 20) {
+		if(realy < 0 || realy > panel.TAILLE_CUBES+1) {
 			return -1;
 		}		
 		return x;
