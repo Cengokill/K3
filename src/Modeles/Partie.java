@@ -229,11 +229,11 @@ public class Partie {
 				for (PiecePyramide pp : piecesBase) {
 					p2 = pp.getPiece();// piece courante du camp de la montagne
 					pos2 = pp.getPos();// position de la piece
-					if (((pJoueurCourante.getColor() == p2.getColor())) && !contiens(piecesDoublons, pp)) {
+					if (((pJoueurCourante.getColor() == p2.getColor())) && !contiens(piecesDoublons, pieceJoueur)) {
 						// si la piece courante du joueur a la meme couleur que la piece courante de la
 						// pyramide
 						c = new Coup(pJoueurCourante, pos1, pos2);
-						piecesDoublons.add(pp);
+						piecesDoublons.add(pieceJoueur);
 						coupsPosables.add(c);
 					}
 				}

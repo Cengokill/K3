@@ -49,6 +49,7 @@ public class Slider implements ChangeListener {
 		frame.add(panel);
 		frame.setSize(460,460);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void stateChanged(ChangeEvent e) {
