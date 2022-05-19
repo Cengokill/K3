@@ -43,8 +43,8 @@ public class Jeu {
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(8, 8);
-		this.simpleSoundPlayerSon = new SoundPlayer(10, 0);
+		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique);
+		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores);
 		//this.simpleSoundPlayerMusic.setNumSon(43);
 		//this.simpleSoundPlayerMusic.jouerSon();
 		try {

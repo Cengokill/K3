@@ -10,12 +10,11 @@ public class SoundPlayer {
 	private Clip clip;
 	private String[] cheminsSons = new String[50];//stocker les chemins des sons
 	private String chemin;
-	private int numSon, volumeSounds, volumeMusic;
+	private int numSon, volume;
 	private FloatControl volumeLevel;
 	
-	public SoundPlayer(int volumeSounds, int volumeMusic) {
-		this.volumeSounds=volumeSounds;
-		this.volumeMusic=volumeMusic;
+	public SoundPlayer(int volume) {
+		this.volume=volume;
 		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin="./res/Sounds/";
 		// EFFETS SONORES
@@ -101,11 +100,10 @@ public class SoundPlayer {
 		if(this.numSon<=42) {
 			int r=Aleatoire.genInt(this.numSon,this.numSon+2);
 			setFile(r);
-			setVolume(this.volumeSounds);
 		}else {
 			setFile(this.numSon);
-			setVolume(this.volumeMusic);
 		}
+		setVolume(this.volume);
 		play();
 	}
 	
