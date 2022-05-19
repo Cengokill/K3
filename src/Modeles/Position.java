@@ -16,8 +16,12 @@ public class Position {
     }
     
     public boolean egal(Position pos) {
-    	int etage2=pos.etage;
-    	int rang2=pos.rang;
-    	return etage2==this.etage && rang2==this.rang;
+    	if(pos==null) {
+    		return false;
+    	}else {
+	    	int etage2=pos.etage;
+	    	int rang2=pos.rang;
+	    	return etage2==this.etage && rang2==this.rang;
+    	}
     }
 }
