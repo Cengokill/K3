@@ -32,7 +32,19 @@ public class PiecePyramide {
 		Position p2 = p.getPos();
 		Couleurs c1 = this.getPiece().getColor();
 		Position p1 = this.getPos();
-		return c1 == c2 && p1.egal(p2);
+		if(p1==null) {
+			if(p2!=null) {
+				return false;
+			}else {
+				return c1 == c2;
+			}
+		}else {
+			if(p2!=null) {
+				return c1 == c2 && p1.egal(p2);
+			}else {
+				return false;
+			}
+		}
 	}
 
 }
