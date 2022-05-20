@@ -15,7 +15,6 @@ public class SoundPlayer {
 	
 	public SoundPlayer(int volume) {
 		this.volume=volume;
-		//this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.chemin=System.getProperty("user.dir")+"/res/Sounds/";
 		// EFFETS SONORES
 		cheminsSons[0] = chemin+"/cave1.wav";
