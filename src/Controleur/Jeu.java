@@ -21,7 +21,7 @@ public class Jeu {
 	public Partie partieEnCours;
 	public String nomActeur1, nomActeur2;
 	public String chemin, cheminStats, cheminImages, cheminSauvegardes, photoProfil;
-	private int num_tour, valeur_paire, typeActeurs, difficulte1, difficulte2;
+	private int num_tour, valeur_paire, typeActeurs, difficulte1, difficulte2, vitesseIA;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
@@ -56,7 +56,7 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,partieInit.vitesseIA,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		lancerPartie();
 		//modifVolume();
 	}
@@ -75,12 +75,13 @@ public class Jeu {
 		window.setVisible(true);
 	}
 	
-	public void setParametresPartie(int t, int d1, int d2, String nom1, String nom2) {
+	public void setParametresPartie(int t, int d1, int d2, int v, String nom1, String nom2) {
 		this.typeActeurs=t;// IA ou joueur
 		this.difficulte1=d1;// si 2 AI, difficulte IA 1
 		this.difficulte2=d2;// si 2 AI, difficulte IA 2
 		this.nomActeur1=nom1;
 		this.nomActeur2=nom2;
+		this.vitesseIA=v;
 	}
 	
 	public void lancerPartie() {
@@ -209,11 +210,19 @@ public class Jeu {
 	}
 	
 	public void jouerPhase2() {
+		int temps=200;
+		if(this.typeActeurs==2) {
+			temps=this.vitesseIA;
+		}
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
+			if(this.typeActeurs==2 && this.vitesseIA>400) {
+				this.simpleSoundPlayerSon.setNumSon(35);
+				this.simpleSoundPlayerSon.jouerSon();
+			}
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
-			timer(200);
+			timer(temps);
 		}
 		partieVictoire();//affichage uniquement
 	}
@@ -255,8 +264,6 @@ public class Jeu {
 		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
 
 		//fait jouer un joueur
-		this.simpleSoundPlayerSon.setNumSon(35);
-		this.simpleSoundPlayerSon.jouerSon();
 		jouer();
 	}
 	
