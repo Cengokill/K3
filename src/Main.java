@@ -22,8 +22,8 @@ public class Main {
 		*/
 		JFrame window = new JFrame("Jeu K3");
 		
-		StartJeu jeu = new StartJeu();
-		/*
+		//StartJeu jeu = new StartJeu();
+		
 		window.setSize(1200,1080);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		InitPartie partie = new InitPartie();
@@ -36,6 +36,6 @@ public class Main {
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
 		Jeu j=new Jeu(window, partie);
-		*/
+		
 	}
 }
