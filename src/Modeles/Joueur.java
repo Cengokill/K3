@@ -19,13 +19,26 @@ public class Joueur extends Acteur {
 	}
 
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {// deja des pieces volables
-		System.out.println(super.getNom() + ", veuillez choisir une piece a voler :");
-		for (int i = 0; i < arr.size(); i++) {
-			System.out.println("[" + i + "]" + arr.get(i).toString());
-		}
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
-		int num = myObj.nextInt();
-		return arr.get(num);
+		String num = myObj.nextLine();
+		int rep = Integer.parseInt(num);
+		if (rep == 0) {
+			System.out.println("=========== VOL DE PIECE ===========");
+			System.out.println("Camp du joueur victime :");
+			//System.out.println(victime.getCamp().toString());
+			System.out.println("Ses pieces volees :"); //+ victime.toStringPiecesVolees()
+			ArrayList<PiecePyramide> piecesVolables = arr;
+			System.out.println(super.getNom() + ", veuillez choisir une piece a voler :");
+			
+			for (int i = 0; i < arr.size(); i++) {
+				System.out.println("[" + i + "]" + arr.get(i).toString());
+			}
+			Scanner myObj2 = new Scanner(System.in);// NE PAS CLOSE() myObj
+			int num2 = myObj2.nextInt();
+			return arr.get(num2);
+		} else {
+			return null;
+		}
 	}
 
 	public ArrayList<PiecePyramide> phase1(Partie encours) {

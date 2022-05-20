@@ -306,21 +306,12 @@ public class Partie {
 	// Transformer en 2 fonctions : une qui demande la piece voler et qui renvoie
 	// celle a voler et une deuxieme qui vole la piece donner en argument
 	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
+		Coup vol = null;
 		victime.addMauvaisCoup();
-		System.out.println(
-				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
-		@SuppressWarnings("resource")
-		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
-		String num = myObj.nextLine();
-		int rep = Integer.parseInt(num);
-		if (rep == 0) {
-			System.out.println("=========== VOL DE PIECE ===========");
-			System.out.println("Camp du joueur victime :");
-			System.out.println(victime.getCamp().toString());
-			System.out.println("Ses pieces volees :" + victime.toStringPiecesVolees());
-			ArrayList<PiecePyramide> piecesVolables = victime.getPiecesJouables();
-			PiecePyramide pieceVolee = voleur.choixVol(piecesVolables);
-			Coup vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
+		System.out.println(voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
+		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables());
+		if(pieceVolee != null) {
+			vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			if (pieceVolee.getPos() == null) {// si le voleur vole une piece volee
 				victime.retirerPieceVolee(pieceVolee.getPiece());
 			} else {
@@ -328,11 +319,10 @@ public class Partie {
 			}
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
-			return vol;
-		} else {
+		}else {
 			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
-			return null;
 		}
+		return vol;
 	}
 
 	public void annulerCoup(Coup c) {// annule le coup du joueur courant
