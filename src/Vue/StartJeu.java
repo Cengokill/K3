@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -12,15 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import java.awt.Graphics;
 
-public class StartJeu extends JPanel {
+public class StartJeu extends JFrame implements ActionListener{
 
 	JFrame window;
 	JButton nouvellePartie, options, quitter;
 	String chemin;
 	int width, height;
 	final Image fondecran;
+	Icon icon1;
 	
 	public StartJeu() {
 		chemin="./src/Ressources/";
@@ -43,15 +45,8 @@ public class StartJeu extends JPanel {
 		
 		setBoutons();
 		
-		//window.pack();
 		window.setVisible(true);
 		repaint();
-	}
-	
-	public void paint(Graphics g) {
-		System.out.println("ejouferofj");
-        super.paint(g);
-        g.drawImage(this.fondecran, 0, 0, null);
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
@@ -59,12 +54,13 @@ public class StartJeu extends JPanel {
 	}
 	
 	public void setBoutons() {
-		Icon icon1 = new ImageIcon(chemin+"nouvellePartie2.png");
+		this.icon1 = new ImageIcon(chemin+"cadre_non_presse2.png");
 		nouvellePartie=new JButton(icon1); 
-		nouvellePartie.setBounds(width/2-814/2-56,(height/3)-149*2,814,149); 
+		nouvellePartie.setBounds(width/2-814/2-56,(height/3)-155*2,814,155); 
 		nouvellePartie.setOpaque(false);
 		nouvellePartie.setContentAreaFilled(false);
 		nouvellePartie.setBorderPainted(false);
+		nouvellePartie.addActionListener(this);
 		
 		Icon icon2 = new ImageIcon(chemin+"options2.png");
 		options=new JButton(icon2); 
@@ -83,7 +79,22 @@ public class StartJeu extends JPanel {
 	    window.add(nouvellePartie);
 	    window.add(options);
 	    window.add(quitter);
-		
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+        Object source=e.getSource();
+        System.out.println("clic");
+        if(source==nouvellePartie) {
+        	this.icon1 = new ImageIcon(chemin+"cadre_presse2.png");
+        	this.nouvellePartie=new JButton(icon1); 
+    		this.nouvellePartie.setBounds(width/2-814/2-56,(height/3)-155*2,814,155); 
+    		this.nouvellePartie.setOpaque(false);
+    		this.nouvellePartie.setContentAreaFilled(false);
+    		this.nouvellePartie.setBorderPainted(false);
+        }else {
+        	System.out.println("non");
+        }
+        this.setCursor(HAND_CURSOR);
+    }
 
 }
