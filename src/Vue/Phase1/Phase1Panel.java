@@ -158,10 +158,7 @@ public class Phase1Panel extends JPanel{
 		pieceSelectionnee = null;
 		this.repaint();
 	}
-	
-	
-	
-	
+
 	// AFFICHAGE***************************************************************
 	
 	public void afficherNomJoueur(Graphics g) {
@@ -172,7 +169,7 @@ public class Phase1Panel extends JPanel{
 			nom = this.partieEnCours.joueur2().getNom();
 		}
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Courier New", Font.BOLD, 25));
+		g.setFont(new Font("Courier New", Font.BOLD, 28));
 		g.drawString(nom, 300, POSY_BASE_JOUEUR-POSY_PIECE_CHOISIE+TAILLE_CUBES_HAUTEUR);
 	}
 	
