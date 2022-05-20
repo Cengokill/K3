@@ -453,22 +453,22 @@ public class New_game {
          */
         if (this.bp_GAMEMODE_IA_IA.isSelected()){
             if (this.bp_IA1_Level_1.isSelected()){
-            	type_joueur1 = 1;
+            	type_joueur1 = 0;
             }
             else if (this.bp_IA1_Level_2.isSelected()){
-            	type_joueur1 = 2;
+            	type_joueur1 = 1;
             }
             else if (this.bp_IA1_Level_3.isSelected()){
-            	type_joueur1 = 3;
+            	type_joueur1 = 2;
             }
             if (this.bp_IA2_Level_1.isSelected()){
-            	type_joueur2 = 1;
+            	type_joueur2 = 0;
             }
             else if (this.bp_IA2_Level_2.isSelected()){
-            	type_joueur2 = 2;
+            	type_joueur2 = 1;
             }
             else if (this.bp_IA2_Level_3.isSelected()){
-            	type_joueur2 = 3;
+            	type_joueur2 = 2;
             }
            this.partie.modeDeJeu=2;
            this.partie.nomJoueur1="Ordinateur 1";
@@ -478,13 +478,13 @@ public class New_game {
         }
         else if(this.bp_GAMEMODE_IA_PLAYER.isSelected()){
             if (this.bp_IA3_Level_1.isSelected()){
-            	type_joueur1 = 1;
+            	type_joueur1 = 0;
             }
             else if (this.bp_IA3_Level_2.isSelected()){
-            	type_joueur1 = 2;
+            	type_joueur1 = 1;
             }
             else if (this.bp_IA3_Level_3.isSelected()){
-            	type_joueur1 = 3;
+            	type_joueur1 = 2;
             }
             this.partie.modeDeJeu=1;
             this.partie.nomJoueur1=bp_NAMEPLAYER_J3.getText();
