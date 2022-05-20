@@ -49,7 +49,7 @@ public class Phase1Panel extends JPanel{
 	public final String NOMBACKGROUND = "background.jpg";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
 	
-	public final String NOMPIECEVIDE = "EMPTY_WHITE.png";
+	public final String NOMPIECEVIDE = "EMPTY2.png";
 	public Image pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVIDE);
 	
 	public final String NOMPIECEBLACK = "BLACK.png";
