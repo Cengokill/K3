@@ -1,12 +1,16 @@
 package Vue.Phase1;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.ImageIcon;
 
 import Modeles.Acteur;
 import Modeles.Joueur;
@@ -19,6 +23,7 @@ public class ecouteurClick implements MouseListener {
 	public Cursor cursor1, cursor2;
 	public String chemin="./src/Ressources/";
 	
+	//CONSTRUTEUR--------------------------------
 	public ecouteurClick(Phase1Panel panel) {
 		super();
 		setCustomCurseur();
@@ -27,19 +32,14 @@ public class ecouteurClick implements MouseListener {
 		this.panel.addMouseMotionListener(dragListener);
 	}
 	
+	//CURSEUR--------------------------------
 	public void setCustomCurseur() {
 		Toolkit tkit=Toolkit.getDefaultToolkit();
-		//Extractig the Images for the custom cursor
-		/*
-		ImageIcon mainFermee = new ImageIcon(this.getClass().getResource(this.chemin+"hand-closed.png"));
-		ImageIcon curseurPlus = new ImageIcon(this.getClass().getResource(this.chemin+"hand-depose.png"));
-		Image img = curseurPlus.getImage();
-		resizeImage(img,g2d);
-		*/
+
 		Image mainFermee = tkit.getImage(this.chemin+"hand-closed.png");
 		Image curseurPlus = tkit.getImage(this.chemin+"hand-depose.png");
-		//Creating two custom cursors
-		Point point = new Point(0,0); //Creating a Point object
+
+		Point point = new Point(0,0);
 		this.cursor1 = tkit.createCustomCursor(mainFermee, point, "mainFermee");
 		this.cursor2 = tkit.createCustomCursor(curseurPlus, point, "curseurPlus");
 	}
@@ -51,10 +51,12 @@ public class ecouteurClick implements MouseListener {
 				panel.setCursor(new Cursor(0));
 				break;
 			case "mainFermee":
-				panel.setCursor(this.cursor1);
+				//this.cursor1
+				panel.setCursor(new Cursor(12));
 				break;
 			case "curseurPlus":
-				panel.setCursor(this.cursor2);
+				//this.cursor2
+				panel.setCursor(new Cursor(10));
 				break;
 			default:
 				panel.setCursor(new Cursor(3));
@@ -62,43 +64,45 @@ public class ecouteurClick implements MouseListener {
 		}
 	}
 	
+	//PYRAMIDE JOUEUR--------------------------------
 	public Position clickpyramide(MouseEvent e){
-		int startx = 0;
-		int starty = panel.POS_BASE_JOUEUR;
+		int startx = panel.POSX_BASE_JOUEUR;
+		int starty = panel.POSY_BASE_JOUEUR;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
 		Acteur a = panel.initAffichageJoueurs();
-		int y = a.getCamp().getHauteur() - realy / (panel.TAILLE_CUBES+1);
-		if(y<0 || y>=a.getCamp().getHauteur()) {
+		int y = (a.getCamp().getHauteur()-1) - realy / (panel.TAILLE_CUBES_HAUTEUR+1);
+		if(y<0 || y > a.getCamp().getHauteur()) {
 			return null;
 		}
 		
-		realx-=((panel.TAILLE_CUBES+1)/2)*y;
-		int x = realx / (panel.TAILLE_CUBES+1);
-		if(x<0 || x>=a.getCamp().getLargeur()-y) {
+		realx-=((panel.TAILLE_CUBES_LARGEUR+1)/2)*y;
+		int x = realx / (panel.TAILLE_CUBES_LARGEUR+1);
+		if(realx<0 || x>=a.getCamp().getLargeur()-y) {
 			return null;
 		}
 		return new Position(y,x);
 	}
-	
+	//PIOCHE DU JOUEUR--------------------------------
 	public int clickPioche(MouseEvent e){
 		Acteur a = panel.initAffichageJoueurs();
-		int startx = 0;
-		int starty = panel.POS_PIOCHE;
+		int startx = panel.POSX_PIOCHE;
+		int starty = panel.POSY_PIOCHE;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
-		int x = realx / (panel.TAILLE_CUBES+1);
+		int x = realx / (panel.TAILLE_CUBES_LARGEUR+1);
 		if(x<0 || x >= a.getPiecesPiochees().size()) {
 			return -1;
 		}
-		if(realy < 0 || realy > panel.TAILLE_CUBES+1) {
+		if(realy < 0 || realy > panel.TAILLE_CUBES_HAUTEUR+1) {
 			return -1;
 		}		
 		return x;
 	}
 	
+	//GESTION SOURI----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
@@ -150,10 +154,11 @@ public class ecouteurClick implements MouseListener {
 				panel.OldY = panel.currentY;
 				panel.currentX = e.getX();
 				panel.currentY = e.getY();
+				
 				if(clickpyramide(e)!=null) {
 					typeCurseur = "curseurPlus";
 				}
-				else if(clickPioche(e)!=-1) {
+				else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
 					typeCurseur = "mainFermee";//ok
 				}else {
 					typeCurseur = "Default Cursor";
