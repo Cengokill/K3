@@ -44,9 +44,34 @@ public class Phase1Panel extends JPanel{
 	public int POSX_BASE_MONTAGNE;
 	public int POSY_BASE_MONTAGNE;
 	//COMPOSYANT IMPORTER
-	public final String CHEMIN = "./src/Ressources/";
-	public final String NOMBACKGROUND = "background.png";
+	public final String CHEMIN = System.getProperty("user.dir")+"/src/Ressources/";
 	
+	public final String NOMBACKGROUND = "background.jpg";
+	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
+	
+	public final String NOMPIECEVIDE = "EMPTY_WHITE.png";
+	public Image pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVIDE);
+	
+	public final String NOMPIECEBLACK = "BLACK.png";
+	public Image pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLACK);
+	
+	public final String NOMPIECEBLEU = "BLUE.png";
+	public Image pieceBleu = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLEU);
+	
+	public final String NOMPIECEVERT = "GREEN.png";
+	public Image pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVERT);
+	
+	public final String NOMPIECEROUGE = "RED.png";
+	public Image pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEROUGE);
+	
+	public final String NOMPIECEBLANC = "WHITE.png";
+	public Image pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLANC);
+	
+	public final String NOMPIECENATURE = "WOOD.png";
+	public Image pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECENATURE);
+	
+	public final String NOMPIECEJAUNE = "YELLOW.png";
+	public Image pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
 	// CONSTRUCTEUR----------------------------------------------
 	public Phase1Panel(JFrame window, Partie partieEnCours){
 		this.partieEnCours=partieEnCours;
@@ -88,29 +113,29 @@ public class Phase1Panel extends JPanel{
 	}
 	
 	// FONCTION QUI PERMET DE RENVOYER L IMAGE DE LA PIECE
-	public Color getpetitcolor(Piece p) {
+	public Image getpetitcolor(Piece p) {
 		if(p == null) {
-			return Color.GRAY;
+			return pieceVide;
 		}
 		else {
 			Couleurs colorP = p.getColor();
 			if(colorP == Couleurs.BLEU) {
-				return Color.BLUE;
+				return pieceBleu;
 			}
 			else if(colorP == Couleurs.VERT) {
-				return Color.GREEN;
+				return pieceVert;
 			}else if(colorP == Couleurs.JAUNE) {
-				return Color.YELLOW;
+				return pieceJaune;
 			}else if(colorP == Couleurs.ROUGE) {
-				return Color.RED;
+				return pieceRouge;
 			}else if(colorP == Couleurs.NOIR) {
-				return Color.BLACK;
+				return pieceNoire;
 			}else if(colorP == Couleurs.BLANC) {
-				return Color.WHITE;
+				return pieceBlanche;
 			}else if(colorP == Couleurs.NATUREL) {
-				return Color.ORANGE;
+				return pieceNature;
 			}else {
-				return Color.MAGENTA;
+				return null;
 			}
 		}	
 	}
@@ -154,25 +179,20 @@ public class Phase1Panel extends JPanel{
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	
 	public void affichageBackGround(Graphics g) {
-		Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
 	    g.drawImage(background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
 	}
 	
 	// AFFICHAGE PIECE SELECTIONNEE-------------------------------------------------------------
 	//affiche le cube en haut a gauche avec la couleur de la piece selectionnee
 	public void affichagePieceSelectionee(Graphics g) {
-		g.setColor(getpetitcolor(pieceSelectionnee));
-		g.fillRect(POSX_PIECE_CHOISIE, POSY_PIECE_CHOISIE, LARGEUR_PIECE_CHOISIE, HAUTEUR_PIECE_CHOISIE);
+		g.drawImage(getpetitcolor(pieceSelectionnee), POSX_PIECE_CHOISIE, POSY_PIECE_CHOISIE, LARGEUR_PIECE_CHOISIE, HAUTEUR_PIECE_CHOISIE,null);
+		//g.setColor();
+		//g.fillRect(POSX_PIECE_CHOISIE, POSY_PIECE_CHOISIE, LARGEUR_PIECE_CHOISIE, HAUTEUR_PIECE_CHOISIE);
 	}
 	
 	public void dragNdrop(Graphics g) {
 		if(pieceSelectionnee != null) {
-			/*
-			g.setColor(this.getBackground()); // petite trainner a supprimer
-			g.fillRect(OldX, OldY, 10, 10);
-			*/
-			g.setColor(getpetitcolor(pieceSelectionnee));
-			g.fillRect(currentX, currentY, (int)(TAILLE_CUBES_LARGEUR/1.5), (int)(TAILLE_CUBES_HAUTEUR/1.5));
+			g.drawImage(getpetitcolor(pieceSelectionnee), currentX, currentY, (int)(TAILLE_CUBES_LARGEUR/1.5), (int)(TAILLE_CUBES_HAUTEUR/1.5),null);
 		}
 	}
 	// AFFICHAGE PYRAMIDE----------------------------------------------------------------------
@@ -184,8 +204,7 @@ public class Phase1Panel extends JPanel{
 			for(int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
 				POSYitionPiecePyramide = new Position(etage,rang);
 				Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
-				g.setColor(getpetitcolor(pieceJoueur));
-				g.fillRect(decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_JOUEUR, POSY_BASE_JOUEUR+(a.getCamp().getHauteur()-1)*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR);
+				g.drawImage(getpetitcolor(pieceJoueur), decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_JOUEUR, POSY_BASE_JOUEUR+(a.getCamp().getHauteur()-1)*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
 			}
 			decalage += (TAILLE_CUBES_LARGEUR+1)/2;
 		}
@@ -200,8 +219,7 @@ public class Phase1Panel extends JPanel{
 			for(int rang = 0; rang < m.getLargeur() - etage; rang++) {
 				POSYitionPiecePyramide = new Position(etage,rang);
 				Piece piece = m.getPiece(POSYitionPiecePyramide);
-				g.setColor(getpetitcolor(piece));
-				g.fillRect(decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_MONTAGNE , POSY_BASE_MONTAGNE+m.getHauteur()*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR);
+				g.drawImage(getpetitcolor(piece), decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_MONTAGNE, POSY_BASE_MONTAGNE+m.getHauteur()*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
 			}
 			decalage += (TAILLE_CUBES_LARGEUR+1)/2;
 		}
@@ -212,8 +230,7 @@ public class Phase1Panel extends JPanel{
 		Acteur a = initAffichageJoueurs();
 		for(int i = 0; i < a.getPiecesPiochees().size(); i++) {
 			Piece p = a.getPiecesPiochees().get(i);
-			g.setColor(getpetitcolor(p));
-			g.fillRect(i*(TAILLE_CUBES_LARGEUR+1)+POSX_PIOCHE, POSY_PIOCHE, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR);
+			g.drawImage(getpetitcolor(p), i*(TAILLE_CUBES_LARGEUR+1)+POSX_PIOCHE, POSY_PIOCHE, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
 		}
 	}
 	
