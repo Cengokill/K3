@@ -69,7 +69,7 @@ public class Jeu {
 	}
 	
 	public void lancerPhase1() {
-		this.panel = new Phase1Panel(this.partieEnCours);
+		this.panel = new Phase1Panel(this.window, this.partieEnCours);
 		this.window.setContentPane(panel);
 		this.panel.addMouseListener(new ecouteurClick(panel));
 		window.setVisible(true);
