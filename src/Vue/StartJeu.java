@@ -1,6 +1,5 @@
 package Vue;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,15 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
-public class StartJeu extends JFrame implements ActionListener{
+public class StartJeu extends JPanel{
 
 	JFrame window;
 	JButton nouvellePartie, options, quitter;
 	String chemin;
 	int width, height;
-	final Image fondecran;
+	Image fondecran;
 	Icon icon1;
 	
 	public StartJeu() {
@@ -49,6 +47,10 @@ public class StartJeu extends JFrame implements ActionListener{
 		repaint();
 	}
 	
+	public void paint(Graphics g) {
+		setBoutons();
+	}
+	
 	public void setFullScreen(boolean b) {//plein ecran
 		window.setUndecorated(b);;
 	}
@@ -60,7 +62,17 @@ public class StartJeu extends JFrame implements ActionListener{
 		nouvellePartie.setOpaque(false);
 		nouvellePartie.setContentAreaFilled(false);
 		nouvellePartie.setBorderPainted(false);
-		nouvellePartie.addActionListener(this);
+		nouvellePartie.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	icon1 = new ImageIcon(chemin+"cadre_presse2.png");
+	        	nouvellePartie=new JButton(icon1); 
+	    		nouvellePartie.setBounds(width/2-814/2-56,(height/3)-155*2,814,155); 
+	    		nouvellePartie.setOpaque(false);
+	    		nouvellePartie.setContentAreaFilled(false);
+	    		nouvellePartie.setBorderPainted(false);
+		    }
+		});
 		
 		Icon icon2 = new ImageIcon(chemin+"options2.png");
 		options=new JButton(icon2); 
@@ -80,21 +92,6 @@ public class StartJeu extends JFrame implements ActionListener{
 	    window.add(options);
 	    window.add(quitter);
 	}
-	
-	public void actionPerformed(ActionEvent e) {
-        Object source=e.getSource();
-        System.out.println("clic");
-        if(source==nouvellePartie) {
-        	this.icon1 = new ImageIcon(chemin+"cadre_presse2.png");
-        	this.nouvellePartie=new JButton(icon1); 
-    		this.nouvellePartie.setBounds(width/2-814/2-56,(height/3)-155*2,814,155); 
-    		this.nouvellePartie.setOpaque(false);
-    		this.nouvellePartie.setContentAreaFilled(false);
-    		this.nouvellePartie.setBorderPainted(false);
-        }else {
-        	System.out.println("non");
-        }
-        this.setCursor(HAND_CURSOR);
-    }
+
 
 }
