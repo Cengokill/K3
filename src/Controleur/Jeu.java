@@ -56,7 +56,7 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,partieInit.vitesseIA,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,100,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		lancerPartie();
 		//modifVolume();
 	}
@@ -165,6 +165,10 @@ public class Jeu {
 	}
 		
 	public void jouerPhase1() {
+		int temps=0;
+		if(this.typeActeurs==2) {
+			temps=this.vitesseIA;
+		}
 		ArrayList<PiecePyramide> arr;
 		Acteur acteurCourant;
 		//initialisation des blancs et des naturels aux joueurs
@@ -187,17 +191,19 @@ public class Jeu {
 				timer(10);
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
-						timer(acteurCourant.tempsReflexion());
+						timer(temps);
 						if(acteurCourant.getCamp().empiler(p)) {
 							acteurCourant.removePiecePiochee(p.getPiece());
 							this.panel.repaint();
-							this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
-							this.simpleSoundPlayerSon.jouerSon();
+							if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+								this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
+								this.simpleSoundPlayerSon.jouerSon();
+							}
 						}
 					}
 				}
 			}
-			timer(2000);
+			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();
 		}
@@ -217,7 +223,8 @@ public class Jeu {
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
-			if(this.typeActeurs==2 && this.vitesseIA>400) {
+			panel.repaint();
+			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 				this.simpleSoundPlayerSon.setNumSon(35);
 				this.simpleSoundPlayerSon.jouerSon();
 			}
@@ -286,25 +293,35 @@ public class Jeu {
 		}
 		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
-			this.simpleSoundPlayerSon.setNumSon(4);
-			this.simpleSoundPlayerSon.jouerSon();
-			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
-				this.simpleSoundPlayerSon.setNumSon(7);
+			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+				this.simpleSoundPlayerSon.setNumSon(4);
 				this.simpleSoundPlayerSon.jouerSon();
 			}
+			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
+				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+					this.simpleSoundPlayerSon.setNumSon(7);
+					this.simpleSoundPlayerSon.jouerSon();
+				}
+			}
 			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
-				this.simpleSoundPlayerSon.setNumSon(23);
-				this.simpleSoundPlayerSon.jouerSon();
+				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+					this.simpleSoundPlayerSon.setNumSon(23);
+					this.simpleSoundPlayerSon.jouerSon();
+				}
 				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
 				if (vol != null)//si le joueur vole une piece
-					this.simpleSoundPlayerSon.setNumSon(26);
-					this.simpleSoundPlayerSon.jouerSon();
+					if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+						this.simpleSoundPlayerSon.setNumSon(26);
+						this.simpleSoundPlayerSon.jouerSon();
+					}
 					this.partieEnCours.addCoupHist(vol);
 			}
 		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
-			this.simpleSoundPlayerSon.setNumSon(10);
-			this.simpleSoundPlayerSon.jouerSon();
+			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+				this.simpleSoundPlayerSon.setNumSon(10);
+				this.simpleSoundPlayerSon.jouerSon();
+			}
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		partieEnCours.changementJoueurCourant();
