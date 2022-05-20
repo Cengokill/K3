@@ -20,14 +20,16 @@ public class ecouteurClick implements MouseListener {
 	
 	private Phase1Panel panel;
 	public String typeCurseur;
-	public Cursor cursor1, cursor2;
-	public String chemin="./src/Ressources/";
+	public Cursor cursorMainFermee, cursorMainDeposer;
+	
+	public final String NomMainFermer = "hand-closed.png";
+	public final String NomMainDeposer = "hand-depose.png";
 	
 	//CONSTRUTEUR--------------------------------
 	public ecouteurClick(Phase1Panel panel) {
 		super();
-		setCustomCurseur();
 		this.panel = panel;
+		setCustomCurseur();
 		DragListener dragListener = new DragListener();
 		this.panel.addMouseMotionListener(dragListener);
 	}
@@ -36,12 +38,12 @@ public class ecouteurClick implements MouseListener {
 	public void setCustomCurseur() {
 		Toolkit tkit=Toolkit.getDefaultToolkit();
 
-		Image mainFermee = tkit.getImage(this.chemin+"hand-closed.png");
-		Image curseurPlus = tkit.getImage(this.chemin+"hand-depose.png");
+		Image mainFermee = tkit.getImage(panel.CHEMIN+NomMainFermer);
+		Image curseurPlus = tkit.getImage(panel.CHEMIN+NomMainDeposer);
 
 		Point point = new Point(0,0);
-		this.cursor1 = tkit.createCustomCursor(mainFermee, point, "mainFermee");
-		this.cursor2 = tkit.createCustomCursor(curseurPlus, point, "curseurPlus");
+		this.cursorMainFermee = tkit.createCustomCursor(mainFermee, point, "mainFermee");
+		this.cursorMainDeposer = tkit.createCustomCursor(curseurPlus, point, "curseurPlus");
 	}
 	
 	public void changeCustomCurseur() {
@@ -52,11 +54,11 @@ public class ecouteurClick implements MouseListener {
 				break;
 			case "mainFermee":
 				//this.cursor1
-				panel.setCursor(new Cursor(12));
+				panel.setCursor(cursorMainFermee);
 				break;
 			case "curseurPlus":
 				//this.cursor2
-				panel.setCursor(new Cursor(10));
+				panel.setCursor(cursorMainDeposer);
 				break;
 			default:
 				panel.setCursor(new Cursor(3));
