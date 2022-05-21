@@ -14,9 +14,9 @@ import Vue.Phase0.New_game;
 public class Main {
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
-		StartJeu startJeu = new StartJeu();
+		//StartJeu startJeu = new StartJeu();
 		
-		/*
+		
 		JFrame window = new JFrame("Jeu K3");
 		window.setSize(1200,1080);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,7 +30,6 @@ public class Main {
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
 		Jeu j=new Jeu(window, partie);
-		*/
 
 		
 	}

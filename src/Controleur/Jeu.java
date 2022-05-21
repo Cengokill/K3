@@ -56,7 +56,7 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,100,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,1500,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		lancerPartie();
 		//modifVolume();
 	}
@@ -191,7 +191,7 @@ public class Jeu {
 				timer(10);
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
-						timer(temps);
+						timer((int)(0.3*temps));
 						if(acteurCourant.getCamp().empiler(p)) {
 							acteurCourant.removePiecePiochee(p.getPiece());
 							this.panel.repaint();
@@ -275,6 +275,10 @@ public class Jeu {
 	}
 	
 	public void jouer() {
+		int temps=1000;
+		if(this.typeActeurs==2) {
+			temps=this.vitesseIA;
+		}		
 		Acteur jCourant, jPrecedent;
 		if (this.partieEnCours.joueurCourant == 0) {
 			jCourant = this.partieEnCours.joueur1();
@@ -291,6 +295,8 @@ public class Jeu {
 		} else {// si le joueur courant decide de jouer une de ses pieces volees
 			jCourant.retirerPieceVolee(coupDemande.getPiece());
 		}
+		timer(temps);
+		panel.repaint();
 		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
@@ -303,18 +309,23 @@ public class Jeu {
 					this.simpleSoundPlayerSon.jouerSon();
 				}
 			}
+			timer(temps);
+			panel.repaint();
 			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
 				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 					this.simpleSoundPlayerSon.setNumSon(23);
 					this.simpleSoundPlayerSon.jouerSon();
 				}
 				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
-				if (vol != null)//si le joueur vole une piece
+				if (vol != null) {//si le joueur vole une piece
 					if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 						this.simpleSoundPlayerSon.setNumSon(26);
 						this.simpleSoundPlayerSon.jouerSon();
 					}
 					this.partieEnCours.addCoupHist(vol);
+				}
+				timer(temps);
+				panel.repaint();
 			}
 		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
@@ -322,6 +333,8 @@ public class Jeu {
 				this.simpleSoundPlayerSon.setNumSon(10);
 				this.simpleSoundPlayerSon.jouerSon();
 			}
+			timer(temps);
+			panel.repaint();
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		partieEnCours.changementJoueurCourant();
