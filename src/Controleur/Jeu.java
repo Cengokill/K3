@@ -56,7 +56,7 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,1500,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,15,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		lancerPartie();
 		//modifVolume();
 	}

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class Partie {
 	private int numPartie;
@@ -111,19 +110,19 @@ public class Partie {
 	public boolean estPartieFinie() {
 		boolean pleine = this.baseMontagne.estPleine();
 		if (pleine) {// egalite
-			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2, historiqueCoups);
+			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2, this.historiqueCoups);
 			sauvegarderStatsPartie();
 			return pleine;
 		} else {// un des deux joueurs a perdu
 			if (this.joueurCourant == 0) {
 				if (!joueurPeutJouer(joueur1())) {// joueur 1 a perdu
-					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0, historiqueCoups);
+					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0, this.historiqueCoups);
 					sauvegarderStatsPartie();
 					return true;
 				}
 			} else {
 				if (!joueurPeutJouer(joueur2())) {// joueur 2 a perdu
-					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1, historiqueCoups);
+					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1, this.historiqueCoups);
 					sauvegarderStatsPartie();
 					return true;
 				}
@@ -443,7 +442,6 @@ public class Partie {
 		if (c.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.getBaseMontagne().empiler(new PiecePyramide(c.getPiece(), c.getPosBase()));
 		} else {// joue une piece BLANCHE
-			jCourant.addBlancJoue();
 			return false;
 		}
 		return this.getBaseMontagne().estPorteursMemeCouleur(c.getPosBase());
