@@ -83,21 +83,22 @@ public class Phase1Panel extends JPanel{
 	private JButton test;
 	// CONSTRUCTEUR----------------------------------------------
 	public Phase1Panel(JFrame w, Partie partieEnCours){
+		this.partieEnCours=partieEnCours;
+		this.window = w;
+		this.tailleFenetre = window.getSize();
+		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
+		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		changementTaillefenetre();
+	}
+	
+	public void setBoutons(Graphics g) {
 		Icon icon = new ImageIcon(CHEMIN+"cadre_non_presse2.png");
 		test=new JButton(icon); 
 		test.setBounds(200,200,814,155); 
 		test.setOpaque(false);
 		test.setContentAreaFilled(false);
 		test.setBorderPainted(false);
-		this.partieEnCours=partieEnCours;
-		this.window = w;
-		this.tailleFenetre = window.getSize();
-		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
-		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.window.setLayout(null);
-		this.window.setContentPane(this);
 		this.window.add(test);
-		changementTaillefenetre();
 	}
 	
 	// CALCUL ***************************************************************
@@ -273,6 +274,7 @@ public class Phase1Panel extends JPanel{
 		affichePyramideJoueur1(g);
 		affichePioche(g);
 		dragNdrop(g);
+		setBoutons(g);
 	}
 	
 }

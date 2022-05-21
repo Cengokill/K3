@@ -21,35 +21,42 @@ public class StartJeu extends JPanel{
 	public final String CHEMIN = System.getProperty("user.dir")+"./src/Ressources/";
 	public final String NOMBACKGROUND = "background.jpg";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
-	int x = 0;
-    int y = 0;
     public int screenHeight, screenWidth, frameHeight, frameWidth;
 	
-	public StartJeu() {
+	public StartJeu(JFrame w) {
+		this.window = w;
+		this.window.setTitle("Partie en cours");
 		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.frameWidth=this.window.getWidth();
         this.frameHeight=this.window.getHeight();
         this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
-		window = new JFrame("Jeu K3");
 		this.window.setLocation(screenWidth/2-frameWidth/2, screenHeight/2-frameHeight/2);
 		window.setSize(screenWidth,screenHeight);
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    window.setLocation(x, y);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		window.setLayout(null);
 		window.setVisible(true);
-		window.setContentPane(this);
-		
+		changementTaillefenetre();
 	}
 
 	public void paint(Graphics g) {
+		if(this.tailleEcran != this.window.getSize()) {
+			//on detecte un changement de fenetre -> on met a jour L IHM
+			changementTaillefenetre();
+		}
 		setBoutons(g);
 		affichageBackGround(g);
 	}
 	
 	public void affichageBackGround(Graphics g) {
-	    g.drawImage(background, 0, 0, tailleFenetre.width, tailleFenetre.height, null);
+	    g.drawImage(background, 0, 0, frameWidth, frameHeight, null);
+	    repaint();
+	}
+	
+	public void changementTaillefenetre() {
+		this.tailleEcran = this.window.getSize();
+		this.frameWidth=this.window.getWidth();
+        this.frameHeight=this.window.getHeight();
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
@@ -59,21 +66,21 @@ public class StartJeu extends JPanel{
 	public void setBoutons(Graphics g) {
 		Icon icon1 = new ImageIcon(CHEMIN+"cadre_non_presse2.png");
 		nouvellePartie=new JButton(icon1); 
-		nouvellePartie.setBounds(tailleFenetre.width/2-814/2-56,(tailleFenetre.height/3)-155*2,814,155); 
+		nouvellePartie.setBounds(frameWidth/2-814/2-56,(frameHeight/3)-155*2,814,155); 
 		nouvellePartie.setOpaque(false);
 		nouvellePartie.setContentAreaFilled(false);
 		nouvellePartie.setBorderPainted(false);
 		
 		Icon icon2 = new ImageIcon(CHEMIN+"options2.png");
 		options=new JButton(icon2); 
-		options.setBounds(tailleFenetre.width/2-814/2-56,(tailleFenetre.height/3),814,149); 
+		options.setBounds(frameWidth/2-814/2-56,(frameHeight/3),814,149); 
 		options.setOpaque(false);
 		options.setContentAreaFilled(false);
 		options.setBorderPainted(false);
 		
 		Icon icon3 = new ImageIcon(CHEMIN+"quitter2.png");
 		quitter=new JButton(icon3); 
-		quitter.setBounds(tailleFenetre.width/2-814/2-56,(tailleFenetre.height/3)+149*2,814,149); 
+		quitter.setBounds(frameWidth/2-814/2-56,(frameHeight/3)+149*2,814,149); 
 		quitter.setOpaque(false);
 		quitter.setContentAreaFilled(false);
 		quitter.setBorderPainted(false);
@@ -81,7 +88,6 @@ public class StartJeu extends JPanel{
 	    window.add(nouvellePartie);
 	    window.add(options);
 	    window.add(quitter);
-	    this.repaint();
 	}
 
 

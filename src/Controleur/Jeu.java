@@ -67,7 +67,6 @@ public class Jeu {
 		this.panel = new Phase1Panel(this.window, this.partieEnCours);
 		this.window.setContentPane(panel);
 		this.panel.addMouseListener(new ecouteurClick(panel));
-		window.setVisible(true);
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, int v, String nom1, String nom2) {
