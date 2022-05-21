@@ -34,7 +34,7 @@ public class MinMax {
         return (nbcoupsia - nbcoupsadv);
     }
 
-    public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
+    public int meilleurConfigJ(Partie p, int horizon, boolean flag, int valeurcourante) {
 
         if (flag) {
             System.out.println("on cherche le coup pour l'ia");
@@ -83,7 +83,7 @@ public class MinMax {
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
-                    int stock = meilleurConfigAD(p, horizon - 1, flag); // evalue la config
+                    int stock = meilleurConfigAD(p, horizon - 1, flag, valeurconfig); // evalue la config
                     if (stock < confvol) { // maj de la valeur de config actu
                         confvol = stock;
                     }
@@ -98,7 +98,7 @@ public class MinMax {
                 }
 
             } else {
-                int valeurfils = meilleurConfigAD(p, horizon - 1, flag);// calcule la valeur de la config
+                int valeurfils = meilleurConfigAD(p, horizon - 1, flag, valeurconfig);// calcule la valeur de la config
                 if (flag && valeurfils > valeurconfig) { // si new valeur> old valeur && premier tour on enregistre le
                                                          // coup
                     parfait = c;
@@ -106,6 +106,9 @@ public class MinMax {
                 valeurconfig = Math.max(valeurconfig, valeurfils); // maj valeur
             }
             p.IAannulCoup(c, joueurcourant); // annule le coup
+            if (valeurconfig>=valeurcourante){
+                return valeurconfig;
+            }
         }
         if (flag) {
             System.out.println("on a trouve le coup pour l'ia");
@@ -116,7 +119,7 @@ public class MinMax {
 
     }
 
-    public int meilleurConfigAD(Partie p, int horizon, boolean flag) {
+    public int meilleurConfigAD(Partie p, int horizon, boolean flag, int valeurcourante) {
         int joueurcourant = 100;
         if (numerojoueur == 0) {
             joueurcourant = 1;
@@ -144,7 +147,7 @@ public class MinMax {
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
-                    int stock = meilleurConfigJ(p, horizon - 1, false); // evalue la config
+                    int stock = meilleurConfigJ(p, horizon - 1, false, valeurconfig); // evalue la config
                     if (stock > confvol) { // maj de la valeur de config actu
                         confvol = stock;
                         if (flag) { // A CHANGER EN STRUCTURE
@@ -157,9 +160,12 @@ public class MinMax {
                     valeurconfig = confvol;
                 }
             } else {
-                valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false)); // maj valeur
+                valeurconfig = Math.min(valeurconfig, meilleurConfigJ(p, horizon - 1, false, valeurconfig)); // maj valeur
             }
             p.IAannulCoup(c, joueurcourant);
+            if (valeurconfig<=valeurcourante){
+                return valeurconfig;
+            }
         }
         return valeurconfig;
     }
