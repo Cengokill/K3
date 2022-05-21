@@ -56,25 +56,25 @@ public class Phase1Panel extends JPanel{
 	public final String NOMPIECEVIDE = "EMPTY2.png";
 	public Image pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVIDE);
 	
-	public final String NOMPIECEBLACK = "BLACK.png";
+	public final String NOMPIECEBLACK = "BLACK2.png";
 	public Image pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLACK);
 	
-	public final String NOMPIECEBLEU = "BLUE.png";
+	public final String NOMPIECEBLEU = "BLUE2.png";
 	public Image pieceBleu = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLEU);
 	
-	public final String NOMPIECEVERT = "GREEN.png";
+	public final String NOMPIECEVERT = "GREEN2.png";
 	public Image pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVERT);
 	
-	public final String NOMPIECEROUGE = "RED.png";
+	public final String NOMPIECEROUGE = "RED2.png";
 	public Image pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEROUGE);
 	
-	public final String NOMPIECEBLANC = "WHITE.png";
+	public final String NOMPIECEBLANC = "WHITE2.png";
 	public Image pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLANC);
 	
 	public final String NOMPIECENATURE = "WOOD2.png";
 	public Image pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECENATURE);
 	
-	public final String NOMPIECEJAUNE = "YELLOW.png";
+	public final String NOMPIECEJAUNE = "YELLOW2.png";
 	public Image pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
 	// CONSTRUCTEUR----------------------------------------------
 	public Phase1Panel(JFrame window, Partie partieEnCours){
