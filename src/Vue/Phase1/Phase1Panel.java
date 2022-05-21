@@ -3,8 +3,6 @@ package Vue.Phase1;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,8 +36,14 @@ public class Phase1Panel extends JPanel{
 	public int POSX_BASE_JOUEUR;
 	public int POSY_BASE_JOUEUR;
 	
+	public int POSX_BASE_JOUEUR_2;
+	public int POSY_BASE_JOUEUR_2;
+	
 	public int POSX_PIOCHE;
 	public int POSY_PIOCHE;
+	
+	public int POSX_PIOCHE_2;
+	public int POSY_PIOCHE_2;
 	
 	public int POSX_BASE_MONTAGNE;
 	public int POSY_BASE_MONTAGNE;
@@ -67,7 +71,7 @@ public class Phase1Panel extends JPanel{
 	public final String NOMPIECEBLANC = "WHITE.png";
 	public Image pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLANC);
 	
-	public final String NOMPIECENATURE = "WOOD.png";
+	public final String NOMPIECENATURE = "WOOD2.png";
 	public Image pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECENATURE);
 	
 	public final String NOMPIECEJAUNE = "YELLOW.png";
@@ -88,22 +92,28 @@ public class Phase1Panel extends JPanel{
 	public void changementTaillefenetre() {
 		tailleFenetre = window.getSize();
 		//taille objet
-		TAILLE_CUBES_HAUTEUR = tailleFenetre.height/20;
-		TAILLE_CUBES_LARGEUR = tailleFenetre.width/40;
-		HAUTEUR_PIECE_CHOISIE = tailleFenetre.height/15;
-		LARGEUR_PIECE_CHOISIE = tailleFenetre.width/25;
+		// largeur 211, hauteur 259. 211/259 = 0.8146718147
+		TAILLE_CUBES_LARGEUR = tailleFenetre.height/16;
+		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR/0.8146718147);//rapport de 211/259
+		
+		LARGEUR_PIECE_CHOISIE = tailleFenetre.height/15;
+		HAUTEUR_PIECE_CHOISIE = (int)(LARGEUR_PIECE_CHOISIE/0.8146718147);
+		
 		//Position objet
 		this.POSX_PIECE_CHOISIE = 0;
 		this.POSY_PIECE_CHOISIE = 0;
 		
-		this.POSX_BASE_JOUEUR = 0;
-		this.POSY_BASE_JOUEUR = HAUTEUR_PIECE_CHOISIE;
+		this.POSX_BASE_JOUEUR = tailleFenetre.width/10;
+		this.POSY_BASE_JOUEUR = HAUTEUR_PIECE_CHOISIE*2;
 		
 		this.POSX_PIOCHE = 0;
-		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*(partieEnCours.joueur1().getCamp().getHauteur()+2);
+		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
 		
-		this.POSX_BASE_MONTAGNE = 0;
-		this.POSY_BASE_MONTAGNE = POSY_PIOCHE+TAILLE_CUBES_HAUTEUR+1;
+		this.POSX_PIOCHE_2 = 0;
+		this.POSY_PIOCHE_2 = POSY_PIOCHE;
+		
+		this.POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
+		this.POSY_BASE_MONTAGNE = POSY_BASE_JOUEUR-(int)(TAILLE_CUBES_HAUTEUR*0.75);
 	}
 	
 	// PIECE SELECTIONEE----------------------------------------------
@@ -166,14 +176,15 @@ public class Phase1Panel extends JPanel{
 	
 	public void afficherNomJoueur(Graphics g) {
 		String nom;
-		if(this.partieEnCours.getJoueurCourant()==0) {
-			nom = this.partieEnCours.joueur1().getNom();
+		int jCourant=this.partieEnCours.getJoueurCourant();
+		if(jCourant==0) {
+			nom=this.partieEnCours.joueur1().getNom();
 		}else {
-			nom = this.partieEnCours.joueur2().getNom();
+			nom=this.partieEnCours.joueur2().getNom();
 		}
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Courier New", Font.BOLD, 28));
-		g.drawString(nom, 300, POSY_BASE_JOUEUR-POSY_PIECE_CHOISIE+TAILLE_CUBES_HAUTEUR);
+		g.drawString(nom, POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR, POSY_BASE_JOUEUR-TAILLE_CUBES_HAUTEUR/2);
 	}
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
@@ -196,7 +207,7 @@ public class Phase1Panel extends JPanel{
 		}
 	}
 	// AFFICHAGE PYRAMIDE----------------------------------------------------------------------
-	public void affichePyramide(Graphics g) {
+	public void affichePyramideJoueur1(Graphics g) {
 		Acteur a = initAffichageJoueurs();
 		Position POSYitionPiecePyramide;
 		int decalage=0;
@@ -204,7 +215,7 @@ public class Phase1Panel extends JPanel{
 			for(int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
 				POSYitionPiecePyramide = new Position(etage,rang);
 				Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
-				g.drawImage(getpetitcolor(pieceJoueur), decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_JOUEUR, POSY_BASE_JOUEUR+(a.getCamp().getHauteur()-1)*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
+				g.drawImage(getpetitcolor(pieceJoueur), decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_JOUEUR, POSY_BASE_JOUEUR+5*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
 			}
 			decalage += (TAILLE_CUBES_LARGEUR+1)/2;
 		}
@@ -214,14 +225,16 @@ public class Phase1Panel extends JPanel{
 		PyramideMontagne m = this.partieEnCours.getBaseMontagne();
 		Position POSYitionPiecePyramide;
 		afficherNomJoueur(g);
+		int largeurCube=(int)(TAILLE_CUBES_LARGEUR*0.75);
+		int hauteurCube=(int)(TAILLE_CUBES_HAUTEUR*0.75);
 		int decalage=0;
 		for(int etage = 0; etage < m.getHauteur(); etage++) {
 			for(int rang = 0; rang < m.getLargeur() - etage; rang++) {
 				POSYitionPiecePyramide = new Position(etage,rang);
 				Piece piece = m.getPiece(POSYitionPiecePyramide);
-				g.drawImage(getpetitcolor(piece), decalage+rang*(TAILLE_CUBES_LARGEUR+1)+POSX_BASE_MONTAGNE, POSY_BASE_MONTAGNE+m.getHauteur()*(TAILLE_CUBES_HAUTEUR+1) - etage*(TAILLE_CUBES_HAUTEUR+1), TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
+				g.drawImage(getpetitcolor(piece), decalage+rang*(largeurCube+1)+POSX_BASE_MONTAGNE, POSY_BASE_MONTAGNE+8*(hauteurCube+1) - etage*(hauteurCube+1), largeurCube, hauteurCube,null);
 			}
-			decalage += (TAILLE_CUBES_LARGEUR+1)/2;
+			decalage += (largeurCube+1)/2;
 		}
 	}
 	
@@ -243,7 +256,7 @@ public class Phase1Panel extends JPanel{
 		affichageBackGround(g);
 		affichagePieceSelectionee(g);
 		afficheBaseMontagne(g);
-		affichePyramide(g);
+		affichePyramideJoueur1(g);
 		affichePioche(g);
 		dragNdrop(g);
 	}

@@ -112,7 +112,6 @@ public class SoundPlayer {
 	}
 	
 	public void setFile(int i) {
-		System.out.println("------------------------------------");
 		File f;
 		try {
 			f=new File(cheminsSons[i]);

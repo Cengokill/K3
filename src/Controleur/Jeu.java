@@ -44,8 +44,8 @@ public class Jeu {
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(4);
-		this.simpleSoundPlayerSon = new SoundPlayer(6);
+		this.simpleSoundPlayerMusic = new SoundPlayer(5);
+		this.simpleSoundPlayerSon = new SoundPlayer(8);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
