@@ -8,6 +8,9 @@ import Controleur.*;
 import Modeles.InitPartie;
 import Vue.Plateau;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 /**
@@ -18,12 +21,20 @@ public class New_game {
 	
 	public JFrame window;
 	public InitPartie partie;
+	Dimension tailleEcran;
+	public int screenHeight, screenWidth, frameHeight, frameWidth;
 
     public New_game(JFrame window, InitPartie partie) {
     	this.partie=partie;
     	this.window=window;
         initComponents();
         enable_bp();
+        this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        this.frameWidth=this.window.getWidth();
+        this.frameHeight=this.window.getHeight();
+        this.screenWidth=tailleEcran.width;
+        this.screenHeight=tailleEcran.height;
+        this.window.setLocation(screenWidth/2-frameWidth/2, screenHeight/2-frameHeight/2);
         this.window.setVisible(true);
     }
     /**
