@@ -39,14 +39,8 @@ public class Phase1Panel extends JPanel{
 	public int POSX_BASE_JOUEUR;
 	public int POSY_BASE_JOUEUR;
 	
-	public int POSX_BASE_JOUEUR_2;
-	public int POSY_BASE_JOUEUR_2;
-	
 	public int POSX_PIOCHE;
 	public int POSY_PIOCHE;
-	
-	public int POSX_PIOCHE_2;
-	public int POSY_PIOCHE_2;
 	
 	public int POSX_BASE_MONTAGNE;
 	public int POSY_BASE_MONTAGNE;
@@ -56,7 +50,7 @@ public class Phase1Panel extends JPanel{
 	public final String NOMBACKGROUND = "background.jpg";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
 	
-	public final String NOMPIECEVIDE = "EMPTY2.png";
+	public final String NOMPIECEVIDE = "EMPTY3.png";
 	public Image pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVIDE);
 	
 	public final String NOMPIECEBLACK = "BLACK2.png";
@@ -111,21 +105,18 @@ public class Phase1Panel extends JPanel{
 		TAILLE_CUBES_LARGEUR = tailleFenetre.height/16;
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR/0.8146718147);//rapport de 211/259
 		
-		LARGEUR_PIECE_CHOISIE = tailleFenetre.height/15;
+		LARGEUR_PIECE_CHOISIE = tailleFenetre.width/18;
 		HAUTEUR_PIECE_CHOISIE = (int)(LARGEUR_PIECE_CHOISIE/0.8146718147);
 		
 		//Position objet
 		this.POSX_PIECE_CHOISIE = 0;
 		this.POSY_PIECE_CHOISIE = 0;
 		
-		this.POSX_BASE_JOUEUR = tailleFenetre.width/10;
+		this.POSX_BASE_JOUEUR = tailleFenetre.height/10;
 		this.POSY_BASE_JOUEUR = HAUTEUR_PIECE_CHOISIE*2;
 		
 		this.POSX_PIOCHE = 0;
 		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
-		
-		this.POSX_PIOCHE_2 = 0;
-		this.POSY_PIOCHE_2 = POSY_PIOCHE;
 		
 		this.POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
 		this.POSY_BASE_MONTAGNE = POSY_BASE_JOUEUR-(int)(TAILLE_CUBES_HAUTEUR*0.75);

@@ -16,10 +16,10 @@ public class ecouteurClick implements MouseListener {
 	
 	private Phase1Panel panel;
 	public String typeCurseur;
-	public Cursor cursorMainFermee, cursorMainDeposer;
+	public Cursor cursorMainFermee, cursorMainDepose;
 	
-	public final String NomMainFermer = "hand-closed.png";
-	public final String NomMainDeposer = "hand-depose.png";
+	public final String NomMainFermee = "hand-closed.png";
+	public final String NomMainDepose = "hand-depose.png";
 	
 	//CONSTRUTEUR--------------------------------
 	public ecouteurClick(Phase1Panel panel) {
@@ -34,12 +34,12 @@ public class ecouteurClick implements MouseListener {
 	public void setCustomCurseur() {
 		Toolkit tkit=Toolkit.getDefaultToolkit();
 
-		Image mainFermee = tkit.getImage(panel.CHEMIN+NomMainFermer);
-		Image curseurPlus = tkit.getImage(panel.CHEMIN+NomMainDeposer);
+		Image mainFermee = tkit.getImage(panel.CHEMIN+NomMainFermee);
+		Image curseurPlus = tkit.getImage(panel.CHEMIN+NomMainDepose);
 
 		Point point = new Point(0,0);
 		this.cursorMainFermee = tkit.createCustomCursor(mainFermee, point, "mainFermee");
-		this.cursorMainDeposer = tkit.createCustomCursor(curseurPlus, point, "curseurPlus");
+		this.cursorMainDepose = tkit.createCustomCursor(curseurPlus, point, "curseurPlus");
 	}
 	
 	public void changeCustomCurseur() {
@@ -54,22 +54,22 @@ public class ecouteurClick implements MouseListener {
 				break;
 			case "curseurPlus":
 				//this.cursor2
-				panel.setCursor(cursorMainDeposer);
+				panel.setCursor(cursorMainDepose);
 				break;
 			default:
-				panel.setCursor(new Cursor(3));
+				panel.setCursor(new Cursor(0));
 			}
 		}
 	}
 	
 	//PYRAMIDE JOUEUR--------------------------------
 	public Position clickpyramide(MouseEvent e){
+		Acteur a = panel.initAffichageJoueurs();
 		int startx = panel.POSX_BASE_JOUEUR;
 		int starty = panel.POSY_BASE_JOUEUR;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
-		Acteur a = panel.initAffichageJoueurs();
 		int y = (a.getCamp().getHauteur()-1) - realy / (panel.TAILLE_CUBES_HAUTEUR+1);
 		if(y<0 || y > a.getCamp().getHauteur()) {
 			return null;
@@ -91,7 +91,7 @@ public class ecouteurClick implements MouseListener {
 		int realy = e.getY() - starty;
 		
 		int x = realx / (panel.TAILLE_CUBES_LARGEUR+1);
-		if(x<0 || x >= a.getPiecesPiochees().size()) {
+		if(x<0 || x >= a.getTaillePiecesPiochees()) {
 			return -1;
 		}
 		if(realy < 0 || realy > panel.TAILLE_CUBES_HAUTEUR+1) {
@@ -114,7 +114,7 @@ public class ecouteurClick implements MouseListener {
 				}else {
 					Position p = clickpyramide(e);
 					if(p != null) {
-						panel.empiler(p);//on empile la piece ! a l'endroit clique
+						panel.empiler(p);//on empile la piece a l'endroit clique
 					}
 				}
 			}else { // deselectionner avec click droit
@@ -162,11 +162,11 @@ public class ecouteurClick implements MouseListener {
 					typeCurseur = "Default Cursor";
 				}
 				changeCustomCurseur();
-				panel.repaint();
 			}
 			else if(panel.getCursor().getType() != 3) {
-				panel.setCursor(new Cursor(3));
+				panel.setCursor(new Cursor(0));
 			}
+			panel.repaint();
 		}
 	}
 

@@ -21,6 +21,7 @@ public class New_game {
     public New_game(JFrame window, InitPartie partie) {
     	this.partie=partie;
     	this.window=window;
+    	
         initComponents();
         enable_bp();
         this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,6 +30,10 @@ public class New_game {
         this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
         this.window.setLocation(screenWidth/2-frameWidth/2, screenHeight/2-frameHeight/2);
+        this.window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.window.setTitle("Nouvelle Partie");
+        this.window.setMinimumSize(new java.awt.Dimension(805, 406));
+        this.window.setResizable(true);
         this.window.setVisible(true);
     }
 
@@ -61,12 +66,7 @@ public class New_game {
         bp_IA2_Level_3 = new javax.swing.JRadioButton();
         bp_IA3_Level_1 = new javax.swing.JRadioButton();
         bp_IA3_Level_2 = new javax.swing.JRadioButton();
-
-        this.window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        this.window.setTitle("Nouvelle Partie");
-        this.window.setMinimumSize(new java.awt.Dimension(805, 406));
-        this.window.setResizable(false);
-
+        
         jPanel2.setFocusCycleRoot(true);
         jPanel2.setFocusTraversalPolicyProvider(true);
 
