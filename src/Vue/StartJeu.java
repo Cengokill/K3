@@ -16,19 +16,24 @@ import javax.swing.JPanel;
 public class StartJeu extends JPanel{
 
 	private JFrame window;
-	public Dimension tailleFenetre;	
+	public Dimension tailleEcran;	
 	private JButton nouvellePartie, options, quitter;
 	public final String CHEMIN = System.getProperty("user.dir")+"./src/Ressources/";
 	public final String NOMBACKGROUND = "background.jpg";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
-	private Icon icon1;
 	int x = 0;
     int y = 0;
+    public int screenHeight, screenWidth, frameHeight, frameWidth;
 	
 	public StartJeu() {
-		tailleFenetre=Toolkit.getDefaultToolkit().getScreenSize();
+		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        this.frameWidth=this.window.getWidth();
+        this.frameHeight=this.window.getHeight();
+        this.screenWidth=tailleEcran.width;
+        this.screenHeight=tailleEcran.height;
 		window = new JFrame("Jeu K3");
-		window.setSize(tailleFenetre.width,tailleFenetre.height);
+		this.window.setLocation(screenWidth/2-frameWidth/2, screenHeight/2-frameHeight/2);
+		window.setSize(screenWidth,screenHeight);
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    window.setLocation(x, y);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

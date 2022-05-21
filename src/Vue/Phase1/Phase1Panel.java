@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -76,13 +79,24 @@ public class Phase1Panel extends JPanel{
 	
 	public final String NOMPIECEJAUNE = "YELLOW2.png";
 	public Image pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
+	
+	private JButton test;
 	// CONSTRUCTEUR----------------------------------------------
-	public Phase1Panel(JFrame window, Partie partieEnCours){
+	public Phase1Panel(JFrame w, Partie partieEnCours){
+		Icon icon = new ImageIcon(CHEMIN+"cadre_non_presse2.png");
+		test=new JButton(icon); 
+		test.setBounds(200,200,814,155); 
+		test.setOpaque(false);
+		test.setContentAreaFilled(false);
+		test.setBorderPainted(false);
 		this.partieEnCours=partieEnCours;
-		this.window = window;
+		this.window = w;
 		this.tailleFenetre = window.getSize();
 		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
 		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.window.setLayout(null);
+		this.window.setContentPane(this);
+		this.window.add(test);
 		changementTaillefenetre();
 	}
 	
