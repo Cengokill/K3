@@ -76,6 +76,9 @@ public class Phase1Panel extends JPanel{
 	public Phase1Panel(JFrame window, Partie partieEnCours){
 		this.partieEnCours=partieEnCours;
 		this.window = window;
+		this.tailleFenetre = window.getSize();
+		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
+		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		changementTaillefenetre();
 	}
 	
@@ -85,8 +88,8 @@ public class Phase1Panel extends JPanel{
 	public void changementTaillefenetre() {
 		tailleFenetre = window.getSize();
 		//taille objet
-		TAILLE_CUBES_HAUTEUR = tailleFenetre.height/30;
-		TAILLE_CUBES_LARGEUR = tailleFenetre.width/50;
+		TAILLE_CUBES_HAUTEUR = tailleFenetre.height/20;
+		TAILLE_CUBES_LARGEUR = tailleFenetre.width/40;
 		HAUTEUR_PIECE_CHOISIE = tailleFenetre.height/15;
 		LARGEUR_PIECE_CHOISIE = tailleFenetre.width/25;
 		//Position objet

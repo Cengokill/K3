@@ -44,19 +44,14 @@ public class Jeu {
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique);
-		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores);
-		//this.simpleSoundPlayerMusic.setNumSon(43);
-		//this.simpleSoundPlayerMusic.jouerSon();
-		try {
-		    Thread.sleep(1000);
-		} catch (InterruptedException ie) {
-		    // ...
-		}
+		this.simpleSoundPlayerMusic = new SoundPlayer(4);
+		this.simpleSoundPlayerSon = new SoundPlayer(6);
+		this.simpleSoundPlayerMusic.setNumSon(43);
+		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,15,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		lancerPartie();
 		//modifVolume();
 	}

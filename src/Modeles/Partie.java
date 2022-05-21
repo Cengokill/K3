@@ -478,7 +478,7 @@ public class Partie {
 		}
 
 		if (pp.getPos() == null) {// si le voleur vole une piece volee
-			jCourant.retirerPieceVolee(pp.getPiece());
+			//jCourant.retirerPieceVolee(pp.getPiece());
 		} else {
 			if (jCourant.getCamp().retirer(pp.getPos()) == null) {
 				System.out.println("on vole");
@@ -486,15 +486,15 @@ public class Partie {
 				System.out.println("Configuration actuelle");
 				System.out.println("Pyramide de " + this.joueur1().getNom());
 				System.out.println(this.joueur1().getCamp().toString());
-				System.out.println("Liste des pieces volées: " + this.joueur1().toStringPiecesVolees());
+				System.out.println("Liste des pieces volees: " + this.joueur1().toStringPiecesVolees());
 				System.out.println("Pyramide de " + this.joueur2().getNom());
 				System.out.println(this.joueur2().getCamp().toString());
-				System.out.println("Liste des pieces volées: " + this.joueur2().toStringPiecesVolees());
+				System.out.println("Liste des pieces volees: " + this.joueur2().toStringPiecesVolees());
 				System.out.println("Pyramide de jeu");
 				System.out.println(this.getBaseMontagne().toString());
 			}
 		}
-		jPrecedent.addPieceVolee(pp.getPiece());// ajout de la piece volee aux pieces volees du voleur
+		//jPrecedent.addPieceVolee(pp.getPiece());// ajout de la piece volee aux pieces volees du voleur
 	}
 
 	public void IAannulvol(PiecePyramide pp, int joueurcourant) {
@@ -512,14 +512,14 @@ public class Partie {
 		} else {
 			if (!jCourant.getCamp().empiler(pp)) {
 				System.out.println("on annule un vol");
-				System.out.println("Le joueur " + jPrecedent.getNom() + " annule le vole de la piece " + pp.toString());
+				System.out.println("Le joueur " + jPrecedent.getNom() + " annule le vol de la piece " + pp.toString());
 				System.out.println("Configuration actuelle");
 				System.out.println("Pyramide de " + this.joueur1().getNom());
 				System.out.println(this.joueur1().getCamp().toString());
-				System.out.println("Liste des pieces volées: " + this.joueur1().toStringPiecesVolees());
+				System.out.println("Liste des pieces volees: " + this.joueur1().toStringPiecesVolees());
 				System.out.println("Pyramide de " + this.joueur2().getNom());
 				System.out.println(this.joueur2().getCamp().toString());
-				System.out.println("Liste des pieces volées: " + this.joueur2().toStringPiecesVolees());
+				System.out.println("Liste des pieces volees: " + this.joueur2().toStringPiecesVolees());
 				System.out.println("Pyramide de jeu");
 				System.out.println(this.getBaseMontagne().toString());
 			}

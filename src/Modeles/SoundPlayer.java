@@ -55,7 +55,9 @@ public class SoundPlayer {
 		cheminsSons[35] = chemin+"DebutTour/debutTour1.wav";//ok
 		cheminsSons[36] = chemin+"DebutTour/debutTour2.wav";
 		cheminsSons[37] = chemin+"DebutTour/debutTour3.wav";
-		cheminsSons[43] = chemin+"/musiqueFond.wav";
+		cheminsSons[43] = chemin+"MusiqueFond/musiqueFond1.wav";
+		cheminsSons[44] = chemin+"MusiqueFond/musiqueFond2.wav";
+		cheminsSons[45] = chemin+"MusiqueFond/musiqueFond3.wav";
 		/*
 		cheminsSons[10] = chemin+"joueurFiniCamp.wav";
 		cheminsSons[11] = chemin+"joueurPerdu.wav";
@@ -96,14 +98,17 @@ public class SoundPlayer {
 	}
 	
 	public void jouerSon() {
-		if(this.numSon<=42) {
-			int r=Aleatoire.genInt(this.numSon,this.numSon+2);
-			setFile(r);
-		}else {
-			setFile(this.numSon);
-		}
+		int r=Aleatoire.genInt(this.numSon,this.numSon+2);
+		setFile(r);
 		setVolume(this.volume);
 		play();
+	}
+	
+	public void loopSon() {
+		int r=Aleatoire.genInt(this.numSon,this.numSon+2);
+		setFile(r);
+		setVolume(this.volume);
+		loop();
 	}
 	
 	public void setFile(int i) {
