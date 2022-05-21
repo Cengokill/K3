@@ -478,7 +478,7 @@ public class Partie {
 		}
 
 		if (pp.getPos() == null) {// si le voleur vole une piece volee
-			//jCourant.retirerPieceVolee(pp.getPiece());
+			jCourant.piecesVolees.remove(pp.getPiece());
 		} else {
 			if (jCourant.getCamp().retirer(pp.getPos()) == null) {
 				System.out.println("on vole");
@@ -493,8 +493,8 @@ public class Partie {
 				System.out.println("Pyramide de jeu");
 				System.out.println(this.getBaseMontagne().toString());
 			}
-		}
-		//jPrecedent.addPieceVolee(pp.getPiece());// ajout de la piece volee aux pieces volees du voleur
+		}// ajout de la piece volee aux pieces volees du voleur
+		jPrecedent.piecesVolees.add(pp.getPiece());
 	}
 
 	public void IAannulvol(PiecePyramide pp, int joueurcourant) {
@@ -508,7 +508,7 @@ public class Partie {
 		}
 
 		if (pp.getPos() == null) {
-			jCourant.addPieceVolee(pp.getPiece());
+			jCourant.piecesVolees.add(pp.getPiece());
 		} else {
 			if (!jCourant.getCamp().empiler(pp)) {
 				System.out.println("on annule un vol");
@@ -524,7 +524,7 @@ public class Partie {
 				System.out.println(this.getBaseMontagne().toString());
 			}
 		}
-		jPrecedent.retirerPieceVolee(pp.getPiece());
+		jPrecedent.piecesVolees.remove(pp.getPiece());
 	}
 
 }
