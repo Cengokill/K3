@@ -1,5 +1,6 @@
 package Vue.Menu;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Controleur.Jeu;
 import Modeles.SoundPlayer;
 
 public class StartJeu extends JPanel{
@@ -42,41 +44,28 @@ public class StartJeu extends JPanel{
     private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	
 	public StartJeu(JFrame w, Chargement ch) {
+		this.simpleSoundPlayerMusic = new SoundPlayer(5);
+		this.simpleSoundPlayerSon = new SoundPlayer(8);
+		this.simpleSoundPlayerMusic.setNumSon(43);
+		this.simpleSoundPlayerMusic.loopSon();
     	this.chargement=ch;
 		this.window = w;
 		window.setTitle("Partie en cours");
 		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-		this.tailleFenetre=window.getSize();
-        this.frameWidth=window.getWidth();
-        this.frameHeight=window.getHeight();
-        this.screenWidth=tailleEcran.width;
+		this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
+		this.tailleFenetre=window.getSize();
+        this.frameWidth=tailleFenetre.width;
+        this.frameHeight=tailleFenetre.width;
+        
         this.centreX_Screen=screenWidth/2;
         this.centreY_Screen=screenHeight/2;
         this.centreX_Window=centreX_Screen-frameWidth/2;
         this.centreY_Window=centreY_Screen-frameHeight/2;
 		window.setLocation(centreX_Window, centreY_Window);
-		window.setSize(screenWidth/2,screenHeight/2);
 	    //window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
-		this.simpleSoundPlayerMusic = new SoundPlayer(5);
-		this.simpleSoundPlayerSon = new SoundPlayer(8);
-		this.simpleSoundPlayerMusic.setNumSon(43);
-		this.simpleSoundPlayerMusic.loopSon();
-		changementTaillefenetre();
-	}
-
-	public void paint(Graphics g) {
-		if(tailleFenetre != window.getSize()) {
-			//on detecte un changement de fenetre -> on met a jour L IHM
-			changementTaillefenetre();
-		}
-		affichageBackGround(g);
-		afficheBoutonNouvellePartie(g);
-		afficheBoutonOptions(g);
-		afficheBoutonTuto(g);
-		afficheBoutonQuitter(g);
 	}
 	
 	public void affichageBackGround(Graphics g) {
@@ -111,6 +100,7 @@ public class StartJeu extends JPanel{
         this.posY_tuto=posY_options+hauteur_bouton+espacement;
         this.posX_quitter=frameWidth/2-largeur_bouton/2;
         this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
+        
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
@@ -152,6 +142,18 @@ public class StartJeu extends JPanel{
 		}else {
 			g.drawImage(bouton4_presse, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
 		}
+	}
+	
+	public void paint(Graphics g) {
+		if(tailleFenetre != window.getSize()) {
+			//on detecte un changement de fenetre -> on met a jour L IHM
+			changementTaillefenetre();
+		}
+		affichageBackGround(g);
+		afficheBoutonNouvellePartie(g);
+		afficheBoutonOptions(g);
+		afficheBoutonTuto(g);
+		afficheBoutonQuitter(g);
 	}
 
 }

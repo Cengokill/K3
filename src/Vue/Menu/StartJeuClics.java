@@ -74,7 +74,7 @@ public class StartJeuClics implements MouseListener{
 			System.exit(0);
 		}
 		else if(clicOptions(e)) {
-			new OptionsPanel(startJeu.window, startJeu.getGraphics());
+			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}
 	}
 
