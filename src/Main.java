@@ -21,8 +21,6 @@ public class Main {
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		
 		JFrame window = new JFrame("Jeu K3");
-		window.setResizable(true);
-		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Chargement chargement = new Chargement();
 		
 		StartJeu panel = new StartJeu(window, chargement);

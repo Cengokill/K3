@@ -74,7 +74,6 @@ public class Phase1Panel extends JPanel{
 	public final String NOMPIECEJAUNE = "YELLOW2.png";
 	public Image pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
 	
-	private JButton test;
 	// CONSTRUCTEUR----------------------------------------------
 	public Phase1Panel(JFrame w, Partie partieEnCours){
 		this.partieEnCours=partieEnCours;
@@ -84,15 +83,18 @@ public class Phase1Panel extends JPanel{
 		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		changementTaillefenetre();
 	}
-	
-	public void setBoutons(Graphics g) {
-		Icon icon = new ImageIcon(CHEMIN+"cadre_non_presse2.png");
-		test=new JButton(icon); 
-		test.setBounds(200,200,814,155); 
-		test.setOpaque(false);
-		test.setContentAreaFilled(false);
-		test.setBorderPainted(false);
-		this.window.add(test);
+	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
+	public void paint(Graphics g) {
+		if(tailleFenetre != window.getSize()) {
+			//on detecte un changement de fenetre -> on met a jour L IHM
+			changementTaillefenetre();
+		}
+		affichageBackGround(g);
+		affichagePieceSelectionee(g);
+		afficheBaseMontagne(g);
+		affichePyramideJoueur1(g);
+		affichePioche(g);
+		dragNdrop(g);
 	}
 	
 	// CALCUL ***************************************************************
@@ -251,21 +253,6 @@ public class Phase1Panel extends JPanel{
 			Piece p = a.getPiecesPiochees().get(i);
 			g.drawImage(getpetitcolor(p), i*(TAILLE_CUBES_LARGEUR+1)+POSX_PIOCHE, POSY_PIOCHE, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
 		}
-	}
-	
-	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
-	public void paint(Graphics g) {
-		if(tailleFenetre != window.getSize()) {
-			//on detecte un changement de fenetre -> on met a jour L IHM
-			changementTaillefenetre();
-		}
-		affichageBackGround(g);
-		affichagePieceSelectionee(g);
-		afficheBaseMontagne(g);
-		affichePyramideJoueur1(g);
-		affichePioche(g);
-		dragNdrop(g);
-		setBoutons(g);
 	}
 	
 }

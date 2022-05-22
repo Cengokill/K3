@@ -29,7 +29,7 @@ public class StartJeu extends JPanel{
 	public Image bouton3_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_presse_flou.png");
 	public Image bouton4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_flou.png");
 	public Image bouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse_flou.png");
-    public int screenHeight, screenWidth, frameHeight, frameWidth;
+    public int screenHeight, screenWidth, frameHeight, frameWidth, centreX_Screen, centreY_Screen, centreX_Window, centreY_Window;
     public int posX_nouvellePartie, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posX_options, posY_options;
     public int posX_quitter, posY_quitter;
@@ -44,26 +44,31 @@ public class StartJeu extends JPanel{
 	public StartJeu(JFrame w, Chargement ch) {
     	this.chargement=ch;
 		this.window = w;
-		this.window.setTitle("Partie en cours");
+		window.setTitle("Partie en cours");
 		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.frameWidth=this.window.getWidth();
-        this.frameHeight=this.window.getHeight();
+		this.tailleFenetre=window.getSize();
+        this.frameWidth=window.getWidth();
+        this.frameHeight=window.getHeight();
         this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
-		this.window.setLocation(screenWidth/2-frameWidth/2, screenHeight/2-frameHeight/2);
-		window.setSize(screenWidth,screenHeight);
-	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.centreX_Screen=screenWidth/2;
+        this.centreY_Screen=screenHeight/2;
+        this.centreX_Window=centreX_Screen-frameWidth/2;
+        this.centreY_Window=centreY_Screen-frameHeight/2;
+		window.setLocation(centreX_Window, centreY_Window);
+		window.setSize(screenWidth/2,screenHeight/2);
+	    //window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		window.setVisible(true);
-		changementTaillefenetre();
 		this.simpleSoundPlayerMusic = new SoundPlayer(5);
 		this.simpleSoundPlayerSon = new SoundPlayer(8);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
+		changementTaillefenetre();
 	}
 
 	public void paint(Graphics g) {
-		if(this.tailleEcran != this.window.getSize()) {
+		if(tailleFenetre != window.getSize()) {
 			//on detecte un changement de fenetre -> on met a jour L IHM
 			changementTaillefenetre();
 		}
@@ -76,23 +81,36 @@ public class StartJeu extends JPanel{
 	
 	public void affichageBackGround(Graphics g) {
 	    g.drawImage(background, 0, 0, frameWidth, frameHeight, null);
-	    repaint();
 	}
 	
 	public void changementTaillefenetre() {
 		this.tailleFenetre=window.getSize();
 		this.frameWidth=window.getWidth();
         this.frameHeight=window.getHeight();
-        this.largeur_bouton=(int)(814/1.5);
-        this.hauteur_bouton=(int)(155/1.5);
+        this.centreX_Window=centreX_Screen-frameWidth/2;
+        this.centreY_Window=centreY_Screen-frameHeight/2;
+        int espacement=60;
+        
+        this.largeur_bouton=(int)(814/1.4);
+        this.hauteur_bouton=(int)(largeur_bouton*0.1904176904);//rapport de 155/814
+        if(frameWidth<(screenWidth*0.25) || frameHeight<(frameHeight*0.25) ) {
+        	this.largeur_bouton=(int)(814/4);
+            this.hauteur_bouton=(int)(largeur_bouton*0.1904176904);//rapport de 155/814
+            espacement=16;
+        }
+        else if(frameWidth<(screenWidth*0.45) || frameHeight<(frameHeight*0.45) ) {
+        	this.largeur_bouton=(int)(814/2);
+            this.hauteur_bouton=(int)(largeur_bouton*0.1904176904);//rapport de 155/814
+            espacement=44;
+        }
         this.posX_nouvellePartie=frameWidth/2-largeur_bouton/2;
-        this.posY_nouvellePartie=frameHeight/2-hauteur_bouton/2-280;
+        this.posY_nouvellePartie=frameHeight/10;
         this.posX_options=frameWidth/2-largeur_bouton/2;
-        this.posY_options=posY_nouvellePartie+180;
+        this.posY_options=posY_nouvellePartie+hauteur_bouton+espacement;
         this.posX_tuto=frameWidth/2-largeur_bouton/2;
-        this.posY_tuto=posY_options+180;
+        this.posY_tuto=posY_options+hauteur_bouton+espacement;
         this.posX_quitter=frameWidth/2-largeur_bouton/2;
-        this.posY_quitter=posY_tuto+180;
+        this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
