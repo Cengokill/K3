@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import Controleur.*;
 import Modeles.InitPartie;
@@ -21,6 +22,7 @@ public class Main {
 		
 		JFrame window = new JFrame("Jeu K3");
 		window.setResizable(true);
+		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Chargement chargement = new Chargement();
 		
 		StartJeu panel = new StartJeu(window, chargement);

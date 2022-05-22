@@ -55,6 +55,9 @@ public class SoundPlayer {
 		cheminsSons[35] = chemin+"DebutTour/debutTour1.wav";//ok
 		cheminsSons[36] = chemin+"DebutTour/debutTour2.wav";
 		cheminsSons[37] = chemin+"DebutTour/debutTour3.wav";
+		cheminsSons[38] = chemin+"SurvolBouton/survolBouton1.wav";//ok
+		cheminsSons[39] = chemin+"SurvolBouton/survolBouton2.wav";
+		cheminsSons[40] = chemin+"SurvolBouton/survolBouton3.wav";
 		cheminsSons[43] = chemin+"MusiqueFond/musiqueFond1.wav";
 		cheminsSons[44] = chemin+"MusiqueFond/musiqueFond2.wav";
 		cheminsSons[45] = chemin+"MusiqueFond/musiqueFond3.wav";
