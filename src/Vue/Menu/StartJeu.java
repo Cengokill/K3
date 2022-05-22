@@ -17,7 +17,7 @@ import Modeles.SoundPlayer;
 
 public class StartJeu extends JPanel{
 
-	private JFrame window;
+	public JFrame window;
 	public Dimension tailleEcran, tailleFenetre;
 	public final String CHEMIN = System.getProperty("user.dir")+"./src/Ressources/";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.jpg");
