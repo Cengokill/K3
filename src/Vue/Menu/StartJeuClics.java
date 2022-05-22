@@ -44,6 +44,16 @@ public class StartJeuClics implements MouseListener{
 		}else return false;
 	}
 	
+	public boolean clicTuto(MouseEvent e){
+		int startx = startJeu.posX_tuto;
+		int starty = startJeu.posY_tuto;
+		int hauteurBouton=startJeu.hauteur_bouton;
+		int largeurBouton=startJeu.largeur_bouton;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	public boolean clicQuitter(MouseEvent e){
 		int startx = startJeu.posX_quitter;
 		int starty = startJeu.posY_quitter;
@@ -111,7 +121,16 @@ public class StartJeuClics implements MouseListener{
 						}
 					}else {
 						startJeu.enfonce_quitter=false;
-						startJeu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						if(clicTuto(e)) {
+							if(!startJeu.enfonce_tuto) {
+								startJeu.enfonce_tuto=true;
+								startJeu.setCursor(new Cursor(Cursor.HAND_CURSOR));
+								startJeu.jouerSonSurvol();
+							}
+						}else {
+							startJeu.enfonce_tuto=false;
+							startJeu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						}
 					}
 				}
 			}

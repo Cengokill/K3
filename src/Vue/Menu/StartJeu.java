@@ -25,14 +25,18 @@ public class StartJeu extends JPanel{
 	public Image bouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse_flou.png");
 	public Image bouton2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_flou.png");
 	public Image bouton2_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_presse_flou.png");
-	public Image bouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_flou.png");
-	public Image bouton3_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse_flou.png");
+	public Image bouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_flou.png");
+	public Image bouton3_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_presse_flou.png");
+	public Image bouton4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_flou.png");
+	public Image bouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse_flou.png");
     public int screenHeight, screenWidth, frameHeight, frameWidth;
     public int posX_nouvellePartie, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posX_options, posY_options;
     public int posX_quitter, posY_quitter;
+    public int posX_tuto, posY_tuto;
     public boolean enfonce_nouvellePartie=false;
     public boolean enfonce_options=false;
+    public boolean enfonce_tuto=false;
     public boolean enfonce_quitter=false;
     public Chargement chargement;
     private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
@@ -66,6 +70,7 @@ public class StartJeu extends JPanel{
 		affichageBackGround(g);
 		afficheBoutonNouvellePartie(g);
 		afficheBoutonOptions(g);
+		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
 	}
 	
@@ -81,11 +86,13 @@ public class StartJeu extends JPanel{
         this.largeur_bouton=(int)(814/1.5);
         this.hauteur_bouton=(int)(155/1.5);
         this.posX_nouvellePartie=frameWidth/2-largeur_bouton/2;
-        this.posY_nouvellePartie=frameHeight/2-hauteur_bouton/2-150;
+        this.posY_nouvellePartie=frameHeight/2-hauteur_bouton/2-280;
         this.posX_options=frameWidth/2-largeur_bouton/2;
-        this.posY_options=frameHeight/2-hauteur_bouton/2;
+        this.posY_options=posY_nouvellePartie+180;
+        this.posX_tuto=frameWidth/2-largeur_bouton/2;
+        this.posY_tuto=posY_options+180;
         this.posX_quitter=frameWidth/2-largeur_bouton/2;
-        this.posY_quitter=frameHeight/2-hauteur_bouton/2+150;
+        this.posY_quitter=posY_tuto+180;
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
@@ -113,11 +120,19 @@ public class StartJeu extends JPanel{
 		}
 	}
 	
+	public void afficheBoutonTuto(Graphics g) {
+		if(!enfonce_tuto) {
+			g.drawImage(bouton3, posX_tuto, posY_tuto, largeur_bouton, hauteur_bouton, null);
+		}else {
+			g.drawImage(bouton3_presse, posX_tuto, posY_tuto, largeur_bouton, hauteur_bouton, null);
+		}
+	}
+	
 	public void afficheBoutonQuitter(Graphics g) {
 		if(!enfonce_quitter) {
-			g.drawImage(bouton3, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(bouton4, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
 		}else {
-			g.drawImage(bouton3_presse, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(bouton4_presse, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
 		}
 	}
 
