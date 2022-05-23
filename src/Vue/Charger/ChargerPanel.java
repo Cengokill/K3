@@ -18,21 +18,13 @@ public class ChargerPanel extends JPanel{
 	public JScrollPane scrollPane;
 	public JList list;
 	
-	
 	//AFFICHAGE FIXE
-	public int posXScrollpanel;
-	public int posYScrollpanel;
-	public int largeurScrollpanel;
-	public int hauteurScrollpanel;
+	public int posXScrollpanel, posYScrollpanel;
+	public int largeurScrollpanel, hauteurScrollpanel;
 	public String nomSauvegarde[] = { "PARTI1", "PARTI2"};
 	
-	public int posXBoutonLoad;
-	public int posYBoutonLoad;
-	public int largeurBoutonLoad;
-	public int hauteurBoutonLoad;
-	public boolean enfoncerBoutonLoad = false;
-	
-			
+	public int posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad;
+	public boolean presseBoutonLoad = false;
 			
 	//COMPOSYANT IMPORTER
 	public final String CHEMIN = System.getProperty("user.dir")+"/src/Ressources/";
@@ -40,10 +32,11 @@ public class ChargerPanel extends JPanel{
 	public final String NOMBACKGROUND = "background.jpg";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
 	
-	public final String NOMBOUTONLOADENFONCER = "YELLOW.pnj";
-	public Image boutonLoadRelacher = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
-	public final String NOMBOUTONLOADRELACHER = "RED.pnj";
-	public Image boutonLoadEnfoncer = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADRELACHER);
+	public final String NOMBOUTONLOADENFONCER = "chargerPartie.png";
+	public Image boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
+	public final String NOMBOUTONLOADRELACHER = "chargerPartiePresse.png.png";
+	public Image boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADRELACHER);
+	
 	
 	
 	public ChargerPanel(JFrame w) {
@@ -86,13 +79,14 @@ public class ChargerPanel extends JPanel{
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBoutonLoad(Graphics g) {
-		if(!enfoncerBoutonLoad) {
-			g.drawImage(boutonLoadRelacher, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
+		if(!presseBoutonLoad) {
+			g.drawImage(boutonLoad, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
 		}else {
-			g.drawImage(boutonLoadEnfoncer, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
+			g.drawImage(boutonLoadPresse, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
 		}
 		
 	}
+	
 	
 	public void paint(Graphics g) {
 		if(tailleFenetre != window.getSize()) {
