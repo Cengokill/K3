@@ -528,4 +528,16 @@ public class Partie {
 		jPrecedent.piecesVolees.remove(pp.getPiece());
 	}
 
+	public String optiIA() {
+		String res = "";
+		res += joueurCourant;
+		res += "!!!";
+		res += joueur1().getCamp().toString();
+		res += "!!!";
+		res += baseMontagne.toString();
+		res += "!!!";
+		res += joueur2().getCamp().toString();
+		return res;
+	}
+
 }
