@@ -165,7 +165,7 @@ public class MinMax {
                                                                                                              // valeur
             }
             p.IAannulCoup(c, joueurcourant);
-            if (valeurconfig > valeurcourante) {
+            if (valeurconfig < valeurcourante) {
                 return valeurconfig;
             }
         }
