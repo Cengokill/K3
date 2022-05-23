@@ -16,7 +16,7 @@ public class IAjeuExpert implements IAjeu {
 
     public Coup IACoup(Partie p, int numeroJoueur) {
         MinMax mm = new MinMax(numeroJoueur);
-        mm.meilleurConfigJ(p, horizon, true);
+        mm.meilleurConfigJ(p, horizon, true, 10001);
         avoler = mm.PieceAVoler();
         return mm.getparfait();
     }

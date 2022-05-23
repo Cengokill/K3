@@ -35,7 +35,7 @@ public class Partie {
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
-		this.cheminStats = "./Sauvegardes/Stats/";// valeur par defaut
+		this.cheminStats = ".\\Sauvegardes\\Stats";// valeur par defaut
 		this.statistiques = new Statistiques(this.cheminStats);
 		this.historiqueCoups = new ArrayList<Coup>();
 		pBleu = new Piece(Couleurs.BLEU);
@@ -307,9 +307,10 @@ public class Partie {
 	public Coup volerPiece(Acteur voleur, Acteur victime) {// voleur vole une piece au joueur victime
 		Coup vol = null;
 		victime.addMauvaisCoup();
-		System.out.println(voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
+		System.out.println(
+				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
 		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables());
-		if(pieceVolee != null) {
+		if (pieceVolee != null) {
 			vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			if (pieceVolee.getPos() == null) {// si le voleur vole une piece volee
 				victime.retirerPieceVolee(pieceVolee.getPiece());
@@ -318,7 +319,7 @@ public class Partie {
 			}
 			voleur.addPieceVolee(pieceVolee.getPiece());// ajout de la piece volee aux pieces volees du voleur
 			System.out.println("Vos pieces volees : " + voleur.toStringPiecesVolees());
-		}else {
+		} else {
 			System.out.println("Vous avez choisi de ne pas voler de piece a " + victime.getNom() + ".");
 		}
 		return vol;
@@ -493,7 +494,7 @@ public class Partie {
 				System.out.println("Pyramide de jeu");
 				System.out.println(this.getBaseMontagne().toString());
 			}
-		}// ajout de la piece volee aux pieces volees du voleur
+		} // ajout de la piece volee aux pieces volees du voleur
 		jPrecedent.piecesVolees.add(pp.getPiece());
 	}
 
