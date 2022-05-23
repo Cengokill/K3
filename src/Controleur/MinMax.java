@@ -37,8 +37,8 @@ public class MinMax {
     public int meilleurConfigJ(Partie p, int horizon, boolean flag) {
 
         if (flag) {
-            System.out.println("on cherche le coup pour l'ia");
-            td = (double) System.currentTimeMillis();
+            // System.out.println("on cherche le coup pour l'ia");
+            // td = (double) System.currentTimeMillis();
         }
 
         // EVALUTION---------------------------------------------------
@@ -108,9 +108,9 @@ public class MinMax {
             p.IAannulCoup(c, joueurcourant); // annule le coup
         }
         if (flag) {
-            System.out.println("on a trouve le coup pour l'ia");
-            tf = (double) System.currentTimeMillis();
-            System.out.println((tf - td) / 1000 + " s de recherche");
+            // System.out.println("on a trouve le coup pour l'ia");
+            // tf = (double) System.currentTimeMillis();
+            // System.out.println((tf - td) / 1000 + " s de recherche");
         }
         return valeurconfig;
 

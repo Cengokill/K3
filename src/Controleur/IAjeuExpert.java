@@ -22,13 +22,13 @@ public class IAjeuExpert implements IAjeu {
     }
 
     public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr) {
-        if (avoler == null) {
+        if (avoler == null || !arr.contains(avoler)) {
             Random r = new Random();
             int index = r.nextInt(arr.size());
-            System.out.println("L'IA vole la piece " + arr.get(index).toString());
+            // System.out.println("L'IA vole la piece " + arr.get(index).toString());
             return arr.get(index);
         }
-        System.out.println("L'IA vole la piece " + avoler.toString());
+        // System.out.println("L'IA vole la piece " + avoler.toString());
         return avoler;
     }
     // voler piece: mode agressif: Voler les pieces importantes de l'adversaire
