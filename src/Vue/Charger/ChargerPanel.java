@@ -34,7 +34,7 @@ public class ChargerPanel extends JPanel{
 	
 	public final String NOMBOUTONLOADENFONCER = "chargerPartie.png";
 	public Image boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
-	public final String NOMBOUTONLOADRELACHER = "chargerPartiePresse.png.png";
+	public final String NOMBOUTONLOADRELACHER = "chargerPartiePresse.png";
 	public Image boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADRELACHER);
 	
 	
