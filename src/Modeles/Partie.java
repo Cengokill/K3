@@ -35,7 +35,7 @@ public class Partie {
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
-		this.cheminStats = System.getProperty("user.home") + "/Desktop/Jeu_K3/Statistiques/";// valeur par defaut
+		this.cheminStats = "./Sauvegardes/Stats/";// valeur par defaut
 		this.statistiques = new Statistiques(this.cheminStats);
 		this.historiqueCoups = new ArrayList<Coup>();
 		pBleu = new Piece(Couleurs.BLEU);
