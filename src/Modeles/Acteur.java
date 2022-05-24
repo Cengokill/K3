@@ -15,6 +15,7 @@ public class Acteur {
 	protected PyramideJoueur campJ;
 	protected ArrayList<Piece> piecesVolees;// pieces que le joueur a volees a l'autre joueur
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
+	protected Integer diff = 3;
 
 	// Constructeur
 	public Acteur(String nom) {
@@ -227,6 +228,11 @@ public class Acteur {
 			}
 		}
 		return false;
+	}
+
+	// DIFFICULTE
+	public int getDiff() {
+		return diff;
 	}
 
 	// FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR

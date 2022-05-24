@@ -11,6 +11,7 @@ public class IAActeur extends Acteur {
 
     public IAActeur(String nom, int diff, int numerojoueur) {
         super(nom);
+        super.diff = diff;
         this.numerojoueur = numerojoueur;
         switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:

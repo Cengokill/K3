@@ -105,27 +105,22 @@ public class Partie {
 		// alors il a perdu
 	}
 
-	public void sauvegarderStatsPartie() {
+	public void sauvegarderStatsPartie(int gagnant) {
+		this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, gagnant, this.historiqueCoups);
 		this.statistiques.ecrireStats(this.numPartie);
 	}
 
 	public boolean estPartieFinie() {
 		boolean pleine = this.baseMontagne.estPleine();
 		if (pleine) {// egalite
-			this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 2, this.historiqueCoups);
-			sauvegarderStatsPartie();
 			return pleine;
 		} else {// un des deux joueurs a perdu
 			if (this.joueurCourant == 0) {
 				if (!joueurPeutJouer(joueur1())) {// joueur 1 a perdu
-					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 0, this.historiqueCoups);
-					sauvegarderStatsPartie();
 					return true;
 				}
 			} else {
 				if (!joueurPeutJouer(joueur2())) {// joueur 2 a perdu
-					this.statistiques.initStats(this.j1, this.j2, this.joueurDebut, 1, this.historiqueCoups);
-					sauvegarderStatsPartie();
 					return true;
 				}
 			}
@@ -608,8 +603,6 @@ public class Partie {
 
 	public String optiIA() {
 		String res = "";
-		res += joueurCourant;
-		res += "!!!";
 		res += joueur1().getCamp().toString();
 		res += "!!!";
 		res += baseMontagne.toString();
