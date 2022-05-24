@@ -139,17 +139,29 @@ public class Pyramide {
 		return true;
 	}
 	
-	public boolean ajoutPieceStringCase(String s, int etage, int rang) {
-		if(s.equals(".")) {
+	public boolean ajoutPieceStringCase(char c, int etage, int rang) {
+		if(c=='.') {
 			this.pyramide[etage][rang]=null;
 			return true;
 		}else {
-			if(s==null) {return false;}
-			else{
-				ajoutPieceString(s.charAt(0), etage, rang);
-				return true;
-			}
+			ajoutPieceString(c, etage, rang);
+			return true;
 		}
+	}
+	
+	public boolean stringToPyramide(ArrayList<String> tab) {
+		boolean a;
+        String piece;
+        for(int i=this.hauteur-1; i>=0; i--) {
+            for(int j=0; j<this.largeur-i; j++) {
+                piece=tab.get((this.hauteur-1) - i);
+                a = ajoutPieceStringCase(piece.charAt(j), i, j);
+                if(!a) {
+                    return a;
+                }
+            }
+        }
+        return true;
 	}
 
 	public String toString() {
@@ -216,6 +228,45 @@ public class Pyramide {
 			}
 			ligne += System.getProperty("line.separator");
 			ligne = debut + ligne;
+			tableau += ligne;
+			ligne = "";
+		}
+		return tableau;
+	}
+	
+	public String toStringSauvegarde() {
+		String tableau = new String();
+		String ligne="";
+		for (int i = hauteur - 1; i >= 0; i--) {
+			for (int j = 0; j < pyramide[i].length; j++) {
+				if (pyramide[i][j] != null) {
+					switch (pyramide[i][j].getColor()) {
+						case BLEU:
+							ligne += 'B';
+							break;
+						case NOIR:
+							ligne += 'N';
+							break;
+						case ROUGE:
+							ligne += 'R';
+							break;
+						case VERT:
+							ligne += 'V';
+							break;
+						case JAUNE:
+							ligne += 'J';
+							break;
+						case BLANC:
+							ligne += 'W';
+							break;
+						case NATUREL:
+							ligne += '#';
+							break;
+					}
+				} else
+					ligne += '.';
+			}
+			ligne += System.getProperty("line.separator");
 			tableau += ligne;
 			ligne = "";
 		}

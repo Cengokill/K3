@@ -386,7 +386,7 @@ public class Partie {
 			BufferedWriter bw = new BufferedWriter(writer);
 			bw.write("base montagne:");
 			bw.newLine();
-			bw.write(this.getBaseMontagne().toString());
+			bw.write(this.getBaseMontagne().toStringSauvegarde());
 			bw.newLine();
 			bw.write("joueur courant:" + this.getJoueurCourant());
 			bw.newLine();
@@ -398,7 +398,7 @@ public class Partie {
 			bw.newLine();
 			bw.write("nom joueur 1:" + this.joueur1().getNom());
 			bw.newLine();
-			bw.write(this.joueur1().getCamp().toString());
+			bw.write(this.joueur1().getCamp().toStringSauvegarde());
 			bw.newLine();
 			bw.write("pioche:" + this.joueur1().piecesPiocheesToString());
 			bw.newLine();
@@ -416,7 +416,7 @@ public class Partie {
 			bw.newLine();
 			bw.write("nom joueur 2:" + this.joueur2().getNom());
 			bw.newLine();
-			bw.write(this.joueur2().getCamp().toString());
+			bw.write(this.joueur2().getCamp().toStringSauvegarde());
 			bw.newLine();
 			bw.write("pioche:" + this.joueur2().piecesPiocheesToString());
 			bw.newLine();

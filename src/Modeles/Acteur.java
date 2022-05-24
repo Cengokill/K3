@@ -199,43 +199,45 @@ public class Acteur {
 		for(int i=0; i<this.piecesPiochees.size(); i++) {
 			tab+=piecesPiochees.get(i).toString();
 			if(i!=piecesPiochees.size()-1) {
-				tab+="|";
+				tab+=":";
 			}
 		}
 		return tab;
 	}
 	
 	public boolean stringToPiecesPiochees(String ligne) {
-		String[] pieces=ligne.split("|");
+		String[] pieces=ligne.split(":");
 		Piece p;
 		int taille=pieces.length;
 		for(int i=0; i<taille; i++) {
 			switch(pieces[i]) {//BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
-			case "BLEU":
-				p=new Piece(Couleurs.BLEU);
-				break;
 			case "VERT":
 				p=new Piece(Couleurs.NOIR);
+				addPiecePiochee(p);
 				break;
 			case "JAUNE":
 				p=new Piece(Couleurs.ROUGE);
+				addPiecePiochee(p);
 				break;
 			case "ROUGE":
 				p=new Piece(Couleurs.VERT);
+				addPiecePiochee(p);
 				break;
 			case "NOIR":
 				p=new Piece(Couleurs.JAUNE);
+				addPiecePiochee(p);
 				break;
 			case "BLANC":
 				p=new Piece(Couleurs.BLANC);
+				addPiecePiochee(p);
 				break;
 			case "NATUREL":
 				p=new Piece(Couleurs.NATUREL);
+				addPiecePiochee(p);
 				break;
 			default:
 				return false;
 			}
-			addPiecePiochee(p);
 		}
 		return true;
 	}

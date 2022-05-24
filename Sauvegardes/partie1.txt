@@ -1,27 +1,27 @@
 base montagne:
-        . 
-       . . 
-      . . . 
-     . . . . 
-    . . . . . 
-   . . . . . . 
-  . . . . . . . 
- . . . . . . . . 
-V B J N V V R R B 
+.
+..
+...
+....
+.....
+......
+.......
+........
+BRNBRVNBB
 
 joueur courant:1
 numero partie:1000
  ======================= JOUEUR 1 =======================
 type joueur 1:0
 nom joueur 1:Ordinateur 1
-     . 
-    . . 
-   . . . 
-  . . . . 
- . . . . . 
-. . . . . . 
+.
+..
+...
+....
+.....
+......
 
-pioche:NATUREL|NATUREL|BLANC|BLANC|BLEU|NOIR|JAUNE|NOIR|ROUGE|VERT|VERT|VERT|BLEU|JAUNE|ROUGE|JAUNE|JAUNE|BLEU|NOIR|BLEU|NOIR
+pioche:NATUREL|NATUREL|BLANC|BLANC|ROUGE|BLEU|ROUGE|JAUNE|VERT|VERT|ROUGE|NOIR|NOIR|VERT|NOIR|JAUNE|NOIR|JAUNE|JAUNE|VERT|JAUNE
 pieces volees:
 blancs joues:0
 mauvais coups joues:0
@@ -29,12 +29,12 @@ vols effectues:0
  ======================= JOUEUR 2 =======================
 type joueur 2:0
 nom joueur 2:Ordinateur 2
-     V 
-    R # 
-   J R R 
-  N J N W 
- R J B J # 
-V B V N W N 
+N
+JJ
+VVR
+B#V#
+RJRWW
+BNVJNR
 
 pioche:
 pieces volees:

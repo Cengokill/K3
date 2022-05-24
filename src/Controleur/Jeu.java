@@ -51,6 +51,7 @@ public class Jeu {
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
+		/*
 		if(partieInit.nomFichierCharge!=null) {
 			if(!chargerPartie(cheminSauvegardes+partieInit.nomFichierCharge)) {
 				System.err.println("Erreur de lecture de la sauvegarde de la partie.");
@@ -60,6 +61,7 @@ public class Jeu {
 		}else {
 			setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		}
+		*/
 		lancerPartie();
 		//modifVolume();
 	}
@@ -112,6 +114,7 @@ public class Jeu {
 			this.valeur_paire=0;
 			//UTILISER this.difficulte
 			//PHASE 1
+			initPhase1();
 			jouerPhase1();//a modifier
 			//PHASE 2
 			jouerPhase2();//a modifier
@@ -154,6 +157,7 @@ public class Jeu {
 		this.num_tour=1;
 		this.valeur_paire=0;
 		//PHASE 1
+		initPhase1();
 		jouerPhase1();
 		//PHASE 2
 		jouerPhase2();
@@ -167,9 +171,19 @@ public class Jeu {
 		this.num_tour=1;
 		this.valeur_paire=0;
 		//PHASE 1
+		initPhase1();
 		jouerPhase1();
 		//PHASE 2
 		jouerPhase2();
+	}
+	
+	public void initPhase1() {
+		//initialisation des blancs et des naturels aux joueurs
+		this.partieEnCours.distribuerBlancEtNaturels();
+		//initialisation des pieces des deux joueurs
+		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
+			piocher();
+		}
 	}
 		
 	public void jouerPhase1() {
@@ -179,12 +193,6 @@ public class Jeu {
 		}
 		ArrayList<PiecePyramide> arr;
 		Acteur acteurCourant;
-		//initialisation des blancs et des naturels aux joueurs
-		this.partieEnCours.distribuerBlancEtNaturels();
-		//initialisation des pieces des deux joueurs
-		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
-			piocher();
-		}
 		lancerPhase1();
 		timer(1000);
 		for(int i=0; i<2; i++) {
@@ -561,10 +569,6 @@ public class Jeu {
 		int numPartie=0;
 		int difficulteJ1=0;
 		int difficulteJ2=0;
-		int nbPremiersCoupsJ1=0;
-		int nbPremiersCoupsJ2=0;
-		int nbVictoiresJ1=0;
-		int nbVictoiresJ2=0;
 		int nbBlancsJouesJ1=0;
 		int nbBlancsJouesJ2=0;
 		int nbVolsJ1=0;
@@ -651,7 +655,6 @@ public class Jeu {
 				j2 = new Joueur(nomJ2);
 			}
 			Partie p=new Partie(j1, j2, numPartie);
-			System.out.println(lectureBase);
 			boolean b1 = p.getBaseMontagne().stringToPyramide(lectureBase);
 			boolean b2 = j1.getCamp().stringToPyramide(lectureBaseJoueur1);
 			j1.stringToPiecesPiochees(lecturePiocheJoueur1);
@@ -660,11 +663,16 @@ public class Jeu {
 			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ1);
 			j1.setVols(nbVolsJ1);
 			j2.getCamp().stringToPyramide(lectureBaseJoueur2);
-			j2.stringToPiecesPiochees(lecturePiocheJoueur1);
+			j2.stringToPiecesPiochees(lecturePiocheJoueur2);
 			j2.stringToPiecesVolees(piecesVoleesJ2);
-			j1.setBlancsJoues(nbBlancsJouesJ2);
-			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ2);
-			j1.setVols(nbVolsJ2);
+			j2.setBlancsJoues(nbBlancsJouesJ2);
+			j2.setMauvaisCoupsJoues(nbMauvaisCoupsJ2);
+			j2.setVols(nbVolsJ2);
+			if(b1&&b2) {
+				this.partieEnCours=p;
+				jouerPhase1();
+				jouerPhase2();
+			}
 			return b1&&b2;
 		}
 		catch (Exception e) {
