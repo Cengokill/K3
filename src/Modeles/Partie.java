@@ -378,10 +378,6 @@ public class Partie {
 		try {
 			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
 			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write("hauteur base montagne:" + this.getBaseMontagne().getHauteur());
-			bw.newLine();
-			bw.write("hauteur camp joueur:" + this.joueur1().getCamp().getHauteur());
-			bw.newLine();
 			bw.write("base montagne:");
 			bw.newLine();
 			bw.write(this.getBaseMontagne().toString());
@@ -398,6 +394,8 @@ public class Partie {
 			bw.newLine();
 			// ======================= JOUEUR 1 =======================
 			bw.write(" ======================= JOUEUR 1 =======================");
+			bw.newLine();
+			bw.write("type joueur 1:" + this.joueur1().getDiff());
 			bw.newLine();
 			bw.write("nom joueur 1:" + this.joueur1().getNom());
 			bw.newLine();
@@ -418,7 +416,7 @@ public class Partie {
 			// ======================= JOUEUR 2 =======================
 			bw.write(" ======================= JOUEUR 2 =======================");
 			bw.newLine();
-			bw.write("type joueur 2:" + this.joueur2().getD
+			bw.write("type joueur 2:" + this.joueur2().getDiff());
 			bw.newLine();
 			bw.write("nom joueur 2:" + this.joueur2().getNom());
 			bw.newLine();
@@ -450,6 +448,8 @@ public class Partie {
 			BufferedReader br;
 			String ligne_lue;
 			String nomJ1, nomJ2;
+			int diffuclteJ1=0;
+			int diffuclteJ2=0;
 			int nbPremiersCoupsJ1=0;
 			int nbPremiersCoupsJ2=0;
 			int nbVictoiresJ1=0;
