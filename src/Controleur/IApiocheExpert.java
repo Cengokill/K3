@@ -14,7 +14,6 @@ public class IApiocheExpert implements IApioche {
             for (Piece aplacer : p.joueur1().getPiecesPiochees()) {
                 piecesIA.add(aplacer);
             }
-            ;
         } else {
             for (Piece aplacer : p.joueur2().getPiecesPiochees()) {
                 piecesIA.add(aplacer);
@@ -26,11 +25,8 @@ public class IApiocheExpert implements IApioche {
         // creer une liste de position pour savoir quelle position sont deja utilises
         HashSet<Integer> allpos = new HashSet<>();
 
-        // On place nos joker a des endroits deja définis
-        aempiler.add(new PiecePyramide(new Piece(Couleurs.NATUREL), new Position(1, 0)));
-        aempiler.add(new PiecePyramide(new Piece(Couleurs.BLANC), new Position(1, 4)));
-        aempiler.add(new PiecePyramide(new Piece(Couleurs.NATUREL), new Position(3, 2)));
-        aempiler.add(new PiecePyramide(new Piece(Couleurs.BLANC), new Position(3, 0)));
+        // On place nos joker a des endroits deja dï¿½finis
+        
         allpos.add(PostoIndice(new Position(1, 0)));
         allpos.add(PostoIndice(new Position(1, 4)));
         allpos.add(PostoIndice(new Position(3, 2)));
@@ -74,14 +70,31 @@ public class IApiocheExpert implements IApioche {
 
         int nbpib = 0; // nombre de piece mis en bas de la pyramide
         Iterator<Piece> it = piecesIA.iterator();
+        int b =0;
+        int n = 0;
         // System.out.println("On parcours les pieces a placer");
         while (it.hasNext()) { // on itere sur les pieces a poser
             Piece piece = it.next();
             if (piece.getColor() == Couleurs.NATUREL || piece.getColor() == Couleurs.BLANC) {
+                if (piece.getColor()==Couleurs.NATUREL){
+                    if(n==0){
+                        aempiler.add(new PiecePyramide(piece, new Position(1, 0)));
+                    }else{
+                        aempiler.add(new PiecePyramide(piece, new Position(3, 2)));
+                    }
+                    n++;
+                }else {
+                    if(b==0){
+                        aempiler.add(new PiecePyramide(piece, new Position(3, 0)));
+                    }else {
+                        aempiler.add(new PiecePyramide(piece, new Position(1, 4)));
+                    }
+                    b++;
+                }
                 it.remove();
             } else {
                 if (cpres.contains(piece.getColor()) || nbpib >= 5) { // si la piece est dans la montagne on la place
-                                                                      // aléatoirement sinon on la place en bas
+                                                                      // alï¿½atoirement sinon on la place en bas
                     boolean estajouter = false;
                     for (int etage = 5; etage >= 0; etage--) {
                         for (int rang = 0; rang < (6 - etage); rang++) {

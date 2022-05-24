@@ -10,12 +10,16 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Vue.Menu.Chargement;
+import Vue.TexturePack.LoadTexture;
+
 public class ChargerPanel extends JPanel{
 	
 	// PARAMETRE JEU
 	private JFrame window;
 	public Dimension tailleFenetre;
 	public JScrollPane scrollPane;
+	public Chargement chargement;
 	public JList list;
 	
 	//AFFICHAGE FIXE
@@ -25,31 +29,26 @@ public class ChargerPanel extends JPanel{
 	
 	public int posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad;
 	public boolean presseBoutonLoad = false;
+	
+	public int posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu;
+	public boolean presseRetourMenu = false;
 			
 	//COMPOSYANT IMPORTER
-	public final String CHEMIN = System.getProperty("user.dir")+"/src/Ressources/";
-		
-	public final String NOMBACKGROUND = "background.jpg";
-	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
-	
-	public final String NOMBOUTONLOADENFONCER = "chargerPartie.png";
-	public Image boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
-	public final String NOMBOUTONLOADRELACHER = "chargerPartiePresse.png";
-	public Image boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADRELACHER);
+	public LoadTexture texture;
 	
 	
 	
-	public ChargerPanel(JFrame w) {
+	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement) {
+		this.setLayout(null);
+		this.chargement = chargement;
 		window = w; 
 		this.tailleFenetre = window.getSize();
-		
+		this.texture = texture;
 		list = new JList(nomSauvegarde);
-
 		this.scrollPane = new JScrollPane(list);
-		scrollPane.setBounds(posXScrollpanel, posYScrollpanel, largeurScrollpanel, hauteurScrollpanel);
-		this.setLayout(null);
 		this.add(scrollPane);
 		tailleFenetre = window.getSize();
+		changementTaillefenetre();
 	}
 	
 	// FONCTION POUR REDIMENTIONNER LES ELEMENTS----------------------------------------------
@@ -68,23 +67,38 @@ public class ChargerPanel extends JPanel{
 		largeurBoutonLoad = tailleFenetre.width/10;
 		hauteurBoutonLoad = tailleFenetre.height/10;
 		
+		posXRetourMenu = largeurScrollpanel;
+		posYRetourMenu = posYBoutonLoad+hauteurBoutonLoad + 100;
+		largeurRetourMenu = tailleFenetre.width/10;
+		hauteurRetourMenu = tailleFenetre.height/10;
+		
 	}
 	
 	// AFFICHAGE***************************************************************
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {
-	    g.drawImage(background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
+	    g.drawImage(texture.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
 	}
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBoutonLoad(Graphics g) {
 		if(!presseBoutonLoad) {
-			g.drawImage(boutonLoad, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
+			g.drawImage(texture.boutonLoad, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
 		}else {
-			g.drawImage(boutonLoadPresse, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
+			g.drawImage(texture.boutonLoadPresse, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
 		}
 		
+	}
+	
+	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
+	public void affichageRetourMenu(Graphics g) {
+		if(!presseRetourMenu) {
+			g.drawImage(texture.boutonLoad, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+		}else {
+			g.drawImage(texture.boutonLoadPresse, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+		}
+			
 	}
 	
 	public void paint(Graphics g) {
@@ -93,6 +107,7 @@ public class ChargerPanel extends JPanel{
 		}
 		affichageBackGround(g);
 		affichageBoutonLoad(g);
+		affichageRetourMenu(g);
 		scrollPane.paint(g);
 	}
 	

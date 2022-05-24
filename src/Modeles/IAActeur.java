@@ -23,8 +23,8 @@ public class IAActeur extends Acteur {
                 jeu = new IAjeuExpert(5);
                 break;
             case 2:
-                pioche = new IApiocheExpert();
-                jeu = new IAjeuExpert(8); // definir la pronfondeur de recherche pour les prochains coups
+                pioche = new piocheMC();
+                jeu = new IAjeuExpert(5); // definir la pronfondeur de recherche pour les prochains coups
                 break;
             default:
                 break;

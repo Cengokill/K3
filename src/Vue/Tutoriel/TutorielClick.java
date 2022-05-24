@@ -1,16 +1,16 @@
-package Vue.Charger;
+package Vue.Tutoriel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
-public class ChargementClick implements MouseListener {
+public class TutorielClick implements MouseListener {
 	
-	private ChargerPanel panel;
+	private TutorielPanel panel;
 	public String typeCurseur;
 	
 	//CONSTRUTEUR--------------------------------
-	public ChargementClick(ChargerPanel panel) {
+	public TutorielClick(TutorielPanel panel) {
 		super();
 		this.panel = panel;
 		DragListener dragListener = new DragListener();
@@ -19,12 +19,27 @@ public class ChargementClick implements MouseListener {
 	
 	
 	//BOUTON CHARGEMENT--------------------------------
-	public boolean clickBoutonLoad(MouseEvent e){
-		int x = panel.posXBoutonLoad;
-		int y = panel.posYBoutonLoad;
-		int l = x + panel.largeurBoutonLoad;
-		int h = y + panel.hauteurBoutonLoad;
-		return (e.getX() >= x && e.getX() <= l && e.getY() >= y && e.getY() <= h);
+	public boolean clickBoutonSuivant(MouseEvent e){
+		if(panel.fenetreActuel < panel.fenetreMax) {
+			int x = panel.posXSuivant;
+			int y = panel.posYSuivant;
+			int l = x + panel.largeurSuivant;
+			int h = y + panel.hauteurSuivant;
+			return (e.getX() >= x && e.getX() <= l && e.getY() >= y && e.getY() <= h);
+		}
+		return false;
+	}
+	
+	//BOUTON CHARGEMENT--------------------------------
+	public boolean clickBoutonPrecedent(MouseEvent e){
+		if(panel.fenetreActuel > panel.fenetreMin) {
+			int x = panel.posXPrecedent;
+			int y = panel.posYPrecedent;
+			int l = x + panel.largeurPrecedent;
+			int h = y + panel.hauteurPrecedent;
+			return (e.getX() >= x && e.getX() <= l && e.getY() >= y && e.getY() <= h);
+		}
+		return false;
 	}
 	
 	//BOUTON CHARGEMENT--------------------------------
@@ -39,15 +54,16 @@ public class ChargementClick implements MouseListener {
 	//GESTION SOURI----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(clickBoutonLoad(e)) {
-			
-			if(panel.list.getSelectedValue() != null) {
-				System.out.println("CHARGEMENT DE LA PARTI SELLECTIONNER : "+panel.list.getSelectedValue());
-				panel.chargement.lancement = true;
-				panel.chargement.setProchaineFenetre(4);
-			}
+		if(clickBoutonSuivant(e)) {
+			panel.tutoSuivant();
+			System.out.println(panel.fenetreActuel);
+			panel.repaint();
+		}else if(clickBoutonPrecedent(e)) {
+			panel.tutoPrecedent();
+			System.out.println(panel.fenetreActuel);
+			panel.repaint();
 		}else if(clickBoutonRetourMenu(e)) {
-			System.out.println("retour menu principal");
+			System.out.println("retour au menu precedent");
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 		}
@@ -77,12 +93,15 @@ public class ChargementClick implements MouseListener {
 	
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
-			if(clickBoutonLoad(e)) {
-				panel.presseBoutonLoad = true;
+			if(clickBoutonSuivant(e)) {
+				panel.presseSuivant = true;
+			}else if(clickBoutonPrecedent(e)) {
+				panel.pressePrecedent = true;
 			}else if(clickBoutonRetourMenu(e)) {
 				panel.presseRetourMenu = true;
 			}else {
-				panel.presseBoutonLoad = false;
+				panel.presseSuivant = false;
+				panel.pressePrecedent = false;
 				panel.presseRetourMenu = false;
 			}
 			panel.repaint();
