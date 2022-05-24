@@ -109,6 +109,17 @@ public class Pyramide {
 			}
 		}
 	}
+	
+	public boolean StringToPyramide(ArrayList<String> tab) {
+		String pieceSommet=tab.get(0).split(" ")[1];
+		if(pieceSommet.equals(".")) {//premiere ligne
+			this.pyramide[hauteur-1][0]=null;
+		}else {
+			if(pieceSommet==null) return false;
+			else
+				
+		}
+	}
 
 	public String toString() {
 		String tableau = new String();

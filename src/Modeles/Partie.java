@@ -476,10 +476,6 @@ public class Partie {
 				nbBlancsJouesJ2+=Integer.parseInt(tab.get(7));
 				nbVolsJ2+=Integer.parseInt(tab.get(8));
 				nbMauvaisCoupsJ2+=Integer.parseInt(tab.get(9));
-				arr.add(nomJ1);
-				arr.add(nomJ2);
-				arr.add(String.valueOf(num1));
-				arr.add(String.valueOf(num2-1));
 				arr.add(String.valueOf(nbVictoiresJ1));
 				arr.add(String.valueOf(nbPremiersCoupsJ1));
 				arr.add(String.valueOf(nbBlancsJouesJ1));
@@ -495,7 +491,6 @@ public class Partie {
 				System.err.println("Erreur : le fichier "+fichier+" n'a pas pu etre lu.");
 				e.printStackTrace();
 			}
-		}
 	}
 
 	public boolean IAjoueCoup(Coup c, int joueurcourant) {
