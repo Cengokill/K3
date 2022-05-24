@@ -515,7 +515,7 @@ public class Partie {
 			return false;
 		}
 		return (this.getBaseMontagne().estPorteursMemeCouleur(c.getPosBase())
-				&& jPrecedent.getPiecesJouables().size() > 0);
+				&& jCourant.getPiecesJouables().size() > 0);
 	}
 
 	public void IAannulCoup(Coup c, int joueurcourant) {
