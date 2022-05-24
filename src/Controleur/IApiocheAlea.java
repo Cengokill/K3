@@ -19,8 +19,8 @@ public class IApiocheAlea implements IApioche {
             }
         }
 
-        if (piecesIA.size() != (6 * 7 / 2)) {
-            System.out.println("Il n'y a pas le bon nombre de piece dans le sac pour constuire sa pyramide");
+        if (piecesIA.size() != (21)) {
+            System.out.println("Il n'y a pas le bon nombre de piece dans le sac pour constuire sa pyramide ");
         }
         ArrayList<PiecePyramide> pj = new ArrayList<>();
         Random r = new Random();
@@ -41,7 +41,7 @@ public class IApiocheAlea implements IApioche {
             compt = 0;
             pos = it2.next();
             it = piecesIA.iterator();
-            while (it.hasNext()) { // On cherche la piece qui correspond a l'aléatoire
+            while (it.hasNext()) { // On cherche la piece qui correspond a l'aleatoire
                 pp = new PiecePyramide(it.next(), pos);
                 if (compt == alea) {
                     pj.add(pp); // on l'ajoute a la pyra et on la retire du sac
