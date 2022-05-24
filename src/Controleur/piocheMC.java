@@ -8,6 +8,7 @@ import Modeles.*;
 
 public class piocheMC implements IApioche {
     IApioche commentpiocher = new IApiocheAlea();
+    IApioche commentpiochermieux = new IApiocheExpert();
     IAjeu commentjouer = new IAjeuAlea();
     int meilleurvictoire;
     PyramideJoueur meilleurpyra;
@@ -133,7 +134,7 @@ public class piocheMC implements IApioche {
         }
 
         p.changementJoueurCourant();
-        
+
         gagnant = p.getJoueurCourant();
 
         int numerocoup = 0;
@@ -160,7 +161,6 @@ public class piocheMC implements IApioche {
     public void CreerPyraAlea(Partie p, int numerojoueur) { // Créer une pyramide aleatoire pour le joueur donner en
                                                             // argument
         ArrayList<PiecePyramide> pieces = commentpiocher.CreerPioche(p, numerojoueur);
-
         for (PiecePyramide piece : pieces) { // a voir si mieux qu'utiliser des iterateurs
             if (numerojoueur == 0) {
                 p.joueur1().getCamp().empiler(piece);
