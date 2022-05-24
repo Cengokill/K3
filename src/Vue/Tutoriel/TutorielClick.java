@@ -64,7 +64,8 @@ public class TutorielClick implements MouseListener {
 			panel.repaint();
 		}else if(clickBoutonRetourMenu(e)) {
 			System.out.println("retour au menu precedent");
-			panel.repaint();
+			panel.chargement.lancement = true;
+			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 		}
 	}
 

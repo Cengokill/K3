@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
 public class OptionPanel extends JPanel {
@@ -15,6 +16,7 @@ public class OptionPanel extends JPanel {
 	private JFrame window;
 	public Dimension tailleFenetre;
 	public LoadTexture texture;
+	public Chargement chargement;
 	
 	// PARAMETRE affichage
 	public int soundMin = 0;
@@ -37,11 +39,11 @@ public class OptionPanel extends JPanel {
 	
 	
 	// CONSTRUCTEUR----------------------------------------------
-	public OptionPanel(JFrame w, LoadTexture texture){
+	public OptionPanel(JFrame w, LoadTexture texture, Chargement chargement){
 		this.setLayout(null);
 		
 		
-		
+		this.chargement = chargement;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;

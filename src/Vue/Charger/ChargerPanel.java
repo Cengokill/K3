@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
 public class ChargerPanel extends JPanel{
@@ -18,6 +19,7 @@ public class ChargerPanel extends JPanel{
 	private JFrame window;
 	public Dimension tailleFenetre;
 	public JScrollPane scrollPane;
+	public Chargement chargement;
 	public JList list;
 	
 	//AFFICHAGE FIXE
@@ -27,15 +29,18 @@ public class ChargerPanel extends JPanel{
 	
 	public int posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad;
 	public boolean presseBoutonLoad = false;
+	
+	public int posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu;
+	public boolean presseRetourMenu = false;
 			
 	//COMPOSYANT IMPORTER
 	public LoadTexture texture;
 	
 	
 	
-	public ChargerPanel(JFrame w, LoadTexture texture) {
+	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement) {
 		this.setLayout(null);
-		
+		this.chargement = chargement;
 		window = w; 
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;
@@ -62,6 +67,11 @@ public class ChargerPanel extends JPanel{
 		largeurBoutonLoad = tailleFenetre.width/10;
 		hauteurBoutonLoad = tailleFenetre.height/10;
 		
+		posXRetourMenu = largeurScrollpanel;
+		posYRetourMenu = posYBoutonLoad+hauteurBoutonLoad + 100;
+		largeurRetourMenu = tailleFenetre.width/10;
+		hauteurRetourMenu = tailleFenetre.height/10;
+		
 	}
 	
 	// AFFICHAGE***************************************************************
@@ -81,12 +91,23 @@ public class ChargerPanel extends JPanel{
 		
 	}
 	
+	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
+	public void affichageRetourMenu(Graphics g) {
+		if(!presseRetourMenu) {
+			g.drawImage(texture.boutonLoad, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+		}else {
+			g.drawImage(texture.boutonLoadPresse, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+		}
+			
+	}
+	
 	public void paint(Graphics g) {
 		if(tailleFenetre != window.getSize()) {
 			changementTaillefenetre();
 		}
 		affichageBackGround(g);
 		affichageBoutonLoad(g);
+		affichageRetourMenu(g);
 		scrollPane.paint(g);
 	}
 	

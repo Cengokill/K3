@@ -27,6 +27,15 @@ public class ChargementClick implements MouseListener {
 		return (e.getX() >= x && e.getX() <= l && e.getY() >= y && e.getY() <= h);
 	}
 	
+	//BOUTON CHARGEMENT--------------------------------
+	public boolean clickBoutonRetourMenu(MouseEvent e){
+		int x = panel.posXRetourMenu;
+		int y = panel.posYRetourMenu;
+		int l = x + panel.largeurRetourMenu;
+		int h = y + panel.hauteurRetourMenu;
+		return (e.getX() >= x && e.getX() <= l && e.getY() >= y && e.getY() <= h);
+	}
+	
 	//GESTION SOURI----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -34,7 +43,13 @@ public class ChargementClick implements MouseListener {
 			
 			if(panel.list.getSelectedValue() != null) {
 				System.out.println("CHARGEMENT DE LA PARTI SELLECTIONNER : "+panel.list.getSelectedValue());
+				panel.chargement.lancement = true;
+				panel.chargement.setProchaineFenetre(4);
 			}
+		}else if(clickBoutonRetourMenu(e)) {
+			System.out.println("retour menu principal");
+			panel.chargement.lancement = true;
+			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 		}
 	}
 
@@ -63,8 +78,14 @@ public class ChargementClick implements MouseListener {
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
 			if(clickBoutonLoad(e)) {
-				//System.out.println("animation du bouton");
+				panel.presseBoutonLoad = true;
+			}else if(clickBoutonRetourMenu(e)) {
+				panel.presseRetourMenu = true;
+			}else {
+				panel.presseBoutonLoad = false;
+				panel.presseRetourMenu = false;
 			}
+			panel.repaint();
 		}
 	}
 

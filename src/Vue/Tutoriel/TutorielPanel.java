@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
 public class TutorielPanel extends JPanel{
@@ -14,6 +15,7 @@ public class TutorielPanel extends JPanel{
 	private JFrame window;
 	public Dimension tailleFenetre;
 	public LoadTexture texture;
+	public Chargement chargement;
 	
 	// PARAMETRE AFFICHAGE
 	public int fenetreActuel = 0;
@@ -30,9 +32,9 @@ public class TutorielPanel extends JPanel{
 	public boolean presseRetourMenu = false;
 	
 	// CONSTRUCTEUR----------------------------------------------
-	public TutorielPanel(JFrame w, LoadTexture texture){
+	public TutorielPanel(JFrame w, LoadTexture texture, Chargement chargement){
 		
-		
+		this.chargement = chargement;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;
