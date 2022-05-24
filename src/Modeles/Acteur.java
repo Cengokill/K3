@@ -73,6 +73,10 @@ public class Acteur {
 	public int getBlancsJoues() {
 		return this.nb_BlancsJoues;
 	}
+	
+	public void setBlancsJoues(int n) {// ok
+		this.nb_BlancsJoues=n;
+	}
 
 	// MAUVAIS COUP------------
 	public void addMauvaisCoup() {// ok
@@ -86,6 +90,10 @@ public class Acteur {
 	public int getMauvaisCoupsJoues() {
 		return this.nb_Mauvais_Coups_Joues;
 	}
+	
+	public void setMauvaisCoupsJoues(int n) {// ok
+		this.nb_Mauvais_Coups_Joues=n;
+	}
 
 	// VOL -------------------
 	public void addVol() {// ok
@@ -98,6 +106,10 @@ public class Acteur {
 
 	public int getNbVols() {
 		return this.nb_Vols;
+	}
+	
+	public void setVols(int n) {// ok
+		this.nb_Vols=n;
 	}
 
 	// VARIABLES GAMEPLAY -----------------------------------------------------
@@ -125,7 +137,7 @@ public class Acteur {
 
 	public ArrayList<Piece> getPiecesVolees() {// piece Volees
 		return this.piecesVolees;
-	}
+	}	
 
 	public String toStringPiecesVolees() {
 		String tableau = "Piece volee";

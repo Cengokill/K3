@@ -29,7 +29,7 @@ public class Jeu {
 	public Plateau plateau;
 	public JFrame window;
 	public Phase1Panel panel;
-	//Thread [] t;
+	private int NB_LIGNES_SAUVEGARDE=40;
 
 	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit) {
 		this.window=fenetrePrincipale;
@@ -532,8 +532,110 @@ public class Jeu {
 		*/
 	}
 	
-	public void chargerPartie(String cheminSauvegardes) {
-		// Fichiers.lisSauvegarde();
-	}
+	public boolean chargerPartie(String nomFichier) {
+		ArrayList<String> arr=new ArrayList<String>();
+		ArrayList<String> tab = new ArrayList<String>();
+		ArrayList<String> lectureBase = new ArrayList<String>();
+		ArrayList<String> lectureBaseJoueur1 = new ArrayList<String>();
+		ArrayList<String> lecturePiocheJoueur1 = new ArrayList<String>();
+		ArrayList<String> lectureBaseJoueur2 = new ArrayList<String>();
+		ArrayList<String> lecturePiocheJoueur2 = new ArrayList<String>();
+		String PiecesVoleesJ1, PiecesVoleesJ2;
+		String fichier="";
+		FileReader reader;
+		BufferedReader br;
+		String ligne_lue;
+		String nomJ1, nomJ2;
+		int jCourant=0;
+		int numPartie=0;
+		int difficulteJ1=0;
+		int difficulteJ2=0;
+		int nbPremiersCoupsJ1=0;
+		int nbPremiersCoupsJ2=0;
+		int nbVictoiresJ1=0;
+		int nbVictoiresJ2=0;
+		int nbBlancsJouesJ1=0;
+		int nbBlancsJouesJ2=0;
+		int nbVolsJ1=0;
+		int nbVolsJ2=0;
+		int nbMauvaisCoupsJ1=0;
+		int nbMauvaisCoupsJ2=0;
+		Acteur j1;
+		Acteur j2;
+		try {
+			//premier fichier
+			fichier=nomFichier;
+			reader = new FileReader(fichier);
+			br = new BufferedReader(reader);
+			while ((ligne_lue = br.readLine()) != null) {
+				tab.add(ligne_lue);
+			}
+			br.close();
+			if(tab.size()!=NB_LIGNES_SAUVEGARDE) {
+				System.err.println("Erreur : le fichier de sauvegarde ne contient pas le bon nombre de lignes.");
+				return false;
+			}
+			lectureBase.add(tab.get(1));
+			lectureBase.add(tab.get(2));
+			lectureBase.add(tab.get(3));
+			lectureBase.add(tab.get(4));
+			lectureBase.add(tab.get(5));
+			lectureBase.add(tab.get(6));
+			lectureBase.add(tab.get(7));
+			lectureBase.add(tab.get(8));
+			lectureBase.add(tab.get(9));
+			jCourant=Integer.parseInt((tab.get(10).split(":")[1]));
+			numPartie=Integer.parseInt((tab.get(11).split(":")[1]));
+			// JOUEUR 1
+			difficulteJ1=Integer.parseInt((tab.get(13).split(":")[1]));
+			nomJ1=(tab.get(14).split(":")[1]);
+			lectureBaseJoueur1.add(tab.get(16));
+			lectureBaseJoueur1.add(tab.get(17));
+			lectureBaseJoueur1.add(tab.get(18));
+			lectureBaseJoueur1.add(tab.get(19));
+			lectureBaseJoueur1.add(tab.get(20));
+			lectureBaseJoueur1.add(tab.get(21));
+			lecturePiocheJoueur1.add(tab.get(22));//???
+			PiecesVoleesJ1=tab.get(23);// pieces volees ???
+			nbBlancsJouesJ1=Integer.parseInt(tab.get(24));
+			nbMauvaisCoupsJ1=Integer.parseInt(tab.get(25));
+			nbVolsJ1=Integer.parseInt(tab.get(26));
+			// JOUEUR 2
+			difficulteJ2=Integer.parseInt((tab.get(28).split(":")[1]));
+			nomJ2=(tab.get(28).split(":")[1]);
+			lectureBaseJoueur2.add(tab.get(30));
+			lectureBaseJoueur2.add(tab.get(31));
+			lectureBaseJoueur2.add(tab.get(32));
+			lectureBaseJoueur2.add(tab.get(33));
+			lectureBaseJoueur2.add(tab.get(34));
+			lectureBaseJoueur2.add(tab.get(35));
+			lecturePiocheJoueur2.add(tab.get(36));//???
+			PiecesVoleesJ2=tab.get(37);// pieces volees ???
+			nbBlancsJouesJ2=Integer.parseInt(tab.get(38));
+			nbMauvaisCoupsJ2=Integer.parseInt(tab.get(39));
+			nbVolsJ2=Integer.parseInt(tab.get(40));
+			if(difficulteJ1==0 || difficulteJ1==1) {
+				j1 = new IAActeur(nomJ1, difficulteJ1, 0);
+			}else {
+				j1 = new Joueur(nomJ1);
+			}
+			if(difficulteJ2==0 || difficulteJ2==1) {
+				j2 = new IAActeur(nomJ2, difficulteJ2, 1);
+			}else {
+				j2 = new Joueur(nomJ2);
+			}
+			Partie p=new Partie(j1, j2, numPartie);
+			p.getBaseMontagne().stringToPyramide(lectureBase);
+			//j1.getPiecesPiochees().
+			//j2.getPiecesPiochees().
+			j1.getCamp().stringToPyramide(lectureBaseJoueur1);
+			j2.getCamp().stringToPyramide(lectureBaseJoueur2);
+			
+		}
+		catch (Exception e) {
+			System.err.println("Erreur : le fichier "+fichier+" n'a pas pu etre lu.");
+			e.printStackTrace();
+		}
+}
 			
 }

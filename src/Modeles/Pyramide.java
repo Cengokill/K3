@@ -110,14 +110,45 @@ public class Pyramide {
 		}
 	}
 	
-	public boolean StringToPyramide(ArrayList<String> tab) {
-		String pieceSommet=tab.get(0).split(" ")[1];
-		if(pieceSommet.equals(".")) {//premiere ligne
-			this.pyramide[hauteur-1][0]=null;
+	public boolean ajoutPieceString(char s, int etage, int rang) {
+		switch(s) {
+		case 'B':
+			this.pyramide[etage][rang]=new Piece(Couleurs.BLEU);
+			break;
+		case 'N':
+			this.pyramide[etage][rang]=new Piece(Couleurs.NOIR);
+			break;
+		case 'R':
+			this.pyramide[etage][rang]=new Piece(Couleurs.ROUGE);
+			break;
+		case 'V':
+			this.pyramide[etage][rang]=new Piece(Couleurs.VERT);
+			break;
+		case 'J':
+			this.pyramide[etage][rang]=new Piece(Couleurs.JAUNE);
+			break;
+		case 'W':
+			this.pyramide[etage][rang]=new Piece(Couleurs.BLANC);
+			break;
+		case '#':
+			this.pyramide[etage][rang]=new Piece(Couleurs.NATUREL);
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean ajoutPieceStringCase(String s, int etage, int rang) {
+		if(s.equals(".")) {
+			this.pyramide[etage][rang]=null;
+			return true;
 		}else {
-			if(pieceSommet==null) return false;
-			else
-				
+			if(s==null) {return false;}
+			else{
+				ajoutPieceString(s.charAt(0), etage, rang);
+				return true;
+			}
 		}
 	}
 

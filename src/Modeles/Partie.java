@@ -242,6 +242,10 @@ public class Partie {
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
 	}
+	
+	public void setBaseMontagne(PyramideMontagne p) {
+		this.baseMontagne=p;
+	}
 
 	public ArrayList<Piece> getBasePieces() {
 		return this.basePieces;
@@ -384,15 +388,8 @@ public class Partie {
 			bw.newLine();
 			bw.write("joueur courant:" + this.getJoueurCourant());
 			bw.newLine();
-			int nbCoups = this.getHistCoups().size();
-			bw.write("Coups :" + nbCoups);
-			for (int k = 0; k < nbCoups; k++) {
-				bw.write(this.getHistCoups().get(k).toString());
-				bw.newLine();
-			}
 			bw.write("numero partie:" + this.numPartie);
 			bw.newLine();
-			// ======================= JOUEUR 1 =======================
 			bw.write(" ======================= JOUEUR 1 =======================");
 			bw.newLine();
 			bw.write("type joueur 1:" + this.joueur1().getDiff());
@@ -412,8 +409,6 @@ public class Partie {
 			bw.newLine();
 			bw.write("vols effectues:" + this.joueur1().getNbVols());
 			bw.newLine();
-
-			// ======================= JOUEUR 2 =======================
 			bw.write(" ======================= JOUEUR 2 =======================");
 			bw.newLine();
 			bw.write("type joueur 2:" + this.joueur2().getDiff());
@@ -438,60 +433,7 @@ public class Partie {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void chargerPartie(String nomFichier) {
-			ArrayList<String> arr=new ArrayList<String>();
-			ArrayList<String> tab = new ArrayList<String>();
-			String fichier="";
-			FileReader reader;
-			BufferedReader br;
-			String ligne_lue;
-			String nomJ1, nomJ2;
-			int diffuclteJ1=0;
-			int diffuclteJ2=0;
-			int nbPremiersCoupsJ1=0;
-			int nbPremiersCoupsJ2=0;
-			int nbVictoiresJ1=0;
-			int nbVictoiresJ2=0;
-			int nbBlancsJouesJ1=0;
-			int nbBlancsJouesJ2=0;
-			int nbVolsJ1=0;
-			int nbVolsJ2=0;
-			int nbMauvaisCoupsJ1=0;
-			int nbMauvaisCoupsJ2=0;
-			try {
-				//premier fichier
-				fichier=nomFichier;
-				reader = new FileReader(fichier);
-				br = new BufferedReader(reader);
-				while ((ligne_lue = br.readLine()) != null) {
-					tab.add(ligne_lue);
-				}
-				br.close();
-				
-				nbBlancsJouesJ1+=Integer.parseInt(tab.get(4));
-				nbVolsJ1+=Integer.parseInt(tab.get(5));
-				nbMauvaisCoupsJ1+=Integer.parseInt(tab.get(6));
-				nbBlancsJouesJ2+=Integer.parseInt(tab.get(7));
-				nbVolsJ2+=Integer.parseInt(tab.get(8));
-				nbMauvaisCoupsJ2+=Integer.parseInt(tab.get(9));
-				arr.add(String.valueOf(nbVictoiresJ1));
-				arr.add(String.valueOf(nbPremiersCoupsJ1));
-				arr.add(String.valueOf(nbBlancsJouesJ1));
-				arr.add(String.valueOf(nbVolsJ1));
-				arr.add(String.valueOf(nbMauvaisCoupsJ1));
-				arr.add(String.valueOf(nbVictoiresJ2));
-				arr.add(String.valueOf(nbPremiersCoupsJ2));
-				arr.add(String.valueOf(nbBlancsJouesJ2));
-				arr.add(String.valueOf(nbVolsJ2));
-				arr.add(String.valueOf(nbMauvaisCoupsJ2));
-			}
-			catch (Exception e) {
-				System.err.println("Erreur : le fichier "+fichier+" n'a pas pu etre lu.");
-				e.printStackTrace();
-			}
-	}
+	}	
 
 	public boolean IAjoueCoup(Coup c, int joueurcourant) {
 		// System.out.println("on joue un coup");
