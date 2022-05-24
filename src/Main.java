@@ -24,7 +24,6 @@ import Vue.Tutoriel.*;
 public class Main {
 	
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		
 		JFrame window = new JFrame("Jeu K3");
 		LoadTexture texture = new LoadTexture("./src/Ressources/");
 		window.setSize(1024,768);
@@ -88,7 +87,7 @@ public class Main {
 		
 		partie.paramCharges = false;
 		
-		ChargerPanel panel = new ChargerPanel(window, texture, chargement);
+		ChargerPanel panel = new ChargerPanel(window, texture, chargement, partie);
 		window.setContentPane(panel);
 		panel.addMouseListener(new ChargementClick(panel));
 		Jeu.timer(100);

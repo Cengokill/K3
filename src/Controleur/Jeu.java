@@ -29,14 +29,14 @@ public class Jeu {
 	public Plateau plateau;
 	public JFrame window;
 	public Phase1Panel panel;
-	private int NB_LIGNES_SAUVEGARDE=40;
+	private int NB_LIGNES_SAUVEGARDE=43;
 
 	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit) {
 		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
 		this.cheminImages=chemin+"Images/";
-		this.cheminSauvegardes="Sauvegardes/";
+		this.cheminSauvegardes=chemin+"Sauvegardes/";
 		//creer les dossier du jeu s'il n'existent pas
 		new File(this.chemin).mkdirs();
 		new File(this.cheminStats).mkdirs();
@@ -44,16 +44,30 @@ public class Jeu {
 		new File(this.cheminSauvegardes).mkdirs();
 		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(5);
+		this.simpleSoundPlayerMusic = new SoundPlayer(0);
 		this.simpleSoundPlayerSon = new SoundPlayer(8);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
 		plateau = new Plateau();
 		//lancer une partie
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		if(partieInit.nomFichierCharge!=null) {
+			if(!chargerPartie(cheminSauvegardes+partieInit.nomFichierCharge)) {
+				System.err.println("Erreur de lecture de la sauvegarde de la partie.");
+				System.exit(0);
+				setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
+			}
+		}else {
+			setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		}
 		lancerPartie();
 		//modifVolume();
+	}
+	
+	public static String[] listerSauvegardes(String chemin) {
+		File f = new File(chemin);
+		String[] sauvegardesListe = f.list();
+		return sauvegardesListe;
 	}
 	
 	public void modifVolume() {
@@ -198,6 +212,7 @@ public class Jeu {
 				}
 			}
 			timer(1200);
+			sauvegarderUnePartie();
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();
 		}
@@ -526,10 +541,7 @@ public class Jeu {
 	}
 	
 	public void sauvegarderUnePartie() {
-		/*
-		String nomFichier = bp_sauvvegardeActionPerformed();//argument ?
-		this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+nomFichier);
-		*/
+		this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+"partie1.txt");
 	}
 	
 	public boolean chargerPartie(String nomFichier) {
@@ -562,7 +574,6 @@ public class Jeu {
 		Acteur j1;
 		Acteur j2;
 		try {
-			//premier fichier
 			fichier=nomFichier;
 			reader = new FileReader(fichier);
 			br = new BufferedReader(reader);
@@ -570,8 +581,8 @@ public class Jeu {
 				tab.add(ligne_lue);
 			}
 			br.close();
-			if(tab.size()!=NB_LIGNES_SAUVEGARDE) {
-				System.err.println("Erreur : le fichier de sauvegarde ne contient pas le bon nombre de lignes.");
+			if(tab.size()!=this.NB_LIGNES_SAUVEGARDE) {
+				System.err.println("Erreur : le fichier de sauvegarde ne contient pas le bon nombre de lignes."+tab.size());
 				return false;
 			}
 			lectureBase.add(tab.get(1));
@@ -583,36 +594,52 @@ public class Jeu {
 			lectureBase.add(tab.get(7));
 			lectureBase.add(tab.get(8));
 			lectureBase.add(tab.get(9));
-			jCourant=Integer.parseInt((tab.get(10).split(":")[1]));
-			numPartie=Integer.parseInt((tab.get(11).split(":")[1]));
+			jCourant=Integer.parseInt((tab.get(11).split(":")[1]));
+			numPartie=Integer.parseInt((tab.get(12).split(":")[1]));
 			// JOUEUR 1
-			difficulteJ1=Integer.parseInt((tab.get(13).split(":")[1]));
-			nomJ1=(tab.get(14).split(":")[1]);
+			difficulteJ1=Integer.parseInt((tab.get(14).split(":")[1]));
+			nomJ1=(tab.get(15).split(":")[1]);
 			lectureBaseJoueur1.add(tab.get(16));
 			lectureBaseJoueur1.add(tab.get(17));
 			lectureBaseJoueur1.add(tab.get(18));
 			lectureBaseJoueur1.add(tab.get(19));
 			lectureBaseJoueur1.add(tab.get(20));
 			lectureBaseJoueur1.add(tab.get(21));
-			lecturePiocheJoueur1=tab.get(22);
-			piecesVoleesJ1=tab.get(23);
-			nbBlancsJouesJ1=Integer.parseInt(tab.get(24));
-			nbMauvaisCoupsJ1=Integer.parseInt(tab.get(25));
-			nbVolsJ1=Integer.parseInt(tab.get(26));
+			if(tab.get(23).split(":").length<2) {
+				lecturePiocheJoueur1="";
+			}else {
+				lecturePiocheJoueur1=tab.get(23).split(":")[1];
+			}
+			if(tab.get(24).split(":").length<2) {
+				piecesVoleesJ1="";
+			}else {
+				piecesVoleesJ1=tab.get(24).split(":")[1];
+			}
+			nbBlancsJouesJ1=Integer.parseInt(tab.get(25).split(":")[1]);
+			nbMauvaisCoupsJ1=Integer.parseInt(tab.get(26).split(":")[1]);
+			nbVolsJ1=Integer.parseInt(tab.get(27).split(":")[1]);
 			// JOUEUR 2
-			difficulteJ2=Integer.parseInt((tab.get(28).split(":")[1]));
-			nomJ2=(tab.get(28).split(":")[1]);
-			lectureBaseJoueur2.add(tab.get(30));
+			difficulteJ2=Integer.parseInt((tab.get(29).split(":")[1]));
+			nomJ2=(tab.get(30).split(":")[1]);
 			lectureBaseJoueur2.add(tab.get(31));
 			lectureBaseJoueur2.add(tab.get(32));
 			lectureBaseJoueur2.add(tab.get(33));
 			lectureBaseJoueur2.add(tab.get(34));
 			lectureBaseJoueur2.add(tab.get(35));
-			lecturePiocheJoueur2=tab.get(36);//???
-			piecesVoleesJ2=tab.get(37);// pieces volees ???
-			nbBlancsJouesJ2=Integer.parseInt(tab.get(38));
-			nbMauvaisCoupsJ2=Integer.parseInt(tab.get(39));
-			nbVolsJ2=Integer.parseInt(tab.get(40));
+			lectureBaseJoueur2.add(tab.get(36));
+			if(tab.get(38).split(":").length<2) {
+				lecturePiocheJoueur2="";
+			}else {
+				lecturePiocheJoueur2=tab.get(38).split(":")[1];
+			}
+			if(tab.get(39).split(":").length<2) {
+				piecesVoleesJ2="";
+			}else {
+				piecesVoleesJ2=tab.get(39).split(":")[1];
+			}
+			nbBlancsJouesJ2=Integer.parseInt(tab.get(40).split(":")[1]);
+			nbMauvaisCoupsJ2=Integer.parseInt(tab.get(41).split(":")[1]);
+			nbVolsJ2=Integer.parseInt(tab.get(42).split(":")[1]);
 			if(difficulteJ1==0 || difficulteJ1==1) {
 				j1 = new IAActeur(nomJ1, difficulteJ1, 0);
 			}else {
@@ -624,6 +651,7 @@ public class Jeu {
 				j2 = new Joueur(nomJ2);
 			}
 			Partie p=new Partie(j1, j2, numPartie);
+			System.out.println(lectureBase);
 			boolean b1 = p.getBaseMontagne().stringToPyramide(lectureBase);
 			boolean b2 = j1.getCamp().stringToPyramide(lectureBaseJoueur1);
 			j1.stringToPiecesPiochees(lecturePiocheJoueur1);

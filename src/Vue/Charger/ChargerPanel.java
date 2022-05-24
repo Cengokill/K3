@@ -10,6 +10,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Controleur.Jeu;
+import Modeles.InitPartie;
 import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
@@ -21,11 +23,12 @@ public class ChargerPanel extends JPanel{
 	public JScrollPane scrollPane;
 	public Chargement chargement;
 	public JList list;
+	public InitPartie initPartie;
 	
 	//AFFICHAGE FIXE
 	public int posXScrollpanel, posYScrollpanel;
 	public int largeurScrollpanel, hauteurScrollpanel;
-	public String nomSauvegarde[] = { "PARTIE1", "PARTIE2"};
+	public String nomSauvegarde[];
 	
 	public int posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad;
 	public boolean presseBoutonLoad = false;
@@ -38,12 +41,14 @@ public class ChargerPanel extends JPanel{
 	
 	
 	
-	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement) {
+	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement, InitPartie i) {
 		this.setLayout(null);
+		this.initPartie=i;
 		this.chargement = chargement;
 		window = w; 
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;
+		nomSauvegarde=Jeu.listerSauvegardes(System.getProperty("user.home")+ "/Desktop/Jeu_K3/Sauvegardes/");
 		list = new JList(nomSauvegarde);
 		this.scrollPane = new JScrollPane(list);
 		this.add(scrollPane);

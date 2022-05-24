@@ -373,6 +373,7 @@ public class Partie {
 	}
 
 	public void sauvegarderPartie(String CheminEtnomFichier) {
+		System.out.println("ESSAI SAUVEGARDE");
 		File f = new File(CheminEtnomFichier);
 		try {
 			f.createNewFile();
@@ -380,6 +381,7 @@ public class Partie {
 			e1.printStackTrace();
 		}
 		try {
+			System.out.println("try");
 			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
 			BufferedWriter bw = new BufferedWriter(writer);
 			bw.write("base montagne:");
@@ -395,8 +397,6 @@ public class Partie {
 			bw.write("type joueur 1:" + this.joueur1().getDiff());
 			bw.newLine();
 			bw.write("nom joueur 1:" + this.joueur1().getNom());
-			bw.newLine();
-			bw.write("camp de base:");
 			bw.newLine();
 			bw.write(this.joueur1().getCamp().toString());
 			bw.newLine();
@@ -415,8 +415,6 @@ public class Partie {
 			bw.write("type joueur 2:" + this.joueur2().getDiff());
 			bw.newLine();
 			bw.write("nom joueur 2:" + this.joueur2().getNom());
-			bw.newLine();
-			bw.write("camp de base:");
 			bw.newLine();
 			bw.write(this.joueur2().getCamp().toString());
 			bw.newLine();

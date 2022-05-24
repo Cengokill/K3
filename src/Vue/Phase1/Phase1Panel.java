@@ -44,7 +44,7 @@ public class Phase1Panel extends JPanel{
 	
 	public int POSX_BASE_MONTAGNE;
 	public int POSY_BASE_MONTAGNE;
-	//COMPOSYANT IMPORTER
+	//COMPOSANTS IMPORTES
 	public final String CHEMIN = System.getProperty("user.dir")+"/src/Ressources/";
 	
 	public final String NOMBACKGROUND = "background.jpg";

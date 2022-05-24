@@ -40,9 +40,10 @@ public class ChargementClick implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(clickBoutonLoad(e)) {
-			
 			if(panel.list.getSelectedValue() != null) {
-				System.out.println("CHARGEMENT DE LA PARTI SELLECTIONNER : "+panel.list.getSelectedValue());
+				panel.initPartie.nomFichierCharge=panel.list.getSelectedValue().toString();
+				String a =panel.initPartie.nomFichierCharge;
+				System.out.println(a);
 				panel.chargement.lancement = true;
 				panel.chargement.setProchaineFenetre(4);
 			}
