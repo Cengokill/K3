@@ -10,6 +10,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Vue.TexturePack.LoadTexture;
+
 public class ChargerPanel extends JPanel{
 	
 	// PARAMETRE JEU
@@ -27,29 +29,21 @@ public class ChargerPanel extends JPanel{
 	public boolean presseBoutonLoad = false;
 			
 	//COMPOSYANT IMPORTER
-	public final String CHEMIN = System.getProperty("user.dir")+"/src/Ressources/";
+	public LoadTexture texture;
+	
+	
+	
+	public ChargerPanel(JFrame w, LoadTexture texture) {
+		this.setLayout(null);
 		
-	public final String NOMBACKGROUND = "background.jpg";
-	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
-	
-	public final String NOMBOUTONLOADENFONCER = "chargerPartie.png";
-	public Image boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
-	public final String NOMBOUTONLOADRELACHER = "chargerPartiePresse.png";
-	public Image boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADRELACHER);
-	
-	
-	
-	public ChargerPanel(JFrame w) {
 		window = w; 
 		this.tailleFenetre = window.getSize();
-		
+		this.texture = texture;
 		list = new JList(nomSauvegarde);
-
 		this.scrollPane = new JScrollPane(list);
-		scrollPane.setBounds(posXScrollpanel, posYScrollpanel, largeurScrollpanel, hauteurScrollpanel);
-		this.setLayout(null);
 		this.add(scrollPane);
 		tailleFenetre = window.getSize();
+		changementTaillefenetre();
 	}
 	
 	// FONCTION POUR REDIMENTIONNER LES ELEMENTS----------------------------------------------
@@ -74,15 +68,15 @@ public class ChargerPanel extends JPanel{
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {
-	    g.drawImage(background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
+	    g.drawImage(texture.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
 	}
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBoutonLoad(Graphics g) {
 		if(!presseBoutonLoad) {
-			g.drawImage(boutonLoad, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
+			g.drawImage(texture.boutonLoad, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
 		}else {
-			g.drawImage(boutonLoadPresse, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
+			g.drawImage(texture.boutonLoadPresse, posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad, null);
 		}
 		
 	}
