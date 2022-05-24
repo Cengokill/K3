@@ -15,15 +15,22 @@ public class piocheMC implements IApioche {
     @Override
     public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
         double td = (double) System.currentTimeMillis();
+        PyramideJoueur pyraadv = new PyramideJoueur(6, 6);
+
         boolean flag = true;
         int numeroadv;
         if (numerojoueur == 0) {
             numeroadv = 1;
         } else {
             numeroadv = 0;
+            //sauvegarde pyra adv
+            pyraadv = clonepyra(p.joueur1().getCamp());
+            //deconstruit
+            AnnulCreerPyra(p, numeroadv);
+        
         }
-        // Liste de <pyra,nbvictoire>
-        Hashtable<Pyramide, Integer> tauxdevictoire = new Hashtable<>();
+            
+
         // Pour i allant de 0 a 100
         for (int i = 0; i < 100; i++) {
             // Creer une picohe alea pour notre joueur
@@ -45,18 +52,18 @@ public class piocheMC implements IApioche {
             if (flag) {
                 meilleurvictoire = nbvictoire;
                 if (numerojoueur == 0) {
-                    meilleurpyra = p.joueur1().getCamp();
+                    meilleurpyra = clonepyra(p.joueur1().getCamp());
                 } else {
-                    meilleurpyra = p.joueur2().getCamp();
+                    meilleurpyra = clonepyra(p.joueur2().getCamp());
                 }
                 flag = false;
             } else {
                 if (nbvictoire > meilleurvictoire) {
                     meilleurvictoire = nbvictoire;
                     if (numerojoueur == 0) {
-                        meilleurpyra = p.joueur1().getCamp();
+                        meilleurpyra = clonepyra(p.joueur1().getCamp());
                     } else {
-                        meilleurpyra = p.joueur2().getCamp();
+                        meilleurpyra = clonepyra(p.joueur2().getCamp());
                     }
                 }
             }
@@ -73,7 +80,10 @@ public class piocheMC implements IApioche {
             }
         }
 
-        // CLONER MEILLEUR PYRA (ATTENTION REFERENCE OBJET)
+        //Reconstruire pyra adverse
+        if (numerojoueur == 1){
+            p.joueur1().setCamp(pyraadv);
+        }
 
         double tf = (double) System.currentTimeMillis();
         System.out.println((tf - td) / 1000 + " s de création de la pioche");
@@ -179,4 +189,14 @@ public class piocheMC implements IApioche {
         }
     }
 
+    public PyramideJoueur clonepyra(PyramideJoueur pp){
+        PyramideJoueur clone = new PyramideJoueur(6, 6);
+        for (int etage=0; etage<6;etage++){
+            for (int rang = 0 ; rang < (6-etage); rang++){
+                Position pos = new Position(etage, rang);
+                clone.empiler(new PiecePyramide(pp.getPiece(pos), pos));
+            }
+        }
+        return clone;
+    }
 }
