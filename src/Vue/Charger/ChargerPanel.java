@@ -87,7 +87,6 @@ public class ChargerPanel extends JPanel{
 		
 	}
 	
-	
 	public void paint(Graphics g) {
 		if(tailleFenetre != window.getSize()) {
 			changementTaillefenetre();

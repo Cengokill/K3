@@ -1,7 +1,9 @@
 package Modeles;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -397,6 +399,8 @@ public class Partie {
 				bw.write(this.getHistCoups().get(k).toString());
 				bw.newLine();
 			}
+			bw.write("numero partie:" + this.numPartie);
+			bw.newLine();
 			// ======================= JOUEUR 1 =======================
 			bw.write(" ======================= JOUEUR 1 =======================");
 			bw.newLine();
@@ -405,23 +409,97 @@ public class Partie {
 			bw.write("camp de base:");
 			bw.newLine();
 			bw.write(this.joueur1().getCamp().toString());
+			bw.write("pioche:" + this.joueur1().getPiecesPiochees());
+			bw.newLine();
 			bw.write("pieces volees:" + this.joueur1().toStringPiecesVolees());
+			bw.newLine();
+			bw.write("blancs joues:" + this.joueur1().getBlancsJoues());
+			bw.newLine();
+			bw.write("mauvais coups joues:" + this.joueur1().getMauvaisCoupsJoues());
+			bw.newLine();
+			bw.write("vols effectues:" + this.joueur1().getNbVols());
 			bw.newLine();
 
 			// ======================= JOUEUR 2 =======================
 			bw.write(" ======================= JOUEUR 2 =======================");
+			bw.newLine();
+			bw.write("type joueur 2:" + this.joueur2().getD
 			bw.newLine();
 			bw.write("nom joueur 2:" + this.joueur2().getNom());
 			bw.newLine();
 			bw.write("camp de base:");
 			bw.newLine();
 			bw.write(this.joueur2().getCamp().toString());
+			bw.write("pioche:" + this.joueur2().getPiecesPiochees());
+			bw.newLine();
 			bw.write("pieces volees:" + this.joueur2().toStringPiecesVolees());
+			bw.newLine();
+			bw.write("blancs joues:" + this.joueur2().getBlancsJoues());
+			bw.newLine();
+			bw.write("mauvais coups joues:" + this.joueur2().getMauvaisCoupsJoues());
+			bw.newLine();
+			bw.write("vols effectues:" + this.joueur2().getNbVols());
 			bw.newLine();
 			bw.close();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void chargerPartie(String nomFichier) {
+			ArrayList<String> arr=new ArrayList<String>();
+			ArrayList<String> tab = new ArrayList<String>();
+			String fichier="";
+			FileReader reader;
+			BufferedReader br;
+			String ligne_lue;
+			String nomJ1, nomJ2;
+			int nbPremiersCoupsJ1=0;
+			int nbPremiersCoupsJ2=0;
+			int nbVictoiresJ1=0;
+			int nbVictoiresJ2=0;
+			int nbBlancsJouesJ1=0;
+			int nbBlancsJouesJ2=0;
+			int nbVolsJ1=0;
+			int nbVolsJ2=0;
+			int nbMauvaisCoupsJ1=0;
+			int nbMauvaisCoupsJ2=0;
+			try {
+				//premier fichier
+				fichier=nomFichier;
+				reader = new FileReader(fichier);
+				br = new BufferedReader(reader);
+				while ((ligne_lue = br.readLine()) != null) {
+					tab.add(ligne_lue);
+				}
+				br.close();
+				
+				nbBlancsJouesJ1+=Integer.parseInt(tab.get(4));
+				nbVolsJ1+=Integer.parseInt(tab.get(5));
+				nbMauvaisCoupsJ1+=Integer.parseInt(tab.get(6));
+				nbBlancsJouesJ2+=Integer.parseInt(tab.get(7));
+				nbVolsJ2+=Integer.parseInt(tab.get(8));
+				nbMauvaisCoupsJ2+=Integer.parseInt(tab.get(9));
+				arr.add(nomJ1);
+				arr.add(nomJ2);
+				arr.add(String.valueOf(num1));
+				arr.add(String.valueOf(num2-1));
+				arr.add(String.valueOf(nbVictoiresJ1));
+				arr.add(String.valueOf(nbPremiersCoupsJ1));
+				arr.add(String.valueOf(nbBlancsJouesJ1));
+				arr.add(String.valueOf(nbVolsJ1));
+				arr.add(String.valueOf(nbMauvaisCoupsJ1));
+				arr.add(String.valueOf(nbVictoiresJ2));
+				arr.add(String.valueOf(nbPremiersCoupsJ2));
+				arr.add(String.valueOf(nbBlancsJouesJ2));
+				arr.add(String.valueOf(nbVolsJ2));
+				arr.add(String.valueOf(nbMauvaisCoupsJ2));
+			}
+			catch (Exception e) {
+				System.err.println("Erreur : le fichier "+fichier+" n'a pas pu etre lu.");
+				e.printStackTrace();
+			}
 		}
 	}
 

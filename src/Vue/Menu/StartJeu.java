@@ -23,11 +23,11 @@ public class StartJeu extends JPanel{
 	public Dimension tailleEcran, tailleFenetre;
 	public final String CHEMIN = System.getProperty("user.dir")+"./src/Ressources/";
 	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.jpg");
-	public Image bouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
+	public Image bouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
 	public Image bouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse_flou.png");
-	public Image bouton2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_flou.png");
+	public Image bouton2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options.png");
 	public Image bouton2_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_presse_flou.png");
-	public Image bouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_flou.png");
+	public Image bouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel.png");
 	public Image bouton3_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_presse_flou.png");
 	public Image bouton4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_flou.png");
 	public Image bouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse_flou.png");
