@@ -140,11 +140,49 @@ public class Acteur {
 	}	
 
 	public String toStringPiecesVolees() {
-		String tableau = "Piece volee";
+		String tableau = "";
 		for (int i = 0; i < piecesVolees.size(); i++) {
 			tableau += piecesVolees.get(i).toString();
+			if(i!=piecesVolees.size()-1) {
+				tableau+="|";
+			}
 		}
 		return tableau;
+	}
+	
+	public boolean stringToPiecesVolees(String ligne) {
+		String[] pieces=ligne.split("|");
+		Piece p;
+		int taille=pieces.length;
+		for(int i=0; i<taille; i++) {
+			switch(pieces[i]) {//BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
+			case "BLEU":
+				p=new Piece(Couleurs.BLEU);
+				break;
+			case "VERT":
+				p=new Piece(Couleurs.NOIR);
+				break;
+			case "JAUNE":
+				p=new Piece(Couleurs.ROUGE);
+				break;
+			case "ROUGE":
+				p=new Piece(Couleurs.VERT);
+				break;
+			case "NOIR":
+				p=new Piece(Couleurs.JAUNE);
+				break;
+			case "BLANC":
+				p=new Piece(Couleurs.BLANC);
+				break;
+			case "NATUREL":
+				p=new Piece(Couleurs.NATUREL);
+				break;
+			default:
+				return false;
+			}
+			this.piecesVolees.add(p);
+		}
+		return true;
 	}
 
 	// LISTE piecesPiochees -------------------
@@ -154,6 +192,52 @@ public class Acteur {
 
 	public ArrayList<Piece> getPiecesPiochees() {// piece Piochees
 		return this.piecesPiochees;
+	}
+	
+	public String piecesPiocheesToString() {
+		String tab="";
+		for(int i=0; i<this.piecesPiochees.size(); i++) {
+			tab+=piecesPiochees.get(i).toString();
+			if(i!=piecesPiochees.size()-1) {
+				tab+="|";
+			}
+		}
+		return tab;
+	}
+	
+	public boolean stringToPiecesPiochees(String ligne) {
+		String[] pieces=ligne.split("|");
+		Piece p;
+		int taille=pieces.length;
+		for(int i=0; i<taille; i++) {
+			switch(pieces[i]) {//BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
+			case "BLEU":
+				p=new Piece(Couleurs.BLEU);
+				break;
+			case "VERT":
+				p=new Piece(Couleurs.NOIR);
+				break;
+			case "JAUNE":
+				p=new Piece(Couleurs.ROUGE);
+				break;
+			case "ROUGE":
+				p=new Piece(Couleurs.VERT);
+				break;
+			case "NOIR":
+				p=new Piece(Couleurs.JAUNE);
+				break;
+			case "BLANC":
+				p=new Piece(Couleurs.BLANC);
+				break;
+			case "NATUREL":
+				p=new Piece(Couleurs.NATUREL);
+				break;
+			default:
+				return false;
+			}
+			addPiecePiochee(p);
+		}
+		return true;
 	}
 
 	public int getTaillePiecesPiochees() {

@@ -25,7 +25,7 @@ public class ChargerPanel extends JPanel{
 	//AFFICHAGE FIXE
 	public int posXScrollpanel, posYScrollpanel;
 	public int largeurScrollpanel, hauteurScrollpanel;
-	public String nomSauvegarde[] = { "PARTI1", "PARTI2"};
+	public String nomSauvegarde[] = { "PARTIE1", "PARTIE2"};
 	
 	public int posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad;
 	public boolean presseBoutonLoad = false;

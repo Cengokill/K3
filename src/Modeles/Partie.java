@@ -399,7 +399,8 @@ public class Partie {
 			bw.write("camp de base:");
 			bw.newLine();
 			bw.write(this.joueur1().getCamp().toString());
-			bw.write("pioche:" + this.joueur1().getPiecesPiochees());
+			bw.newLine();
+			bw.write("pioche:" + this.joueur1().piecesPiocheesToString());
 			bw.newLine();
 			bw.write("pieces volees:" + this.joueur1().toStringPiecesVolees());
 			bw.newLine();
@@ -418,7 +419,8 @@ public class Partie {
 			bw.write("camp de base:");
 			bw.newLine();
 			bw.write(this.joueur2().getCamp().toString());
-			bw.write("pioche:" + this.joueur2().getPiecesPiochees());
+			bw.newLine();
+			bw.write("pioche:" + this.joueur2().piecesPiocheesToString());
 			bw.newLine();
 			bw.write("pieces volees:" + this.joueur2().toStringPiecesVolees());
 			bw.newLine();

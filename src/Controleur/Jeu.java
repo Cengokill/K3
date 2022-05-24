@@ -537,10 +537,9 @@ public class Jeu {
 		ArrayList<String> tab = new ArrayList<String>();
 		ArrayList<String> lectureBase = new ArrayList<String>();
 		ArrayList<String> lectureBaseJoueur1 = new ArrayList<String>();
-		ArrayList<String> lecturePiocheJoueur1 = new ArrayList<String>();
+		String lecturePiocheJoueur1, lecturePiocheJoueur2;
 		ArrayList<String> lectureBaseJoueur2 = new ArrayList<String>();
-		ArrayList<String> lecturePiocheJoueur2 = new ArrayList<String>();
-		String PiecesVoleesJ1, PiecesVoleesJ2;
+		String piecesVoleesJ1, piecesVoleesJ2;
 		String fichier="";
 		FileReader reader;
 		BufferedReader br;
@@ -595,8 +594,8 @@ public class Jeu {
 			lectureBaseJoueur1.add(tab.get(19));
 			lectureBaseJoueur1.add(tab.get(20));
 			lectureBaseJoueur1.add(tab.get(21));
-			lecturePiocheJoueur1.add(tab.get(22));//???
-			PiecesVoleesJ1=tab.get(23);// pieces volees ???
+			lecturePiocheJoueur1=tab.get(22);
+			piecesVoleesJ1=tab.get(23);
 			nbBlancsJouesJ1=Integer.parseInt(tab.get(24));
 			nbMauvaisCoupsJ1=Integer.parseInt(tab.get(25));
 			nbVolsJ1=Integer.parseInt(tab.get(26));
@@ -609,8 +608,8 @@ public class Jeu {
 			lectureBaseJoueur2.add(tab.get(33));
 			lectureBaseJoueur2.add(tab.get(34));
 			lectureBaseJoueur2.add(tab.get(35));
-			lecturePiocheJoueur2.add(tab.get(36));//???
-			PiecesVoleesJ2=tab.get(37);// pieces volees ???
+			lecturePiocheJoueur2=tab.get(36);//???
+			piecesVoleesJ2=tab.get(37);// pieces volees ???
 			nbBlancsJouesJ2=Integer.parseInt(tab.get(38));
 			nbMauvaisCoupsJ2=Integer.parseInt(tab.get(39));
 			nbVolsJ2=Integer.parseInt(tab.get(40));
@@ -625,16 +624,25 @@ public class Jeu {
 				j2 = new Joueur(nomJ2);
 			}
 			Partie p=new Partie(j1, j2, numPartie);
-			p.getBaseMontagne().stringToPyramide(lectureBase);
-			//j1.getPiecesPiochees().
-			//j2.getPiecesPiochees().
-			j1.getCamp().stringToPyramide(lectureBaseJoueur1);
+			boolean b1 = p.getBaseMontagne().stringToPyramide(lectureBase);
+			boolean b2 = j1.getCamp().stringToPyramide(lectureBaseJoueur1);
+			j1.stringToPiecesPiochees(lecturePiocheJoueur1);
+			j1.stringToPiecesVolees(piecesVoleesJ1);
+			j1.setBlancsJoues(nbBlancsJouesJ1);
+			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ1);
+			j1.setVols(nbVolsJ1);
 			j2.getCamp().stringToPyramide(lectureBaseJoueur2);
-			
+			j2.stringToPiecesPiochees(lecturePiocheJoueur1);
+			j2.stringToPiecesVolees(piecesVoleesJ2);
+			j1.setBlancsJoues(nbBlancsJouesJ2);
+			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ2);
+			j1.setVols(nbVolsJ2);
+			return b1&&b2;
 		}
 		catch (Exception e) {
 			System.err.println("Erreur : le fichier "+fichier+" n'a pas pu etre lu.");
 			e.printStackTrace();
+			return false;
 		}
 }
 			
