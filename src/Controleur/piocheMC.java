@@ -132,9 +132,9 @@ public class piocheMC implements IApioche {
 
         }
 
-        gagnant = p.getJoueurCourant();
-
         p.changementJoueurCourant();
+        
+        gagnant = p.getJoueurCourant();
 
         int numerocoup = 0;
         int numerovol = 0;
