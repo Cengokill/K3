@@ -35,7 +35,7 @@ public class Main {
 		int prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
 		
-		while(chargement.getProchaineFenetre()!=4) {
+		while(chargement.getProchaineFenetre()!=5) {
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
 				chargement.lancement = false;
@@ -48,6 +48,8 @@ public class Main {
 				else if(prochaineFenetre==2){
 					lancementChargerPartie(window, texture, partie, chargement);
 				}else if(prochaineFenetre==3) {
+					lancementOption(window, texture, chargement);
+				}else if(prochaineFenetre==4) {
 					lancementTuto(window, texture, chargement);
 				}
 			}
@@ -80,7 +82,7 @@ public class Main {
 		while(!partie.paramCharges) {
 			Jeu.timer(100);
 		}
-		chargement.setProchaineFenetre(4);
+		chargement.setProchaineFenetre(5);
 	}
 	
 	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {
