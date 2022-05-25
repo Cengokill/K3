@@ -1,8 +1,10 @@
 package Controleur;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Random;
 
 import Modeles.*;
 
@@ -11,7 +13,7 @@ public class MinMax {
     Coup parfait;
     PiecePyramide avoler;
     double tf, td;
-    Hashtable<String, PiecePyramide> volspossibles;
+    HashMap<String, PiecePyramide> volspossibles;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -39,7 +41,7 @@ public class MinMax {
     public int meilleurConfigJ(Partie p, int horizon, boolean flag, int valeurcourante) {
 
         if (flag) {
-            volspossibles = new Hashtable<>();
+            volspossibles = new HashMap<>();
             // System.out.println("on cherche le coup pour l'ia");
             // td = (double) System.currentTimeMillis();
         }
@@ -191,7 +193,15 @@ public class MinMax {
         System.out.println();
     }
 
-    public PiecePyramide PieceAVoler() {
-        return avoler;
+    public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr, Partie p) {
+        if (volspossibles.containsKey(p.optiIA())) {
+            System.out.println("CA MARCHE");
+            return volspossibles.get(p.optiIA());
+        } else {
+            Random r = new Random();
+            System.out.println("On vole en aleatoire");
+            int alea = r.nextInt(arr.size());
+            return arr.get(alea);
+        }
     }
 }

@@ -91,7 +91,7 @@ public class TestJcIA {
                     } else {
                         jCourant = ktrois.joueur1();
                     }
-                    PiecePyramide vol = jCourant.choixVol(accessibles);
+                    PiecePyramide vol = jCourant.choixVol(accessibles, ktrois);
                     ktrois.IAvol(vol, ktrois.joueurCourant);
                 }
 

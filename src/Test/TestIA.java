@@ -104,7 +104,7 @@ public class TestIA {
                     } else {
                         jCourant = ktrois.joueur1();
                     }
-                    PiecePyramide vol = jCourant.choixVol(accessibles);
+                    PiecePyramide vol = jCourant.choixVol(accessibles, ktrois);
                     ktrois.IAvol(vol, ktrois.joueurCourant);
                 }
 
@@ -126,15 +126,22 @@ public class TestIA {
             }
 
             // GAGNANT
+            int gagnant;
+            if (ktrois.getJoueurCourant() == 0) {
+                gagnant = 1;
+            } else {
+                gagnant = 0;
+            }
             if (ktrois.getJoueurCourant() == 0) {
                 victoirej2++;
             } else {
                 victoirej1++;
             }
             nbParties++;
+            ktrois.sauvegarderStatsPartie(gagnant);
         }
         s.close();
-        ktrois.combinerStats(0, objectif);
+        // ktrois.combinerStats(0, objectif);
         System.out.println("Nombre de parties jouees : " + objectif);
         System.out.println("Taux de victoire du joueur 1 : " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
         System.out.println("Taux de victoire du joueur 2 : " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");

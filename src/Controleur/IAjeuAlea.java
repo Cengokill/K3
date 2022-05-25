@@ -46,7 +46,7 @@ public class IAjeuAlea implements IAjeu {
         System.out.println();
     }
 
-    public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr) {
+    public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr, Partie p) {
         Random r = new Random();
         int alea = r.nextInt(arr.size());
         return arr.get(alea);

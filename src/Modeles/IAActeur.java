@@ -46,8 +46,8 @@ public class IAActeur extends Acteur {
     }
 
     @Override
-    public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {
-        return jeu.PieceAVoler(arr);
+    public PiecePyramide choixVol(ArrayList<PiecePyramide> arr, Partie p) {
+        return jeu.PieceAVoler(arr, p);
     }
 
 }

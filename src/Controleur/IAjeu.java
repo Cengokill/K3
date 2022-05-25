@@ -14,5 +14,5 @@ public interface IAjeu {
 
     public Coup IACoup(Partie p, int numeroJoueur);
 
-    public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr);
+    public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr, Partie p);
 }
