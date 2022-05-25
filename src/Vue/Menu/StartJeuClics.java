@@ -85,14 +85,16 @@ public class StartJeuClics implements MouseListener{
 			System.exit(0);
 		}
 		else if(clicCharger(e)) {
+			this.startJeu.chargement.lancement=true;
+			this.startJeu.chargement.setProchaineFenetre(2);
 		}
 		else if(clicOptions(e)) {
 			this.startJeu.chargement.lancement=true;
-			this.startJeu.chargement.setProchaineFenetre(2);
+			this.startJeu.chargement.setProchaineFenetre(3);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}else if(clicTuto(e)) {
 			this.startJeu.chargement.lancement=true;
-			this.startJeu.chargement.setProchaineFenetre(3);
+			this.startJeu.chargement.setProchaineFenetre(4);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}
 	}
