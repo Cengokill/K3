@@ -43,7 +43,6 @@ public class piocheMC implements IApioche {
                 // Simule la partie
                 // Si gagnant
                 // nbvictoire ++
-                System.out.println("Partie numero " + ((i + 1) * (j + 1)));
                 if (simulePartie(p, numerojoueur)) {
                     nbvictoire++;
                 }
