@@ -20,16 +20,14 @@ import Vue.Phase1.GifAnime;
 import Vue.Phase1.Phase1Panel;
 import Vue.Phase1.ecouteurClick;
 import Vue.TexturePack.LoadTexture;
+import Vue.NouvellePartie;
 import Vue.Charger.*;
 import Vue.Tutoriel.*;
 
 public class Main {
 	
-	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		JFrame window = new JFrame("Jeu K3");
+	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {	
 		LoadTexture texture = new LoadTexture("./src/Ressources/");
-		window.setSize(1024,768);
-		window.setLocationRelativeTo(null);//centrage de la fenetre
 		
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
@@ -38,6 +36,9 @@ public class Main {
 		simpleSoundPlayerMusic.loopSon();
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
+		JFrame window = new JFrame("Jeu K3");
+		window.setSize(1024,768);
+		window.setLocationRelativeTo(null);//centrage de la fenetre
 		
 		while(chargement.getProchaineFenetre()!=TypeFenetre.FENETREJEU) {
 			if(chargement.lancement == true) {
@@ -77,7 +78,10 @@ public class Main {
 	
 	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {
 		partie.paramCharges = false;	
-		new New_game(window, partie);
+		NouvellePartie newPartie = new NouvellePartie(window, texture, partie);
+		window.setContentPane(newPartie);
+		//newPartie.addMouseListener(new StartJeuClics(panel));
+		window.paintAll(window.getGraphics());
 		while(!partie.paramCharges) {
 			Jeu.timer(100);
 		}

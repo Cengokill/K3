@@ -14,14 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Modeles.InitPartie;
+import Modeles.Partie;
 import Vue.TexturePack.LoadTexture;
 /**
  *
  * @author Océanne
  */
 public class NouvellePartie extends JPanel {
-    
-    //PARAMETRE JEU
+    //PARAMETRES JEU
     private final JFrame window;
     public Dimension tailleFenetre;
     public JTextField nomJ1, nomJ2, nomJ3;
@@ -58,11 +59,13 @@ public class NouvellePartie extends JPanel {
     int espacement_vertical;
     int offset_horizontal, offset_vertical, offset_h2, offset_h3;
     public LoadTexture textures;
+    public InitPartie partie;
   
     // METHODE NOUVELLE PARTIE
-    public NouvellePartie(JFrame w, LoadTexture t){
-        window = w;
+    public NouvellePartie(JFrame w, LoadTexture t, InitPartie p){
+        this.window = w;
         this.textures=t;
+        this.partie=p;
         window.setTitle("Nouvelle Partie");
         this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth=tailleEcran.width;
@@ -75,11 +78,8 @@ public class NouvellePartie extends JPanel {
         this.centreY_Screen=screenHeight/2;
         this.centreX_Window=centreX_Screen-frameWidth/2;
         this.centreY_Window=centreY_Screen-frameHeight/2;
-        window.setLocation(centreX_Window, centreY_Window);
-	window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	window.setVisible(true);
-        
-        
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setVisible(true);
     }
     public void affichageBackGround(Graphics g) {
 	    g.drawImage(textures.background, 0, 0, frameWidth, frameHeight, null);
