@@ -9,6 +9,7 @@ import javax.swing.WindowConstants;
 import Controleur.*;
 import Modeles.InitPartie;
 import Vue.Menu.Chargement;
+import Vue.Menu.Chargement.typeFenetre;
 import Vue.Menu.StartJeu;
 import Vue.Menu.StartJeuClics;
 import Vue.Option.*;
@@ -32,24 +33,24 @@ public class Main {
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
 		
-		int prochaineFenetre = chargement.getProchaineFenetre();
+		typeFenetre prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
 		
-		while(chargement.getProchaineFenetre()!=5) {
+		while(chargement.getProchaineFenetre()!=typeFenetre.FENETREJEU) {
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
 				chargement.lancement = false;
-				if(prochaineFenetre==0) {
+				if(prochaineFenetre==typeFenetre.MENU) {
 					lancementMenu(window, texture, chargement);
 				}
-				else if(prochaineFenetre==1) {
+				else if(prochaineFenetre==typeFenetre.NEWPARTIE) {
 					lancementNouvellePartie(window, texture, partie, chargement);
 				}
-				else if(prochaineFenetre==2){
+				else if(prochaineFenetre==typeFenetre.CHARGERPARTIE){
 					lancementChargerPartie(window, texture, partie, chargement);
-				}else if(prochaineFenetre==3) {
+				}else if(prochaineFenetre==typeFenetre.OPTION) {
 					lancementOption(window, texture, chargement);
-				}else if(prochaineFenetre==4) {
+				}else if(prochaineFenetre==typeFenetre.TUTO) {
 					lancementTuto(window, texture, chargement);
 				}
 			}
@@ -82,7 +83,7 @@ public class Main {
 		while(!partie.paramCharges) {
 			Jeu.timer(100);
 		}
-		chargement.setProchaineFenetre(5);
+		chargement.setProchaineFenetre(typeFenetre.FENETREJEU);
 	}
 	
 	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {
