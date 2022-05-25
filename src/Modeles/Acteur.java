@@ -50,7 +50,8 @@ public class Acteur {
 		return null;
 	}
 
-	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) // revoit la piece de la pyramide (en face) a volée
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr, Partie p) // revoit la piece de la pyramide (en face) a
+																			// volée
 	{
 		return null;
 	}
@@ -75,9 +76,9 @@ public class Acteur {
 	public int getBlancsJoues() {
 		return this.nb_BlancsJoues;
 	}
-	
+
 	public void setBlancsJoues(int n) {// ok
-		this.nb_BlancsJoues=n;
+		this.nb_BlancsJoues = n;
 	}
 
 	// MAUVAIS COUP------------
@@ -92,9 +93,9 @@ public class Acteur {
 	public int getMauvaisCoupsJoues() {
 		return this.nb_Mauvais_Coups_Joues;
 	}
-	
+
 	public void setMauvaisCoupsJoues(int n) {// ok
-		this.nb_Mauvais_Coups_Joues=n;
+		this.nb_Mauvais_Coups_Joues = n;
 	}
 
 	// VOL -------------------
@@ -109,9 +110,9 @@ public class Acteur {
 	public int getNbVols() {
 		return this.nb_Vols;
 	}
-	
+
 	public void setVols(int n) {// ok
-		this.nb_Vols=n;
+		this.nb_Vols = n;
 	}
 
 	// VARIABLES GAMEPLAY -----------------------------------------------------
@@ -139,48 +140,48 @@ public class Acteur {
 
 	public ArrayList<Piece> getPiecesVolees() {// piece Volees
 		return this.piecesVolees;
-	}	
+	}
 
 	public String toStringPiecesVolees() {
 		String tableau = "";
 		for (int i = 0; i < piecesVolees.size(); i++) {
 			tableau += piecesVolees.get(i).toString();
-			if(i!=piecesVolees.size()-1) {
-				tableau+="|";
+			if (i != piecesVolees.size() - 1) {
+				tableau += "|";
 			}
 		}
 		return tableau;
 	}
-	
+
 	public boolean stringToPiecesVolees(String ligne) {
-		String[] pieces=ligne.split("|");
+		String[] pieces = ligne.split("|");
 		Piece p;
-		int taille=pieces.length;
-		for(int i=0; i<taille; i++) {
-			switch(pieces[i]) {//BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
-			case "BLEU":
-				p=new Piece(Couleurs.BLEU);
-				break;
-			case "VERT":
-				p=new Piece(Couleurs.NOIR);
-				break;
-			case "JAUNE":
-				p=new Piece(Couleurs.ROUGE);
-				break;
-			case "ROUGE":
-				p=new Piece(Couleurs.VERT);
-				break;
-			case "NOIR":
-				p=new Piece(Couleurs.JAUNE);
-				break;
-			case "BLANC":
-				p=new Piece(Couleurs.BLANC);
-				break;
-			case "NATUREL":
-				p=new Piece(Couleurs.NATUREL);
-				break;
-			default:
-				return false;
+		int taille = pieces.length;
+		for (int i = 0; i < taille; i++) {
+			switch (pieces[i]) {// BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
+				case "BLEU":
+					p = new Piece(Couleurs.BLEU);
+					break;
+				case "VERT":
+					p = new Piece(Couleurs.NOIR);
+					break;
+				case "JAUNE":
+					p = new Piece(Couleurs.ROUGE);
+					break;
+				case "ROUGE":
+					p = new Piece(Couleurs.VERT);
+					break;
+				case "NOIR":
+					p = new Piece(Couleurs.JAUNE);
+					break;
+				case "BLANC":
+					p = new Piece(Couleurs.BLANC);
+					break;
+				case "NATUREL":
+					p = new Piece(Couleurs.NATUREL);
+					break;
+				default:
+					return false;
 			}
 			this.piecesVolees.add(p);
 		}
@@ -195,50 +196,50 @@ public class Acteur {
 	public ArrayList<Piece> getPiecesPiochees() {// piece Piochees
 		return this.piecesPiochees;
 	}
-	
+
 	public String piecesPiocheesToString() {
-		String tab="";
-		for(int i=0; i<this.piecesPiochees.size(); i++) {
-			tab+=piecesPiochees.get(i).toString();
-			if(i!=piecesPiochees.size()-1) {
-				tab+=":";
+		String tab = "";
+		for (int i = 0; i < this.piecesPiochees.size(); i++) {
+			tab += piecesPiochees.get(i).toString();
+			if (i != piecesPiochees.size() - 1) {
+				tab += ":";
 			}
 		}
 		return tab;
 	}
-	
+
 	public boolean stringToPiecesPiochees(String ligne) {
-		String[] pieces=ligne.split(":");
+		String[] pieces = ligne.split(":");
 		Piece p;
-		int taille=pieces.length;
-		for(int i=0; i<taille; i++) {
-			switch(pieces[i]) {//BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
-			case "VERT":
-				p=new Piece(Couleurs.NOIR);
-				addPiecePiochee(p);
-				break;
-			case "JAUNE":
-				p=new Piece(Couleurs.ROUGE);
-				addPiecePiochee(p);
-				break;
-			case "ROUGE":
-				p=new Piece(Couleurs.VERT);
-				addPiecePiochee(p);
-				break;
-			case "NOIR":
-				p=new Piece(Couleurs.JAUNE);
-				addPiecePiochee(p);
-				break;
-			case "BLANC":
-				p=new Piece(Couleurs.BLANC);
-				addPiecePiochee(p);
-				break;
-			case "NATUREL":
-				p=new Piece(Couleurs.NATUREL);
-				addPiecePiochee(p);
-				break;
-			default:
-				return false;
+		int taille = pieces.length;
+		for (int i = 0; i < taille; i++) {
+			switch (pieces[i]) {// BLEU, VERT, JAUNE, ROUGE, NOIR, BLANC, NATUREL
+				case "VERT":
+					p = new Piece(Couleurs.NOIR);
+					addPiecePiochee(p);
+					break;
+				case "JAUNE":
+					p = new Piece(Couleurs.ROUGE);
+					addPiecePiochee(p);
+					break;
+				case "ROUGE":
+					p = new Piece(Couleurs.VERT);
+					addPiecePiochee(p);
+					break;
+				case "NOIR":
+					p = new Piece(Couleurs.JAUNE);
+					addPiecePiochee(p);
+					break;
+				case "BLANC":
+					p = new Piece(Couleurs.BLANC);
+					addPiecePiochee(p);
+					break;
+				case "NATUREL":
+					p = new Piece(Couleurs.NATUREL);
+					addPiecePiochee(p);
+					break;
+				default:
+					return false;
 			}
 		}
 		return true;
@@ -328,6 +329,19 @@ public class Acteur {
 			}
 		}
 		return false;
+	}
+
+	// Nombre de piece dans la pyra
+	public int nbpieces() {
+		int res = 0;
+		for (int etage = 0; etage < 6; etage++) {
+			for (int rang = 0; rang < (6 - etage); rang++) {
+				if (getCamp().getPiece(new Position(etage, rang)) != null) {
+					res++;
+				}
+			}
+		}
+		return res + piecesVolees.size();
 	}
 
 	// DIFFICULTE

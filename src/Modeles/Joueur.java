@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Joueur extends Acteur {
 	private PiecePyramide piecePosee;
-	
+
 	public Joueur(String nom) {
 		super(nom);
 	}
@@ -19,18 +19,18 @@ public class Joueur extends Acteur {
 		return c;
 	}
 
-	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr) {// deja des pieces volables
+	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr, Partie p) {// deja des pieces volables
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String num = myObj.nextLine();
 		int rep = Integer.parseInt(num);
 		if (rep == 0) {
 			System.out.println("=========== VOL DE PIECE ===========");
 			System.out.println("Camp du joueur victime :");
-			//System.out.println(victime.getCamp().toString());
-			System.out.println("Ses pieces volees :"); //+ victime.toStringPiecesVolees()
+			// System.out.println(victime.getCamp().toString());
+			System.out.println("Ses pieces volees :"); // + victime.toStringPiecesVolees()
 			ArrayList<PiecePyramide> piecesVolables = arr;
 			System.out.println(super.getNom() + ", veuillez choisir une piece a voler :");
-			
+
 			for (int i = 0; i < arr.size(); i++) {
 				System.out.println("[" + i + "]" + arr.get(i).toString());
 			}
@@ -43,10 +43,10 @@ public class Joueur extends Acteur {
 	}
 
 	public ArrayList<PiecePyramide> phase1(Partie encours) {
-		 ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
-		if(this.piecePosee!=null) {
+		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
+		if (this.piecePosee != null) {
 			arr.add(this.piecePosee);
-			this.piecePosee=null;
+			this.piecePosee = null;
 		}
 		return arr;
 	}
@@ -64,9 +64,9 @@ public class Joueur extends Acteur {
 		}
 		return chaine;
 	}
-	
+
 	public void setPiecesPosees(PiecePyramide p) {
-		this.piecePosee=p;
+		this.piecePosee = p;
 	}
 
 }

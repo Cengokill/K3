@@ -24,21 +24,20 @@ public class piocheMC implements IApioche {
             numeroadv = 1;
         } else {
             numeroadv = 0;
-            //sauvegarde pyra adv
+            // sauvegarde pyra adv
             pyraadv = clonepyra(p.joueur1().getCamp());
-            //deconstruit
+            // deconstruit
             AnnulCreerPyra(p, numeroadv);
-        
+
         }
-            
 
         // Pour i allant de 0 a 100
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             // Creer une picohe alea pour notre joueur
             CreerPyraAlea(p, numerojoueur);
             int nbvictoire = 0;
             // Pour j allant de 0 a 100
-            for (int j = 0; j < 100; j++) {
+            for (int j = 0; j < 1000; j++) {
                 // Creer une pioche alea pour l'adversaire
                 CreerPyraAlea(p, numeroadv);
                 // Simule la partie
@@ -81,13 +80,14 @@ public class piocheMC implements IApioche {
             }
         }
 
-        //Reconstruire pyra adverse
-        if (numerojoueur == 1){
+        // Reconstruire pyra adverse
+        if (numerojoueur == 1) {
             p.joueur1().setCamp(pyraadv);
         }
 
         double tf = (double) System.currentTimeMillis();
         System.out.println((tf - td) / 1000 + " s de création de la pioche");
+        System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
         return aempiler;
     }
 
@@ -123,7 +123,7 @@ public class piocheMC implements IApioche {
                     jCourant = p.joueur1();
                 }
 
-                PiecePyramide vol = commentjouer.PieceAVoler(accessibles);
+                PiecePyramide vol = commentjouer.PieceAVoler(accessibles, p);
                 p.IAvol(vol, p.joueurCourant);
 
                 AllStolen.add(0, vol);
@@ -189,10 +189,10 @@ public class piocheMC implements IApioche {
         }
     }
 
-    public PyramideJoueur clonepyra(PyramideJoueur pp){
+    public PyramideJoueur clonepyra(PyramideJoueur pp) {
         PyramideJoueur clone = new PyramideJoueur(6, 6);
-        for (int etage=0; etage<6;etage++){
-            for (int rang = 0 ; rang < (6-etage); rang++){
+        for (int etage = 0; etage < 6; etage++) {
+            for (int rang = 0; rang < (6 - etage); rang++) {
                 Position pos = new Position(etage, rang);
                 clone.empiler(new PiecePyramide(pp.getPiece(pos), pos));
             }

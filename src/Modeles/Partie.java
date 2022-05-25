@@ -37,7 +37,7 @@ public class Partie {
 		this.basePieces = new ArrayList<Piece>();
 		this.j1 = j1;
 		this.j2 = j2;
-		this.cheminStats = ".\\Sauvegardes\\Stats";// valeur par defaut
+		this.cheminStats = ".\\Sauvegardes\\Stats\\";// valeur par defaut
 		this.statistiques = new Statistiques(this.cheminStats);
 		this.historiqueCoups = new ArrayList<Coup>();
 		pBleu = new Piece(Couleurs.BLEU);
@@ -242,9 +242,9 @@ public class Partie {
 	public PyramideMontagne getBaseMontagne() {
 		return this.baseMontagne;
 	}
-	
+
 	public void setBaseMontagne(PyramideMontagne p) {
-		this.baseMontagne=p;
+		this.baseMontagne = p;
 	}
 
 	public ArrayList<Piece> getBasePieces() {
@@ -310,7 +310,7 @@ public class Partie {
 		victime.addMauvaisCoup();
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
-		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables());
+		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables(), this);
 		if (pieceVolee != null) {
 			vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			if (pieceVolee.getPos() == null) {// si le voleur vole une piece volee
@@ -433,7 +433,7 @@ public class Partie {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
 
 	public boolean IAjoueCoup(Coup c, int joueurcourant) {
 		// System.out.println("on joue un coup");
@@ -455,7 +455,8 @@ public class Partie {
 		} else {// joue une piece BLANCHE
 			return false;
 		}
-		return this.getBaseMontagne().estPorteursMemeCouleur(c.getPosBase());
+		return this.getBaseMontagne().estPorteursMemeCouleur(c.getPosBase())
+				&& jCourant.getPiecesJouables().size() != 0;
 	}
 
 	public void IAannulCoup(Coup c, int joueurcourant) {
@@ -540,10 +541,9 @@ public class Partie {
 
 	public String optiIA() {
 		String res = "";
+		res += "\n";
 		res += joueur1().getCamp().toString();
-		res += "!!!";
 		res += baseMontagne.toString();
-		res += "!!!";
 		res += joueur2().getCamp().toString();
 		return res;
 	}
