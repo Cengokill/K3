@@ -25,7 +25,9 @@ public class LoadTexture{
 	public Image menuBouton2, menuBouton2_presse;
 	public Image menuBouton3, menuBouton3_presse;
 	public Image menuBouton4, menuBouton4_presse;
-	
+	public Image boutonJCJ,boutonJCJ_vert,boutonJCM,boutonJCM_vert,boutonMCM,boutonMCM_vert,boutonNomJ1,boutonNomJ2,boutonNomJoueur,
+	boutonDifficulteOrdi1,boutonDifficulteOrdi2,boutonDifficulteOrdi,boutonFacile,boutonFacile_vert,boutonMoyen,boutonMoyen_vert,
+	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse;
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -38,19 +40,9 @@ public class LoadTexture{
 
 	public LoadTexture(String optionchemin) {
 		this.CHEMIN = System.getProperty("user.dir")+optionchemin;
-		
 		//IMAGE FOND -------------------------------------------------------------
 		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.png");
-		//IMAGE PIECE -------------------------------------------------------------
-		pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+"EMPTY3.png");
-		pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+"NOIR.png");
-		pieceBleu = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLEU.png");
-		pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"VERT.png");
-		pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ROUGE.png");
-		pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLANC.png");
-		pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+"NATUREL.png");
-		pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JAUNE.png");
-		//IMAGE MENU---------------------------------------------------------------
+		//IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
 		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse.png");
 		menuBoutonCharger = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
@@ -65,12 +57,26 @@ public class LoadTexture{
 		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
 		boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_presse.png");
 		//IMAGES BOUTONS---------------------------------------------------------------
-		boutonMelange = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange.png");
-		boutonMelange_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange_presse.png");
-		boutonValider = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider.png");
-		boutonValider_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider_presse.png");
-		boutonValider_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider_gris.png");
-		
+		boutonJCJ = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCJ.png");
+		boutonJCJ_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCJ_vert.png");
+		boutonJCM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCM.png");
+		boutonJCM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCM_vert.png");
+		boutonMCM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MCM.png");
+		boutonMCM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MCM_vert.png");
+		boutonNomJ1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ1.png");
+		boutonNomJ2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ2.png");
+		boutonNomJoueur = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJoueur.png");
+		boutonDifficulteOrdi1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi1.png");
+		boutonDifficulteOrdi2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi2.png");
+		boutonDifficulteOrdi = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi.png");
+		boutonFacile = Toolkit.getDefaultToolkit().createImage(CHEMIN+"facile.png");
+		boutonFacile_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"facile_vert.png");
+		boutonMoyen = Toolkit.getDefaultToolkit().createImage(CHEMIN+"moyen.png");
+		boutonMoyen_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"moyen_vert.png");
+		boutonDifficile = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficile.png");
+		boutonDifficile_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficile_vert.png");
+		boutonCommencer = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie_flou.png");
+		boutonCommencer_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie_presse.png");
 		//CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");

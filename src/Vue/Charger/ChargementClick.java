@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
-import Vue.Menu.Chargement.typeFenetre;
+import Vue.Menu.Chargement.TypeFenetre;
 
 public class ChargementClick implements MouseListener {
 	
@@ -47,7 +47,7 @@ public class ChargementClick implements MouseListener {
 				String a =panel.initPartie.nomFichierCharge;
 				System.out.println(a);
 				panel.chargement.lancement = true;
-				panel.chargement.setProchaineFenetre(typeFenetre.FENETREJEU);
+				panel.chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
 			}
 		}else if(clickBoutonRetourMenu(e)) {
 			System.out.println("retour menu principal");

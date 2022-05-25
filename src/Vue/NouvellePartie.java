@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Vue.TexturePack.LoadTexture;
 /**
  *
  * @author Océanne
@@ -42,56 +44,7 @@ public class NouvellePartie extends JPanel {
     public boolean enfonce_bp_IA3_MOYEN = false;
     public boolean enfonce_bp_IA3_DIFFICILE = false;
     public boolean enfonce_pb_COMMENCER = false;
-    public int largeur_bouton, hauteur_bouton, largeur_bouton2, largeur_bouton3;
-    
-    //COMPOSANTS IMPORTES    
-    public final String CHEMIN = "C:/Users/Océanne/Documents/NetBeansProjects/K3/src/ressources/";
-    public final String NOMBACKGROUND = "background.jpg";
-    public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
-    
-    //BOUTONS NON ENFONCES
-    public Image Label_J1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image Label_J2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image Label_J3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image Label_diff_IA1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image Label_diff_IA2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image Label_diff_IA3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    
-    public Image bp_PVP = Toolkit.getDefaultToolkit().createImage(CHEMIN + "chargerPartie.png");
-    public Image bp_PVM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_MVM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA1_FACILE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA1_MOYEN = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA1_DIFFICILE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA2_FACILE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA2_MOYEN = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA2_DIFFICILE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA3_FACILE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA3_MOYEN = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_IA3_DIFFICILE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-    public Image bp_COMMENCER = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie.png");
-
-    
-        //BOUTONS ENFONCES
-    
-
-    public Image bp_PVP_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    
-    public Image bp_PVM_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_MVM_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-   
-    public Image bp_IA1_FACILE_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA1_MOYEN_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA1_DIFFICILE_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA2_FACILE_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA2_MOYEN_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA2_DIFFICILE_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA3_FACILE_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA3_MOYEN_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_IA3_DIFFICILE_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    public Image bp_COMMENCER_ENFONCE = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-    
-    
+    public int largeur_bouton, hauteur_bouton, largeur_bouton2, largeur_bouton3;  
     public int frameHeight, frameWidth;
     private final  Dimension tailleEcran;
     private final  int screenWidth;
@@ -103,12 +56,12 @@ public class NouvellePartie extends JPanel {
     int espacement_horizontal;
     int espacement_vertical;
     int offset_horizontal, offset_vertical, offset_h2, offset_h3;
-    
-    
-    
+    public LoadTexture textures;
+  
     // METHODE NOUVELLE PARTIE
-    public NouvellePartie(JFrame w){
+    public NouvellePartie(JFrame w, LoadTexture t){
         window = w;
+        this.textures=t;
         window.setTitle("Nouvelle Partie");
         this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth=tailleEcran.width;
@@ -128,7 +81,7 @@ public class NouvellePartie extends JPanel {
         
     }
     public void affichageBackGround(Graphics g) {
-	    g.drawImage(background, 0, 0, frameWidth, frameHeight, null);
+	    g.drawImage(textures.background, 0, 0, frameWidth, frameHeight, null);
             
     }
     
@@ -201,133 +154,131 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonPVP(Graphics g) {   
 	if(!enfonce_pb_PVP) {
-            g.drawImage(bp_PVP, posX_bp_PVP, posY_bp_PVP, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonJCJ, posX_bp_PVP, posY_bp_PVP, largeur_bouton, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_PVP_ENFONCE, posX_bp_PVP, posY_bp_PVP, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonJCJ_vert, posX_bp_PVP, posY_bp_PVP, largeur_bouton, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonPVM(Graphics g) {   
 	if(!enfonce_pb_PVM) {
-            g.drawImage(bp_PVM, posX_bp_PVM, posY_bp_PVM, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonJCM, posX_bp_PVM, posY_bp_PVM, largeur_bouton, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_PVM_ENFONCE, posX_bp_PVM, posY_bp_PVM, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonJCM_vert, posX_bp_PVM, posY_bp_PVM, largeur_bouton, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonMVM(Graphics g) {   
 	if(!enfonce_pb_MVM) {
-            g.drawImage(bp_MVM, posX_bp_MVM, posY_bp_MVM, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonMCM, posX_bp_MVM, posY_bp_MVM, largeur_bouton, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_MVM_ENFONCE, posX_bp_MVM, posY_bp_MVM, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonMCM_vert, posX_bp_MVM, posY_bp_MVM, largeur_bouton, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA1_FACILE(Graphics g) {   
 	if(!enfonce_bp_IA1_FACILE) {
-            g.drawImage(bp_IA1_FACILE, posX_bp_IA1_FACILE, posY_bp_IA1_FACILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonFacile, posX_bp_IA1_FACILE, posY_bp_IA1_FACILE, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA1_FACILE_ENFONCE, posX_bp_IA1_FACILE, posY_bp_IA1_FACILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonFacile_vert, posX_bp_IA1_FACILE, posY_bp_IA1_FACILE, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA1_MOYEN(Graphics g) {   
 	if(!enfonce_bp_IA1_MOYEN) {
-            g.drawImage(bp_IA1_MOYEN, posX_bp_IA1_MOYEN, posY_bp_IA1_MOYEN, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonMoyen, posX_bp_IA1_MOYEN, posY_bp_IA1_MOYEN, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA1_MOYEN_ENFONCE, posX_bp_IA1_MOYEN, posY_bp_IA1_MOYEN, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonMoyen_vert, posX_bp_IA1_MOYEN, posY_bp_IA1_MOYEN, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA1_DIFFICILE(Graphics g) {   
 	if(!enfonce_bp_IA1_DIFFICILE) {
-            g.drawImage(bp_IA1_DIFFICILE, posX_bp_IA1_DIFFICILE, posY_bp_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonDifficile, posX_bp_IA1_DIFFICILE, posY_bp_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA1_DIFFICILE_ENFONCE, posX_bp_IA1_DIFFICILE, posY_bp_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonDifficile_vert, posX_bp_IA1_DIFFICILE, posY_bp_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA2_FACILE(Graphics g) {   
 	if(!enfonce_bp_IA2_FACILE) {
-            g.drawImage(bp_IA2_FACILE, posX_bp_IA2_FACILE, posY_bp_IA2_FACILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonFacile, posX_bp_IA2_FACILE, posY_bp_IA2_FACILE, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA2_FACILE_ENFONCE, posX_bp_IA2_FACILE, posY_bp_IA2_FACILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonFacile_vert, posX_bp_IA2_FACILE, posY_bp_IA2_FACILE, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA2_MOYEN(Graphics g) {   
 	if(!enfonce_bp_IA2_MOYEN) {
-            g.drawImage(bp_IA2_MOYEN, posX_bp_IA2_MOYEN, posY_bp_IA2_MOYEN, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonMoyen, posX_bp_IA2_MOYEN, posY_bp_IA2_MOYEN, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA2_MOYEN_ENFONCE, posX_bp_IA2_MOYEN, posY_bp_IA2_MOYEN, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonMoyen_vert, posX_bp_IA2_MOYEN, posY_bp_IA2_MOYEN, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA2_DIFFICILE(Graphics g) {   
 	if(!enfonce_bp_IA2_DIFFICILE) {
-            g.drawImage(bp_IA2_DIFFICILE, posX_bp_IA2_DIFFICILE, posY_bp_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonDifficile, posX_bp_IA2_DIFFICILE, posY_bp_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA2_DIFFICILE_ENFONCE, posX_bp_IA2_DIFFICILE, posY_bp_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonDifficile_vert, posX_bp_IA2_DIFFICILE, posY_bp_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA3_FACILE(Graphics g) {   
 	if(!enfonce_bp_IA3_FACILE) {
-            g.drawImage(bp_IA3_FACILE, posX_bp_IA3_FACILE, posY_bp_IA3_FACILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonFacile, posX_bp_IA3_FACILE, posY_bp_IA3_FACILE, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA3_FACILE_ENFONCE, posX_bp_IA3_FACILE, posY_bp_IA3_FACILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonFacile_vert, posX_bp_IA3_FACILE, posY_bp_IA3_FACILE, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA3_MOYEN(Graphics g) {   
 	if(!enfonce_bp_IA3_MOYEN) {
-            g.drawImage(bp_IA3_MOYEN, posX_bp_IA3_MOYEN, posY_bp_IA3_MOYEN, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonMoyen, posX_bp_IA3_MOYEN, posY_bp_IA3_MOYEN, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA3_MOYEN_ENFONCE, posX_bp_IA3_MOYEN, posY_bp_IA3_MOYEN, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonMoyen_vert, posX_bp_IA3_MOYEN, posY_bp_IA3_MOYEN, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheBoutonIA3_DIFFICILE(Graphics g) {   
 	if(!enfonce_bp_IA3_DIFFICILE) {
-            g.drawImage(bp_IA3_DIFFICILE, posX_bp_IA3_DIFFICILE, posY_bp_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonDifficile, posX_bp_IA3_DIFFICILE, posY_bp_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_IA3_DIFFICILE_ENFONCE, posX_bp_IA3_DIFFICILE, posY_bp_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
+            g.drawImage(textures.boutonDifficile_vert, posX_bp_IA3_DIFFICILE, posY_bp_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton, null);
 	}
     }
     
     public void afficheLabel_NOMJ1(Graphics g) {   
-	g.drawImage(Label_J1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton2, hauteur_bouton, null);
+	g.drawImage(textures.Label_J1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton2, hauteur_bouton, null);
     }
     
     public void afficheLabel_NOMJ2(Graphics g) {   
-	g.drawImage(Label_J2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton2, hauteur_bouton, null);
+	g.drawImage(textures.Label_J2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton2, hauteur_bouton, null);
     }
     
     public void afficheLabel_NOMJ3(Graphics g) {   
-	g.drawImage(Label_J3, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton2, hauteur_bouton, null);
+	g.drawImage(textures.Label_J3, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton2, hauteur_bouton, null);
     }
     
     public void afficheLabel_IA1(Graphics g) {   
-	g.drawImage(Label_diff_IA1, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton2, hauteur_bouton, null);
+	g.drawImage(textures.Label_diff_IA1, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton2, hauteur_bouton, null);
     }
     
     public void afficheLabel_IA2(Graphics g) {   
-	g.drawImage(Label_diff_IA2, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton2, hauteur_bouton, null);
+	g.drawImage(textures.Label_diff_IA2, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton2, hauteur_bouton, null);
     }
     
     public void afficheLabel_IA3(Graphics g) {   
-	g.drawImage(Label_diff_IA3, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton2, hauteur_bouton, null);
+	g.drawImage(textures.Label_diff_IA3, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton2, hauteur_bouton, null);
     }
     
     public void afficheBoutonCOMMENCER(Graphics g) {   
 	if(!enfonce_pb_COMMENCER) {
-            g.drawImage(bp_COMMENCER, posX_bp_COMMENCER, posY_bp_COMMENCER, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonCommencer, posX_bp_COMMENCER, posY_bp_COMMENCER, largeur_bouton, hauteur_bouton, null);
 	}else {
-            g.drawImage(bp_COMMENCER_ENFONCE, posX_bp_COMMENCER, posY_bp_COMMENCER, largeur_bouton, hauteur_bouton, null);
+            g.drawImage(textures.boutonCommencer_presse, posX_bp_COMMENCER, posY_bp_COMMENCER, largeur_bouton, hauteur_bouton, null);
 	}
     }
-    
-    
     
     @Override
     public void paint(Graphics g) {
@@ -335,7 +286,6 @@ public class NouvellePartie extends JPanel {
 			//on detecte un changement de fenetre -> on met a jour L IHM
 			changementTaillefenetre();
 		}
-
 	affichageBackGround(g);
         afficheBoutonPVP(g);
         afficheBoutonPVM(g);
@@ -356,7 +306,5 @@ public class NouvellePartie extends JPanel {
         afficheLabel_IA2(g);
         afficheLabel_IA3(g);
         afficheBoutonCOMMENCER(g);
-        
-
 	}
 }
