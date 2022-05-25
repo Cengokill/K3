@@ -72,17 +72,18 @@ public class StartJeu extends JPanel{
         this.centreX_Window=centreX_Screen-frameWidth/2;
         this.centreY_Window=centreY_Screen-frameHeight/2;
         int espacement=60;
-        
-        this.largeur_bouton=(int)(814/1.4);
-        this.hauteur_bouton=(int)(largeur_bouton*0.1904176904);//rapport de 155/814
-        if(frameWidth<(screenWidth*0.25) || frameHeight<(frameHeight*0.25) ) {
-        	this.largeur_bouton=(int)(814/4);
-            this.hauteur_bouton=(int)(largeur_bouton*0.1904176904);//rapport de 155/814
+        double rapport=0.1933045356;//rapport de 179/926
+        int largeur_pixels=926;
+        this.largeur_bouton=(int)(largeur_pixels/1.7);
+        this.hauteur_bouton=(int)(largeur_bouton*rapport);
+        if(frameWidth<(screenWidth*0.3) || frameHeight<(frameHeight*0.3) ) {
+        	this.largeur_bouton=(int)(largeur_pixels/4);
+            this.hauteur_bouton=(int)(largeur_bouton*rapport);
             espacement=16;
         }
         else if(frameWidth<(screenWidth*0.45) || frameHeight<(frameHeight*0.45) ) {
-        	this.largeur_bouton=(int)(814/2);
-            this.hauteur_bouton=(int)(largeur_bouton*0.1904176904);//rapport de 155/814
+        	this.largeur_bouton=(int)(largeur_pixels/2.5);
+            this.hauteur_bouton=(int)(largeur_bouton*rapport);
             espacement=44;
         }
         this.posX_nouvellePartie=frameWidth/2-largeur_bouton/2;

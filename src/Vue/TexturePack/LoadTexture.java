@@ -57,14 +57,14 @@ public class LoadTexture{
 		String NOMPIECEJAUNE = "YELLOW2.png";
 		pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
 		//IMAGE MENU---------------------------------------------------------------
-		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie.png");
-		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse_flou.png");
-		menuBouton2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options.png");
-		menuBouton2_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_presse_flou.png");
-		menuBouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel.png");
-		menuBouton3_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_presse_flou.png");
+		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
+		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse.png");
+		menuBouton2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_flou.png");
+		menuBouton2_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_presse.png");
+		menuBouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_flou.png");
+		menuBouton3_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_presse.png");
 		menuBouton4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_flou.png");
-		menuBouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse_flou.png");
+		menuBouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse.png");
 		//IMAGE CHARGEMENT---------------------------------------------------------------
 		String NOMBOUTONLOADENFONCER = "chargerPartie.png";
 		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
