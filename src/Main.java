@@ -65,8 +65,7 @@ public class Main {
 		StartJeu panel = new StartJeu(window, chargement, texture);
 		window.setContentPane(panel);
 		panel.addMouseListener(new StartJeuClics(panel));
-		Jeu.timer(100);
-		panel.repaint();
+		window.paintAll(window.getGraphics());
 
 		while(!panel.chargement.lancement) {
 			Jeu.timer(100);
@@ -91,8 +90,7 @@ public class Main {
 		ChargerPanel panel = new ChargerPanel(window, texture, chargement, partie);
 		window.setContentPane(panel);
 		panel.addMouseListener(new ChargementClick(panel));
-		Jeu.timer(100);
-		panel.repaint();
+		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 		}
@@ -103,8 +101,7 @@ public class Main {
 		OptionPanel panel = new OptionPanel(window,texture, chargement);
 		window.setContentPane(panel);
 		//panel.addMouseListener(new ChargementClick(panel));
-		Jeu.timer(100);
-		panel.repaint();
+		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 		}
@@ -116,8 +113,7 @@ public class Main {
 		TutorielPanel panel = new TutorielPanel(window,texture, chargement);
 		window.setContentPane(panel);
 		panel.addMouseListener(new TutorielClick(panel));
-		Jeu.timer(100);
-		panel.repaint();
+		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 		}
