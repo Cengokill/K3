@@ -5,6 +5,15 @@ public class Chargement {
 	private int prochainePrecedent=0;
 	private int prochaineFenetre=0;
 	
+	/*
+	 * menu : 0
+	 * nouvelle partie : 1
+	 * charger partie : 2
+	 * option : 3
+	 * tutoriel : 4
+	 * FENETRE JEU : 5
+	*/
+	
 	public int getProchaineFenetre() {
 		return prochaineFenetre;
 	}
