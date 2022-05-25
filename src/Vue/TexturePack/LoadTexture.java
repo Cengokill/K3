@@ -37,7 +37,7 @@ public class LoadTexture{
 		this.CHEMIN = System.getProperty("user.dir")+optionchemin;
 		
 		//IMAGE FOND -------------------------------------------------------------
-		String NOMBACKGROUND = "background.jpg";
+		String NOMBACKGROUND = "background.png";
 		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
 		//IMAGE PIECE -------------------------------------------------------------
 		String NOMPIECEVIDE = "EMPTY3.png";

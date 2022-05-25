@@ -23,7 +23,7 @@ public class StartJeu extends JPanel{
 	public JFrame window;
 	public Dimension tailleEcran, tailleFenetre;
 	public LoadTexture texture;
-    public int screenHeight, screenWidth, frameHeight, frameWidth, centreX_Screen, centreY_Screen, centreX_Window, centreY_Window;
+    public int screenHeight, screenWidth, frameHeight, frameWidth;
     public int posX_nouvellePartie, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posX_options, posY_options;
     public int posX_quitter, posY_quitter;
@@ -37,7 +37,7 @@ public class StartJeu extends JPanel{
 	
 	public StartJeu(JFrame w, Chargement ch, LoadTexture texture) {
 		this.texture = texture;
-		this.simpleSoundPlayerMusic = new SoundPlayer(5);
+		this.simpleSoundPlayerMusic = new SoundPlayer(2);
 		this.simpleSoundPlayerSon = new SoundPlayer(8);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
@@ -50,13 +50,8 @@ public class StartJeu extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
-        
-        this.centreX_Screen=screenWidth/2;
-        this.centreY_Screen=screenHeight/2;
-        this.centreX_Window=centreX_Screen-frameWidth/2;
-        this.centreY_Window=centreY_Screen-frameHeight/2;
-		window.setLocation(centreX_Window, centreY_Window);
-	    //window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.setLocationRelativeTo(null);
+	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 	}
@@ -69,8 +64,6 @@ public class StartJeu extends JPanel{
 		this.tailleFenetre=window.getSize();
 		this.frameWidth=window.getWidth();
         this.frameHeight=window.getHeight();
-        this.centreX_Window=centreX_Screen-frameWidth/2;
-        this.centreY_Window=centreY_Screen-frameHeight/2;
         int espacement=60;
         double rapport=0.1933045356;//rapport de 179/926
         int largeur_pixels=926;
@@ -87,14 +80,13 @@ public class StartJeu extends JPanel{
             espacement=44;
         }
         this.posX_nouvellePartie=frameWidth/2-largeur_bouton/2;
-        this.posY_nouvellePartie=frameHeight/10;
+        this.posY_nouvellePartie=frameHeight/5+frameHeight/10;
         this.posX_options=frameWidth/2-largeur_bouton/2;
         this.posY_options=posY_nouvellePartie+hauteur_bouton+espacement;
         this.posX_tuto=frameWidth/2-largeur_bouton/2;
         this.posY_tuto=posY_options+hauteur_bouton+espacement;
         this.posX_quitter=frameWidth/2-largeur_bouton/2;
         this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
-        
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
