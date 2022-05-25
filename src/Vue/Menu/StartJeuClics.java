@@ -25,7 +25,7 @@ public class StartJeuClics implements MouseListener{
 	}
 	
 	public boolean clicNouvellePartie(MouseEvent e){
-		int startx = startJeu.posX_nouvellePartie;
+		int startx = startJeu.posX_bouton;
 		int starty = startJeu.posY_nouvellePartie;
 		int hauteurBouton=startJeu.hauteur_bouton;
 		int largeurBouton=startJeu.largeur_bouton;
@@ -34,8 +34,18 @@ public class StartJeuClics implements MouseListener{
 		}else return false;
 	}
 	
+	public boolean clicCharger(MouseEvent e){
+		int startx = startJeu.posX_bouton;
+		int starty = startJeu.posY_charger;
+		int hauteurBouton=startJeu.hauteur_bouton;
+		int largeurBouton=startJeu.largeur_bouton;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	public boolean clicOptions(MouseEvent e){
-		int startx = startJeu.posX_options;
+		int startx = startJeu.posX_bouton;
 		int starty = startJeu.posY_options;
 		int hauteurBouton=startJeu.hauteur_bouton;
 		int largeurBouton=startJeu.largeur_bouton;
@@ -45,7 +55,7 @@ public class StartJeuClics implements MouseListener{
 	}
 	
 	public boolean clicTuto(MouseEvent e){
-		int startx = startJeu.posX_tuto;
+		int startx = startJeu.posX_bouton;
 		int starty = startJeu.posY_tuto;
 		int hauteurBouton=startJeu.hauteur_bouton;
 		int largeurBouton=startJeu.largeur_bouton;
@@ -55,7 +65,7 @@ public class StartJeuClics implements MouseListener{
 	}
 	
 	public boolean clicQuitter(MouseEvent e){
-		int startx = startJeu.posX_quitter;
+		int startx = startJeu.posX_bouton;
 		int starty = startJeu.posY_quitter;
 		int hauteurBouton=startJeu.hauteur_bouton;
 		int largeurBouton=startJeu.largeur_bouton;
@@ -73,6 +83,8 @@ public class StartJeuClics implements MouseListener{
 		}
 		else if(clicQuitter(e)) {
 			System.exit(0);
+		}
+		else if(clicCharger(e)) {
 		}
 		else if(clicOptions(e)) {
 			this.startJeu.chargement.lancement=true;
@@ -139,7 +151,16 @@ public class StartJeuClics implements MouseListener{
 							}
 						}else {
 							startJeu.enfonce_tuto=false;
-							startJeu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+							if(clicCharger(e)) {
+								if(!startJeu.enfonce_charger) {
+									startJeu.enfonce_charger=true;
+									startJeu.setCursor(new Cursor(Cursor.HAND_CURSOR));
+									startJeu.jouerSonSurvol();
+								}}
+								else {
+									startJeu.enfonce_charger=false;
+									startJeu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+								}
 						}
 					}
 				}

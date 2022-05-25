@@ -20,14 +20,11 @@ public class LoadTexture{
 	public Image pieceJaune;
 	
 	//IMAGE MENU
-	public Image menuBouton1;
-	public Image menuBouton1_presse;
-	public Image menuBouton2;
-	public Image menuBouton2_presse;
-	public Image menuBouton3;
-	public Image menuBouton3_presse;
-	public Image menuBouton4;
-	public Image menuBouton4_presse;
+	public Image menuBouton1,menuBouton1_presse;
+	public Image menuBoutonCharger, menuBoutonCharger_presse;
+	public Image menuBouton2, menuBouton2_presse;
+	public Image menuBouton3, menuBouton3_presse;
+	public Image menuBouton4, menuBouton4_presse;
 	
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
@@ -59,6 +56,8 @@ public class LoadTexture{
 		//IMAGE MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
 		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse.png");
+		menuBoutonCharger = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
+		menuBoutonCharger_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_presse.png");
 		menuBouton2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_flou.png");
 		menuBouton2_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"options_presse.png");
 		menuBouton3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"tutoriel_flou.png");

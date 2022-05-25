@@ -24,14 +24,13 @@ public class StartJeu extends JPanel{
 	public Dimension tailleEcran, tailleFenetre;
 	public LoadTexture texture;
     public int screenHeight, screenWidth, frameHeight, frameWidth;
-    public int posX_nouvellePartie, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
-    public int posX_options, posY_options;
-    public int posX_quitter, posY_quitter;
-    public int posX_tuto, posY_tuto;
+    public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
+    public int posY_options, posY_quitter, posY_charger, posY_tuto;
     public boolean enfonce_nouvellePartie=false;
     public boolean enfonce_options=false;
     public boolean enfonce_tuto=false;
     public boolean enfonce_quitter=false;
+    public boolean enfonce_charger=false;
     public Chargement chargement;
     private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	
@@ -63,7 +62,7 @@ public class StartJeu extends JPanel{
 		this.tailleFenetre=window.getSize();
 		this.frameWidth=window.getWidth();
         this.frameHeight=window.getHeight();
-        int espacement=60;
+        int espacement=30;
         double rapport=0.1933045356;//rapport de 179/926
         int largeur_pixels=926;
         this.largeur_bouton=(int)(largeur_pixels/1.7);
@@ -71,20 +70,23 @@ public class StartJeu extends JPanel{
         if(frameWidth<(screenWidth*0.3) || frameHeight<(frameHeight*0.3) ) {
         	this.largeur_bouton=(int)(largeur_pixels/4);
             this.hauteur_bouton=(int)(largeur_bouton*rapport);
-            espacement=16;
+            espacement=(int)(espacement*0.3);
         }
         else if(frameWidth<(screenWidth*0.45) || frameHeight<(frameHeight*0.45) ) {
         	this.largeur_bouton=(int)(largeur_pixels/2.5);
             this.hauteur_bouton=(int)(largeur_bouton*rapport);
-            espacement=44;
+            espacement=(int)(espacement*0.45);
         }
-        this.posX_nouvellePartie=frameWidth/2-largeur_bouton/2;
-        this.posY_nouvellePartie=frameHeight/5+frameHeight/10;
-        this.posX_options=frameWidth/2-largeur_bouton/2;
-        this.posY_options=posY_nouvellePartie+hauteur_bouton+espacement;
-        this.posX_tuto=frameWidth/2-largeur_bouton/2;
+        this.posX_bouton=frameWidth/2-largeur_bouton/2;
+        
+        this.posY_nouvellePartie=frameHeight/4+frameHeight/10;
+        
+        this.posY_charger=posY_nouvellePartie+hauteur_bouton+espacement;
+        
+        this.posY_options=posY_charger+hauteur_bouton+espacement;
+        
         this.posY_tuto=posY_options+hauteur_bouton+espacement;
-        this.posX_quitter=frameWidth/2-largeur_bouton/2;
+        
         this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
 	}
 	
@@ -99,33 +101,41 @@ public class StartJeu extends JPanel{
 	
 	public void afficheBoutonNouvellePartie(Graphics g) {
 		if(!enfonce_nouvellePartie) {
-			g.drawImage(texture.menuBouton1, posX_nouvellePartie, posY_nouvellePartie, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton1, posX_bouton, posY_nouvellePartie, largeur_bouton, hauteur_bouton, null);
 		}else {
-			g.drawImage(texture.menuBouton1_presse, posX_nouvellePartie, posY_nouvellePartie, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton1_presse, posX_bouton, posY_nouvellePartie, largeur_bouton, hauteur_bouton, null);
+		}
+	}
+	
+	public void afficheBoutonCharger(Graphics g) {
+		if(!enfonce_charger) {
+			g.drawImage(texture.menuBoutonCharger, posX_bouton, posY_charger, largeur_bouton, hauteur_bouton, null);
+		}else {
+			g.drawImage(texture.menuBoutonCharger_presse, posX_bouton, posY_charger, largeur_bouton, hauteur_bouton, null);
 		}
 	}
 	
 	public void afficheBoutonOptions(Graphics g) {
 		if(!enfonce_options) {
-			g.drawImage(texture.menuBouton2, posX_options, posY_options, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton2, posX_bouton, posY_options, largeur_bouton, hauteur_bouton, null);
 		}else {
-			g.drawImage(texture.menuBouton2_presse, posX_options, posY_options, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton2_presse, posX_bouton, posY_options, largeur_bouton, hauteur_bouton, null);
 		}
 	}
 	
 	public void afficheBoutonTuto(Graphics g) {
 		if(!enfonce_tuto) {
-			g.drawImage(texture.menuBouton3, posX_tuto, posY_tuto, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton3, posX_bouton, posY_tuto, largeur_bouton, hauteur_bouton, null);
 		}else {
-			g.drawImage(texture.menuBouton3_presse, posX_tuto, posY_tuto, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton3_presse, posX_bouton, posY_tuto, largeur_bouton, hauteur_bouton, null);
 		}
 	}
 	
 	public void afficheBoutonQuitter(Graphics g) {
 		if(!enfonce_quitter) {
-			g.drawImage(texture.menuBouton4, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton4, posX_bouton, posY_quitter, largeur_bouton, hauteur_bouton, null);
 		}else {
-			g.drawImage(texture.menuBouton4_presse, posX_quitter, posY_quitter, largeur_bouton, hauteur_bouton, null);
+			g.drawImage(texture.menuBouton4_presse, posX_bouton, posY_quitter, largeur_bouton, hauteur_bouton, null);
 		}
 	}
 	
@@ -136,6 +146,7 @@ public class StartJeu extends JPanel{
 		}
 		affichageBackGround(g);
 		afficheBoutonNouvellePartie(g);
+		afficheBoutonCharger(g);
 		afficheBoutonOptions(g);
 		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
