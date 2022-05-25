@@ -3,6 +3,9 @@ package Vue.TexturePack;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 public class LoadTexture{
 	public String CHEMIN;
 	
@@ -18,7 +21,6 @@ public class LoadTexture{
 	public Image pieceBlanche;
 	public Image pieceNature;	
 	public Image pieceJaune;
-	
 	//IMAGE MENU
 	public Image menuBouton1,menuBouton1_presse;
 	public Image menuBoutonCharger, menuBoutonCharger_presse;
@@ -37,6 +39,8 @@ public class LoadTexture{
 	
 	//IMAGES CURSEURS
 	public Image mainFermee, mainDepose;
+	//TEXT FIELDS
+	public JTextField texte_nomJ1, texte_nomJ2, texte_nomJoueur;
 
 	public LoadTexture(String optionchemin) {
 		this.CHEMIN = System.getProperty("user.dir")+optionchemin;
@@ -80,6 +84,10 @@ public class LoadTexture{
 		//CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");
+		//LABELS
+		texte_nomJ1= new JTextField(30);
+		texte_nomJ2= new JTextField(30);
+		texte_nomJoueur= new JTextField(30);
 	}
 }
 

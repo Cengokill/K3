@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -249,27 +250,27 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_NOMJ1(Graphics g) {   
-	g.drawImage(textures.Label_J1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton2, hauteur_bouton, null);
+    	  window.add(textures.texte_nomJ1);
     }
     
     public void afficheLabel_NOMJ2(Graphics g) {   
-	g.drawImage(textures.Label_J2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton2, hauteur_bouton, null);
+    	window.add(textures.texte_nomJ2);
     }
     
     public void afficheLabel_NOMJ3(Graphics g) {   
-	g.drawImage(textures.Label_J3, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton2, hauteur_bouton, null);
+    	window.add(textures.texte_nomJoueur);
     }
     
     public void afficheLabel_IA1(Graphics g) {   
-	g.drawImage(textures.Label_diff_IA1, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton2, hauteur_bouton, null);
+    	window.add(textures.texte_nomJoueur);
     }
     
     public void afficheLabel_IA2(Graphics g) {   
-	g.drawImage(textures.Label_diff_IA2, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton2, hauteur_bouton, null);
+    	window.add(textures.texte_nomJoueur);
     }
     
     public void afficheLabel_IA3(Graphics g) {   
-	g.drawImage(textures.Label_diff_IA3, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton2, hauteur_bouton, null);
+    	window.add(textures.texte_nomJoueur);
     }
     
     public void afficheBoutonCOMMENCER(Graphics g) {   
