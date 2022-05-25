@@ -339,7 +339,7 @@ public class Acteur {
 				}
 			}
 		}
-		return res;
+		return res + piecesVolees.size();
 	}
 
 	// DIFFICULTE
