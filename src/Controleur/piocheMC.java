@@ -32,12 +32,12 @@ public class piocheMC implements IApioche {
         }
 
         // Pour i allant de 0 a 100
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             // Creer une picohe alea pour notre joueur
             CreerPyraAlea(p, numerojoueur);
             int nbvictoire = 0;
             // Pour j allant de 0 a 100
-            for (int j = 0; j < 100; j++) {
+            for (int j = 0; j < 1000; j++) {
                 // Creer une pioche alea pour l'adversaire
                 CreerPyraAlea(p, numeroadv);
                 // Simule la partie
@@ -87,6 +87,7 @@ public class piocheMC implements IApioche {
 
         double tf = (double) System.currentTimeMillis();
         System.out.println((tf - td) / 1000 + " s de création de la pioche");
+        System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
         return aempiler;
     }
 

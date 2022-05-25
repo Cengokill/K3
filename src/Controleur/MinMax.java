@@ -35,13 +35,16 @@ public class MinMax {
         if (nbcoupsia == 0) {
             heur.setprem(-10000);
             heur.setdeux(-10000);
+            heur.settrois(-10000);
         }
         if (nbcoupsadv == 0) {
             heur.setprem(10000);
             heur.setdeux(10000);
+            heur.settrois(10000);
         } else {
             heur.setprem(nbcoupsia - nbcoupsadv);
             heur.setdeux(nbpiecesia);
+            heur.settrois(nbcoupsadv);
         }
 
         return heur;
@@ -86,6 +89,7 @@ public class MinMax {
         Heuristique valeurconfig = new Heuristique();
         valeurconfig.setprem(-10001);
         valeurconfig.setdeux(-10001);
+        valeurconfig.settrois(-10001);
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig.getprem() != 10000) { // On itere sur les coups possibles
             Coup c = it.next();
@@ -98,6 +102,7 @@ public class MinMax {
                 Heuristique confvol = new Heuristique();
                 confvol.setprem(10001);
                 confvol.setdeux(10001);
+                confvol.settrois(10001);
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
@@ -109,6 +114,9 @@ public class MinMax {
                     p.IAannulvol(next, joueurcourant); // annul vol
                 }
                 // Pire vol qui peut nous arriver
+                if (flag) {
+                    System.out.println(confvol.toString());
+                }
                 if (compareHeuristique(valeurconfig, confvol)) { // Si le pire vol est meilleur que toutes les configs
                                                                  // tester
                     valeurconfig = confvol;
@@ -121,6 +129,10 @@ public class MinMax {
                 Heuristique valeurfils = meilleurConfigAD(p, horizon - 1, flag, valeurconfig.getprem());// calcule la
                                                                                                         // valeur de
                 // la config
+                if (flag) {
+                    System.out.println(valeurfils.toString());
+                }
+
                 if (flag && compareHeuristique(valeurconfig, valeurfils)) { // si new valeur> old valeur && premier tour
                                                                             // on enregistre le
                     // coup
@@ -130,6 +142,7 @@ public class MinMax {
                     valeurconfig = valeurfils;
                 } // maj valeur
             }
+
             p.IAannulCoup(c, joueurcourant); // annule le coup
 
             if (valeurconfig.getprem() > valeurcourante) {
@@ -162,9 +175,12 @@ public class MinMax {
             JoueurCourant = p.joueur2();
         }
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
+
         Heuristique valeurconfig = new Heuristique();
         valeurconfig.setprem(10001);
         valeurconfig.setdeux(10001);
+        valeurconfig.settrois(10001);
+
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig.getprem() != -10000) {
             Coup c = it.next();
@@ -174,6 +190,7 @@ public class MinMax {
                 Heuristique confvol = new Heuristique();
                 confvol.setprem(-10001);
                 confvol.setdeux(-10001);
+                confvol.settrois(-10001);
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
@@ -234,6 +251,9 @@ public class MinMax {
 
     public boolean compareHeuristique(Heuristique un, Heuristique deux) { // renvoie vraie si un est moins fort que deux
         if (un.getprem() == deux.getprem()) {
+            if (un.getdeux() == deux.getdeux()) {
+                return (un.gettrois() > deux.gettrois());
+            }
             return (un.getdeux() < deux.getdeux());
         }
         return (un.getprem() < deux.getprem());
