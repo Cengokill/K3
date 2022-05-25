@@ -6,21 +6,21 @@ import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Modeles.*;
+import Vue.TexturePack.LoadTexture;
 
 public class Phase1Panel extends JPanel{
 	
-	// PARAMETRE JEU
-	private Partie partieEnCours;
+	// PARAMETRES JEU
+	public Partie partieEnCours;
 	private JFrame window;
-	public Dimension tailleFenetre;	
+	public Dimension tailleFenetre;
+	public final Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
+	public final int screenWidth=tailleEcran.width;
+	public final int screenHeight=tailleEcran.height;
 	//drag N DROP
 	public int OldX = 0;
 	public int OldY = 0;
@@ -31,10 +31,9 @@ public class Phase1Panel extends JPanel{
 	public int TAILLE_CUBES_HAUTEUR;
 	public int TAILLE_CUBES_LARGEUR;
 	
-	public int POSX_PIECE_CHOISIE;
-	public int POSY_PIECE_CHOISIE;
-	public int LARGEUR_PIECE_CHOISIE;
-	public int HAUTEUR_PIECE_CHOISIE;
+	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton;
+    public int posX_bouton_annuler, posY_bouton_annuler;
+	boolean enfonce_melange=false;
 	
 	public int POSX_BASE_JOUEUR;
 	public int POSY_BASE_JOUEUR;
@@ -44,38 +43,13 @@ public class Phase1Panel extends JPanel{
 	
 	public int POSX_BASE_MONTAGNE;
 	public int POSY_BASE_MONTAGNE;
-	//COMPOSANTS IMPORTES
-	public final String CHEMIN = System.getProperty("user.dir")+"/src/Ressources/";
 	
-	public final String NOMBACKGROUND = "background.jpg";
-	public Image background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
-	
-	public final String NOMPIECEVIDE = "EMPTY3.png";
-	public Image pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVIDE);
-	
-	public final String NOMPIECEBLACK = "BLACK2.png";
-	public Image pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLACK);
-	
-	public final String NOMPIECEBLEU = "BLUE2.png";
-	public Image pieceBleu = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLEU);
-	
-	public final String NOMPIECEVERT = "GREEN2.png";
-	public Image pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVERT);
-	
-	public final String NOMPIECEROUGE = "RED2.png";
-	public Image pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEROUGE);
-	
-	public final String NOMPIECEBLANC = "WHITE2.png";
-	public Image pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLANC);
-	
-	public final String NOMPIECENATURE = "WOOD2.png";
-	public Image pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECENATURE);
-	
-	public final String NOMPIECEJAUNE = "YELLOW2.png";
-	public Image pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
-	
+	//TEXTURES IMPORTEES
+	public LoadTexture textures;
+
 	// CONSTRUCTEUR----------------------------------------------
-	public Phase1Panel(JFrame w, Partie partieEnCours){
+	public Phase1Panel(JFrame w, Partie partieEnCours, LoadTexture t){
+		this.textures=t;
 		this.partieEnCours=partieEnCours;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
@@ -90,7 +64,8 @@ public class Phase1Panel extends JPanel{
 			changementTaillefenetre();
 		}
 		affichageBackGround(g);
-		affichagePieceSelectionee(g);
+		affichageBoutonAnnuler(g);
+		affichageBoutonMelange(g);
 		afficheBaseMontagne(g);
 		affichePyramideJoueur1(g);
 		affichePioche(g);
@@ -103,25 +78,35 @@ public class Phase1Panel extends JPanel{
 	public void changementTaillefenetre() {
 		tailleFenetre = window.getSize();
 		//taille objet
+		int largeur_pixels=748;
+        this.largeur_bouton=(int)(largeur_pixels/4);
+        this.hauteur_bouton=(int)(largeur_bouton);
+        if(tailleFenetre.width<(screenWidth*0.3) || tailleFenetre.height<screenHeight*0.3){
+        	this.largeur_bouton=(int)(largeur_pixels/8);
+            this.hauteur_bouton=(int)(largeur_bouton);
+        }
+        else if(tailleFenetre.width<(screenWidth*0.45) || tailleFenetre.height<(screenHeight*0.45) ) {
+        	this.largeur_bouton=(int)(largeur_pixels/5);
+            this.hauteur_bouton=(int)(largeur_bouton);
+        }
 		// largeur 211, hauteur 259. 211/259 = 0.8146718147
 		TAILLE_CUBES_LARGEUR = tailleFenetre.height/16;
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR/0.8146718147);//rapport de 211/259
 		
-		LARGEUR_PIECE_CHOISIE = tailleFenetre.width/18;
-		HAUTEUR_PIECE_CHOISIE = (int)(LARGEUR_PIECE_CHOISIE/0.8146718147);
-		
 		//Position objet
-		this.POSX_PIECE_CHOISIE = 0;
-		this.POSY_PIECE_CHOISIE = 0;
-		
 		this.POSX_BASE_JOUEUR = tailleFenetre.height/10;
-		this.POSY_BASE_JOUEUR = HAUTEUR_PIECE_CHOISIE*2;
+		this.POSY_BASE_JOUEUR = tailleFenetre.height/100;
 		
 		this.POSX_PIOCHE = 0;
 		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
 		
 		this.POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
 		this.POSY_BASE_MONTAGNE = POSY_BASE_JOUEUR-(int)(TAILLE_CUBES_HAUTEUR*0.75);
+		
+		posX_bouton_melange=POSX_BASE_JOUEUR-TAILLE_CUBES_LARGEUR;
+		posY_bouton_melange=POSY_PIOCHE+TAILLE_CUBES_HAUTEUR*2;
+	    posX_bouton_annuler=posX_bouton_melange+largeur_bouton+TAILLE_CUBES_LARGEUR/2;
+	    posY_bouton_annuler=posY_bouton_melange;
 	}
 	
 	// PIECE SELECTIONEE----------------------------------------------
@@ -136,25 +121,25 @@ public class Phase1Panel extends JPanel{
 	// FONCTION QUI PERMET DE RENVOYER L IMAGE DE LA PIECE
 	public Image getpetitcolor(Piece p) {
 		if(p == null) {
-			return pieceVide;
+			return textures.pieceVide;
 		}
 		else {
 			Couleurs colorP = p.getColor();
 			if(colorP == Couleurs.BLEU) {
-				return pieceBleu;
+				return textures.pieceBleu;
 			}
 			else if(colorP == Couleurs.VERT) {
-				return pieceVert;
+				return textures.pieceVert;
 			}else if(colorP == Couleurs.JAUNE) {
-				return pieceJaune;
+				return textures.pieceJaune;
 			}else if(colorP == Couleurs.ROUGE) {
-				return pieceRouge;
+				return textures.pieceRouge;
 			}else if(colorP == Couleurs.NOIR) {
-				return pieceNoire;
+				return textures.pieceNoire;
 			}else if(colorP == Couleurs.BLANC) {
-				return pieceBlanche;
+				return textures.pieceBlanche;
 			}else if(colorP == Couleurs.NATUREL) {
-				return pieceNature;
+				return textures.pieceNature;
 			}else {
 				return null;
 			}
@@ -198,17 +183,23 @@ public class Phase1Panel extends JPanel{
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	
 	public void affichageBackGround(Graphics g) {
-	    g.drawImage(background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
+	    g.drawImage(textures.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
+	}
+	
+	// AFFICHAGE BOUTONSE-------------------------------------------------------------
+	public void affichageBoutonAnnuler(Graphics g) {
+		g.drawImage(textures.boutonAnnuler, posX_bouton_annuler, posY_bouton_annuler, largeur_bouton, hauteur_bouton,null);
+	}
+	
+	public void affichageBoutonMelange(Graphics g) {
+		if(!enfonce_melange) {
+			g.drawImage(textures.boutonMelange, posX_bouton_melange, posY_bouton_melange, largeur_bouton, hauteur_bouton, null);
+		}else {
+			g.drawImage(textures.boutonMelange_presse, posX_bouton_melange, posY_bouton_melange, largeur_bouton, hauteur_bouton, null);
+		}
 	}
 	
 	// AFFICHAGE PIECE SELECTIONNEE-------------------------------------------------------------
-	//affiche le cube en haut a gauche avec la couleur de la piece selectionnee
-	public void affichagePieceSelectionee(Graphics g) {
-		g.drawImage(getpetitcolor(pieceSelectionnee), POSX_PIECE_CHOISIE, POSY_PIECE_CHOISIE, LARGEUR_PIECE_CHOISIE, HAUTEUR_PIECE_CHOISIE,null);
-		//g.setColor();
-		//g.fillRect(POSX_PIECE_CHOISIE, POSY_PIECE_CHOISIE, LARGEUR_PIECE_CHOISIE, HAUTEUR_PIECE_CHOISIE);
-	}
-	
 	public void dragNdrop(Graphics g) {
 		if(pieceSelectionnee != null) {
 			g.drawImage(getpetitcolor(pieceSelectionnee), currentX, currentY, (int)(TAILLE_CUBES_LARGEUR/1.5), (int)(TAILLE_CUBES_HAUTEUR/1.5),null);

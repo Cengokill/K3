@@ -29,30 +29,27 @@ public class LoadTexture{
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
+	
+	//IMAGES BOUTONS
+	public Image boutonAnnuler, boutonMelange, boutonMelange_presse;
+	
+	//IMAGES CURSEURS
+	public Image mainFermee, mainDepose;
 
 	public LoadTexture(String optionchemin) {
 		this.CHEMIN = System.getProperty("user.dir")+optionchemin;
 		
 		//IMAGE FOND -------------------------------------------------------------
-		String NOMBACKGROUND = "background.png";
-		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBACKGROUND);
+		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.png");
 		//IMAGE PIECE -------------------------------------------------------------
-		String NOMPIECEVIDE = "EMPTY3.png";
-		pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVIDE);
-		String NOMPIECEBLACK = "BLACK2.png";
-		pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLACK);
-		String NOMPIECEBLEU = "BLUE2.png";
-		pieceBleu = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLEU);
-		String NOMPIECEVERT = "GREEN2.png";
-		pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEVERT);
-		String NOMPIECEROUGE = "RED2.png";
-		pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEROUGE);
-		String NOMPIECEBLANC = "WHITE2.png";
-		pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEBLANC);
-		String NOMPIECENATURE = "WOOD2.png";
-		pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECENATURE);
-		String NOMPIECEJAUNE = "YELLOW2.png";
-		pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMPIECEJAUNE);
+		pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+"EMPTY3.png");
+		pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLACK2.png");
+		pieceBleu = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLUE2.png");
+		pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"GREEN2.png");
+		pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+"RED2.png");
+		pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+"WHITE2.png");
+		pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+"WOOD2.png");
+		pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+"YELLOW2.png");
 		//IMAGE MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
 		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse.png");
@@ -65,9 +62,44 @@ public class LoadTexture{
 		menuBouton4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_flou.png");
 		menuBouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse.png");
 		//IMAGE CHARGEMENT---------------------------------------------------------------
-		String NOMBOUTONLOADENFONCER = "chargerPartie.png";
-		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADENFONCER);
-		String NOMBOUTONLOADRELACHER = "chargerPartiePresse.png";
-		boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+NOMBOUTONLOADRELACHER);
+		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
+		boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_presse.png");
+		//IMAGES BOUTONS---------------------------------------------------------------
+		boutonAnnuler = Toolkit.getDefaultToolkit().createImage(CHEMIN+"annulerCoup.png");
+		boutonMelange = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange.png");
+		boutonMelange_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange_presse.png");
+		
+		//CURSEURS
+		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
+		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

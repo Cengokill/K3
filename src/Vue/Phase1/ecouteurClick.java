@@ -18,9 +18,6 @@ public class ecouteurClick implements MouseListener {
 	public String typeCurseur;
 	public Cursor cursorMainFermee, cursorMainDepose;
 	
-	public final String NomMainFermee = "hand-closed.png";
-	public final String NomMainDepose = "hand-depose.png";
-	
 	//CONSTRUTEUR--------------------------------
 	public ecouteurClick(Phase1Panel panel) {
 		super();
@@ -34,8 +31,8 @@ public class ecouteurClick implements MouseListener {
 	public void setCustomCurseur() {
 		Toolkit tkit=Toolkit.getDefaultToolkit();
 
-		Image mainFermee = tkit.getImage(panel.CHEMIN+NomMainFermee);
-		Image curseurPlus = tkit.getImage(panel.CHEMIN+NomMainDepose);
+		Image mainFermee = panel.textures.mainFermee;
+		Image curseurPlus = panel.textures.mainDepose;
 
 		Point point = new Point(0,0);
 		this.cursorMainFermee = tkit.createCustomCursor(mainFermee, point, "mainFermee");
@@ -100,12 +97,27 @@ public class ecouteurClick implements MouseListener {
 		return x;
 	}
 	
+	//CLIC BOUTONS
+	public boolean clicMelange(MouseEvent e){
+		int startx = panel.posX_bouton_melange;
+		int starty = panel.posY_bouton_melange;
+		int hauteurBouton=panel.hauteur_bouton;
+		int largeurBouton=panel.largeur_bouton;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	//GESTION SOURIS----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
 			if(e.getButton() == MouseEvent.BUTTON1) { 
 				if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
+					if(clicMelange(e)) {
+						Acteur a = panel.initAffichageJoueurs();
+						a.melangeAleatCamp();
+					}
 					int index = clickPioche(e);
 					if(index>=0) {
 						Acteur a = panel.initAffichageJoueurs();

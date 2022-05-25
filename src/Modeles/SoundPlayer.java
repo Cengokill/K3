@@ -14,6 +14,7 @@ public class SoundPlayer {
 	private FloatControl volumeLevel;
 	
 	public SoundPlayer(int volume) {
+		this.numSon=-1;
 		this.volume=volume;
 		this.chemin=System.getProperty("user.dir")+"/res/Sounds/";
 		// EFFETS SONORES
@@ -90,6 +91,10 @@ public class SoundPlayer {
 		}else {
 			jouerSon();
 		}
+	}
+	
+	public int getNumSon() {
+		return this.numSon;
 	}
 	
 	public void setNumSon(int i) {

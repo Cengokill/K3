@@ -336,4 +336,60 @@ public class Acteur {
 	// FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR
 	public void setPiecesPosees(PiecePyramide p) {
 	}
+	
+	public void melangeAleatCamp() {
+		ArrayList<Piece> pioche = this.getPiecesPiochees();
+		if(pioche.isEmpty()) {
+			initCampEtPioche();
+			pioche = this.getPiecesPiochees();
+		}
+		Collections.shuffle(pioche);
+		for(int i=0; i<this.getCamp().getHauteur(); i++) {
+			for(int j=0; j<this.getCamp().getLargeur()-i; j++) {
+				if(this.getCamp().empiler(new PiecePyramide(pioche.get(0), new Position(i, j)))) {
+					this.removePiecePiochee(pioche.get(0));
+				}
+			}
+		}
+	}
+	
+	public void initCampEtPioche() {
+		for(int i=0; i<this.getCamp().getHauteur(); i++) {
+			for(int j=0; j<this.getCamp().getLargeur()-i; j++) {
+				Position pos = new Position(i,j);
+				Piece pCourante = this.getCamp().getPiece(pos);
+				if(pCourante!=null) {
+					this.getCamp().retirer(pos);
+					this.addPiecePiochee(pCourante);
+				}
+			}
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

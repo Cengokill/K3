@@ -16,6 +16,7 @@ import Modeles.*;
 import Reseau.*;
 import Vue.*;
 import Vue.Phase1.*;
+import Vue.TexturePack.LoadTexture;
 
 public class Jeu {
 	public Partie partieEnCours;
@@ -30,8 +31,10 @@ public class Jeu {
 	public JFrame window;
 	public Phase1Panel panel;
 	private int NB_LIGNES_SAUVEGARDE=43;
+	public LoadTexture textures;
 
-	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit) {
+	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, LoadTexture t) {
+		this.textures=t;
 		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
@@ -50,6 +53,7 @@ public class Jeu {
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
 		plateau = new Plateau();
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		//lancer une partie
 		/*
 		if(partieInit.nomFichierCharge!=null) {
@@ -80,7 +84,7 @@ public class Jeu {
 	}
 	
 	public void lancerPhase1() {
-		this.panel = new Phase1Panel(this.window, this.partieEnCours);
+		this.panel = new Phase1Panel(this.window, this.partieEnCours, this.textures);
 		this.window.setContentPane(panel);
 		this.panel.addMouseListener(new ecouteurClick(panel));
 	}

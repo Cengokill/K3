@@ -7,7 +7,7 @@ import java.awt.event.MouseMotionAdapter;
 
 import Modeles.Acteur;
 import Modeles.Joueur;
-import Vue.Menu.Chargement.typeFenetre;
+import Vue.Menu.Chargement.TypeFenetre;
 import Vue.Phase1.Phase1Panel;
 import Vue.Phase1.ecouteurClick.DragListener;
 
@@ -80,22 +80,22 @@ public class StartJeuClics implements MouseListener{
 		if(clicNouvellePartie(e)) {
 			System.out.println("lancer la nouvelle partie");
 			this.startJeu.chargement.lancement=true;
-			this.startJeu.chargement.setProchaineFenetre(typeFenetre.NEWPARTIE);
+			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.NEWPARTIE);
 		}
 		else if(clicQuitter(e)) {
 			System.exit(0);
 		}
 		else if(clicCharger(e)) {
 			this.startJeu.chargement.lancement=true;
-			this.startJeu.chargement.setProchaineFenetre(typeFenetre.CHARGERPARTIE);
+			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.CHARGERPARTIE);
 		}
 		else if(clicOptions(e)) {
 			this.startJeu.chargement.lancement=true;
-			this.startJeu.chargement.setProchaineFenetre(typeFenetre.OPTION);
+			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.OPTION);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}else if(clicTuto(e)) {
 			this.startJeu.chargement.lancement=true;
-			this.startJeu.chargement.setProchaineFenetre(typeFenetre.TUTO);
+			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.TUTO);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}
 	}

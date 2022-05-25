@@ -2,22 +2,22 @@ package Vue.Menu;
 
 public class Chargement {
 	
-	public enum typeFenetre { 
+	public enum TypeFenetre { 
 	    MENU, NEWPARTIE, CHARGERPARTIE, OPTION, TUTO, FENETREJEU  
 	}
 	
 	public boolean lancement=false;
-	private typeFenetre prochainePrecedent=typeFenetre.MENU;
-	private typeFenetre prochaineFenetre=typeFenetre.MENU;
+	private TypeFenetre prochainePrecedent=TypeFenetre.MENU;
+	private TypeFenetre prochaineFenetre=TypeFenetre.MENU;
 	
-	public typeFenetre getProchaineFenetre() {
+	public TypeFenetre getProchaineFenetre() {
 		return prochaineFenetre;
 	}
-	public void setProchaineFenetre(typeFenetre i) {
+	public void setProchaineFenetre(TypeFenetre i) {
 		this.prochainePrecedent = prochaineFenetre;
 		this.prochaineFenetre = i;
 	}
-	public typeFenetre getProchainePrecedent() {
+	public TypeFenetre getProchainePrecedent() {
 		return prochainePrecedent;
 	}
 	

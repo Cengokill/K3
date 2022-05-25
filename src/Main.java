@@ -8,8 +8,9 @@ import javax.swing.WindowConstants;
 
 import Controleur.*;
 import Modeles.InitPartie;
+import Modeles.SoundPlayer;
 import Vue.Menu.Chargement;
-import Vue.Menu.Chargement.typeFenetre;
+import Vue.Menu.Chargement.TypeFenetre;
 import Vue.Menu.StartJeu;
 import Vue.Menu.StartJeuClics;
 import Vue.Option.*;
@@ -32,25 +33,27 @@ public class Main {
 		
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
-		
-		typeFenetre prochaineFenetre = chargement.getProchaineFenetre();
+		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(5);
+		simpleSoundPlayerMusic.setNumSon(43);
+		simpleSoundPlayerMusic.loopSon();
+		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
 		
-		while(chargement.getProchaineFenetre()!=typeFenetre.FENETREJEU) {
+		while(chargement.getProchaineFenetre()!=TypeFenetre.FENETREJEU) {
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
 				chargement.lancement = false;
-				if(prochaineFenetre==typeFenetre.MENU) {
+				if(prochaineFenetre==TypeFenetre.MENU) {
 					lancementMenu(window, texture, chargement);
 				}
-				else if(prochaineFenetre==typeFenetre.NEWPARTIE) {
+				else if(prochaineFenetre==TypeFenetre.NEWPARTIE) {
 					lancementNouvellePartie(window, texture, partie, chargement);
 				}
-				else if(prochaineFenetre==typeFenetre.CHARGERPARTIE){
+				else if(prochaineFenetre==TypeFenetre.CHARGERPARTIE){
 					lancementChargerPartie(window, texture, partie, chargement);
-				}else if(prochaineFenetre==typeFenetre.OPTION) {
+				}else if(prochaineFenetre==TypeFenetre.OPTION) {
 					lancementOption(window, texture, chargement);
-				}else if(prochaineFenetre==typeFenetre.TUTO) {
+				}else if(prochaineFenetre==TypeFenetre.TUTO) {
 					lancementTuto(window, texture, chargement);
 				}
 			}
@@ -60,7 +63,8 @@ public class Main {
 		window.setTitle("Partie en cours");
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
-		new Jeu(window, partie);
+        simpleSoundPlayerMusic.stopSound();
+		new Jeu(window, partie, texture);
 	}
 	
 	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement) {
@@ -83,7 +87,7 @@ public class Main {
 		while(!partie.paramCharges) {
 			Jeu.timer(100);
 		}
-		chargement.setProchaineFenetre(typeFenetre.FENETREJEU);
+		chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
 	}
 	
 	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {

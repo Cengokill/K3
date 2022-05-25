@@ -32,14 +32,11 @@ public class StartJeu extends JPanel{
     public boolean enfonce_quitter=false;
     public boolean enfonce_charger=false;
     public Chargement chargement;
-    private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
+    private SoundPlayer simpleSoundPlayerSon;
 	
 	public StartJeu(JFrame w, Chargement ch, LoadTexture texture) {
 		this.texture = texture;
-		this.simpleSoundPlayerMusic = new SoundPlayer(2);
 		this.simpleSoundPlayerSon = new SoundPlayer(8);
-		this.simpleSoundPlayerMusic.setNumSon(43);
-		this.simpleSoundPlayerMusic.loopSon();
     	this.chargement=ch;
 		this.window = w;
 		window.setTitle("Partie en cours");
@@ -67,12 +64,12 @@ public class StartJeu extends JPanel{
         int largeur_pixels=926;
         this.largeur_bouton=(int)(largeur_pixels/1.7);
         this.hauteur_bouton=(int)(largeur_bouton*rapport);
-        if(frameWidth<(screenWidth*0.3) || frameHeight<(frameHeight*0.3) ) {
+        if(frameWidth<(screenWidth*0.3) || frameHeight<(screenHeight*0.3) ) {
         	this.largeur_bouton=(int)(largeur_pixels/4);
             this.hauteur_bouton=(int)(largeur_bouton*rapport);
             espacement=(int)(espacement*0.3);
         }
-        else if(frameWidth<(screenWidth*0.45) || frameHeight<(frameHeight*0.45) ) {
+        else if(frameWidth<(screenWidth*0.45) || frameHeight<(screenHeight*0.45) ) {
         	this.largeur_bouton=(int)(largeur_pixels/2.5);
             this.hauteur_bouton=(int)(largeur_bouton*rapport);
             espacement=(int)(espacement*0.45);
