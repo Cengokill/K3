@@ -58,8 +58,6 @@ public class Main {
 				}
 			}
 		}
-		
-		
 		window.setTitle("Partie en cours");
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
@@ -67,22 +65,18 @@ public class Main {
 		new Jeu(window, partie, texture);
 	}
 	
-	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement) {
-		
+	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement) {		
 		StartJeu panel = new StartJeu(window, chargement, texture);
 		window.setContentPane(panel);
 		panel.addMouseListener(new StartJeuClics(panel));
 		window.paintAll(window.getGraphics());
-
 		while(!panel.chargement.lancement) {
 			Jeu.timer(100);
 		}
 	}
 	
 	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {
-		
-		partie.paramCharges = false;
-		
+		partie.paramCharges = false;	
 		new New_game(window, partie);
 		while(!partie.paramCharges) {
 			Jeu.timer(100);
@@ -90,10 +84,8 @@ public class Main {
 		chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
 	}
 	
-	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {
-		
+	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {	
 		partie.paramCharges = false;
-		
 		ChargerPanel panel = new ChargerPanel(window, texture, chargement, partie);
 		window.setContentPane(panel);
 		panel.addMouseListener(new ChargementClick(panel));
@@ -103,8 +95,7 @@ public class Main {
 		}
 	}
 	
-	public static void lancementOption(JFrame window, LoadTexture texture, Chargement chargement) {
-		
+	public static void lancementOption(JFrame window, LoadTexture texture, Chargement chargement) {	
 		OptionPanel panel = new OptionPanel(window,texture, chargement);
 		window.setContentPane(panel);
 		//panel.addMouseListener(new ChargementClick(panel));
@@ -112,11 +103,9 @@ public class Main {
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 		}
-		
 	}
 	
-	public static void lancementTuto(JFrame window, LoadTexture texture, Chargement chargement) {
-		
+	public static void lancementTuto(JFrame window, LoadTexture texture, Chargement chargement) {	
 		TutorielPanel panel = new TutorielPanel(window,texture, chargement);
 		window.setContentPane(panel);
 		panel.addMouseListener(new TutorielClick(panel));
