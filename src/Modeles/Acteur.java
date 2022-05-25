@@ -16,6 +16,7 @@ public class Acteur {
 	protected ArrayList<Piece> piecesVolees;// pieces que le joueur a volees a l'autre joueur
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
 	protected Integer diff = 3;
+	public boolean valideCamp;
 
 	// Constructeur
 	public Acteur(String nom) {
@@ -29,6 +30,7 @@ public class Acteur {
 		campJ = new PyramideJoueur(6, 6);
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
+		this.valideCamp=false;
 	}
 
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
@@ -338,11 +340,8 @@ public class Acteur {
 	}
 	
 	public void melangeAleatCamp() {
+		initCampEtPioche();
 		ArrayList<Piece> pioche = this.getPiecesPiochees();
-		if(pioche.isEmpty()) {
-			initCampEtPioche();
-			pioche = this.getPiecesPiochees();
-		}
 		Collections.shuffle(pioche);
 		for(int i=0; i<this.getCamp().getHauteur(); i++) {
 			for(int j=0; j<this.getCamp().getLargeur()-i; j++) {
@@ -359,7 +358,7 @@ public class Acteur {
 				Position pos = new Position(i,j);
 				Piece pCourante = this.getCamp().getPiece(pos);
 				if(pCourante!=null) {
-					this.getCamp().retirer(pos);
+					this.getCamp().retirePhase1(pos);
 					this.addPiecePiochee(pCourante);
 				}
 			}

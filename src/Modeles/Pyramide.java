@@ -110,6 +110,35 @@ public class Pyramide {
 		}
 	}
 	
+	public Piece retirePhase1(Position p) {
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0
+				|| pyramide[p.etage][p.rang] == null) {
+			System.err.println("erreur impossible de retirer la piece.");
+			return null;
+		}else {
+			Piece pie = this.pyramide[p.etage][p.rang];
+			this.pyramide[p.etage][p.rang]=null;
+			return pie;
+		}
+	}
+	
+	public boolean empilerPhase1(PiecePyramide pp) {
+		Piece piece = pp.getPiece();
+		Position p = pp.getPos();
+		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0) {
+			System.err.println("Erreur : la position (" + p.rang + "," + p.etage + ") est impossible.");
+			return false;
+		} else if (this.pyramide[p.etage][p.rang] != null) {
+			System.err.println("la place est deja prise");
+			return false;
+		} else {
+			// pas de piece porteuse
+			this.pyramide[p.etage][p.rang] = piece;
+			this.historiquePieces.add(pp);
+			return true;
+		}
+	}
+	
 	public boolean ajoutPieceString(char s, int etage, int rang) {
 		switch(s) {
 		case 'B':

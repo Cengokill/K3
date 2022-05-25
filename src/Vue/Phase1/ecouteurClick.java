@@ -8,8 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
+import Controleur.Jeu;
 import Modeles.Acteur;
 import Modeles.Joueur;
+import Modeles.Piece;
 import Modeles.Position;
 
 public class ecouteurClick implements MouseListener {
@@ -52,6 +54,9 @@ public class ecouteurClick implements MouseListener {
 			case "curseurPlus":
 				//this.cursor2
 				panel.setCursor(cursorMainDepose);
+				break;
+			case "main":
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				break;
 			default:
 				panel.setCursor(new Cursor(0));
@@ -108,16 +113,22 @@ public class ecouteurClick implements MouseListener {
 		}else return false;
 	}
 	
+	public boolean clicValider(MouseEvent e){
+		int startx = panel.posX_bouton_valider;
+		int starty = panel.posY_bouton_valider;
+		int hauteurBouton=panel.hauteur_bouton;
+		int largeurBouton=panel.largeur_bouton;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	//GESTION SOURIS----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
 			if(e.getButton() == MouseEvent.BUTTON1) { 
 				if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
-					if(clicMelange(e)) {
-						Acteur a = panel.initAffichageJoueurs();
-						a.melangeAleatCamp();
-					}
 					int index = clickPioche(e);
 					if(index>=0) {
 						Acteur a = panel.initAffichageJoueurs();
@@ -129,21 +140,54 @@ public class ecouteurClick implements MouseListener {
 						panel.empiler(p);//on empile la piece a l'endroit clique
 					}
 				}
-			}else { // deselectionner avec click droit
-				panel.setPieceSelectionnee(null);
+			}else { // deselectionner avec clic droit
+				if(panel.getPieceSelectionnee() == null) {
+					Position p = clickpyramide(e);
+					if(p != null) {
+						Acteur a = panel.initAffichageJoueurs();
+						Piece pie = a.getCamp().retirePhase1(p);
+						if(pie!=null) {
+							a.addPiecePiochee(pie);
+							panel.estValiderDispo=false;
+						}
+					}
+				}else {
+					panel.setPieceSelectionnee(null);
+				}
 			}
 		}		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+			if(clicMelange(e)) {
+				panel.emettreSonClic();
+				if(!panel.enfonce_melange) {
+					panel.enfonce_melange=true;
+				}
+				Acteur a = panel.initAffichageJoueurs();
+				a.melangeAleatCamp();
+				panel.estValiderDispo=true;
+				panel.repaint();
+			}
+			if(clicValider(e) && panel.estValiderDispo) {
+				panel.emettreSonClic();
+				if(!panel.enfonce_valider) {
+					panel.enfonce_valider=true;
+				}
+				Acteur a = panel.initAffichageJoueurs();
+				a.valideCamp=true;
+				panel.repaint();
+			}
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		panel.enfonce_melange=false;
+		panel.enfonce_valider=false;
+		panel.repaint();
 	}
 
 	@Override
@@ -166,10 +210,16 @@ public class ecouteurClick implements MouseListener {
 				panel.currentY = e.getY();
 				
 				if(clickpyramide(e)!=null) {
-					typeCurseur = "curseurPlus";
+					if(panel.getPieceSelectionnee()!=null) {
+						typeCurseur="curseurPlus";
+					}else {
+						typeCurseur="Default Cursor";
+					}
 				}
 				else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
 					typeCurseur = "mainFermee";//ok
+				}else if(clicMelange(e)) {
+					typeCurseur="main";
 				}else {
 					typeCurseur = "Default Cursor";
 				}

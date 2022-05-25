@@ -87,6 +87,7 @@ public class Jeu {
 		this.panel = new Phase1Panel(this.window, this.partieEnCours, this.textures);
 		this.window.setContentPane(panel);
 		this.panel.addMouseListener(new ecouteurClick(panel));
+		window.paintAll(window.getGraphics());
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, int v, String nom1, String nom2) {
@@ -205,14 +206,14 @@ public class Jeu {
 			}else {
 				acteurCourant=this.partieEnCours.joueur2();
 			}
-			while (acteurCourant.getTaillePiecesPiochees()>0) {
+			while (acteurCourant.getTaillePiecesPiochees()>0 || !acteurCourant.valideCamp) {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
 				timer(10);
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
 						timer((int)(0.3*temps));
-						if(acteurCourant.getCamp().empiler(p)) {
+						if(acteurCourant.getCamp().empilerPhase1(p)) {//pas de verif pieces porteuse
 							acteurCourant.removePiecePiochee(p.getPiece());
 							this.panel.repaint();
 							if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {

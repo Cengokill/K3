@@ -32,8 +32,10 @@ public class Phase1Panel extends JPanel{
 	public int TAILLE_CUBES_LARGEUR;
 	
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton;
-    public int posX_bouton_annuler, posY_bouton_annuler;
+    public int posX_bouton_valider, posY_bouton_valider;
 	boolean enfonce_melange=false;
+	boolean enfonce_valider=false;
+	boolean estValiderDispo=false;
 	
 	public int POSX_BASE_JOUEUR;
 	public int POSY_BASE_JOUEUR;
@@ -46,10 +48,13 @@ public class Phase1Panel extends JPanel{
 	
 	//TEXTURES IMPORTEES
 	public LoadTexture textures;
+	//SON
+	private SoundPlayer simpleSoundPlayerSon;
 
 	// CONSTRUCTEUR----------------------------------------------
 	public Phase1Panel(JFrame w, Partie partieEnCours, LoadTexture t){
 		this.textures=t;
+		this.simpleSoundPlayerSon = new SoundPlayer(8);
 		this.partieEnCours=partieEnCours;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
@@ -64,8 +69,10 @@ public class Phase1Panel extends JPanel{
 			changementTaillefenetre();
 		}
 		affichageBackGround(g);
-		affichageBoutonAnnuler(g);
-		affichageBoutonMelange(g);
+		if(initAffichageJoueurs().getClass() == Joueur.class) {
+			affichageBoutonMelange(g);
+			affichageBoutonValider(g);
+		}
 		afficheBaseMontagne(g);
 		affichePyramideJoueur1(g);
 		affichePioche(g);
@@ -89,13 +96,13 @@ public class Phase1Panel extends JPanel{
         	this.largeur_bouton=(int)(largeur_pixels/5);
             this.hauteur_bouton=(int)(largeur_bouton);
         }
-		// largeur 211, hauteur 259. 211/259 = 0.8146718147
-		TAILLE_CUBES_LARGEUR = tailleFenetre.height/16;
-		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR/0.8146718147);//rapport de 211/259
+        double rapport=0.8576709797;
+		TAILLE_CUBES_LARGEUR = tailleFenetre.height/16;//541
+		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
 		//Position objet
 		this.POSX_BASE_JOUEUR = tailleFenetre.height/10;
-		this.POSY_BASE_JOUEUR = tailleFenetre.height/100;
+		this.POSY_BASE_JOUEUR = tailleFenetre.height/20;
 		
 		this.POSX_PIOCHE = 0;
 		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
@@ -105,8 +112,8 @@ public class Phase1Panel extends JPanel{
 		
 		posX_bouton_melange=POSX_BASE_JOUEUR-TAILLE_CUBES_LARGEUR;
 		posY_bouton_melange=POSY_PIOCHE+TAILLE_CUBES_HAUTEUR*2;
-	    posX_bouton_annuler=posX_bouton_melange+largeur_bouton+TAILLE_CUBES_LARGEUR/2;
-	    posY_bouton_annuler=posY_bouton_melange;
+	    posX_bouton_valider=posX_bouton_melange+largeur_bouton+TAILLE_CUBES_LARGEUR/2;
+	    posY_bouton_valider=posY_bouton_melange;
 	}
 	
 	// PIECE SELECTIONEE----------------------------------------------
@@ -181,14 +188,19 @@ public class Phase1Panel extends JPanel{
 	}
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
-	
 	public void affichageBackGround(Graphics g) {
 	    g.drawImage(textures.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
 	}
 	
-	// AFFICHAGE BOUTONSE-------------------------------------------------------------
-	public void affichageBoutonAnnuler(Graphics g) {
-		g.drawImage(textures.boutonAnnuler, posX_bouton_annuler, posY_bouton_annuler, largeur_bouton, hauteur_bouton,null);
+	// AFFICHAGE BOUTONS-------------------------------------------------------------
+	public void affichageBoutonValider(Graphics g) {
+		if(initAffichageJoueurs().getTaillePiecesPiochees()!=0) {
+			g.drawImage(textures.boutonValider_gris, posX_bouton_valider, posY_bouton_valider, largeur_bouton, hauteur_bouton, null);
+		}else if(!enfonce_valider) {
+			g.drawImage(textures.boutonValider, posX_bouton_valider, posY_bouton_valider, largeur_bouton, hauteur_bouton, null);
+		}else {
+			g.drawImage(textures.boutonValider_presse, posX_bouton_valider, posY_bouton_valider, largeur_bouton, hauteur_bouton, null);
+		}
 	}
 	
 	public void affichageBoutonMelange(Graphics g) {
@@ -197,6 +209,11 @@ public class Phase1Panel extends JPanel{
 		}else {
 			g.drawImage(textures.boutonMelange_presse, posX_bouton_melange, posY_bouton_melange, largeur_bouton, hauteur_bouton, null);
 		}
+	}
+	
+	public void emettreSonClic() {
+		this.simpleSoundPlayerSon.setNumSon(17);
+		this.simpleSoundPlayerSon.jouerSon();
 	}
 	
 	// AFFICHAGE PIECE SELECTIONNEE-------------------------------------------------------------
