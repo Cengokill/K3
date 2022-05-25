@@ -329,6 +329,19 @@ public class Acteur {
 		return false;
 	}
 
+	// Nombre de piece dans la pyra
+	public int nbpieces() {
+		int res = 0;
+		for (int etage = 0; etage < 6; etage++) {
+			for (int rang = 0; rang < (6 - etage); rang++) {
+				if (getCamp().getPiece(new Position(etage, rang)) != null) {
+					res++;
+				}
+			}
+		}
+		return res;
+	}
+
 	// DIFFICULTE
 	public int getDiff() {
 		return diff;
