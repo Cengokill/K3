@@ -310,7 +310,7 @@ public class Partie {
 		victime.addMauvaisCoup();
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
-		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables());
+		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables(), this);
 		if (pieceVolee != null) {
 			vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			if (pieceVolee.getPos() == null) {// si le voleur vole une piece volee
