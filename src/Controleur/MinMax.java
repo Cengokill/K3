@@ -14,6 +14,8 @@ public class MinMax {
     PiecePyramide avoler;
     double tf, td;
     HashMap<String, PiecePyramide> volspossibles;
+    int heur1;
+    int heur2;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -56,6 +58,8 @@ public class MinMax {
             volspossibles = new HashMap<>();
             // System.out.println("on cherche le coup pour l'ia");
             // td = (double) System.currentTimeMillis();
+            heur1 = 0;
+            heur2 = 0;
         }
 
         // EVALUTION---------------------------------------------------
@@ -114,9 +118,6 @@ public class MinMax {
                     p.IAannulvol(next, joueurcourant); // annul vol
                 }
                 // Pire vol qui peut nous arriver
-                if (flag) {
-                    System.out.println(confvol.toString());
-                }
                 if (compareHeuristique(valeurconfig, confvol)) { // Si le pire vol est meilleur que toutes les configs
                                                                  // tester
                     valeurconfig = confvol;
@@ -129,9 +130,6 @@ public class MinMax {
                 Heuristique valeurfils = meilleurConfigAD(p, horizon - 1, flag, valeurconfig.getprem());// calcule la
                                                                                                         // valeur de
                 // la config
-                if (flag) {
-                    System.out.println(valeurfils.toString());
-                }
 
                 if (flag && compareHeuristique(valeurconfig, valeurfils)) { // si new valeur> old valeur && premier tour
                                                                             // on enregistre le
@@ -150,9 +148,8 @@ public class MinMax {
             }
         }
         if (flag) {
-            // System.out.println("on a trouve le coup pour l'ia");
-            // tf = (double) System.currentTimeMillis();
-            // System.out.println((tf - td) / 1000 + " s de recherche");
+            System.out.println("utilisation de l affination de l heuristique 1: " + heur1 + " fois");
+            System.out.println("utilisation de l affination de l heuristique 2: " + heur2 + " fois");
         }
         return valeurconfig;
 
@@ -251,7 +248,9 @@ public class MinMax {
 
     public boolean compareHeuristique(Heuristique un, Heuristique deux) { // renvoie vraie si un est moins fort que deux
         if (un.getprem() == deux.getprem()) {
+            heur1++;
             if (un.getdeux() == deux.getdeux()) {
+                heur2++;
                 return (un.gettrois() > deux.gettrois());
             }
             return (un.getdeux() < deux.getdeux());
