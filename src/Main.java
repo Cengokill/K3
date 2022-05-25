@@ -27,6 +27,7 @@ public class Main {
 		JFrame window = new JFrame("Jeu K3");
 		LoadTexture texture = new LoadTexture("./src/Ressources/");
 		window.setSize(1024,768);
+		window.setLocationRelativeTo(null);//centrage de la fenetre
 		
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();

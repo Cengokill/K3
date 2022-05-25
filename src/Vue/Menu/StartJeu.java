@@ -50,7 +50,6 @@ public class StartJeu extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
-        window.setLocationRelativeTo(null);
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
