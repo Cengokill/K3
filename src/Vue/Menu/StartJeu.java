@@ -53,10 +53,10 @@ public class StartJeu extends JPanel implements ActionListener{
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
-		this.animationTimer = new Timer(150, this);
+		this.animationTimer = new Timer(120, this);
 		this.animationTimer.start();
-		animX=1;
-		animY=1;
+		animX=2;
+		animY=2;
 	}
 	
 	public void affichageBackGround(Graphics g) {
@@ -154,7 +154,7 @@ public class StartJeu extends JPanel implements ActionListener{
 	}
 	
 	public void afficheIle1(Graphics g) {
-		g.drawImage(texture.ile1, posX_Ile, posY_Ile, 696/3, 735/3, null);
+		g.drawImage(texture.ile1, posX_Ile, posY_Ile, 660/3, 968/3, null);
 	}
 	
 	public void animerIle1() {
