@@ -5,11 +5,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
-import Vue.Menu.Chargement.TypeFenetre;
-import Vue.Menu.StartJeuClics.DetectionSurvol;
-
-
 public class NouvellePartieClics implements MouseListener {
+	public String nomJ1, nomJ2, nomJ3;
+	public int lvl_IA1, lvl_IA2, lvl_IA3;
 	
 	public NouvellePartie nouvellePartie;
 	
@@ -20,14 +18,17 @@ public class NouvellePartieClics implements MouseListener {
 		this.nouvellePartie.addMouseMotionListener(survol);
 		
 	}
+
+	public boolean estSurBouton(MouseEvent e, int startx, int starty, int largeur_bouton, int hauteur_bouton){
+        return e.getX() >= startx && e.getX() <= startx+largeur_bouton && e.getY() >= starty && e.getY() <= starty+hauteur_bouton;
+    }
+
 	public boolean clicPVP(MouseEvent e){
 		int startx = nouvellePartie.posX_PVP;
 		int starty = nouvellePartie.posY_PVP;
 		int hauteurBouton=nouvellePartie.hauteur_bouton1;
 		int largeurBouton=nouvellePartie.largeur_bouton1;
-		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
-			return true;
-		}else return false;
+		return estSurBouton( e, startx, starty, largeurBouton, hauteurBouton);
 	}
 	
 	public boolean clicPVM(MouseEvent e){
@@ -35,9 +36,7 @@ public class NouvellePartieClics implements MouseListener {
 		int starty = nouvellePartie.posY_PVM;
 		int hauteurBouton=nouvellePartie.hauteur_bouton1;
 		int largeurBouton=nouvellePartie.largeur_bouton1;
-		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
-			return true;
-		}else return false;
+		return estSurBouton( e, startx, starty, largeurBouton, hauteurBouton);
 	}
 	
 	public boolean clicMVM(MouseEvent e){
@@ -45,30 +44,201 @@ public class NouvellePartieClics implements MouseListener {
 		int starty = nouvellePartie.posY_MVM;
 		int hauteurBouton=nouvellePartie.hauteur_bouton1;
 		int largeurBouton=nouvellePartie.largeur_bouton1;
-		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
-			return true;
-		}else return false;
+		return estSurBouton( e, startx, starty, largeurBouton, hauteurBouton);
 	}
+
+	public boolean clicBpIA1_F(MouseEvent e){
+        int startx = nouvellePartie.posX_IA1_FACILE;
+        int starty = nouvellePartie.posY_IA1_FACILE;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA1_M(MouseEvent e){
+        int startx = nouvellePartie.posX_IA1_MOYEN;
+        int starty = nouvellePartie.posY_IA1_MOYEN;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA1_D(MouseEvent e){
+        int startx = nouvellePartie.posX_IA1_DIFFICILE;
+        int starty = nouvellePartie.posY_IA1_DIFFICILE;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA2_F(MouseEvent e){
+        int startx = nouvellePartie.posX_IA2_FACILE;
+        int starty = nouvellePartie.posY_IA2_FACILE;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA2_M(MouseEvent e){
+        int startx = nouvellePartie.posX_IA2_MOYEN;
+        int starty = nouvellePartie.posY_IA2_MOYEN;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA2_D(MouseEvent e){
+        int startx = nouvellePartie.posX_IA2_DIFFICILE;
+        int starty = nouvellePartie.posY_IA2_DIFFICILE;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA3_F(MouseEvent e){
+        int startx = nouvellePartie.posX_IA3_FACILE;
+        int starty = nouvellePartie.posY_IA3_FACILE;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA3_M(MouseEvent e){
+        int startx = nouvellePartie.posX_IA3_MOYEN;
+        int starty = nouvellePartie.posY_IA3_MOYEN;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+        
+    public boolean clicBpIA3_D(MouseEvent e){
+        int startx = nouvellePartie.posX_IA3_DIFFICILE;
+        int starty = nouvellePartie.posY_IA3_DIFFICILE;
+        int hauteurBouton=nouvellePartie.hauteur_bouton3;
+        int largeurBouton=nouvellePartie.largeur_bouton3;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
+      
+    public boolean clicBp_COMMENCER(MouseEvent e){
+        int startx = nouvellePartie.posX_COMMENCER;
+        int starty = nouvellePartie.posY_COMMENCER;
+        int hauteurBouton=nouvellePartie.hauteur_bouton1;
+        int largeurBouton=nouvellePartie.largeur_bouton1;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+    }
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(clicPVP(e)) {
 			if(!nouvellePartie.enfonce_pb_PVP) {
 				nouvellePartie.enfonce_pb_PVP=true;
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				nouvellePartie.enfonce_pb_MVM=false;
+				nouvellePartie.enfonce_pb_PVM=false;
+				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
 			}
 		}
 		else if(clicPVM(e)) {
 			if(!nouvellePartie.enfonce_pb_PVM) {
 				nouvellePartie.enfonce_pb_PVM=true;
+				nouvellePartie.enfonce_pb_MVM=false;
+				nouvellePartie.enfonce_pb_PVP=false;
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 		}
 		else if(clicMVM(e)) {
 			if(!nouvellePartie.enfonce_pb_MVM) {
 				nouvellePartie.enfonce_pb_MVM=true;
+				nouvellePartie.enfonce_pb_PVM=false;
+				nouvellePartie.enfonce_pb_PVP=false;
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
+		}
+		else if (nouvellePartie.enfonce_pb_MVM){
+			if (clicBpIA2_F(e)){
+				nouvellePartie.enfonce_IA2_FACILE=true;
+				nouvellePartie.enfonce_IA2_MOYEN=false;
+				nouvellePartie.enfonce_IA2_DIFFICILE=false;
+				lvl_IA2 = 0;
+			}
+			else if (clicBpIA2_M(e)){
+				nouvellePartie.enfonce_IA2_MOYEN=true;
+				nouvellePartie.enfonce_IA2_DIFFICILE=false;
+				nouvellePartie.enfonce_IA2_FACILE=false;
+				lvl_IA2 = 1;
+			}
+			else if (clicBpIA2_D(e)){
+				nouvellePartie.enfonce_IA2_DIFFICILE=true;
+				nouvellePartie.enfonce_IA2_MOYEN=false;
+				nouvellePartie.enfonce_IA2_FACILE=false;
+				lvl_IA2 = 2;
+			}
+			if (clicBpIA3_F(e)){
+				nouvellePartie.enfonce_IA3_FACILE=true;
+				nouvellePartie.enfonce_IA3_MOYEN=false;
+				nouvellePartie.enfonce_IA2_DIFFICILE=false;
+				lvl_IA3 = 0;
+			}
+			else if (clicBpIA3_M(e)){
+				nouvellePartie.enfonce_IA3_MOYEN=true;
+				nouvellePartie.enfonce_IA3_DIFFICILE=false;
+				nouvellePartie.enfonce_IA3_FACILE=false;
+				lvl_IA3 = 1;
+			}
+			else if (clicBpIA3_D(e)){
+				nouvellePartie.enfonce_IA3_DIFFICILE=true;
+				nouvellePartie.enfonce_IA3_MOYEN=false;
+				nouvellePartie.enfonce_IA3_FACILE=false;
+				lvl_IA3 = 2;
+			}
+		}
+		else if (nouvellePartie.enfonce_pb_PVM){
+			if (clicBpIA1_F(e)){
+				nouvellePartie.enfonce_IA1_FACILE=true;
+				nouvellePartie.enfonce_IA1_MOYEN=false;
+				nouvellePartie.enfonce_IA1_DIFFICILE=false;
+				lvl_IA1 = 0;
+			}
+			else if (clicBpIA1_M(e)){
+				nouvellePartie.enfonce_IA1_MOYEN=true;
+				nouvellePartie.enfonce_IA1_DIFFICILE=false;
+				nouvellePartie.enfonce_IA1_FACILE=false;
+				lvl_IA1 = 1;
+			}
+			else if (clicBpIA1_D(e)){
+				nouvellePartie.enfonce_IA1_DIFFICILE=true;
+				nouvellePartie.enfonce_IA1_MOYEN=false;
+				nouvellePartie.enfonce_IA1_FACILE=false;
+				lvl_IA1 = 2;
+			}
+		}
+
+		if (clicBp_COMMENCER(e)){
+        	
+			/*
+         	* modeDeJeu 0 : joueur contre joueur
+         	* modeDeJeu 1 : IA contre joueur
+         	* modeDeJeu 2 : IA contre IA
+         	*/
+			 if (nouvellePartie.enfonce_pb_MVM){
+				nouvellePartie.partie.modeDeJeu=2;
+				nouvellePartie.partie.nomJoueur1="Ordinateur 1";
+				nouvellePartie.partie.nomJoueur2="Ordinateur 2";
+				nouvellePartie.partie.difficulteIA1=lvl_IA2;
+				nouvellePartie.partie.difficulteIA2=lvl_IA3;
+			 }
+			 else if (nouvellePartie.enfonce_pb_PVM){
+				nouvellePartie.partie.modeDeJeu=1;
+				nouvellePartie.partie.nomJoueur1=" temporaire";
+				nouvellePartie.partie.nomJoueur2=" Ordinateur ";
+				nouvellePartie.partie.difficulteIA2=lvl_IA1;
+			 }
+			 else if (nouvellePartie.enfonce_pb_PVP){
+				nouvellePartie.partie.modeDeJeu = 0;
+				nouvellePartie.partie.nomJoueur1=" temporaire";
+				nouvellePartie.partie.nomJoueur2=" temporaire ";
+			 }
+			 this.nouvellePartie.partie.paramCharges=true;
+			 
 		}
 		
 	}
@@ -99,10 +269,85 @@ public class NouvellePartieClics implements MouseListener {
 	
 	public class DetectionSurvol extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
+			//Clic mode PVP
 			if(clicPVP(e)) {
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}else {
 				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+			//Clic mode PVM
+			if(clicPVM(e)) {
+				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}else {
+				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+			//Clic mode MVM
+			if(clicMVM(e)) {
+				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}else {
+				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+			//Choix des difficulte des IA
+			if (nouvellePartie.enfonce_pb_MVM){
+				//Clic difficulte IA2
+				if (clicBpIA2_F(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				if (clicBpIA2_M(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				if (clicBpIA2_D(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				//Clic difficulte IA3
+				if (clicBpIA3_F(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				if (clicBpIA3_M(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				if (clicBpIA3_D(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+			}
+			if (nouvellePartie.enfonce_pb_PVM){
+				//Clic difficulte IA1
+				if (clicBpIA1_F(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				if (clicBpIA1_M(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				if (clicBpIA1_D(e)){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
 			}
 			nouvellePartie.repaint();
 		}
