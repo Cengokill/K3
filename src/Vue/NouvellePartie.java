@@ -4,6 +4,7 @@
  */
 package Vue;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -64,12 +65,28 @@ public class NouvellePartie extends JPanel {
         this.frameWidth=screenWidth;
         this.frameHeight=screenHeight;
         addMouseListener(new NouvellePartieClics(this));
+        window.setBackground(Color.BLACK);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
     }
-    public void affichageBackGround(Graphics g) {
-	    g.drawImage(textures.backgroundSansLogo, 0, 0, frameWidth, frameHeight, null);
-            
+    public void affichageBackGround(Graphics g) {//3840x2160
+    	double rapport = 0.5625;// rapport de 2160/3840
+    	int largeur=3840, hauteur=2160;
+    	int posX=0, posY=0;
+		if(frameHeight/frameWidth>rapport) {
+			largeur=frameWidth;
+			hauteur=(int)(largeur*rapport);
+			posX=0;
+			posY=(frameHeight-hauteur)/2;
+		}
+		else { //if(frameHeight/frameWidth<=rapport) {
+			hauteur=frameHeight;
+			largeur=(int)(hauteur/rapport);
+			posX=(frameWidth-largeur)/2;
+			posY=0;
+		}
+	    g.drawImage(textures.backgroundSansLogo, posX, posY, largeur, hauteur, null);
+	    System.out.println(frameWidth+", "+frameHeight);
     }
     
     public void changementTaillefenetre() {
