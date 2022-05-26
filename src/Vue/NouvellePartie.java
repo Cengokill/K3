@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import Modeles.InitPartie;
 import Modeles.Partie;
+import Vue.Menu.StartJeuClics;
 import Vue.TexturePack.LoadTexture;
 /**
  *
@@ -59,7 +60,7 @@ public class NouvellePartie extends JPanel {
   
     // METHODE NOUVELLE PARTIE
     public NouvellePartie(JFrame w, LoadTexture t, InitPartie p){
-        this.window = w;
+        this.window=w;
         this.textures=t;
         this.partie=p;
         window.setTitle("Nouvelle Partie");
@@ -69,6 +70,7 @@ public class NouvellePartie extends JPanel {
        	this.tailleFenetre=window.getSize();
         this.frameWidth=screenWidth;
         this.frameHeight=screenHeight;
+        addMouseListener(new NouvellePartieClics(this));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
     }
