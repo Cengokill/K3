@@ -129,7 +129,7 @@ public class NouvellePartie extends JPanel {
         //IA2 et ses difficultes
         this.posX_Label_diff_IA2 = posX_MVM;
         this.posY_Label_diff_IA2 = frameHeight / 10 + offset_vertical;
-        this.posX_IA2_FACILE = posX_PVM+largeur_bouton1/2-largeur_bouton3/2;
+        this.posX_IA2_FACILE = posX_MVM+largeur_bouton1/2-largeur_bouton3/2;
         this.posY_IA2_FACILE = 2*frameHeight / 10 ;
         this.posX_IA2_MOYEN = posX_IA2_FACILE;
         this.posY_IA2_MOYEN = 3*frameHeight / 10 - 3*offset_vertical/2;
