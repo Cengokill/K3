@@ -97,6 +97,8 @@ public class TestIA {
 
                 // Joue
                 if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) { // On peut se faire voler une piece
+                    ktrois.addCoupHist(c);
+                    jCourant.addMauvaisCoup();
                     System.out.println("on recuppere les pieces volables de " + jCourant.getNom());
                     ArrayList<PiecePyramide> accessibles = jCourant.getPiecesJouables();
                     if (ktrois.getJoueurCourant() == 0) {
@@ -106,6 +108,12 @@ public class TestIA {
                     }
                     PiecePyramide vol = jCourant.choixVol(accessibles, ktrois);
                     ktrois.IAvol(vol, ktrois.joueurCourant);
+                    jCourant.addVol();
+                } else {
+                    ktrois.addCoupHist(c);
+                    if (c.getPosBase() == null) {
+                        jCourant.addBlancJoue();
+                    }
                 }
 
                 // Afiichage
@@ -141,7 +149,7 @@ public class TestIA {
             ktrois.sauvegarderStatsPartie(gagnant);
         }
         s.close();
-        // ktrois.combinerStats(0, objectif);
+        ktrois.combinerStats(0, objectif);
         System.out.println("Nombre de parties jouees : " + objectif);
         System.out.println("Taux de victoire du joueur 1 : " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
         System.out.println("Taux de victoire du joueur 2 : " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
