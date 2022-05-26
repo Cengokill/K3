@@ -4,12 +4,7 @@ import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
-
-import Modeles.Acteur;
-import Modeles.Joueur;
 import Vue.Menu.Chargement.TypeFenetre;
-import Vue.Phase1.Phase1Panel;
-import Vue.Phase1.ecouteurClick.DragListener;
 
 public class StartJeuClics implements MouseListener{
 	

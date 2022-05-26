@@ -46,6 +46,7 @@ public class StartJeu extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
+        addMouseListener(new StartJeuClics(this));
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
@@ -65,18 +66,18 @@ public class StartJeu extends JPanel{
         this.largeur_bouton=(int)(largeur_pixels/1.7);
         this.hauteur_bouton=(int)(largeur_bouton*rapport);
         if(frameWidth<(screenWidth*0.3) || frameHeight<(screenHeight*0.3) ) {
-        	this.largeur_bouton=(int)(largeur_pixels/4);
+        	this.largeur_bouton=(int)(largeur_pixels/4.5);
             this.hauteur_bouton=(int)(largeur_bouton*rapport);
             espacement=(int)(espacement*0.3);
         }
         else if(frameWidth<(screenWidth*0.45) || frameHeight<(screenHeight*0.45) ) {
-        	this.largeur_bouton=(int)(largeur_pixels/2.5);
+        	this.largeur_bouton=(int)(largeur_pixels/3.7);
             this.hauteur_bouton=(int)(largeur_bouton*rapport);
             espacement=(int)(espacement*0.45);
         }
         this.posX_bouton=frameWidth/2-largeur_bouton/2;
         
-        this.posY_nouvellePartie=frameHeight/4+frameHeight/10;
+        this.posY_nouvellePartie=frameHeight/4+frameHeight/12;
         
         this.posY_charger=posY_nouvellePartie+hauteur_bouton+espacement;
         
