@@ -2,15 +2,13 @@ package Vue.TexturePack;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class LoadTexture{
 	public String CHEMIN;
 	
 	//IMAGE FOND
-	public Image background;
+	public Image background, backgroundSansLogo;
 	
 	//IMAGE PIECE
 	public Image pieceVide;
@@ -46,6 +44,7 @@ public class LoadTexture{
 		this.CHEMIN = System.getProperty("user.dir")+optionchemin;
 		//IMAGE FOND -------------------------------------------------------------
 		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.png");
+		backgroundSansLogo = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background_sans_logo.png");
 		//IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
 		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse.png");
