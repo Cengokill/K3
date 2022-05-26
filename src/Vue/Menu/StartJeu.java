@@ -3,22 +3,20 @@ package Vue.Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import Controleur.Jeu;
+import Modeles.Aleatoire;
 import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
-public class StartJeu extends JPanel{
+public class StartJeu extends JPanel implements ActionListener{
 
 	public JFrame window;
 	public Dimension tailleEcran, tailleFenetre;
@@ -26,13 +24,18 @@ public class StartJeu extends JPanel{
     public int screenHeight, screenWidth, frameHeight, frameWidth;
     public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posY_options, posY_quitter, posY_charger, posY_tuto;
+    public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile;
+    public int animX, animY;
     public boolean enfonce_nouvellePartie=false;
     public boolean enfonce_options=false;
     public boolean enfonce_tuto=false;
     public boolean enfonce_quitter=false;
     public boolean enfonce_charger=false;
+    public boolean animation1=false;
     public Chargement chargement;
     private SoundPlayer simpleSoundPlayerSon;
+    Timer animationTimer;
+    Aleatoire rand = new Aleatoire();
 	
 	public StartJeu(JFrame w, Chargement ch, LoadTexture texture) {
 		this.texture = texture;
@@ -50,6 +53,10 @@ public class StartJeu extends JPanel{
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
+		this.animationTimer = new Timer(150, this);
+		this.animationTimer.start();
+		animX=1;
+		animY=1;
 	}
 	
 	public void affichageBackGround(Graphics g) {
@@ -80,6 +87,15 @@ public class StartJeu extends JPanel{
         this.posY_nouvellePartie=frameHeight/4+frameHeight/12;
         
         this.posY_charger=posY_nouvellePartie+hauteur_bouton+espacement;
+        if(!animation1) {
+	    	posX_Ile=posX_bouton-largeur_bouton;
+			posY_Ile=posY_charger;
+			posMaxX_Ile=posX_Ile+50;
+			posMinX_Ile=posX_Ile-50;
+			posMaxY_Ile=posY_Ile+120;
+			posMinY_Ile=posY_Ile-120;
+		}else {
+		}
         
         this.posY_options=posY_charger+hauteur_bouton+espacement;
         
@@ -137,17 +153,47 @@ public class StartJeu extends JPanel{
 		}
 	}
 	
+	public void afficheIle1(Graphics g) {
+		g.drawImage(texture.ile1, posX_Ile, posY_Ile, 696/3, 735/3, null);
+	}
+	
+	public void animerIle1() {
+		animation1=true;
+		if(posX_Ile>=posMaxX_Ile) {
+			posX_Ile+=rand.genInt(-animX, 0);
+		}else if(posX_Ile<=posMaxX_Ile) {
+			posX_Ile+=rand.genInt(0, animY);
+		}else {
+			posX_Ile+=rand.genInt(-animX, animY);
+		}
+		if(posY_Ile>=posMaxY_Ile) {
+			posY_Ile+=rand.genInt(-animX, 0);
+		}else if(posY_Ile<=posMinY_Ile){
+			posY_Ile+=rand.genInt(0, animY);
+		}else {
+			posY_Ile+=rand.genInt(-animX, animY);
+		}
+		repaint();
+	}
+	
 	public void paint(Graphics g) {
+		super.paint(g);
 		if(tailleFenetre != window.getSize()) {
 			//on detecte un changement de fenetre -> on met a jour L IHM
 			changementTaillefenetre();
 		}
 		affichageBackGround(g);
+		afficheIle1(g);
 		afficheBoutonNouvellePartie(g);
 		afficheBoutonCharger(g);
 		afficheBoutonOptions(g);
 		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		animerIle1();
 	}
 
 }
