@@ -90,6 +90,7 @@ public class Statistiques {
 		int nbPremiersCoupsJ2=0;
 		int nbVictoiresJ1=0;
 		int nbVictoiresJ2=0;
+		int nbEgalites=0;
 		int nbBlancsJouesJ1=0;
 		int nbBlancsJouesJ2=0;
 		int nbVolsJ1=0;
@@ -133,12 +134,16 @@ public class Statistiques {
 				//9 nbCoupsMauvaisJ2
 				if(tab.get(2).equals("0")) {
 					nbVictoiresJ1++;
-				}else {//"1"
+				}
+				if(tab.get(2).equals("1")) {
 					nbVictoiresJ2++;
 				}
-				if(tab.get(3).equals(nomJ1)) {
+				if(tab.get(2).equals("2")) {
+					nbEgalites++;
+				}
+				if(tab.get(3).equals("0")) {
 					nbPremiersCoupsJ1++;
-				}else {
+				}else {//"1"
 					nbPremiersCoupsJ2++;
 				}
 				nbBlancsJouesJ1+=Integer.parseInt(tab.get(4));
@@ -152,6 +157,7 @@ public class Statistiques {
 			arr.add(nomJ2);
 			arr.add(String.valueOf(num1));
 			arr.add(String.valueOf(num2-1));
+			arr.add(String.valueOf(nbEgalites));
 			arr.add(String.valueOf(nbVictoiresJ1));
 			arr.add(String.valueOf(nbPremiersCoupsJ1));
 			arr.add(String.valueOf(nbBlancsJouesJ1));
@@ -180,36 +186,35 @@ public class Statistiques {
 		try {
 			FileWriter writer = new FileWriter(f, false);// erire en mode remplacement
 			BufferedWriter bw = new BufferedWriter(writer);
-			int nbEgalites=Integer.parseInt(arr.get(3))-Integer.parseInt(arr.get(2))-Integer.parseInt(arr.get(4))+Integer.parseInt(arr.get(9));
 			bw.write("======= Statistiques generales =======");
 			bw.newLine();
 			bw.newLine();
-			bw.write("Nombre d'egalites : "+String.valueOf(nbEgalites));
+			bw.write("Nombre d'egalites : "+arr.get(4));
 			bw.newLine();
 			bw.write("======= "+arr.get(0)+" =======");
 			bw.newLine();
-			bw.write("Nombre de victoires : "+arr.get(4));
+			bw.write("Nombre de victoires : "+arr.get(5));
 			bw.newLine();
-			bw.write("Nombre de fois ou il a commence : "+arr.get(5));
+			bw.write("Nombre de fois ou il a commence : "+arr.get(6));
 			bw.newLine();
-			bw.write("Pieces Blanches jouees : "+arr.get(6));
+			bw.write("Pieces Blanches jouees : "+arr.get(7));
 			bw.newLine();
-			bw.write("Vols effectues : "+arr.get(7));
+			bw.write("Vols effectues : "+arr.get(8));
 			bw.newLine();
-			bw.write("Mauvais coups joues : "+arr.get(8));
+			bw.write("Mauvais coups joues : "+arr.get(9));
 			bw.newLine();
 			bw.newLine();
 			bw.write("======= "+arr.get(1)+" =======");
 			bw.newLine();
-			bw.write("Nombre de victoires : "+arr.get(9));
+			bw.write("Nombre de victoires : "+arr.get(10));
 			bw.newLine();
-			bw.write("Nombre de fois ou il a commence : "+arr.get(10));
+			bw.write("Nombre de fois ou il a commence : "+arr.get(11));
 			bw.newLine();
-			bw.write("Pieces Blanches jouees : "+arr.get(11));
+			bw.write("Pieces Blanches jouees : "+arr.get(12));
 			bw.newLine();
-			bw.write("Vols effectues : "+arr.get(12));
+			bw.write("Vols effectues : "+arr.get(13));
 			bw.newLine();
-			bw.write("Mauvais coups joues : "+arr.get(13));
+			bw.write("Mauvais coups joues : "+arr.get(14));
 			bw.close();
 			writer.close();
 		} catch (IOException e) {
