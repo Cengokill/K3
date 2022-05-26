@@ -119,35 +119,35 @@ public class NouvellePartie extends JPanel {
         //IA1 et ses difficultes
         this.posX_Label_diff_IA1 = posX_PVM;
         this.posY_Label_diff_IA1 = 5*frameHeight / 10 ;
-        this.posX_IA1_FACILE = offset_h3 + frameWidth / 3;
+        this.posX_IA1_FACILE = posX_PVM+largeur_bouton1/2-largeur_bouton3/2;
         this.posY_IA1_FACILE = 6*frameHeight / 10 - offset_vertical;
-        this.posX_IA1_MOYEN = offset_h3 + frameWidth / 3;
+        this.posX_IA1_MOYEN = posX_IA1_FACILE;
         this.posY_IA1_MOYEN = 7*frameHeight / 10 - 5*offset_vertical/2;
-        this.posX_IA1_DIFFICILE = offset_h3 + frameWidth / 3;
+        this.posX_IA1_DIFFICILE = posX_IA1_MOYEN;
         this.posY_IA1_DIFFICILE = 8*frameHeight / 10 - 4*offset_vertical;
         
         //IA2 et ses difficultes
         this.posX_Label_diff_IA2 = posX_MVM;
         this.posY_Label_diff_IA2 = frameHeight / 10 + offset_vertical;
-        this.posX_IA2_FACILE = posX_MVM+largeur_bouton1/2-largeur_bouton3/2;
+        this.posX_IA2_FACILE = posX_PVM+largeur_bouton1/2-largeur_bouton3/2;
         this.posY_IA2_FACILE = 2*frameHeight / 10 ;
         this.posX_IA2_MOYEN = posX_IA2_FACILE;
         this.posY_IA2_MOYEN = 3*frameHeight / 10 - 3*offset_vertical/2;
-        this.posX_IA2_DIFFICILE = posX_IA2_FACILE;
+        this.posX_IA2_DIFFICILE = posX_IA2_MOYEN;
         this.posY_IA2_DIFFICILE = 4*frameHeight / 10 - 3*offset_vertical;
         
         //IA3 et se difficultes
         this.posX_Label_diff_IA3 = posX_MVM;
         this.posY_Label_diff_IA3 = 5*frameHeight / 10 ;
-        this.posX_IA3_FACILE = posX_IA2_FACILE;
+        this.posX_IA3_FACILE = posX_MVM+largeur_bouton1/2-largeur_bouton3/2;
         this.posY_IA3_FACILE = 6*frameHeight / 10 - offset_vertical;
-        this.posX_IA3_MOYEN = posX_IA2_FACILE;
+        this.posX_IA3_MOYEN = posX_IA3_FACILE;
         this.posY_IA3_MOYEN = 7*frameHeight / 10 - 5*offset_vertical/2;
-        this.posX_IA3_DIFFICILE = posX_IA2_FACILE;
+        this.posX_IA3_DIFFICILE = posX_IA3_MOYEN;
         this.posY_IA3_DIFFICILE = 8*frameHeight / 10 - 4*offset_vertical;
         
         //Position bouton commencer       
-        this.posX_COMMENCER = offset_horizontal + frameWidth / 3;
+        this.posX_COMMENCER = posX_PVM;
         this.posY_COMMENCER = 8 * frameHeight / 10 + 7 *offset_vertical /8 ;
     }
     
