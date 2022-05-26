@@ -97,7 +97,6 @@ public class TestIA {
 
                 // Joue
                 if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) { // On peut se faire voler une piece
-                    ktrois.addCoupHist(c);
                     jCourant.addMauvaisCoup();
                     System.out.println("on recuppere les pieces volables de " + jCourant.getNom());
                     ArrayList<PiecePyramide> accessibles = jCourant.getPiecesJouables();
@@ -110,7 +109,6 @@ public class TestIA {
                     ktrois.IAvol(vol, ktrois.joueurCourant);
                     jCourant.addVol();
                 } else {
-                    ktrois.addCoupHist(c);
                     if (c.getPosBase() == null) {
                         jCourant.addBlancJoue();
                     }
