@@ -32,12 +32,12 @@ public class piocheMC implements IApioche {
         }
 
         // Pour i allant de 0 a 100
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             // Creer une picohe alea pour notre joueur
             CreerPyraAlea(p, numerojoueur);
             int nbvictoire = 0;
             // Pour j allant de 0 a 100
-            for (int j = 0; j < 1000; j++) {
+            for (int j = 0; j < 100; j++) {
                 // Creer une pioche alea pour l'adversaire
                 CreerPyraAlea(p, numeroadv);
                 // Simule la partie
