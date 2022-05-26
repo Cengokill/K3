@@ -19,7 +19,6 @@ public class TestIA {
         int nbParties = 0;
         int victoirej1 = 0;
         int victoirej2 = 0;
-        int mauvaiscoup = 0;
         final int TAILLE_CAMP_JOUEUR = 21;
 
         // Chronometre du temps de toutes les parties
@@ -98,7 +97,6 @@ public class TestIA {
                 // Joue
                 if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) { // On peut se faire voler une piece
                     jCourant.addMauvaisCoup();
-                    mauvaiscoup++;
                     System.out.println("on recuppere les pieces volables de " + jCourant.getNom());
                     ArrayList<PiecePyramide> accessibles = jCourant.getPiecesJouables();
                     if (ktrois.getJoueurCourant() == 0) {
@@ -150,7 +148,6 @@ public class TestIA {
         s.close();
         ktrois.combinerStats(0, objectif);
         System.out.println("Nombre de parties jouees : " + objectif);
-        System.out.println("Nombre de mauvais coups " + mauvaiscoup);
         System.out.println("Taux de victoire du joueur 1 : " + ((double) victoirej1 * 100 / ((double) objectif)) + "%");
         System.out.println("Taux de victoire du joueur 2 : " + ((double) victoirej2 * 100 / ((double) objectif)) + "%");
         double t2 = (double) System.currentTimeMillis();

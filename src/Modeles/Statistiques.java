@@ -62,7 +62,7 @@ public class Statistiques {
 			bw.newLine();
 			bw.write(String.valueOf(this.nbBlancsJ1));
 			bw.newLine();
-			bw.write(String.valueOf(+this.nbVolsJ1));
+			bw.write(String.valueOf(this.nbVolsJ1));
 			bw.newLine();
 			bw.write(String.valueOf(this.nbCoupsMauvaisJ1));
 			bw.newLine();
