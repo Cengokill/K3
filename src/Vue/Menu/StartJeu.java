@@ -32,6 +32,8 @@ public class StartJeu extends JPanel implements ActionListener{
     public boolean enfonce_quitter=false;
     public boolean enfonce_charger=false;
     public boolean animation1=false;
+    public boolean animation1_bordureX=false;
+    public boolean animation1_bordureY=false;
     public Chargement chargement;
     private SoundPlayer simpleSoundPlayerSon;
     Timer animationTimer;
@@ -53,10 +55,39 @@ public class StartJeu extends JPanel implements ActionListener{
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
-		this.animationTimer = new Timer(120, this);
+		this.animationTimer = new Timer(100, this);
 		this.animationTimer.start();
-		animX=2;
-		animY=2;
+		animX=1;
+		animY=1;
+	}
+	
+	public void animerIle1() {
+		animation1=true;
+		if(posX_Ile<posMaxX_Ile && !animation1_bordureX) {
+			posX_Ile+=rand.genInt(0,animX);
+		}
+		else if(posX_Ile==posMaxX_Ile) {
+			animation1_bordureX=true;
+		}
+		if(posX_Ile>posMinX_Ile && animation1_bordureX) {
+			posX_Ile-=rand.genInt(0,animX);
+		}
+		else if(posX_Ile==posMinX_Ile) {
+			animation1_bordureX=false;
+		}
+		if(posY_Ile<posMaxY_Ile && !animation1_bordureY) {
+			posY_Ile+=animY;
+		}
+		else if(posY_Ile==posMaxY_Ile) {
+			animation1_bordureY=true;
+		}
+		if(posY_Ile>posMinY_Ile && animation1_bordureY) {
+			posY_Ile-=animY;
+		}
+		else if(posY_Ile==posMinY_Ile) {
+			animation1_bordureY=false;
+		}
+		repaint();
 	}
 	
 	public void affichageBackGround(Graphics g) {
@@ -90,10 +121,10 @@ public class StartJeu extends JPanel implements ActionListener{
         if(!animation1) {
 	    	posX_Ile=posX_bouton-largeur_bouton;
 			posY_Ile=posY_charger;
-			posMaxX_Ile=posX_Ile+50;
-			posMinX_Ile=posX_Ile-50;
-			posMaxY_Ile=posY_Ile+120;
-			posMinY_Ile=posY_Ile-120;
+			posMaxX_Ile=posX_Ile+1;
+			posMinX_Ile=posX_Ile-1;
+			posMaxY_Ile=posY_Ile+4;
+			posMinY_Ile=posY_Ile-4;
 		}else {
 		}
         
@@ -155,25 +186,6 @@ public class StartJeu extends JPanel implements ActionListener{
 	
 	public void afficheIle1(Graphics g) {
 		g.drawImage(texture.ile1, posX_Ile, posY_Ile, 660/3, 968/3, null);
-	}
-	
-	public void animerIle1() {
-		animation1=true;
-		if(posX_Ile>=posMaxX_Ile) {
-			posX_Ile+=rand.genInt(-animX, 0);
-		}else if(posX_Ile<=posMaxX_Ile) {
-			posX_Ile+=rand.genInt(0, animY);
-		}else {
-			posX_Ile+=rand.genInt(-animX, animY);
-		}
-		if(posY_Ile>=posMaxY_Ile) {
-			posY_Ile+=rand.genInt(-animX, 0);
-		}else if(posY_Ile<=posMinY_Ile){
-			posY_Ile+=rand.genInt(0, animY);
-		}else {
-			posY_Ile+=rand.genInt(-animX, animY);
-		}
-		repaint();
 	}
 	
 	public void paint(Graphics g) {
