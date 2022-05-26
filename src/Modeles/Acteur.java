@@ -30,7 +30,7 @@ public class Acteur {
 		campJ = new PyramideJoueur(6, 6);
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
-		this.valideCamp=false;
+		this.valideCamp = false;
 	}
 
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
@@ -134,7 +134,6 @@ public class Acteur {
 
 	public Piece retirerPieceVolee(Piece p) {// ok
 		this.piecesVolees.remove(p);
-		this.retireVol();
 		return p;
 	}
 
@@ -352,26 +351,26 @@ public class Acteur {
 	// FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR
 	public void setPiecesPosees(PiecePyramide p) {
 	}
-	
+
 	public void melangeAleatCamp() {
 		initCampEtPioche();
 		ArrayList<Piece> pioche = this.getPiecesPiochees();
 		Collections.shuffle(pioche);
-		for(int i=0; i<this.getCamp().getHauteur(); i++) {
-			for(int j=0; j<this.getCamp().getLargeur()-i; j++) {
-				if(this.getCamp().empiler(new PiecePyramide(pioche.get(0), new Position(i, j)))) {
+		for (int i = 0; i < this.getCamp().getHauteur(); i++) {
+			for (int j = 0; j < this.getCamp().getLargeur() - i; j++) {
+				if (this.getCamp().empiler(new PiecePyramide(pioche.get(0), new Position(i, j)))) {
 					this.removePiecePiochee(pioche.get(0));
 				}
 			}
 		}
 	}
-	
+
 	public void initCampEtPioche() {
-		for(int i=0; i<this.getCamp().getHauteur(); i++) {
-			for(int j=0; j<this.getCamp().getLargeur()-i; j++) {
-				Position pos = new Position(i,j);
+		for (int i = 0; i < this.getCamp().getHauteur(); i++) {
+			for (int j = 0; j < this.getCamp().getLargeur() - i; j++) {
+				Position pos = new Position(i, j);
 				Piece pCourante = this.getCamp().getPiece(pos);
-				if(pCourante!=null) {
+				if (pCourante != null) {
 					this.getCamp().retirePhase1(pos);
 					this.addPiecePiochee(pCourante);
 				}
@@ -379,30 +378,3 @@ public class Acteur {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
