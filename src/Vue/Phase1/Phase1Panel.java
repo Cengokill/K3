@@ -183,7 +183,7 @@ public class Phase1Panel extends JPanel{
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {
-	    g.drawImage(textures.backgroundSansLogo, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
+	    g.drawImage(textures.backgroundPhase1, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
 	}
 	
 	// AFFICHAGE BOUTONS-------------------------------------------------------------

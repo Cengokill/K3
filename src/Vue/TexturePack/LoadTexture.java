@@ -8,7 +8,7 @@ public class LoadTexture{
 	public String CHEMIN;
 	
 	//IMAGE FOND
-	public Image background, backgroundSansLogo, ile1;
+	public Image background, backgroundSansLogo, backgroundPhase1, ile1;
 	
 	//IMAGE PIECE
 	public Image pieceVide;
@@ -45,6 +45,7 @@ public class LoadTexture{
 		//IMAGE FOND -------------------------------------------------------------
 		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.png");
 		backgroundSansLogo = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background_sans_logo.png");
+		backgroundPhase1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background_phase1.png");
 		ile1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile1.png");
 		//IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
