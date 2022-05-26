@@ -27,7 +27,7 @@ public class LoadTexture{
 	public Image menuBouton2, menuBouton2_presse;
 	public Image menuBouton3, menuBouton3_presse;
 	public Image menuBouton4, menuBouton4_presse;
-	public Image boutonJCJ,boutonJCJ_vert,boutonJCM,boutonJCM_vert,boutonMCM,boutonMCM_vert,boutonNomJ1,boutonNomJ2,boutonNomJoueur,
+	public Image boutonPVP,boutonPVP_vert,boutonPVM,boutonPVM_vert,boutonMVM,boutonMVM_vert,boutonNomJ1,boutonNomJ2,boutonNomJoueur,
 	boutonDifficulteOrdi1,boutonDifficulteOrdi2,boutonDifficulteOrdi,boutonFacile,boutonFacile_vert,boutonMoyen,boutonMoyen_vert,
 	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse;
 	//IMAGE CHARGEMENT
@@ -61,12 +61,12 @@ public class LoadTexture{
 		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
 		boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_presse.png");
 		//IMAGES BOUTONS---------------------------------------------------------------
-		boutonJCJ = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCJ.png");
-		boutonJCJ_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCJ_vert.png");
-		boutonJCM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCM.png");
-		boutonJCM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JCM_vert.png");
-		boutonMCM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MCM.png");
-		boutonMCM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MCM_vert.png");
+		boutonPVP = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP.png");
+		boutonPVP_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP_vert.png");
+		boutonPVM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVM.png");
+		boutonPVM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVM_vert.png");
+		boutonMVM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MVM.png");
+		boutonMVM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MVM_vert.png");
 		boutonNomJ1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ1.png");
 		boutonNomJ2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ2.png");
 		boutonNomJoueur = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJoueur.png");

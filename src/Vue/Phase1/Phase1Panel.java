@@ -58,6 +58,7 @@ public class Phase1Panel extends JPanel{
 		this.partieEnCours=partieEnCours;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
+		addMouseListener(new ecouteurClick(this));
 		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
 		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		changementTaillefenetre();

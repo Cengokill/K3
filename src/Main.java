@@ -1,4 +1,5 @@
 
+import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -38,6 +39,7 @@ public class Main {
 		chargement.lancement = true;
 		JFrame window = new JFrame("Jeu K3");
 		window.setSize(1024,768);
+		window.setMinimumSize(new Dimension(960, 540));
 		window.setLocationRelativeTo(null);//centrage de la fenetre
 		
 		while(chargement.getProchaineFenetre()!=TypeFenetre.FENETREJEU) {
@@ -69,7 +71,7 @@ public class Main {
 	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement) {		
 		StartJeu panel = new StartJeu(window, chargement, texture);
 		window.setContentPane(panel);
-		panel.addMouseListener(new StartJeuClics(panel));
+		//panel.addMouseListener(new StartJeuClics(panel));
 		window.paintAll(window.getGraphics());
 		while(!panel.chargement.lancement) {
 			Jeu.timer(100);
