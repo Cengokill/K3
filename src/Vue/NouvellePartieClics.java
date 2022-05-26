@@ -123,7 +123,7 @@ public class NouvellePartieClics implements MouseListener {
         int startx = nouvellePartie.posX_COMMENCER;
         int starty = nouvellePartie.posY_COMMENCER;
         int hauteurBouton=nouvellePartie.hauteur_bouton1;
-        int largeurBouton=nouvellePartie.largeur_bouton1;
+        int largeurBouton=nouvellePartie.largeur_bouton1;	
         return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
     }
 
@@ -213,7 +213,6 @@ public class NouvellePartieClics implements MouseListener {
 		}
 
 		if (clicBp_COMMENCER(e)){
-        	
 			/*
          	* modeDeJeu 0 : joueur contre joueur
          	* modeDeJeu 1 : IA contre joueur
@@ -225,20 +224,21 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.partie.nomJoueur2="Ordinateur 2";
 				nouvellePartie.partie.difficulteIA1=lvl_IA2;
 				nouvellePartie.partie.difficulteIA2=lvl_IA3;
+				this.nouvellePartie.partie.paramCharges=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVM){
 				nouvellePartie.partie.modeDeJeu=1;
 				nouvellePartie.partie.nomJoueur1=" temporaire";
 				nouvellePartie.partie.nomJoueur2=" Ordinateur ";
 				nouvellePartie.partie.difficulteIA2=lvl_IA1;
+				this.nouvellePartie.partie.paramCharges=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVP){
 				nouvellePartie.partie.modeDeJeu = 0;
 				nouvellePartie.partie.nomJoueur1=" temporaire";
 				nouvellePartie.partie.nomJoueur2=" temporaire ";
+				this.nouvellePartie.partie.paramCharges=true;
 			 }
-			 this.nouvellePartie.partie.paramCharges=true;
-			 
 		}
 		
 	}

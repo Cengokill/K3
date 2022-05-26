@@ -33,6 +33,7 @@ public class Phase1Panel extends JPanel{
 	
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton;
     public int posX_bouton_valider, posY_bouton_valider;
+    
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
 	boolean estValiderDispo=false;
@@ -86,30 +87,22 @@ public class Phase1Panel extends JPanel{
 	public void changementTaillefenetre() {
 		tailleFenetre = window.getSize();
 		//taille objet
-		int largeur_pixels=748;
-        this.largeur_bouton=(int)(largeur_pixels/4);
+        this.largeur_bouton=(int)(tailleFenetre.width/12);
         this.hauteur_bouton=(int)(largeur_bouton);
-        if(tailleFenetre.width<(screenWidth*0.3) || tailleFenetre.height<screenHeight*0.3){
-        	this.largeur_bouton=(int)(largeur_pixels/8);
-            this.hauteur_bouton=(int)(largeur_bouton);
-        }
-        else if(tailleFenetre.width<(screenWidth*0.45) || tailleFenetre.height<(screenHeight*0.45) ) {
-        	this.largeur_bouton=(int)(largeur_pixels/5);
-            this.hauteur_bouton=(int)(largeur_bouton);
-        }
+        
         double rapport=0.8576709797;
-		TAILLE_CUBES_LARGEUR = tailleFenetre.height/16;//541
+		TAILLE_CUBES_LARGEUR = tailleFenetre.width/28;//541
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
 		//Position objet
 		this.POSX_BASE_JOUEUR = tailleFenetre.height/10;
-		this.POSY_BASE_JOUEUR = tailleFenetre.height/20;
+		this.POSY_BASE_JOUEUR = tailleFenetre.height/3;
 		
 		this.POSX_PIOCHE = 0;
 		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
 		
 		this.POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
-		this.POSY_BASE_MONTAGNE = POSY_BASE_JOUEUR-(int)(TAILLE_CUBES_HAUTEUR*0.75);
+		this.POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
 		
 		posX_bouton_melange=POSX_BASE_JOUEUR-TAILLE_CUBES_LARGEUR;
 		posY_bouton_melange=POSY_PIOCHE+TAILLE_CUBES_HAUTEUR*2;
@@ -134,7 +127,7 @@ public class Phase1Panel extends JPanel{
 		else {
 			Couleurs colorP = p.getColor();
 			if(colorP == Couleurs.BLEU) {
-				return textures.pieceBleu;
+				return textures.pieceBleue;
 			}
 			else if(colorP == Couleurs.VERT) {
 				return textures.pieceVert;
@@ -190,7 +183,7 @@ public class Phase1Panel extends JPanel{
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {
-	    g.drawImage(textures.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
+	    g.drawImage(textures.backgroundSansLogo, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
 	}
 	
 	// AFFICHAGE BOUTONS-------------------------------------------------------------
@@ -242,8 +235,8 @@ public class Phase1Panel extends JPanel{
 		PyramideMontagne m = this.partieEnCours.getBaseMontagne();
 		Position POSYitionPiecePyramide;
 		afficherNomJoueur(g);
-		int largeurCube=(int)(TAILLE_CUBES_LARGEUR*0.75);
-		int hauteurCube=(int)(TAILLE_CUBES_HAUTEUR*0.75);
+		int largeurCube=TAILLE_CUBES_LARGEUR;
+		int hauteurCube=TAILLE_CUBES_HAUTEUR;
 		int decalage=0;
 		for(int etage = 0; etage < m.getHauteur(); etage++) {
 			for(int rang = 0; rang < m.getLargeur() - etage; rang++) {

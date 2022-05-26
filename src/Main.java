@@ -81,7 +81,6 @@ public class Main {
 		partie.paramCharges = false;	
 		NouvellePartie newPartie = new NouvellePartie(window, texture, partie);
 		window.setContentPane(newPartie);
-		//newPartie.addMouseListener(new StartJeuClics(panel));
 		window.paintAll(window.getGraphics());
 		while(!partie.paramCharges) {
 			Jeu.timer(100);

@@ -13,7 +13,7 @@ public class LoadTexture{
 	//IMAGE PIECE
 	public Image pieceVide;
 	public Image pieceNoire;
-	public Image pieceBleu;
+	public Image pieceBleue;
 	public Image pieceVert;
 	public Image pieceRouge;
 	public Image pieceBlanche;
@@ -81,6 +81,11 @@ public class LoadTexture{
 		boutonDifficile_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficile_vert.png");
 		boutonCommencer = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie_flou.png");
 		boutonCommencer_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie_presse.png");
+		boutonMelange = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange.png");
+		boutonMelange_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange_presse.png");
+		boutonValider = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider.png");
+		boutonValider_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider_presse.png");
+		boutonValider_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider_gris.png");
 		//CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");
@@ -88,6 +93,15 @@ public class LoadTexture{
 		texte_nomJ1= new JTextField(30);
 		texte_nomJ2= new JTextField(30);
 		texte_nomJoueur= new JTextField(30);
+		//PIECES
+		pieceVide = Toolkit.getDefaultToolkit().createImage(CHEMIN+"EMPTY2.png");
+		pieceNoire = Toolkit.getDefaultToolkit().createImage(CHEMIN+"NOIR.png");
+		pieceBleue = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLEU.png");
+		pieceVert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"VERT.png");
+		pieceRouge = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ROUGE.png");
+		pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLANC.png");
+		pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+"NATUREL.png");	
+		pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JAUNE.png");
 	}
 }
 

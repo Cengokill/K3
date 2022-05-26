@@ -4,11 +4,15 @@ import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.JPanel;
+
 import Vue.Menu.Chargement.TypeFenetre;
 
 public class StartJeuClics implements MouseListener{
 	
 	private StartJeu startJeu;
+	public JPanel jpanel;
 	public String typeCurseur;
 	public Cursor cursor1, cursor2;
 	public String CHEMIN="./src/Ressources/";
@@ -16,8 +20,19 @@ public class StartJeuClics implements MouseListener{
 	public StartJeuClics(StartJeu panel) {
 		super();
 		this.startJeu = panel;
+		this.jpanel=panel.jpanel;
 		DetectionSurvol survol = new DetectionSurvol();
 		this.startJeu.addMouseMotionListener(survol);
+	}
+	
+	public boolean clicMenu(MouseEvent e){
+		int startx = 0;
+		int starty = 0;
+		int hauteurBouton=400;
+		int largeurBouton=startJeu.frameWidth;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
 	}
 	
 	public boolean clicNouvellePartie(MouseEvent e){
@@ -88,10 +103,28 @@ public class StartJeuClics implements MouseListener{
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.OPTION);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
-		}else if(clicTuto(e)) {
+		}
+		else if(clicTuto(e)) {
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.TUTO);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
+		}
+		else if(clicMenu(e)) {
+			System.out.println("clic menu");
+			
+			Thread th = new Thread() {
+				@Override
+				public void run() {
+					try {
+						for(int i=0; i<startJeu.frameWidth/8; i++) {
+							Thread.sleep(3);
+							startJeu.jpanel.setSize(startJeu.frameWidth,0+i);
+						}
+					}catch(Exception e) {
+						System.err.println();
+					}
+				}
+			};th.start();
 		}
 	}
 

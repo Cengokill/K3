@@ -19,6 +19,7 @@ import Vue.TexturePack.LoadTexture;
 public class StartJeu extends JPanel implements ActionListener{
 
 	public JFrame window;
+	public JPanel jpanel;
 	public Dimension tailleEcran, tailleFenetre;
 	public LoadTexture texture;
     public int screenHeight, screenWidth, frameHeight, frameWidth;
@@ -45,6 +46,7 @@ public class StartJeu extends JPanel implements ActionListener{
     	this.chargement=ch;
 		this.window = w;
 		window.setTitle("Partie en cours");
+		
 		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
@@ -55,6 +57,9 @@ public class StartJeu extends JPanel implements ActionListener{
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
+		this.jpanel = new JPanel();
+		jpanel.setBackground(Color.BLACK);
+		jpanel.setVisible(true);
 		this.animationTimer = new Timer(100, this);
 		this.animationTimer.start();
 		animX=1;
@@ -201,6 +206,7 @@ public class StartJeu extends JPanel implements ActionListener{
 		afficheBoutonOptions(g);
 		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
+		this.add(jpanel);
 	}
 
 	@Override

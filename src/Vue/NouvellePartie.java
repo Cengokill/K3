@@ -94,11 +94,8 @@ public class NouvellePartie extends JPanel {
 		this.frameWidth=window.getWidth();
         this.frameHeight=window.getHeight();
         double rapport1=0.1813304721030043;//rapport de 169/932
-        int largeur_pixels1=932;
         double rapport2=0.2203389830508475;//rapport de 169/767
-        int largeur_pixels2=767;
         double rapport3=0.4183168316831683;//rapport de 169/404
-        int largeur_pixels3=404;
        
         this.largeur_bouton1=(int)(frameWidth/5.5);
         this.hauteur_bouton1=(int)(largeur_bouton1*rapport1);
