@@ -21,15 +21,11 @@ public class IAjeuExpert implements IAjeu {
     }
 
     public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr, Partie p) {
+        if (this.mm == null) {
+            Random r = new Random();
+            int index = r.nextInt(arr.size());
+            return arr.get(index);
+        }
         return mm.PieceAVoler(arr, p);
-
-        // if (avoler == null || !arr.contains(avoler)) {
-        // Random r = new Random();
-        // int index = r.nextInt(arr.size());
-        // // System.out.println("L'IA vole la piece " + arr.get(index).toString());
-        // return arr.get(index);
-        // }
-        // // System.out.println("L'IA vole la piece " + avoler.toString());
-        // return avoler;
     }
 }
