@@ -116,15 +116,15 @@ public class NouvellePartie extends JPanel {
                 
         //Position bouton label
         //nom des joueurs
-        this.posX_label_nomJ1 = offset_h2;
+        this.posX_label_nomJ1 = posX_PVP;
         this.posY_label_nomJ1 = frameHeight / 10 + offset_vertical;
-        this.posX_label_nomJ2 = offset_h2;
+        this.posX_label_nomJ2 = posX_label_nomJ1;
         this.posY_label_nomJ2 = 5*frameHeight / 10;
-        this.posX_label_nomJ3 = offset_h2 + frameWidth/3;
+        this.posX_label_nomJ3 = posX_PVM;
         this.posY_label_nomJ3 = frameHeight / 10 + offset_vertical;
         
         //IA1 et ses difficultes
-        this.posX_Label_diff_IA1 = offset_h2 + frameWidth / 3;
+        this.posX_Label_diff_IA1 = posX_PVM;
         this.posY_Label_diff_IA1 = 5*frameHeight / 10 ;
         this.posX_IA1_FACILE = offset_h3 + frameWidth / 3;
         this.posY_IA1_FACILE = 6*frameHeight / 10 - offset_vertical;
@@ -134,7 +134,7 @@ public class NouvellePartie extends JPanel {
         this.posY_IA1_DIFFICILE = 8*frameHeight / 10 - 4*offset_vertical;
         
         //IA2 et ses difficultes
-        this.posX_Label_diff_IA2 = offset_h2 + 2*frameWidth/3;
+        this.posX_Label_diff_IA2 = posX_MVM;
         this.posY_Label_diff_IA2 = frameHeight / 10 + offset_vertical;
         this.posX_IA2_FACILE = posX_MVM+largeur_bouton1/2-largeur_bouton3/2;
         this.posY_IA2_FACILE = 2*frameHeight / 10 ;
@@ -144,7 +144,7 @@ public class NouvellePartie extends JPanel {
         this.posY_IA2_DIFFICILE = 4*frameHeight / 10 - 3*offset_vertical;
         
         //IA3 et se difficultes
-        this.posX_Label_diff_IA3 = offset_h2 + 2*frameWidth/3;
+        this.posX_Label_diff_IA3 = posX_MVM;
         this.posY_Label_diff_IA3 = 5*frameHeight / 10 ;
         this.posX_IA3_FACILE = posX_IA2_FACILE;
         this.posY_IA3_FACILE = 6*frameHeight / 10 - offset_vertical;
@@ -159,7 +159,6 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheBoutonPVP(Graphics g) {
-    	System.out.println(posX_PVP+", "+posY_PVP);
 		if(!enfonce_pb_PVP) {
 	            g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
 		}else {
@@ -256,27 +255,27 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_NOMJ1(Graphics g) {   
-    	  window.add(textures.texte_nomJ1);
+    	g.drawImage(textures.boutonNomJ1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton1, hauteur_bouton1, null);
     }
     
     public void afficheLabel_NOMJ2(Graphics g) {   
-    	window.add(textures.texte_nomJ2);
+    	g.drawImage(textures.boutonNomJ2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton1, hauteur_bouton1, null);
     }
     
     public void afficheLabel_NOMJ3(Graphics g) {   
-    	window.add(textures.texte_nomJoueur);
+    	g.drawImage(textures.boutonNomJoueur, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
     }
     
     public void afficheLabel_IA1(Graphics g) {   
-    	window.add(textures.texte_nomJoueur);
+    	g.drawImage(textures.boutonDifficulteOrdi, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton1, hauteur_bouton1, null);
     }
     
     public void afficheLabel_IA2(Graphics g) {   
-    	window.add(textures.texte_nomJoueur);
+    	g.drawImage(textures.boutonDifficulteOrdi1, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton1, hauteur_bouton1, null);
     }
     
     public void afficheLabel_IA3(Graphics g) {   
-    	window.add(textures.texte_nomJoueur);
+    	g.drawImage(textures.boutonDifficulteOrdi2, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton1, hauteur_bouton1, null);
     }
     
     public void afficheBoutonCOMMENCER(Graphics g) {   
