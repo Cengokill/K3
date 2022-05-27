@@ -228,11 +228,7 @@ public class Jeu {
 					}
 				}
 			}
-			if(this.partieEnCours.getJoueurCourant()==0) {
-				tempsConstructionJoueur1=System.currentTimeMillis()-debut;
-			}else {
-				tempsConstructionJoueur2=System.currentTimeMillis()-debut;
-			}
+			acteurCourant.setTempsConstruction(System.currentTimeMillis()-debut);
 			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();
