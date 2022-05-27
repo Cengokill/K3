@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +22,7 @@ public class StartJeu extends JPanel implements ActionListener{
 	public Dimension tailleEcran, tailleFenetre;
 	public LoadTexture texture;
     public int screenHeight, screenWidth, frameHeight, frameWidth;
+    public int posX_background, posY_background, largeur_background, hauteur_background;
     public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posY_options, posY_quitter, posY_charger, posY_tuto;
     public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile;
@@ -55,11 +55,14 @@ public class StartJeu extends JPanel implements ActionListener{
         this.frameHeight=tailleFenetre.width;
         addMouseListener(new StartJeuClics(this));
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    this.setBackground(Color.BLACK);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
+		/*
 		this.jpanel = new JPanel();
 		jpanel.setBackground(Color.BLACK);
 		jpanel.setVisible(true);
+		*/
 		this.animationTimer = new Timer(100, this);
 		this.animationTimer.start();
 		animX=1;
@@ -95,29 +98,32 @@ public class StartJeu extends JPanel implements ActionListener{
 		repaint();
 	}
 	
-	public void affichageBackGround(Graphics g) {
-	    g.drawImage(texture.background, 0, 0, frameWidth, frameHeight, null);
-	}
+    public void affichageBackGround(Graphics g) {//3840x2160
+    	double rapport = 0.5625;// rapport de 2160/3840
+		if(frameHeight/frameWidth>rapport) {
+			largeur_background=frameWidth;
+			hauteur_background=(int)(largeur_background*rapport);
+			posX_background=0;
+			posY_background=(frameHeight-hauteur_background)/2;
+		}
+		else { //if(frameHeight/frameWidth<=rapport) {
+			hauteur_background=frameHeight;
+			largeur_background=(int)(hauteur_background/rapport);
+			posX_background=(frameWidth-largeur_background)/2;
+			posY_background=0;
+		}
+	    g.drawImage(texture.background, posX_background, posY_background, largeur_background, hauteur_background, null);
+    }
 	
 	public void changementTaillefenetre() {
 		this.tailleFenetre=window.getSize();
 		this.frameWidth=window.getWidth();
         this.frameHeight=window.getHeight();
-        int espacement=30;
-        double rapport=0.1933045356;//rapport de 179/926
-        int largeur_pixels=926;
-        this.largeur_bouton=(int)(largeur_pixels/1.7);
+        double rapport=0.1924821775761504;//rapport de 297/1543
+        this.largeur_bouton=Math.min(largeur_background/5, frameWidth/5);
         this.hauteur_bouton=(int)(largeur_bouton*rapport);
-        if(frameWidth<(screenWidth*0.3) || frameHeight<(screenHeight*0.3) ) {
-        	this.largeur_bouton=(int)(largeur_pixels/4.5);
-            this.hauteur_bouton=(int)(largeur_bouton*rapport);
-            espacement=(int)(espacement*0.3);
-        }
-        else if(frameWidth<(screenWidth*0.45) || frameHeight<(screenHeight*0.45) ) {
-        	this.largeur_bouton=(int)(largeur_pixels/3.7);
-            this.hauteur_bouton=(int)(largeur_bouton*rapport);
-            espacement=(int)(espacement*0.45);
-        }
+        int espacement = (int)(hauteur_bouton/4);
+        
         this.posX_bouton=frameWidth/2-largeur_bouton/2;
         
         this.posY_nouvellePartie=frameHeight/4+frameHeight/12;
@@ -206,7 +212,7 @@ public class StartJeu extends JPanel implements ActionListener{
 		afficheBoutonOptions(g);
 		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
-		this.add(jpanel);
+		//this.add(jpanel);
 	}
 
 	@Override
