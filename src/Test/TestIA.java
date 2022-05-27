@@ -49,18 +49,35 @@ public class TestIA {
             System.out.println("Pyramide de jeu");
             System.out.println(ktrois.getBaseMontagne().toString());
 
-            ArrayList<PiecePyramide> piecesj1 = ktrois.joueur1().phase1(ktrois);
+            // A RETESTER
+            if (ktrois.joueurDebut == 0) {
+                ArrayList<PiecePyramide> piecesj1 = ktrois.joueur1().phase1(ktrois);
 
-            for (PiecePyramide piece : piecesj1) { // a voir si mieux qu'utiliser des iterateurs
-                ktrois.joueur1().getCamp().empiler(piece);
-                ktrois.joueur1().getPiecesPiochees().remove(piece.getPiece());
-            }
+                for (PiecePyramide piece : piecesj1) { // a voir si mieux qu'utiliser des iterateurs
+                    ktrois.joueur1().getCamp().empiler(piece);
+                    ktrois.joueur1().getPiecesPiochees().remove(piece.getPiece());
+                }
 
-            ArrayList<PiecePyramide> piecesj2 = ktrois.joueur2().phase1(ktrois);
+                ArrayList<PiecePyramide> piecesj2 = ktrois.joueur2().phase1(ktrois);
 
-            for (PiecePyramide piece : piecesj2) { // a voir si mieux qu'utiliser des iterateurs
-                ktrois.joueur2().getCamp().empiler(piece);
-                ktrois.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                for (PiecePyramide piece : piecesj2) { // a voir si mieux qu'utiliser des iterateurs
+                    ktrois.joueur2().getCamp().empiler(piece);
+                    ktrois.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                }
+            } else {
+                ArrayList<PiecePyramide> piecesj2 = ktrois.joueur2().phase1(ktrois);
+
+                for (PiecePyramide piece : piecesj2) { // a voir si mieux qu'utiliser des iterateurs
+                    ktrois.joueur2().getCamp().empiler(piece);
+                    ktrois.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                }
+
+                ArrayList<PiecePyramide> piecesj1 = ktrois.joueur1().phase1(ktrois);
+
+                for (PiecePyramide piece : piecesj1) { // a voir si mieux qu'utiliser des iterateurs
+                    ktrois.joueur1().getCamp().empiler(piece);
+                    ktrois.joueur1().getPiecesPiochees().remove(piece.getPiece());
+                }
             }
 
             // AFFICHAGE PYRA JOUEUR ET MONTAGNE
