@@ -97,18 +97,18 @@ public class NouvellePartie extends JPanel {
         double rapport3=0.4183168316831683;//rapport de 169/404
         double rapport4=0.8535353535353535;//rapport de 169/198
        
-        this.largeur_bouton1=(int)(frameWidth/5.8);
+        this.largeur_bouton1=Math.min(largeur_background/6, frameWidth/4);
         this.hauteur_bouton1=(int)(largeur_bouton1*rapport1);
         int espacement1 = (int)(largeur_bouton1/4.5);
         int espacement2 = hauteur_bouton1*2;
         
-        this.largeur_bouton2=(int)(frameWidth/4);
+        this.largeur_bouton2=Math.min(largeur_background/4, frameWidth/4);
         this.hauteur_bouton2=(int)(largeur_bouton2*rapport2);
         
-        this.largeur_bouton3=(int)(frameWidth/13);
+        this.largeur_bouton3=Math.min(largeur_background/13, frameWidth/13);
         this.hauteur_bouton3=(int)(largeur_bouton3*rapport3);
         
-        this.largeur_back=(int)(frameWidth/15);
+        this.largeur_back=Math.min(largeur_background/15, frameWidth/15);
         this.hauteur_back=(int)(largeur_back*rapport4);
         
         offset_horizontal = largeur_background/24;
