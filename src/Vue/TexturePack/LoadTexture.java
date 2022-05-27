@@ -27,7 +27,9 @@ public class LoadTexture{
 	public Image menuBouton4, menuBouton4_presse;
 	public Image boutonPVP,boutonPVP_vert,boutonPVM,boutonPVM_vert,boutonMVM,boutonMVM_vert,boutonNomJ1,boutonNomJ2,boutonNomJoueur,
 	boutonDifficulteOrdi1,boutonDifficulteOrdi2,boutonDifficulteOrdi,boutonFacile,boutonFacile_vert,boutonMoyen,boutonMoyen_vert,
-	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse;
+	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse, boutonPVP_gris, boutonPVM_gris,
+	boutonMVM_gris, boutonNomJ1_gris, boutonNomJ2_gris, boutonNomJoueur_gris, boutonDifficulteOrdi1_gris, boutonDifficulteOrdi2_gris,
+	boutonDifficulteOrdi_gris, boutonFacile_gris, boutonMoyen_gris, boutonDifficile_gris;
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -64,23 +66,35 @@ public class LoadTexture{
 		//IMAGES BOUTONS---------------------------------------------------------------
 		boutonPVP = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP.png");
 		boutonPVP_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP_vert.png");
+		boutonPVP_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP_gris.png");
 		boutonPVM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVM.png");
 		boutonPVM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVM_vert.png");
+		boutonPVM_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVM_gris.png");
 		boutonMVM = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MVM.png");
 		boutonMVM_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MVM_vert.png");
+		boutonMVM_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"MVM_gris.png");
 		boutonNomJ1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ1.png");
+		boutonNomJ1_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ1_gris.png");
 		boutonNomJ2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ2.png");
+		boutonNomJ2_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJ2_gris.png");
 		boutonNomJoueur = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJoueur.png");
+		boutonNomJoueur_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nomJoueur_gris.png");
 		boutonDifficulteOrdi1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi1.png");
+		boutonDifficulteOrdi1_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi1_gris.png");
 		boutonDifficulteOrdi2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi2.png");
+		boutonDifficulteOrdi2_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi2_gris.png");
 		boutonDifficulteOrdi = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi.png");
+		boutonDifficulteOrdi_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficulte_ordi_gris.png");
 		boutonFacile = Toolkit.getDefaultToolkit().createImage(CHEMIN+"facile.png");
+		boutonFacile_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"facile_gris.png");
 		boutonFacile_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"facile_vert.png");
 		boutonMoyen = Toolkit.getDefaultToolkit().createImage(CHEMIN+"moyen.png");
+		boutonMoyen_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"moyen_gris.png");
 		boutonMoyen_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"moyen_vert.png");
 		boutonDifficile = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficile.png");
+		boutonDifficile_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficile_gris.png");
 		boutonDifficile_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"difficile_vert.png");
-		boutonCommencer = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie_flou.png");
+		boutonCommencer = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie.png");
 		boutonCommencer_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"lancerPartie_presse.png");
 		boutonMelange = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange.png");
 		boutonMelange_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_melange_presse.png");

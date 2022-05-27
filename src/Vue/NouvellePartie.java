@@ -5,6 +5,7 @@
 package Vue;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -68,6 +69,7 @@ public class NouvellePartie extends JPanel {
         window.setBackground(Color.BLACK);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
+		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
     public void affichageBackGround(Graphics g) {//3840x2160
     	double rapport = 0.5625;// rapport de 2160/3840
@@ -86,7 +88,6 @@ public class NouvellePartie extends JPanel {
 			posY=0;
 		}
 	    g.drawImage(textures.backgroundSansLogo, posX, posY, largeur, hauteur, null);
-	    System.out.println(frameWidth+", "+frameHeight);
     }
     
     public void changementTaillefenetre() {
@@ -167,97 +168,145 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonPVP(Graphics g) {
 		if(!enfonce_pb_PVP) {
-	            g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
+			if(enfonce_pb_PVM || enfonce_pb_MVM) {
+				g.drawImage(textures.boutonPVP_gris, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
+			}else {
+				g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonPVP_vert, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
+			g.drawImage(textures.boutonPVP_vert, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
 		}
     }
     
     public void afficheBoutonPVM(Graphics g) {   
 		if(!enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+				g.drawImage(textures.boutonPVM_gris, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
+			}else {
 	            g.drawImage(textures.boutonPVM, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonPVM_vert, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
+            g.drawImage(textures.boutonPVM_vert, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
 		}
     }
     
     public void afficheBoutonMVM(Graphics g) {   
 		if(!enfonce_pb_MVM) {
-	            g.drawImage(textures.boutonMVM, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonMVM_gris, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
+			}else {
+				g.drawImage(textures.boutonMVM, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonMVM_vert, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
+            g.drawImage(textures.boutonMVM_vert, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
 		}
     }
     
-    public void afficheBoutonIA1_FACILE(Graphics g) {   
+    public void afficheBoutonIA1_FACILE(Graphics g) {// joueur vs ordi   
 		if(!enfonce_IA1_FACILE) {
-	            g.drawImage(textures.boutonFacile, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+	            g.drawImage(textures.boutonFacile_gris, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonFacile, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonFacile_vert, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonFacile_vert, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA1_MOYEN(Graphics g) {   
+    public void afficheBoutonIA1_MOYEN(Graphics g) {// joueur vs ordi   
 		if(!enfonce_IA1_MOYEN) {
-	            g.drawImage(textures.boutonMoyen, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+	            g.drawImage(textures.boutonMoyen_gris, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonMoyen, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonMoyen_vert, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonMoyen_vert, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA1_DIFFICILE(Graphics g) {   
+    public void afficheBoutonIA1_DIFFICILE(Graphics g) {// joueur vs ordi   
 		if(!enfonce_IA1_DIFFICILE) {
-	            g.drawImage(textures.boutonDifficile, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+	            g.drawImage(textures.boutonDifficile_gris, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				 g.drawImage(textures.boutonDifficile, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonDifficile_vert, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonDifficile_vert, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA2_FACILE(Graphics g) {   
+    public void afficheBoutonIA2_FACILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA2_FACILE) {
-	            g.drawImage(textures.boutonFacile, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonFacile_gris, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonFacile, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonFacile_vert, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonFacile_vert, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA2_MOYEN(Graphics g) {   
+    public void afficheBoutonIA2_MOYEN(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA2_MOYEN) {
-	            g.drawImage(textures.boutonMoyen, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonMoyen_gris, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonMoyen, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonMoyen_vert, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonMoyen_vert, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA2_DIFFICILE(Graphics g) {   
+    public void afficheBoutonIA2_DIFFICILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA2_DIFFICILE) {
-	            g.drawImage(textures.boutonDifficile, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonDifficile_gris, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonDifficile, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonDifficile_vert, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonDifficile_vert, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA3_FACILE(Graphics g) {   
+    public void afficheBoutonIA3_FACILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA3_FACILE) {
-	            g.drawImage(textures.boutonFacile, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonFacile_gris, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonFacile, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonFacile_vert, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonFacile_vert, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA3_MOYEN(Graphics g) {   
+    public void afficheBoutonIA3_MOYEN(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA3_MOYEN) {
-	            g.drawImage(textures.boutonMoyen, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonMoyen_gris, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonMoyen, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonMoyen_vert, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonMoyen_vert, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA3_DIFFICILE(Graphics g) {   
+    public void afficheBoutonIA3_DIFFICILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA3_DIFFICILE) {
-	            g.drawImage(textures.boutonDifficile, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+	            g.drawImage(textures.boutonDifficile_gris, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonDifficile, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}else {
-	            g.drawImage(textures.boutonDifficile_vert, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+            g.drawImage(textures.boutonDifficile_vert, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
@@ -273,25 +322,37 @@ public class NouvellePartie extends JPanel {
     	g.drawImage(textures.boutonNomJoueur, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
     }
     
-    public void afficheLabel_IA1(Graphics g) {   
-    	g.drawImage(textures.boutonDifficulteOrdi, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton1, hauteur_bouton1, null);
+    public void afficheLabel_IA1(Graphics g) {// joueur vs ordi
+    	if(enfonce_pb_PVP || enfonce_pb_MVM) {
+    		g.drawImage(textures.boutonDifficulteOrdi_gris, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton1, hauteur_bouton1, null);
+    	}else {
+    		g.drawImage(textures.boutonDifficulteOrdi, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton1, hauteur_bouton1, null);
+    	}
     }
     
-    public void afficheLabel_IA2(Graphics g) {   
-    	g.drawImage(textures.boutonDifficulteOrdi1, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton1, hauteur_bouton1, null);
+    public void afficheLabel_IA2(Graphics g) {// ordi vs ordi
+    	if(enfonce_pb_PVP || enfonce_pb_PVM) {
+    		g.drawImage(textures.boutonDifficulteOrdi1_gris, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton1, hauteur_bouton1, null);
+    	}else {
+    		g.drawImage(textures.boutonDifficulteOrdi1, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton1, hauteur_bouton1, null);
+    	}
     }
     
-    public void afficheLabel_IA3(Graphics g) {   
-    	g.drawImage(textures.boutonDifficulteOrdi2, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton1, hauteur_bouton1, null);
+    public void afficheLabel_IA3(Graphics g) {// ordi vs ordi
+    	if(enfonce_pb_PVP || enfonce_pb_PVM) {
+    		g.drawImage(textures.boutonDifficulteOrdi2_gris, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton1, hauteur_bouton1, null);
+    	}else {
+    		g.drawImage(textures.boutonDifficulteOrdi2, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton1, hauteur_bouton1, null);
+    	}
     }
     
     public void afficheBoutonCOMMENCER(Graphics g) {   
-	if(!enfonce_pb_COMMENCER) {
-            g.drawImage(textures.boutonCommencer, posX_COMMENCER, posY_COMMENCER, largeur_bouton1, hauteur_bouton1, null);
-	}else {
-            g.drawImage(textures.boutonCommencer_presse, posX_COMMENCER, posY_COMMENCER, largeur_bouton1, hauteur_bouton1, null);
+		if(!enfonce_pb_COMMENCER) {
+	        g.drawImage(textures.boutonCommencer, posX_COMMENCER, posY_COMMENCER, largeur_bouton1, hauteur_bouton1, null);
+		}else {
+	        g.drawImage(textures.boutonCommencer_presse, posX_COMMENCER, posY_COMMENCER, largeur_bouton1, hauteur_bouton1, null);
+		}
 	}
-    }
     
     @Override
     public void paint(Graphics g) {

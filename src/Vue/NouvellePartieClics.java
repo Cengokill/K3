@@ -133,8 +133,7 @@ public class NouvellePartieClics implements MouseListener {
 			if(!nouvellePartie.enfonce_pb_PVP) {
 				nouvellePartie.enfonce_pb_PVP=true;
 				nouvellePartie.enfonce_pb_MVM=false;
-				nouvellePartie.enfonce_pb_PVM=false;
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
+				nouvellePartie.enfonce_pb_PVM=false;	
 			}
 		}
 		else if(clicPVM(e)) {
@@ -142,7 +141,6 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_pb_PVM=true;
 				nouvellePartie.enfonce_pb_MVM=false;
 				nouvellePartie.enfonce_pb_PVP=false;
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 		}
 		else if(clicMVM(e)) {
@@ -150,7 +148,6 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_pb_MVM=true;
 				nouvellePartie.enfonce_pb_PVM=false;
 				nouvellePartie.enfonce_pb_PVP=false;
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 		}
 		else if (nouvellePartie.enfonce_pb_MVM){
@@ -240,7 +237,7 @@ public class NouvellePartieClics implements MouseListener {
 				this.nouvellePartie.partie.paramCharges=true;
 			 }
 		}
-		
+		nouvellePartie.repaint();
 	}
 
 	@Override
@@ -251,6 +248,7 @@ public class NouvellePartieClics implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		nouvellePartie.repaint();
 		// TODO Auto-generated method stub
 		
 	}
@@ -269,85 +267,25 @@ public class NouvellePartieClics implements MouseListener {
 	
 	public class DetectionSurvol extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
-			//Clic mode PVP
-			if(clicPVP(e)) {
+			//Clic modes
+			if(clicPVP(e)||clicPVM(e)||clicMVM(e)) {
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}else {
-				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-			//Clic mode PVM
-			if(clicPVM(e)) {
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}else {
-				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-			//Clic mode MVM
-			if(clicMVM(e)) {
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}else {
-				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			//Choix des difficulte des IA
-			if (nouvellePartie.enfonce_pb_MVM){
+			else if (nouvellePartie.enfonce_pb_MVM){
 				//Clic difficulte IA2
-				if (clicBpIA2_F(e)){
+				if (clicBpIA2_F(e)||clicBpIA2_M(e)||clicBpIA2_D(e)||clicBpIA3_F(e)||clicBpIA3_M(e)||clicBpIA3_D(e)){
 					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				if (clicBpIA2_M(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				if (clicBpIA2_D(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				//Clic difficulte IA3
-				if (clicBpIA3_F(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				if (clicBpIA3_M(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				if (clicBpIA3_D(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				}
 			}
-			if (nouvellePartie.enfonce_pb_PVM){
+			else if (nouvellePartie.enfonce_pb_PVM){
 				//Clic difficulte IA1
-				if (clicBpIA1_F(e)){
+				if (clicBpIA1_F(e)||clicBpIA1_M(e)||clicBpIA1_D(e)){
 					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
 				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				if (clicBpIA1_M(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
-				if (clicBpIA1_D(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else {
-					nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
+			}
+			else {
+				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));	
 			}
 			nouvellePartie.repaint();
 		}
