@@ -132,12 +132,14 @@ public class StartJeu extends JPanel implements ActionListener{
         this.posY_tuto=posY_options+hauteur_bouton+espacement;
         this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
         
-        posX_Ile=posX_bouton-largeur_bouton;
-		posY_Ile=posY_charger;
-		posMaxX_Ile=posX_Ile+1;
-		posMinX_Ile=posX_Ile-1;
-		posMaxY_Ile=posY_Ile+4;
-		posMinY_Ile=posY_Ile-4;
+        if(!animation1) {
+	        posX_Ile=posX_bouton-largeur_bouton;
+			posY_Ile=posY_charger;
+			posMaxX_Ile=posX_Ile+1;
+			posMinX_Ile=posX_Ile-1;
+			posMaxY_Ile=posY_Ile+4;
+			posMinY_Ile=posY_Ile-4;
+        }
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
