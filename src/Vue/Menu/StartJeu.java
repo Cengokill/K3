@@ -22,7 +22,7 @@ public class StartJeu extends JPanel implements ActionListener{
 	public Dimension tailleEcran, tailleFenetre;
 	public LoadTexture texture;
     public int screenHeight, screenWidth, frameHeight, frameWidth;
-    public int posX_background, posY_background, largeur_background, hauteur_background;
+    public int posX_background, posY_background, largeur_background, hauteur_background, offset_vertical;
     public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posY_options, posY_quitter, posY_charger, posY_tuto;
     public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile;
@@ -124,10 +124,10 @@ public class StartJeu extends JPanel implements ActionListener{
         this.hauteur_bouton=(int)(largeur_bouton*rapport);
         int espacement = (int)(hauteur_bouton/4);
         
+        offset_vertical = hauteur_background/3;
+        
         this.posX_bouton=frameWidth/2-largeur_bouton/2;
-        
-        this.posY_nouvellePartie=frameHeight/4+frameHeight/12;
-        
+        this.posY_nouvellePartie=posY_background+offset_vertical;
         this.posY_charger=posY_nouvellePartie+hauteur_bouton+espacement;
         if(!animation1) {
 	    	posX_Ile=posX_bouton-largeur_bouton;

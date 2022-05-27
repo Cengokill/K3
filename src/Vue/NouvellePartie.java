@@ -67,7 +67,6 @@ public class NouvellePartie extends JPanel {
         this.frameWidth=screenWidth;
         this.frameHeight=screenHeight;
         addMouseListener(new NouvellePartieClics(this));
-        window.setBackground(Color.BLACK);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
