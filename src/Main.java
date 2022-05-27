@@ -32,7 +32,7 @@ public class Main {
 		
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
-		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(0);
+		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(3);
 		simpleSoundPlayerMusic.setNumSon(43);
 		simpleSoundPlayerMusic.loopSon();
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
