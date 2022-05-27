@@ -9,7 +9,6 @@ public class Acteur {
 	protected int nb_BlancsJoues;// pieces blanches jouees
 	protected int nb_Mauvais_Coups_Joues;// mauvais coups joues (une piece sur 2 pieces de meme couleur)
 	protected int nb_Vols;
-	protected long tempsConstruction=0;
 
 	// variables GAMEPLAY
 	protected String nom;
@@ -36,15 +35,6 @@ public class Acteur {
 
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
 	// -------------------------------------------------------------------
-	
-	public long getTempsConstruction() {
-		return this.tempsConstruction;
-	}
-	
-	public void setTempsConstruction(long t) {
-		this.tempsConstruction=t;
-	}
-	
 	public int tempsReflexion() {
 		return 0;
 	}
@@ -360,6 +350,11 @@ public class Acteur {
 
 	// FONCTIONS UTILES UNIQUEMENT POUR LE JOUEUR
 	public void setPiecesPosees(PiecePyramide p) {
+	}
+	public void setCoupDemander(Coup c) {
+	}
+	
+	public void setChoixVol(PiecePyramide choixVol) {
 	}
 
 	public void melangeAleatCamp() {

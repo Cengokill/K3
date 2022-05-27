@@ -6,20 +6,26 @@ import java.util.Scanner;
 
 public class Joueur extends Acteur {
 	private PiecePyramide piecePosee;
+	private Coup CoupDemander;
+	private PiecePyramide choixVol;
 
 	public Joueur(String nom) {
 		super(nom);
 	}
 
 	public Coup jouer(ArrayList<Coup> arr, Partie p) {
+		// a retirer ------------------------------------- 
 		super.afficherCoupsJouables(arr);
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String coupString = myObj.nextLine();
 		Coup c = arr.get(Integer.parseInt(coupString));
+		// a ajouter -------------------------------------
+		//Coup c = CoupDemander; 
 		return c;
 	}
 
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr, Partie p) {// deja des pieces volables
+		// a retirer ------------------------------------- 
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String num = myObj.nextLine();
 		int rep = Integer.parseInt(num);
@@ -40,6 +46,8 @@ public class Joueur extends Acteur {
 		} else {
 			return null;
 		}
+		// a ajouter -------------------------------------
+		// return choixVol;
 	}
 
 	public ArrayList<PiecePyramide> phase1(Partie encours) {
@@ -67,6 +75,14 @@ public class Joueur extends Acteur {
 
 	public void setPiecesPosees(PiecePyramide p) {
 		this.piecePosee = p;
+	}
+	
+	public void setCoupDemander(Coup c) {
+		this.CoupDemander = c;
+	}
+	
+	public void setChoixVol(PiecePyramide choixVol) {
+		this.choixVol = choixVol;
 	}
 
 }
