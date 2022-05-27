@@ -1,8 +1,7 @@
 package Controleur;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.Iterator;
 
 import Modeles.*;
 
@@ -93,9 +92,19 @@ public class piocheMC implements IApioche {
         if (numeroadv == p.joueurDebut) {
             if (numeroadv == 0) {
                 p.joueur1().setCamp(pyraadv);
+                Iterator<Piece> it = p.joueur1().getPiecesPiochees().iterator();
+                while (it.hasNext()) {
+                    it.next();
+                    it.remove();
+                }
                 p.joueur1().valideCamp = true;
             } else {
                 p.joueur2().setCamp(pyraadv);
+                Iterator<Piece> it = p.joueur2().getPiecesPiochees().iterator();
+                while (it.hasNext()) {
+                    it.next();
+                    it.remove();
+                }
                 p.joueur2().valideCamp = true;
             }
         }
