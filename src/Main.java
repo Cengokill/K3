@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 
 import Controleur.*;
 import Modeles.InitPartie;
+import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
 import Vue.Menu.Chargement;
 import Vue.Menu.Chargement.TypeFenetre;
@@ -30,10 +31,11 @@ public class Main {
 	
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {	
 		LoadTexture texture = new LoadTexture("./src/Ressources/");
-		
+		String chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
+		OptionsJeu options = new OptionsJeu(chemin);
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
-		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(3);
+		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique);
 		simpleSoundPlayerMusic.setNumSon(43);
 		simpleSoundPlayerMusic.loopSon();
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
@@ -47,10 +49,10 @@ public class Main {
 				prochaineFenetre = chargement.getProchaineFenetre();
 				chargement.lancement = false;
 				if(prochaineFenetre==TypeFenetre.MENU) {
-					lancementMenu(window, texture, chargement);
+					lancementMenu(window, texture, chargement, options);
 				}
 				else if(prochaineFenetre==TypeFenetre.NEWPARTIE) {
-					lancementNouvellePartie(window, texture, partie, chargement);
+					lancementNouvellePartie(window, texture, partie, chargement, options);
 				}
 				else if(prochaineFenetre==TypeFenetre.CHARGERPARTIE){
 					lancementChargerPartie(window, texture, partie, chargement);
@@ -65,11 +67,11 @@ public class Main {
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
         simpleSoundPlayerMusic.stopSound();
-		new Jeu(window, partie, texture);
+		new Jeu(window, partie, texture, options);
 	}
 	
-	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement) {		
-		StartJeu panel = new StartJeu(window, chargement, texture);
+	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement, OptionsJeu options) {		
+		StartJeu panel = new StartJeu(window, chargement, texture, options);
 		window.setContentPane(panel);
 		//panel.addMouseListener(new StartJeuClics(panel));
 		window.paintAll(window.getGraphics());
@@ -78,9 +80,9 @@ public class Main {
 		}
 	}
 	
-	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {
+	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement, OptionsJeu options) {
 		partie.paramCharges = false;	
-		NouvellePartie newPartie = new NouvellePartie(window, texture, partie);
+		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options);
 		window.setContentPane(newPartie);
 		window.paintAll(window.getGraphics());
 		while(!partie.paramCharges) {

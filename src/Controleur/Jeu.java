@@ -24,7 +24,6 @@ public class Jeu {
 	public String chemin, cheminStats, cheminImages, cheminSauvegardes, photoProfil;
 	private int num_tour, valeur_paire, typeActeurs, difficulte1, difficulte2, vitesseIA;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
-	private final int NB_LIGNES_OPTIONS = 4;// NB DE LIGNES DU FICHIER Options.txt = 6
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	public Plateau plateau;
@@ -32,9 +31,11 @@ public class Jeu {
 	public Phase1Panel panel;
 	private int NB_LIGNES_SAUVEGARDE=43;
 	public LoadTexture textures;
+	public OptionsJeu options;
 
-	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, LoadTexture t) {
+	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, LoadTexture t, OptionsJeu o) {
 		this.textures=t;
+		this.options=o;
 		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
@@ -45,10 +46,9 @@ public class Jeu {
 		new File(this.cheminStats).mkdirs();
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
-		lireOptions();
 		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(0);
-		this.simpleSoundPlayerSon = new SoundPlayer(8);
+		this.simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique);
+		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
@@ -80,7 +80,7 @@ public class Jeu {
 		Slider slider = new Slider();
 		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique);
 		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores);
-		ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique);
+		options.ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique);
 	}
 	
 	public void lancerPhase1() {
@@ -385,160 +385,8 @@ public class Jeu {
 		partieEnCours.changementJoueurCourant();
 	}
 
-	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
-		boolean[] renvoi = new boolean[4];
-		String nom_fichier = "Options.txt";
-		if(!testFichierExistant(this.chemin+nom_fichier)) {
-			ecrireInitOptions();
-			renvoi[0]=false;
-			return;
-		}
-		// 0 : test fichier options
-		// 1 : testPhotoProfil
-		// 2 : testDaltonien
-		// 3 : testVolume
-		// 4 : testSons
-		boolean testPhotoProfil, testDaltonien, testVolume;
-		ArrayList<String> tab = new ArrayList<String>();
-			try {
-				FileReader reader = new FileReader(this.chemin + nom_fichier);
-				BufferedReader br = new BufferedReader(reader);
-				String ligne_lue;
-				while ((ligne_lue = br.readLine()) != null) {
-					tab.add(ligne_lue);
-				}
-				br.close();
-				if (tab.size() != this.NB_LIGNES_OPTIONS) {
-					System.err.println("Erreur : le fichier " + nom_fichier + " a ete modifie. Il contient " + tab.size()+" lignes.");
-					ecrireInitOptions();
-					renvoi[0]=false;
-					return;
-				} else {
-					// Nom du fichier de la photo de profil du joueur
-					// Mode daltonien oui/non
-					// Volume des effets sonores
-					// Volume de la musique
-					this.photoProfil = tab.get(0);
-					testPhotoProfil = testFichierExistant(chemin+photoProfil+".jpg")||testFichierExistant(chemin+photoProfil+".png");
-					this.modeDaltonien=Integer.parseInt(tab.get(1));
-					testDaltonien = verifDaltonien(this.modeDaltonien);
-					this.volumeEffetsSonores = Integer.parseInt(tab.get(2));
-					this.volumeMusique = Integer.parseInt(tab.get(3));
-					testVolume = verifVolume(this.volumeEffetsSonores, this.volumeMusique);
-					renvoi[1] = testPhotoProfil;
-					renvoi[2] = testDaltonien;
-					renvoi[3] = testVolume;
-				}
-			}
-			catch (Exception e) {
-				System.err.println("Erreur : le fichier Options.txt est corrompu.");
-				e.printStackTrace();
-			}
-	}
 	
-	public boolean verifDaltonien(int v) {// renvoie true si v est compris entre 0 et 1
-		if(v!=0 && v!=1) {
-			this.modeDaltonien=0;
-			return false;
-		}else {
-			this.modeDaltonien=v;
-			return true;
-		}
-	}
-
-	public boolean verifVolume(int v1, int v2) {// renvoie true si le volume est compris entre 0 et 10
-		boolean b;
-		if (v1 > 10 || v1 < 0) {
-			this.volumeEffetsSonores = 6;
-			b=false;
-		}else {
-			this.volumeEffetsSonores = v1;
-			b=true;
-		}
-		if (v2 > 10 || v2 < 0) {
-			this.volumeMusique = 4;
-			b=b&&false;
-		}else {
-			this.volumeMusique = v2;
-			b=b&&true;
-		}
-		return b;
-	}
-
-	public boolean testFichierExistant(String nomFichier) {// renvoie true si le fichier existe
-		try {
-			File myFile = new File(nomFichier);
-			if(myFile.isFile()) {
-				return true;
-			}
-		} catch (Exception e) {
-			System.err.println("Erreur : le fichier " + nomFichier + " est inexistant.");
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public void ecrireInitOptions() {// reinitialise le fichier Options.txt en ecrivant des valeurs par defaut
-		try {
-			File f = new File(this.chemin + "/Options.txt");
-			try {
-				f.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			FileWriter writer = new FileWriter(f, false);// ecrire en mode remplacement
-			BufferedWriter bw = new BufferedWriter(writer);
-			// Nom du fichier de la photo de profil du joueur
-			// Mode daltonien oui/non
-			// Volume des effets sonores
-			// Volume de la musique
-			this.photoProfil="Ma_photo_de_profil";
-			this.modeDaltonien=0;
-			this.volumeEffetsSonores=6;
-			this.volumeMusique=4;
-			bw.write(this.photoProfil);
-			bw.newLine();
-			bw.write(String.valueOf(this.modeDaltonien));
-			bw.newLine();
-			bw.write(String.valueOf(this.volumeEffetsSonores));
-			bw.newLine();
-			bw.write(String.valueOf(this.volumeMusique));
-			bw.close();
-			writer.close();
-			System.out.println("Un nouveau fichier Options.txt a ete creer.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	public void ecrireOptions(String photoProfil, int modeDaltonien, int volumeEffetsSonores, int volumeMusique) {
-		try {
-			File f = new File(this.chemin + "/Options.txt");
-			try {
-					f.createNewFile();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			FileWriter writer = new FileWriter(f, false);// ecrire en mode remplacement
-			BufferedWriter bw = new BufferedWriter(writer);
-			// Nom du fichier de la photo de profil du joueur
-			// Mode daltonien oui/non
-			// Volume des effets sonores
-			// Volume de la musique
-			bw.write(photoProfil);
-			bw.newLine();
-			bw.write(String.valueOf(modeDaltonien));
-			bw.newLine();
-			bw.write(String.valueOf(volumeEffetsSonores));
-			bw.newLine();
-			bw.write(String.valueOf(volumeMusique));
-			bw.close();
-			writer.close();
-			System.out.println("Le fichier Options.txt a ete modifie.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	
 	public static void timer(int t) {

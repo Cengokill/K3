@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Modeles.InitPartie;
+import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
@@ -55,13 +56,15 @@ public class NouvellePartie extends JPanel {
     public LoadTexture textures;
     public InitPartie partie;
     private SoundPlayer simpleSoundPlayerSon;
+    private OptionsJeu options;
   
     // METHODE NOUVELLE PARTIE
-    public NouvellePartie(JFrame w, LoadTexture t, InitPartie p){
+    public NouvellePartie(JFrame w, LoadTexture t, InitPartie p, OptionsJeu o){
         this.window=w;
         this.textures=t;
         this.partie=p;
-        this.simpleSoundPlayerSon = new SoundPlayer(8);
+        this.options=o;
+        this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores);
         window.setTitle("Nouvelle Partie");
         this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth=tailleEcran.width;

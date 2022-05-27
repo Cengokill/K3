@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Modeles.Aleatoire;
+import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
@@ -37,17 +38,19 @@ public class StartJeu extends JPanel implements ActionListener{
     public boolean animation1_bordureY=false;
     public Chargement chargement;
     private SoundPlayer simpleSoundPlayerSon;
+    private OptionsJeu options;
     Timer animationTimer;
     Aleatoire rand = new Aleatoire();
 	
-	public StartJeu(JFrame w, Chargement ch, LoadTexture texture) {
+	public StartJeu(JFrame w, Chargement ch, LoadTexture texture, OptionsJeu o) {
+		this.window = w;
+		this.chargement=ch;
+		this.texture = texture;
+		this.options=o;
+		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores);
 		this.setLayout(null);
 		this.jpanel = new JpanelOptions();
 		this.add(jpanel);
-		this.texture = texture;
-		this.simpleSoundPlayerSon = new SoundPlayer(8);
-    	this.chargement=ch;
-		this.window = w;
 		window.setTitle("Partie en cours");
 		
 		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
