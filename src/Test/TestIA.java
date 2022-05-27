@@ -80,6 +80,13 @@ public class TestIA {
                 }
             }
 
+            System.out.println(
+                    "Nombre de pieces dans la pioche du joueur 1: " + ktrois.joueur1().getPiecesPiochees().size());
+            System.out.println("Boolean camp j1 " + ktrois.joueur1().valideCamp);
+            System.out.println(
+                    "Nombre de pieces dans la pioche du joueur 2: " + ktrois.joueur2().getPiecesPiochees().size());
+            System.out.println("Boolean camp j2 " + ktrois.joueur2().valideCamp);
+
             // AFFICHAGE PYRA JOUEUR ET MONTAGNE
             System.out.println("Pyramide de " + ktrois.joueur1().getNom());
             System.out.println(ktrois.joueur1().getCamp().toString());
