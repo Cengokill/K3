@@ -192,6 +192,9 @@ public class Jeu {
 	}
 		
 	public void jouerPhase1() {
+		long tempsConstructionJoueur1;
+		long tempsConstructionJoueur2;
+		long debut;
 		int temps=0;
 		if(this.typeActeurs==2) {
 			temps=this.vitesseIA;
@@ -206,6 +209,7 @@ public class Jeu {
 			}else {
 				acteurCourant=this.partieEnCours.joueur2();
 			}
+			debut=System.currentTimeMillis();
 			while (acteurCourant.getTaillePiecesPiochees()>0 || !acteurCourant.valideCamp) {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
@@ -224,17 +228,15 @@ public class Jeu {
 					}
 				}
 			}
+			if(this.partieEnCours.getJoueurCourant()==0) {
+				tempsConstructionJoueur1=System.currentTimeMillis()-debut;
+			}else {
+				tempsConstructionJoueur2=System.currentTimeMillis()-debut;
+			}
 			timer(1200);
-			sauvegarderUnePartie();
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();
 		}
-		//this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
-		/*
-		//creation des pioches automatiquement sans demander aux joueurs
-		this.partieEnCours.joueur1().placerPiecesRandom(partieEnCours.getBaseMontagne());
-		this.partieEnCours.joueur2().placerPiecesRandom(partieEnCours.getBaseMontagne());
-		*/
 	}
 	
 	public void jouerPhase2() {
