@@ -8,7 +8,7 @@ public class LoadTexture{
 	public String CHEMIN;
 	
 	//IMAGE FOND
-	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2;
+	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, chrono;
 	
 	//IMAGE PIECE
 	public Image pieceVide;
@@ -51,6 +51,7 @@ public class LoadTexture{
 		ile1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile1.png");
 		ile_joueur1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile_joueur1.png");
 		ile_joueur2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile_joueur2.png");
+		chrono = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chrono_jeu.png");
 		//IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
 		menuBouton1_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_presse.png");

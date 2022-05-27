@@ -32,7 +32,7 @@ public class Phase1Panel extends JPanel{
 	public int TAILLE_CUBES_LARGEUR;
 	
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton;
-    public int posX_bouton_valider, posY_bouton_valider;
+    public int posX_bouton_valider, posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono;
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
@@ -75,6 +75,7 @@ public class Phase1Panel extends JPanel{
 			affichageBoutonMelange(g);
 			affichageBoutonValider(g);
 		}
+		afficherTimer(g);
 		afficheBaseMontagne(g);
 		affichePyramideJoueur1(g);
 		affichePioche(g);
@@ -91,6 +92,7 @@ public class Phase1Panel extends JPanel{
         this.hauteur_bouton=(int)(largeur_bouton);
         
         double rapport=0.8576709797;
+        double rapport_chrono=1.395;//400x558
 		TAILLE_CUBES_LARGEUR = tailleFenetre.width/28;//541
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
@@ -103,6 +105,11 @@ public class Phase1Panel extends JPanel{
 		
 		this.POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
 		this.POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
+		
+		this.posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
+		this.posY_chrono = tailleFenetre.width/18;
+		this.largeur_chrono = (int)(TAILLE_CUBES_LARGEUR*2);
+		this.hauteur_chrono = (int)(largeur_chrono*rapport_chrono);
 		
 		posX_bouton_melange=POSX_BASE_JOUEUR-TAILLE_CUBES_LARGEUR;
 		posY_bouton_melange=POSY_PIOCHE+TAILLE_CUBES_HAUTEUR*2;
@@ -181,17 +188,21 @@ public class Phase1Panel extends JPanel{
 		g.drawString(nom, POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR, POSY_BASE_JOUEUR-TAILLE_CUBES_HAUTEUR/2);
 	}
 	
-	/*
+
 	public void afficherTimer(Graphics g) {
-		String timer;
+		double temps;
 		int jCourant=this.partieEnCours.getJoueurCourant();
-		String timer=jCourant.
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Courier New", Font.BOLD, 28));
-		g.drawString(timer, POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR, POSY_BASE_JOUEUR-TAILLE_CUBES_HAUTEUR/2);
-		
+		if(jCourant==0) {
+			temps=this.partieEnCours.joueur1().getTempsConstruction();
+		}else {
+			temps=this.partieEnCours.joueur2().getTempsConstruction();
+		}
+		String tempsAffiche=Double.toString(Math.round(temps*10.0)/10.0);
+		g.drawImage(textures.chrono, posX_chrono, posY_chrono, largeur_chrono, hauteur_chrono, null);
+		g.setColor(Color.BLUE);
+		g.setFont(new Font("Courier New", Font.BOLD, (int)(hauteur_chrono/8)));
+		g.drawString(tempsAffiche, (int)(posX_chrono*1.15), (int)(posY_chrono+hauteur_chrono*0.95));
 	}
-	*/
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {

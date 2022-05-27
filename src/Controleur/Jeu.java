@@ -192,9 +192,6 @@ public class Jeu {
 	}
 		
 	public void jouerPhase1() {
-		long tempsConstructionJoueur1;
-		long tempsConstructionJoueur2;
-		long debut;
 		int temps=0;
 		if(this.typeActeurs==2) {
 			temps=this.vitesseIA;
@@ -214,7 +211,8 @@ public class Jeu {
 			while (acteurCourant.getTaillePiecesPiochees()>0 || !acteurCourant.valideCamp) {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
-				timer(10);
+				timer(16);
+				panel.repaint();//fficherTimer(panel.getGraphics());
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
 						timer((int)(0.3*temps));
