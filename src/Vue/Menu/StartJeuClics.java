@@ -88,28 +88,34 @@ public class StartJeuClics implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(clicNouvellePartie(e)) {
+			this.startJeu.jouerSonClic();
 			System.out.println("lancer la nouvelle partie");
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.NEWPARTIE);
 		}
 		else if(clicQuitter(e)) {
+			this.startJeu.jouerSonClic();
 			System.exit(0);
 		}
 		else if(clicCharger(e)) {
+			this.startJeu.jouerSonClic();
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.CHARGERPARTIE);
 		}
 		else if(clicOptions(e)) {
+			this.startJeu.jouerSonClic();
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.OPTION);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}
 		else if(clicTuto(e)) {
+			this.startJeu.jouerSonClic();
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.TUTO);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
 		}
 		else if(clicMenu(e)) {
+			this.startJeu.jouerSonClic();
 			System.out.println("clic menu");
 			
 			Thread th = new Thread() {

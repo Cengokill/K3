@@ -84,7 +84,7 @@ public class Main {
 		window.setContentPane(newPartie);
 		window.paintAll(window.getGraphics());
 		while(!partie.paramCharges) {
-			Jeu.timer(100);
+			Jeu.timer(200);
 		}
 		chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
 	}

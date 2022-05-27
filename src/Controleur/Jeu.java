@@ -53,7 +53,7 @@ public class Jeu {
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
 		plateau = new Plateau();
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
+		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,500,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		//lancer une partie
 		/*
 		if(partieInit.nomFichierCharge!=null) {
@@ -101,8 +101,6 @@ public class Jeu {
 	
 	public void lancerPartie() {
 		//this.simpleSoundPlayerMusic.stopSound();//stopper la mussique d'accueil du jeu
-		this.simpleSoundPlayerSon.setNumSon(29);//son de lancement de partie
-		this.simpleSoundPlayerSon.jouerSon();
 		//this.simpleSoundPlayerMusic.setNumSon(?); MUSIQUE DE LA PARTIE
 		//this.simpleSoundPlayerMusic.jouerSon();
 		if(this.typeActeurs==0) {//Joueur contre joueur
@@ -340,6 +338,7 @@ public class Jeu {
 					if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 						this.simpleSoundPlayerSon.setNumSon(26);
 						this.simpleSoundPlayerSon.jouerSon();
+						timer(500);
 					}
 					this.partieEnCours.addCoupHist(vol);
 				}

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Modeles.InitPartie;
+import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
 public class NouvellePartie extends JPanel {
@@ -53,19 +54,21 @@ public class NouvellePartie extends JPanel {
     int offset_horizontal, offset_vertical, offset_h2, offset_h3;
     public LoadTexture textures;
     public InitPartie partie;
+    private SoundPlayer simpleSoundPlayerSon;
   
     // METHODE NOUVELLE PARTIE
     public NouvellePartie(JFrame w, LoadTexture t, InitPartie p){
         this.window=w;
         this.textures=t;
         this.partie=p;
+        this.simpleSoundPlayerSon = new SoundPlayer(8);
         window.setTitle("Nouvelle Partie");
         this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
        	this.tailleFenetre=window.getSize();
-        this.frameWidth=screenWidth;
-        this.frameHeight=screenHeight;
+        this.frameWidth=tailleFenetre.width;
+        this.frameHeight=tailleFenetre.height;
         addMouseListener(new NouvellePartieClics(this));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
@@ -172,6 +175,16 @@ public class NouvellePartie extends JPanel {
         this.posX_back = posX_PVP+largeur_bouton1/2+largeur_back/2;
         this.posY_back = posY_COMMENCER-hauteur_bouton1/2;
     }
+    
+    public void jouerSonClic() {
+		this.simpleSoundPlayerSon.setNumSon(17);
+		this.simpleSoundPlayerSon.jouerSon();
+	}
+    
+    public void jouerSonLancement() {
+		this.simpleSoundPlayerSon.setNumSon(29);
+		this.simpleSoundPlayerSon.jouerSon();
+	}
     
     public void afficheBoutonBack(Graphics g) {
 		g.drawImage(textures.menuRetour, posX_back, posY_back, largeur_back, hauteur_back, null);

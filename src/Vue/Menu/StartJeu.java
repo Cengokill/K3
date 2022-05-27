@@ -68,35 +68,6 @@ public class StartJeu extends JPanel implements ActionListener{
 		animY=1;
 	}
 	
-	public void animerIle1() {
-		animation1=true;
-		if(posX_Ile<posMaxX_Ile && !animation1_bordureX) {
-			posX_Ile+=rand.genInt(0,animX);
-		}
-		else if(posX_Ile==posMaxX_Ile) {
-			animation1_bordureX=true;
-		}
-		if(posX_Ile>posMinX_Ile && animation1_bordureX) {
-			posX_Ile-=rand.genInt(0,animX);
-		}
-		else if(posX_Ile==posMinX_Ile) {
-			animation1_bordureX=false;
-		}
-		if(posY_Ile<posMaxY_Ile && !animation1_bordureY) {
-			posY_Ile+=animY;
-		}
-		else if(posY_Ile==posMaxY_Ile) {
-			animation1_bordureY=true;
-		}
-		if(posY_Ile>posMinY_Ile && animation1_bordureY) {
-			posY_Ile-=animY;
-		}
-		else if(posY_Ile==posMinY_Ile) {
-			animation1_bordureY=false;
-		}
-		repaint();
-	}
-	
     public void affichageBackGround(Graphics g) {//3840x2160
     	double rapport = 0.5625;// rapport de 2160/3840
 		if(frameHeight/frameWidth>rapport) {
@@ -142,12 +113,46 @@ public class StartJeu extends JPanel implements ActionListener{
         }
 	}
 	
+	public void animerIle1() {
+		animation1=true;
+		if(posX_Ile<posMaxX_Ile && !animation1_bordureX) {
+			posX_Ile+=rand.genInt(0,animX);
+		}
+		else if(posX_Ile==posMaxX_Ile) {
+			animation1_bordureX=true;
+		}
+		if(posX_Ile>posMinX_Ile && animation1_bordureX) {
+			posX_Ile-=rand.genInt(0,animX);
+		}
+		else if(posX_Ile==posMinX_Ile) {
+			animation1_bordureX=false;
+		}
+		if(posY_Ile<posMaxY_Ile && !animation1_bordureY) {
+			posY_Ile+=animY;
+		}
+		else if(posY_Ile==posMaxY_Ile) {
+			animation1_bordureY=true;
+		}
+		if(posY_Ile>posMinY_Ile && animation1_bordureY) {
+			posY_Ile-=animY;
+		}
+		else if(posY_Ile==posMinY_Ile) {
+			animation1_bordureY=false;
+		}
+		repaint();
+	}
+	
 	public void setFullScreen(boolean b) {//plein ecran
 		window.setUndecorated(b);;
 	}
 	
 	public void jouerSonSurvol() {
 		this.simpleSoundPlayerSon.setNumSon(38);
+		this.simpleSoundPlayerSon.jouerSon();
+	}
+	
+	public void jouerSonClic() {
+		this.simpleSoundPlayerSon.setNumSon(17);
 		this.simpleSoundPlayerSon.jouerSon();
 	}
 	

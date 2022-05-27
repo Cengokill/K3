@@ -131,6 +131,7 @@ public class NouvellePartieClics implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if(clicPVP(e)) {
 			if(!nouvellePartie.enfonce_pb_PVP) {
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_pb_PVP=true;
 				nouvellePartie.enfonce_pb_MVM=false;
 				nouvellePartie.enfonce_pb_PVM=false;
@@ -139,6 +140,7 @@ public class NouvellePartieClics implements MouseListener {
 		}
 		else if(clicPVM(e)) {
 			if(!nouvellePartie.enfonce_pb_PVM) {
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_pb_PVM=true;
 				nouvellePartie.enfonce_pb_MVM=false;
 				nouvellePartie.enfonce_pb_PVP=false;
@@ -147,6 +149,7 @@ public class NouvellePartieClics implements MouseListener {
 		}
 		else if(clicMVM(e)) {
 			if(!nouvellePartie.enfonce_pb_MVM) {
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_pb_MVM=true;
 				nouvellePartie.enfonce_pb_PVM=false;
 				nouvellePartie.enfonce_pb_PVP=false;
@@ -155,6 +158,7 @@ public class NouvellePartieClics implements MouseListener {
 		}
 		else if (nouvellePartie.enfonce_pb_MVM){
 			if (clicBpIA2_F(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA2_FACILE=true;
 				nouvellePartie.enfonce_IA2_MOYEN=false;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
@@ -162,6 +166,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA2 = 0;
 			}
 			else if (clicBpIA2_M(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA2_MOYEN=true;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
 				nouvellePartie.enfonce_IA2_FACILE=false;
@@ -169,6 +174,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA2 = 1;
 			}
 			else if (clicBpIA2_D(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA2_DIFFICILE=true;
 				nouvellePartie.enfonce_IA2_MOYEN=false;
 				nouvellePartie.enfonce_IA2_FACILE=false;
@@ -176,6 +182,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA2 = 2;
 			}
 			if (clicBpIA3_F(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA3_FACILE=true;
 				nouvellePartie.enfonce_IA3_MOYEN=false;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
@@ -183,6 +190,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA3 = 0;
 			}
 			else if (clicBpIA3_M(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA3_MOYEN=true;
 				nouvellePartie.enfonce_IA3_DIFFICILE=false;
 				nouvellePartie.enfonce_IA3_FACILE=false;
@@ -190,6 +198,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA3 = 1;
 			}
 			else if (clicBpIA3_D(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA3_DIFFICILE=true;
 				nouvellePartie.enfonce_IA3_MOYEN=false;
 				nouvellePartie.enfonce_IA3_FACILE=false;
@@ -199,6 +208,7 @@ public class NouvellePartieClics implements MouseListener {
 		}
 		else if (nouvellePartie.enfonce_pb_PVM){
 			if (clicBpIA1_F(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA1_FACILE=true;
 				nouvellePartie.enfonce_IA1_MOYEN=false;
 				nouvellePartie.enfonce_IA1_DIFFICILE=false;
@@ -206,6 +216,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA1 = 0;
 			}
 			else if (clicBpIA1_M(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA1_MOYEN=true;
 				nouvellePartie.enfonce_IA1_DIFFICILE=false;
 				nouvellePartie.enfonce_IA1_FACILE=false;
@@ -213,6 +224,7 @@ public class NouvellePartieClics implements MouseListener {
 				lvl_IA1 = 1;
 			}
 			else if (clicBpIA1_D(e)){
+				nouvellePartie.jouerSonClic();
 				nouvellePartie.enfonce_IA1_DIFFICILE=true;
 				nouvellePartie.enfonce_IA1_MOYEN=false;
 				nouvellePartie.enfonce_IA1_FACILE=false;
@@ -228,25 +240,28 @@ public class NouvellePartieClics implements MouseListener {
          	* modeDeJeu 2 : IA contre IA
          	*/
 			 if (nouvellePartie.enfonce_pb_MVM){
-				nouvellePartie.partie.modeDeJeu=2;
-				nouvellePartie.partie.nomJoueur1="Ordinateur 1";
-				nouvellePartie.partie.nomJoueur2="Ordinateur 2";
-				nouvellePartie.partie.difficulteIA1=lvl_IA2;
-				nouvellePartie.partie.difficulteIA2=lvl_IA3;
-				this.nouvellePartie.partie.paramCharges=true;
+				 nouvellePartie.jouerSonLancement();
+				 nouvellePartie.partie.modeDeJeu=2;
+				 nouvellePartie.partie.nomJoueur1="Ordinateur 1";
+				 nouvellePartie.partie.nomJoueur2="Ordinateur 2";
+				 nouvellePartie.partie.difficulteIA1=lvl_IA2;
+				 nouvellePartie.partie.difficulteIA2=lvl_IA3;
+				 nouvellePartie.partie.paramCharges=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVM){
-				nouvellePartie.partie.modeDeJeu=1;
-				nouvellePartie.partie.nomJoueur1=" temporaire";
-				nouvellePartie.partie.nomJoueur2=" Ordinateur ";
-				nouvellePartie.partie.difficulteIA2=lvl_IA1;
-				this.nouvellePartie.partie.paramCharges=true;
+				 nouvellePartie.jouerSonLancement();
+				 nouvellePartie.partie.modeDeJeu=1;
+				 nouvellePartie.partie.nomJoueur1=" temporaire";
+				 nouvellePartie.partie.nomJoueur2=" Ordinateur ";
+				 nouvellePartie.partie.difficulteIA2=lvl_IA1;
+				 nouvellePartie.partie.paramCharges=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVP){
-				nouvellePartie.partie.modeDeJeu = 0;
-				nouvellePartie.partie.nomJoueur1=" temporaire";
-				nouvellePartie.partie.nomJoueur2=" temporaire ";
-				this.nouvellePartie.partie.paramCharges=true;
+				 nouvellePartie.jouerSonLancement();
+				 nouvellePartie.partie.modeDeJeu = 0;
+				 nouvellePartie.partie.nomJoueur1=" temporaire";
+				 nouvellePartie.partie.nomJoueur2=" temporaire ";
+				 nouvellePartie.partie.paramCharges=true;
 			 }
 		}
 		nouvellePartie.repaint();
@@ -295,6 +310,9 @@ public class NouvellePartieClics implements MouseListener {
 				if (clicBpIA1_F(e)||clicBpIA1_M(e)||clicBpIA1_D(e)){
 					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
 				}
+			}
+			else if (clicBp_COMMENCER(e)){
+				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			else {
 				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));	
