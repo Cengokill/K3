@@ -22,13 +22,22 @@ public class piocheMC implements IApioche {
         int numeroadv;
         if (numerojoueur == 0) {
             numeroadv = 1;
+            if (p.joueurDebut == 1) {
+                // sauvegarde pyra adv
+                pyraadv = clonepyra(p.joueur2().getCamp());
+                // deconstruit
+                AnnulCreerPyra(p, numeroadv);
+                p.joueur2().valideCamp = true;
+            }
         } else {
             numeroadv = 0;
-            // sauvegarde pyra adv
-            pyraadv = clonepyra(p.joueur1().getCamp());
-            // deconstruit
-            AnnulCreerPyra(p, numeroadv);
-
+            if (p.joueurDebut == 0) {
+                // sauvegarde pyra adv
+                pyraadv = clonepyra(p.joueur1().getCamp());
+                // deconstruit
+                AnnulCreerPyra(p, numeroadv);
+                p.joueur1().valideCamp = true;
+            }
         }
 
         // Pour i allant de 0 a 100
@@ -81,8 +90,14 @@ public class piocheMC implements IApioche {
         }
 
         // Reconstruire pyra adverse
-        if (numerojoueur == 1) {
-            p.joueur1().setCamp(pyraadv);
+        if (numeroadv == p.joueurDebut) {
+            if (numeroadv == 0) {
+                p.joueur1().setCamp(pyraadv);
+                p.joueur1().valideCamp = true;
+            } else {
+                p.joueur2().setCamp(pyraadv);
+                p.joueur2().valideCamp = true;
+            }
         }
 
         double tf = (double) System.currentTimeMillis();
