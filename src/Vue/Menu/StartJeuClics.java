@@ -118,7 +118,7 @@ public class StartJeuClics implements MouseListener{
 					try {
 						for(int i=0; i<startJeu.frameWidth/8; i++) {
 							Thread.sleep(3);
-							startJeu.jpanel.setSize(startJeu.frameWidth,0+i);
+							startJeu.jpanel.setSize(400,0+i);
 						}
 					}catch(Exception e) {
 						System.err.println();

@@ -18,7 +18,7 @@ import Vue.TexturePack.LoadTexture;
 public class StartJeu extends JPanel implements ActionListener{
 
 	public JFrame window;
-	public JPanel jpanel;
+	public JpanelOptions jpanel;
 	public Dimension tailleEcran, tailleFenetre;
 	public LoadTexture texture;
     public int screenHeight, screenWidth, frameHeight, frameWidth;
@@ -41,6 +41,9 @@ public class StartJeu extends JPanel implements ActionListener{
     Aleatoire rand = new Aleatoire();
 	
 	public StartJeu(JFrame w, Chargement ch, LoadTexture texture) {
+		this.setLayout(null);
+		this.jpanel = new JpanelOptions();
+		this.add(jpanel);
 		this.texture = texture;
 		this.simpleSoundPlayerSon = new SoundPlayer(8);
     	this.chargement=ch;
@@ -55,14 +58,10 @@ public class StartJeu extends JPanel implements ActionListener{
         this.frameHeight=tailleFenetre.width;
         addMouseListener(new StartJeuClics(this));
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    this.setBackground(Color.BLACK);
+	    window.setBackground(Color.BLACK);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
-		/*
-		this.jpanel = new JPanel();
-		jpanel.setBackground(Color.BLACK);
-		jpanel.setVisible(true);
-		*/
+
 		this.animationTimer = new Timer(100, this);
 		this.animationTimer.start();
 		animX=1;
@@ -129,21 +128,16 @@ public class StartJeu extends JPanel implements ActionListener{
         this.posX_bouton=frameWidth/2-largeur_bouton/2;
         this.posY_nouvellePartie=posY_background+offset_vertical;
         this.posY_charger=posY_nouvellePartie+hauteur_bouton+espacement;
-        if(!animation1) {
-	    	posX_Ile=posX_bouton-largeur_bouton;
-			posY_Ile=posY_charger;
-			posMaxX_Ile=posX_Ile+1;
-			posMinX_Ile=posX_Ile-1;
-			posMaxY_Ile=posY_Ile+4;
-			posMinY_Ile=posY_Ile-4;
-		}else {
-		}
-        
         this.posY_options=posY_charger+hauteur_bouton+espacement;
-        
         this.posY_tuto=posY_options+hauteur_bouton+espacement;
-        
         this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
+        
+        posX_Ile=posX_bouton-largeur_bouton;
+		posY_Ile=posY_charger;
+		posMaxX_Ile=posX_Ile+1;
+		posMinX_Ile=posX_Ile-1;
+		posMaxY_Ile=posY_Ile+4;
+		posMinY_Ile=posY_Ile-4;
 	}
 	
 	public void setFullScreen(boolean b) {//plein ecran
@@ -200,7 +194,6 @@ public class StartJeu extends JPanel implements ActionListener{
 	}
 	
 	public void paint(Graphics g) {
-		super.paint(g);
 		if(tailleFenetre != window.getSize()) {
 			//on detecte un changement de fenetre -> on met a jour L IHM
 			changementTaillefenetre();
@@ -212,7 +205,7 @@ public class StartJeu extends JPanel implements ActionListener{
 		afficheBoutonOptions(g);
 		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
-		//this.add(jpanel);
+		jpanel.paint(g);
 	}
 
 	@Override
