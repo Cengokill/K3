@@ -28,7 +28,7 @@ public class NouvellePartie extends JPanel {
     public int posX_PVP, posX_PVM, posX_MVM, posX_IA1_FACILE, posX_IA1_MOYEN, posX_IA1_DIFFICILE, posX_IA2_FACILE, posX_IA2_MOYEN, posX_IA2_DIFFICILE, posX_IA3_FACILE, posX_IA3_MOYEN, posX_IA3_DIFFICILE, posX_COMMENCER;
     public int posY_label_nomJ1, posY_label_nomJ2, posY_label_nomJ3, posY_Label_diff_IA1, posY_Label_diff_IA2, posY_Label_diff_IA3;
     public int posY_PVP, posY_PVM, posY_MVM, posY_IA1_FACILE, posY_IA1_MOYEN, posY_IA1_DIFFICILE, posY_IA2_FACILE, posY_IA2_MOYEN, posY_IA2_DIFFICILE, posY_IA3_FACILE, posY_IA3_MOYEN, posY_IA3_DIFFICILE, posY_COMMENCER;
-    
+    public int posX_back, posY_back, posX_background, posY_background, largeur_background, hauteur_background;
     public boolean enfonce_pb_PVP = false;
     public boolean enfonce_pb_PVM = false;
     public boolean enfonce_pb_MVM = false;
@@ -42,7 +42,7 @@ public class NouvellePartie extends JPanel {
     public boolean enfonce_IA3_MOYEN = false;
     public boolean enfonce_IA3_DIFFICILE = false;
     public boolean enfonce_pb_COMMENCER = false;
-    public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3; 
+    public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3, largeur_back, hauteur_back; 
     public int frameHeight, frameWidth;
     private final Dimension tailleEcran;
     private final int screenWidth;
@@ -73,21 +73,19 @@ public class NouvellePartie extends JPanel {
     }
     public void affichageBackGround(Graphics g) {//3840x2160
     	double rapport = 0.5625;// rapport de 2160/3840
-    	int largeur=3840, hauteur=2160;
-    	int posX=0, posY=0;
 		if(frameHeight/frameWidth>rapport) {
-			largeur=frameWidth;
-			hauteur=(int)(largeur*rapport);
-			posX=0;
-			posY=(frameHeight-hauteur)/2;
+			largeur_background=frameWidth;
+			hauteur_background=(int)(largeur_background*rapport);
+			posX_background=0;
+			posY_background=(frameHeight-hauteur_background)/2;
 		}
 		else { //if(frameHeight/frameWidth<=rapport) {
-			hauteur=frameHeight;
-			largeur=(int)(hauteur/rapport);
-			posX=(frameWidth-largeur)/2;
-			posY=0;
+			hauteur_background=frameHeight;
+			largeur_background=(int)(hauteur_background/rapport);
+			posX_background=(frameWidth-largeur_background)/2;
+			posY_background=0;
 		}
-	    g.drawImage(textures.backgroundSansLogo, posX, posY, largeur, hauteur, null);
+	    g.drawImage(textures.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background, null);
     }
     
     public void changementTaillefenetre() {
@@ -97,73 +95,86 @@ public class NouvellePartie extends JPanel {
         double rapport1=0.1813304721030043;//rapport de 169/932
         double rapport2=0.2203389830508475;//rapport de 169/767
         double rapport3=0.4183168316831683;//rapport de 169/404
+        double rapport4=0.8535353535353535;//rapport de 169/198
        
-        this.largeur_bouton1=(int)(frameWidth/5.5);
+        this.largeur_bouton1=(int)(frameWidth/5.8);
         this.hauteur_bouton1=(int)(largeur_bouton1*rapport1);
+        int espacement1 = (int)(largeur_bouton1/4.5);
+        int espacement2 = hauteur_bouton1*2;
         
         this.largeur_bouton2=(int)(frameWidth/4);
         this.hauteur_bouton2=(int)(largeur_bouton2*rapport2);
         
         this.largeur_bouton3=(int)(frameWidth/13);
         this.hauteur_bouton3=(int)(largeur_bouton3*rapport3);
-        int espacement1 = largeur_bouton1/4;
         
-        offset_horizontal = frameWidth/24;
-        offset_vertical = (((frameHeight / 10) - hauteur_bouton1)/2);
+        this.largeur_back=(int)(frameWidth/15);
+        this.hauteur_back=(int)(largeur_back*rapport4);
+        
+        offset_horizontal = largeur_background/24;
+        offset_vertical = hauteur_background/24;
     
         this.offset_h2 = this.offset_horizontal + (this.largeur_bouton1 - this.largeur_bouton2 )/2;
         this.offset_h3 = this.offset_h2 +  (this.largeur_bouton2 - this.largeur_bouton3)/2;
         
-        //Position bouton mode
+        //Position boutons modes
         this.posX_PVM = frameWidth/2-largeur_bouton1/2;
-        this.posY_PVM = offset_vertical;
+        this.posY_PVM = posY_background+offset_vertical;
         this.posX_PVP = posX_PVM-espacement1-largeur_bouton1;
-        this.posY_PVP = offset_vertical;
+        this.posY_PVP = posY_background+offset_vertical;
         this.posX_MVM = posX_PVM+espacement1+largeur_bouton1;
-        this.posY_MVM = offset_vertical;
-                
+        this.posY_MVM = posY_background+offset_vertical;
+
         //Position bouton label
         //nom des joueurs
         this.posX_label_nomJ1 = posX_PVP;
-        this.posY_label_nomJ1 = frameHeight / 10 + offset_vertical;
+        this.posY_label_nomJ1 = posY_PVP+espacement2;
         this.posX_label_nomJ2 = posX_label_nomJ1;
-        this.posY_label_nomJ2 = 5*frameHeight / 10;
+        this.posY_label_nomJ2 = posY_label_nomJ1+espacement2*3;
         this.posX_label_nomJ3 = posX_PVM;
-        this.posY_label_nomJ3 = frameHeight / 10 + offset_vertical;
+        this.posY_label_nomJ3 = posY_label_nomJ1;
         
         //IA1 et ses difficultes
         this.posX_Label_diff_IA1 = posX_PVM;
-        this.posY_Label_diff_IA1 = 5*frameHeight / 10 ;
+        this.posY_Label_diff_IA1 = posY_label_nomJ2;
         this.posX_IA1_FACILE = posX_PVM+largeur_bouton1/2-largeur_bouton3/2;
-        this.posY_IA1_FACILE = 6*frameHeight / 10 - offset_vertical;
+        this.posY_IA1_FACILE = posY_Label_diff_IA1+espacement1;
         this.posX_IA1_MOYEN = posX_IA1_FACILE;
-        this.posY_IA1_MOYEN = 7*frameHeight / 10 - 5*offset_vertical/2;
+        this.posY_IA1_MOYEN = posY_IA1_FACILE+espacement1;
         this.posX_IA1_DIFFICILE = posX_IA1_MOYEN;
-        this.posY_IA1_DIFFICILE = 8*frameHeight / 10 - 4*offset_vertical;
+        this.posY_IA1_DIFFICILE = posY_IA1_MOYEN+espacement1;
         
         //IA2 et ses difficultes
         this.posX_Label_diff_IA2 = posX_MVM;
-        this.posY_Label_diff_IA2 = frameHeight / 10 + offset_vertical;
+        this.posY_Label_diff_IA2 = posY_label_nomJ1;
         this.posX_IA2_FACILE = posX_MVM+largeur_bouton1/2-largeur_bouton3/2;
-        this.posY_IA2_FACILE = 2*frameHeight / 10 ;
+        this.posY_IA2_FACILE = posY_Label_diff_IA2+espacement1 ;
         this.posX_IA2_MOYEN = posX_IA2_FACILE;
-        this.posY_IA2_MOYEN = 3*frameHeight / 10 - 3*offset_vertical/2;
+        this.posY_IA2_MOYEN = posY_IA2_FACILE+espacement1;
         this.posX_IA2_DIFFICILE = posX_IA2_MOYEN;
-        this.posY_IA2_DIFFICILE = 4*frameHeight / 10 - 3*offset_vertical;
+        this.posY_IA2_DIFFICILE = posY_IA2_MOYEN+espacement1;
         
         //IA3 et se difficultes
         this.posX_Label_diff_IA3 = posX_MVM;
-        this.posY_Label_diff_IA3 = 5*frameHeight / 10 ;
+        this.posY_Label_diff_IA3 = posY_label_nomJ2 ;
         this.posX_IA3_FACILE = posX_MVM+largeur_bouton1/2-largeur_bouton3/2;
-        this.posY_IA3_FACILE = 6*frameHeight / 10 - offset_vertical;
+        this.posY_IA3_FACILE = posY_IA1_FACILE;
         this.posX_IA3_MOYEN = posX_IA3_FACILE;
-        this.posY_IA3_MOYEN = 7*frameHeight / 10 - 5*offset_vertical/2;
+        this.posY_IA3_MOYEN = posY_IA1_MOYEN;
         this.posX_IA3_DIFFICILE = posX_IA3_MOYEN;
-        this.posY_IA3_DIFFICILE = 8*frameHeight / 10 - 4*offset_vertical;
+        this.posY_IA3_DIFFICILE = posY_IA1_DIFFICILE;
         
         //Position bouton commencer       
         this.posX_COMMENCER = posX_PVM;
-        this.posY_COMMENCER = 8 * frameHeight / 10 + 7 *offset_vertical /8 ;
+        this.posY_COMMENCER = posY_IA1_DIFFICILE+espacement1*2 ;
+        
+        //Position boutons retour et suivant
+        this.posX_back = posX_PVP+largeur_bouton1/2+largeur_back/2;
+        this.posY_back = posY_COMMENCER-hauteur_bouton1/2;
+    }
+    
+    public void afficheBoutonBack(Graphics g) {
+		g.drawImage(textures.menuRetour, posX_back, posY_back, largeur_back, hauteur_back, null);
     }
     
     public void afficheBoutonPVP(Graphics g) {
@@ -392,5 +403,6 @@ public class NouvellePartie extends JPanel {
         afficheLabel_IA2(g);
         afficheLabel_IA3(g);
         afficheBoutonCOMMENCER(g);
+        afficheBoutonBack(g);
 	}
 }
