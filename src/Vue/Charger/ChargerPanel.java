@@ -39,8 +39,6 @@ public class ChargerPanel extends JPanel{
 	//COMPOSYANT IMPORTER
 	public LoadTexture texture;
 	
-	
-	
 	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement, InitPartie i) {
 		this.setLayout(null);
 		this.initPartie=i;
