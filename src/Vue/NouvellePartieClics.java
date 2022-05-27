@@ -133,7 +133,8 @@ public class NouvellePartieClics implements MouseListener {
 			if(!nouvellePartie.enfonce_pb_PVP) {
 				nouvellePartie.enfonce_pb_PVP=true;
 				nouvellePartie.enfonce_pb_MVM=false;
-				nouvellePartie.enfonce_pb_PVM=false;	
+				nouvellePartie.enfonce_pb_PVM=false;
+				nouvellePartie.debut=false;
 			}
 		}
 		else if(clicPVM(e)) {
@@ -141,6 +142,7 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_pb_PVM=true;
 				nouvellePartie.enfonce_pb_MVM=false;
 				nouvellePartie.enfonce_pb_PVP=false;
+				nouvellePartie.debut=false;
 			}
 		}
 		else if(clicMVM(e)) {
@@ -148,6 +150,7 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_pb_MVM=true;
 				nouvellePartie.enfonce_pb_PVM=false;
 				nouvellePartie.enfonce_pb_PVP=false;
+				nouvellePartie.debut=false;
 			}
 		}
 		else if (nouvellePartie.enfonce_pb_MVM){
@@ -155,36 +158,42 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_IA2_FACILE=true;
 				nouvellePartie.enfonce_IA2_MOYEN=false;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA2 = 0;
 			}
 			else if (clicBpIA2_M(e)){
 				nouvellePartie.enfonce_IA2_MOYEN=true;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
 				nouvellePartie.enfonce_IA2_FACILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA2 = 1;
 			}
 			else if (clicBpIA2_D(e)){
 				nouvellePartie.enfonce_IA2_DIFFICILE=true;
 				nouvellePartie.enfonce_IA2_MOYEN=false;
 				nouvellePartie.enfonce_IA2_FACILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA2 = 2;
 			}
 			if (clicBpIA3_F(e)){
 				nouvellePartie.enfonce_IA3_FACILE=true;
 				nouvellePartie.enfonce_IA3_MOYEN=false;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA3 = 0;
 			}
 			else if (clicBpIA3_M(e)){
 				nouvellePartie.enfonce_IA3_MOYEN=true;
 				nouvellePartie.enfonce_IA3_DIFFICILE=false;
 				nouvellePartie.enfonce_IA3_FACILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA3 = 1;
 			}
 			else if (clicBpIA3_D(e)){
 				nouvellePartie.enfonce_IA3_DIFFICILE=true;
 				nouvellePartie.enfonce_IA3_MOYEN=false;
 				nouvellePartie.enfonce_IA3_FACILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA3 = 2;
 			}
 		}
@@ -193,18 +202,21 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_IA1_FACILE=true;
 				nouvellePartie.enfonce_IA1_MOYEN=false;
 				nouvellePartie.enfonce_IA1_DIFFICILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA1 = 0;
 			}
 			else if (clicBpIA1_M(e)){
 				nouvellePartie.enfonce_IA1_MOYEN=true;
 				nouvellePartie.enfonce_IA1_DIFFICILE=false;
 				nouvellePartie.enfonce_IA1_FACILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA1 = 1;
 			}
 			else if (clicBpIA1_D(e)){
 				nouvellePartie.enfonce_IA1_DIFFICILE=true;
 				nouvellePartie.enfonce_IA1_MOYEN=false;
 				nouvellePartie.enfonce_IA1_FACILE=false;
+				nouvellePartie.debut=false;
 				lvl_IA1 = 2;
 			}
 		}

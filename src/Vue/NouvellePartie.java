@@ -42,6 +42,7 @@ public class NouvellePartie extends JPanel {
     public boolean enfonce_IA3_MOYEN = false;
     public boolean enfonce_IA3_DIFFICILE = false;
     public boolean enfonce_pb_COMMENCER = false;
+    public boolean debut = true;
     public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3, largeur_back, hauteur_back; 
     public int frameHeight, frameWidth;
     private final Dimension tailleEcran;
@@ -215,7 +216,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA1_FACILE(Graphics g) {// joueur vs ordi   
 		if(!enfonce_IA1_FACILE) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+			if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
 	            g.drawImage(textures.boutonFacile_gris, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonFacile, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
@@ -227,7 +228,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA1_MOYEN(Graphics g) {// joueur vs ordi   
 		if(!enfonce_IA1_MOYEN) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+			if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
 	            g.drawImage(textures.boutonMoyen_gris, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonMoyen, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
@@ -239,7 +240,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA1_DIFFICILE(Graphics g) {// joueur vs ordi   
 		if(!enfonce_IA1_DIFFICILE) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM) {
+			if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
 	            g.drawImage(textures.boutonDifficile_gris, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				 g.drawImage(textures.boutonDifficile, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
@@ -251,7 +252,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA2_FACILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA2_FACILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
 	            g.drawImage(textures.boutonFacile_gris, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonFacile, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
@@ -263,7 +264,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA2_MOYEN(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA2_MOYEN) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
 	            g.drawImage(textures.boutonMoyen_gris, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonMoyen, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
@@ -275,7 +276,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA2_DIFFICILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA2_DIFFICILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
 	            g.drawImage(textures.boutonDifficile_gris, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonDifficile, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
@@ -287,7 +288,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA3_FACILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA3_FACILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
 	            g.drawImage(textures.boutonFacile_gris, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonFacile, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
@@ -299,7 +300,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA3_MOYEN(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA3_MOYEN) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
 	            g.drawImage(textures.boutonMoyen_gris, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonMoyen, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
@@ -311,7 +312,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonIA3_DIFFICILE(Graphics g) {// ordi vs ordi
 		if(!enfonce_IA3_DIFFICILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
+			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
 	            g.drawImage(textures.boutonDifficile_gris, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
 			}else {
 				g.drawImage(textures.boutonDifficile, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
@@ -322,7 +323,7 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_NOMJ1(Graphics g) {// PVP
-    	if(enfonce_pb_PVM || enfonce_pb_MVM) {
+    	if(enfonce_pb_PVM || enfonce_pb_MVM || debut) {
     		g.drawImage(textures.boutonNomJ1_gris, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton1, hauteur_bouton1, null);
     	}else {
     		g.drawImage(textures.boutonNomJ1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton1, hauteur_bouton1, null);
@@ -330,7 +331,7 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_NOMJ2(Graphics g) {// PVP
-    	if(enfonce_pb_PVM || enfonce_pb_MVM) {
+    	if(enfonce_pb_PVM || enfonce_pb_MVM || debut) {
     		g.drawImage(textures.boutonNomJ2_gris, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton1, hauteur_bouton1, null);
     	}else {
     		g.drawImage(textures.boutonNomJ2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton1, hauteur_bouton1, null);
@@ -338,7 +339,7 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_NOMJ3(Graphics g) {// PVM
-    	if(enfonce_pb_PVP || enfonce_pb_MVM) {
+    	if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
     		g.drawImage(textures.boutonNomJoueur_gris, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
     	}else {
     		g.drawImage(textures.boutonNomJoueur, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
@@ -346,7 +347,7 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_IA1(Graphics g) {// joueur vs ordi
-    	if(enfonce_pb_PVP || enfonce_pb_MVM) {
+    	if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
     		g.drawImage(textures.boutonDifficulteOrdi_gris, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton1, hauteur_bouton1, null);
     	}else {
     		g.drawImage(textures.boutonDifficulteOrdi, posX_Label_diff_IA1, posY_Label_diff_IA1, largeur_bouton1, hauteur_bouton1, null);
@@ -354,7 +355,7 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_IA2(Graphics g) {// ordi vs ordi
-    	if(enfonce_pb_PVP || enfonce_pb_PVM) {
+    	if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
     		g.drawImage(textures.boutonDifficulteOrdi1_gris, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton1, hauteur_bouton1, null);
     	}else {
     		g.drawImage(textures.boutonDifficulteOrdi1, posX_Label_diff_IA2, posY_Label_diff_IA2, largeur_bouton1, hauteur_bouton1, null);
@@ -362,7 +363,7 @@ public class NouvellePartie extends JPanel {
     }
     
     public void afficheLabel_IA3(Graphics g) {// ordi vs ordi
-    	if(enfonce_pb_PVP || enfonce_pb_PVM) {
+    	if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
     		g.drawImage(textures.boutonDifficulteOrdi2_gris, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton1, hauteur_bouton1, null);
     	}else {
     		g.drawImage(textures.boutonDifficulteOrdi2, posX_Label_diff_IA3, posY_Label_diff_IA3, largeur_bouton1, hauteur_bouton1, null);
