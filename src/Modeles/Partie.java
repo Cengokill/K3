@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+import java.util.Timer;
+
 public class Partie {
 	private int numPartie;
 	private Acteur j1;
@@ -49,6 +51,15 @@ public class Partie {
 		pNaturel = new Piece(Couleurs.NATUREL);
 		initialiserSac();
 		initBaseMontagne();
+	}
+	
+	public void demarrerTimer(int a) {
+		Timer timer = new Timer();
+		if(a==0) {
+			j1.setTempsConstruction(timer);
+		}else {
+			j2.setTempsConstruction(timer);
+		}
 	}
 
 	public void setCheminStats(String s) {
