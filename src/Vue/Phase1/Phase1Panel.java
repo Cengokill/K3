@@ -181,6 +181,18 @@ public class Phase1Panel extends JPanel{
 		g.drawString(nom, POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR, POSY_BASE_JOUEUR-TAILLE_CUBES_HAUTEUR/2);
 	}
 	
+	/*
+	public void afficherTimer(Graphics g) {
+		String timer;
+		int jCourant=this.partieEnCours.getJoueurCourant();
+		String timer=jCourant.
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Courier New", Font.BOLD, 28));
+		g.drawString(timer, POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR, POSY_BASE_JOUEUR-TAILLE_CUBES_HAUTEUR/2);
+		
+	}
+	*/
+	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {
 	    g.drawImage(textures.backgroundPhase1, 0, 0, tailleFenetre.width, tailleFenetre.height,null);

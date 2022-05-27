@@ -206,10 +206,11 @@ public class Jeu {
 		for(int i=0; i<2; i++) {
 			if(this.partieEnCours.getJoueurCourant()==0) {
 				acteurCourant=this.partieEnCours.joueur1();
+				this.partieEnCours.demarrerTimer(0);
 			}else {
 				acteurCourant=this.partieEnCours.joueur2();
+				this.partieEnCours.demarrerTimer(1);
 			}
-			debut=System.currentTimeMillis();
 			while (acteurCourant.getTaillePiecesPiochees()>0 || !acteurCourant.valideCamp) {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
@@ -228,7 +229,7 @@ public class Jeu {
 					}
 				}
 			}
-			acteurCourant.setTempsConstruction(System.currentTimeMillis()-debut);
+			System.out.println(acteurCourant.getTempsConstruction());
 			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();

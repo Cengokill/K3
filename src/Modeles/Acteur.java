@@ -2,6 +2,8 @@ package Modeles;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Acteur {
 
@@ -9,7 +11,8 @@ public class Acteur {
 	protected int nb_BlancsJoues;// pieces blanches jouees
 	protected int nb_Mauvais_Coups_Joues;// mauvais coups joues (une piece sur 2 pieces de meme couleur)
 	protected int nb_Vols;
-	protected long tempsConstruction=0;
+	protected Timer timer;
+	protected double tempsConstruction;
 
 	// variables GAMEPLAY
 	protected String nom;
@@ -28,6 +31,7 @@ public class Acteur {
 		this.nb_Vols = 0;
 
 		// variable GAMEPLAY
+		this.tempsConstruction=0;
 		campJ = new PyramideJoueur(6, 6);
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
@@ -37,12 +41,18 @@ public class Acteur {
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
 	// -------------------------------------------------------------------
 	
-	public long getTempsConstruction() {
+	public double getTempsConstruction() {
 		return this.tempsConstruction;
 	}
 	
-	public void setTempsConstruction(long t) {
-		this.tempsConstruction=t;
+	public void setTempsConstruction(Timer timer) {
+		this.timer = timer;
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				tempsConstruction+=0.01;
+			}
+		}, 1,10);
 	}
 	
 	public int tempsReflexion() {
