@@ -310,16 +310,28 @@ public class NouvellePartie extends JPanel {
 		}
     }
     
-    public void afficheLabel_NOMJ1(Graphics g) {   
-    	g.drawImage(textures.boutonNomJ1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton1, hauteur_bouton1, null);
+    public void afficheLabel_NOMJ1(Graphics g) {// PVP
+    	if(enfonce_pb_PVM || enfonce_pb_MVM) {
+    		g.drawImage(textures.boutonNomJ1_gris, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton1, hauteur_bouton1, null);
+    	}else {
+    		g.drawImage(textures.boutonNomJ1, posX_label_nomJ1, posY_label_nomJ1, largeur_bouton1, hauteur_bouton1, null);
+    	}
     }
     
-    public void afficheLabel_NOMJ2(Graphics g) {   
-    	g.drawImage(textures.boutonNomJ2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton1, hauteur_bouton1, null);
+    public void afficheLabel_NOMJ2(Graphics g) {// PVP
+    	if(enfonce_pb_PVM || enfonce_pb_MVM) {
+    		g.drawImage(textures.boutonNomJ2_gris, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton1, hauteur_bouton1, null);
+    	}else {
+    		g.drawImage(textures.boutonNomJ2, posX_label_nomJ2, posY_label_nomJ2, largeur_bouton1, hauteur_bouton1, null);
+    	}
     }
     
-    public void afficheLabel_NOMJ3(Graphics g) {   
-    	g.drawImage(textures.boutonNomJoueur, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
+    public void afficheLabel_NOMJ3(Graphics g) {// PVM
+    	if(enfonce_pb_PVP || enfonce_pb_MVM) {
+    		g.drawImage(textures.boutonNomJoueur_gris, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
+    	}else {
+    		g.drawImage(textures.boutonNomJoueur, posX_label_nomJ3, posY_label_nomJ3, largeur_bouton1, hauteur_bouton1, null);
+    	}
     }
     
     public void afficheLabel_IA1(Graphics g) {// joueur vs ordi
