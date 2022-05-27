@@ -31,8 +31,9 @@ public class Phase1Panel extends JPanel{
 	public int TAILLE_CUBES_HAUTEUR;
 	public int TAILLE_CUBES_LARGEUR;
 	
-	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton;
-    public int posX_bouton_valider, posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono;
+	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton,posX_bouton_valider,
+	posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono,posX_text_chrono,posY_text_chrono,
+	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer;
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
@@ -88,8 +89,8 @@ public class Phase1Panel extends JPanel{
 	public void changementTaillefenetre() {
 		tailleFenetre = window.getSize();
 		//taille objet
-        this.largeur_bouton=(int)(tailleFenetre.width/12);
-        this.hauteur_bouton=(int)(largeur_bouton);
+        largeur_bouton=(int)(tailleFenetre.width/12);
+        hauteur_bouton=(int)(largeur_bouton);
         
         double rapport=0.8576709797;
         double rapport_chrono=1.395;//400x558
@@ -97,19 +98,28 @@ public class Phase1Panel extends JPanel{
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
 		//Position objet
-		this.POSX_BASE_JOUEUR = tailleFenetre.height/10;
-		this.POSY_BASE_JOUEUR = tailleFenetre.height/3;
+		POSX_BASE_JOUEUR = tailleFenetre.height/10;
+		POSY_BASE_JOUEUR = tailleFenetre.height/3;
 		
-		this.POSX_PIOCHE = 0;
-		this.POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
+		POSX_PIOCHE = 0;
+		POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
 		
-		this.POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
-		this.POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
+		POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
+		POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
 		
-		this.posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
-		this.posY_chrono = tailleFenetre.width/18;
-		this.largeur_chrono = (int)(TAILLE_CUBES_LARGEUR*2);
-		this.hauteur_chrono = (int)(largeur_chrono*rapport_chrono);
+		posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
+		posY_chrono = POSY_BASE_JOUEUR-(int)(3.8*TAILLE_CUBES_HAUTEUR);
+		largeur_chrono = (int)(TAILLE_CUBES_LARGEUR*2);
+		hauteur_chrono = (int)(largeur_chrono*rapport_chrono);
+		
+		taille_police_timer = (int)(hauteur_chrono/8);
+		posX_text_chrono = posX_chrono+(int)(taille_police_timer*1.8);
+		posY_text_chrono = (int)(posY_chrono+hauteur_chrono*0.94);
+		
+		taille_nom_joueur = initAffichageJoueurs().getNom().length();
+		taille_police_nom_joueur=(int)(hauteur_chrono/6);
+		posX_nom_joueur = posX_chrono-(int)(taille_police_nom_joueur*1.2);
+		posY_nom_joueur = posY_chrono-TAILLE_CUBES_HAUTEUR;
 		
 		posX_bouton_melange=POSX_BASE_JOUEUR-TAILLE_CUBES_LARGEUR;
 		posY_bouton_melange=POSY_PIOCHE+TAILLE_CUBES_HAUTEUR*2;
@@ -184,8 +194,8 @@ public class Phase1Panel extends JPanel{
 			nom=this.partieEnCours.joueur2().getNom();
 		}
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Courier New", Font.BOLD, 28));
-		g.drawString(nom, POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR, POSY_BASE_JOUEUR-TAILLE_CUBES_HAUTEUR/2);
+		g.setFont(new Font("Courier New", Font.BOLD, taille_police_nom_joueur));
+		g.drawString(nom, posX_nom_joueur, posY_nom_joueur);
 	}
 	
 
@@ -200,8 +210,8 @@ public class Phase1Panel extends JPanel{
 		String tempsAffiche=Double.toString(Math.round(temps*10.0)/10.0);
 		g.drawImage(textures.chrono, posX_chrono, posY_chrono, largeur_chrono, hauteur_chrono, null);
 		g.setColor(Color.BLUE);
-		g.setFont(new Font("Courier New", Font.BOLD, (int)(hauteur_chrono/8)));
-		g.drawString(tempsAffiche, (int)(posX_chrono*1.15), (int)(posY_chrono+hauteur_chrono*0.95));
+		g.setFont(new Font("Courier New", Font.BOLD, taille_police_timer));
+		g.drawString(tempsAffiche, posX_text_chrono, posY_text_chrono);
 	}
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
