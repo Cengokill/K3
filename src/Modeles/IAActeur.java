@@ -13,7 +13,7 @@ public class IAActeur extends Acteur {
         super(nom);
         super.diff = diff;
         this.numerojoueur = numerojoueur;
-        this.valideCamp=true;
+        this.valideCamp = true;
         switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:
                 pioche = new IApiocheAlea();
@@ -21,7 +21,7 @@ public class IAActeur extends Acteur {
                 break;
             case 1:
                 pioche = new IApiocheExpert();
-                jeu = new IAjeuExpert(5);
+                jeu = new IAjeuExpert(3);
                 break;
             case 2:
                 pioche = new piocheMC();
