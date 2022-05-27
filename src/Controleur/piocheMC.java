@@ -27,7 +27,7 @@ public class piocheMC implements IApioche {
                 pyraadv = clonepyra(p.joueur2().getCamp());
                 // deconstruit
                 AnnulCreerPyra(p, numeroadv);
-                p.joueur2().valideCamp = true;
+                p.joueur2().valideCamp = false;
             }
         } else {
             numeroadv = 0;
@@ -36,7 +36,7 @@ public class piocheMC implements IApioche {
                 pyraadv = clonepyra(p.joueur1().getCamp());
                 // deconstruit
                 AnnulCreerPyra(p, numeroadv);
-                p.joueur1().valideCamp = true;
+                p.joueur1().valideCamp = false;
             }
         }
 
