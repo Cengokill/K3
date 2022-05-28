@@ -56,7 +56,7 @@ public class Phase1Panel extends JPanel{
 	// CONSTRUCTEUR----------------------------------------------
 	public Phase1Panel(JFrame w, Partie partieEnCours, LoadTexture t){
 		this.textures=t;
-		this.simpleSoundPlayerSon = new SoundPlayer(8);
+		this.simpleSoundPlayerSon = new SoundPlayer(8, textures.CHEMIN);
 		this.partieEnCours=partieEnCours;
 		this.window = w;
 		this.tailleFenetre = window.getSize();

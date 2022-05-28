@@ -64,7 +64,7 @@ public class NouvellePartie extends JPanel {
         this.textures=t;
         this.partie=p;
         this.options=o;
-        this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores);
+        this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, textures.CHEMIN);
         window.setTitle("Nouvelle Partie");
         this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth=tailleEcran.width;
