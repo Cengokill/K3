@@ -1,6 +1,14 @@
 package Modeles;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -14,9 +22,20 @@ public class SoundPlayer {
 	private FloatControl volumeLevel;
 	
 	public SoundPlayer(int volume) {
+		String path="";
 		this.numSon=-1;
 		this.volume=volume;
-		this.chemin=System.getProperty("user.dir")+"/res/Sounds/";
+		File currentJavaJarFile = new File(SoundPlayer.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
+		try {
+			path = URLDecoder.decode(currentJavaJarFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String currentRootDirectoryPath = path.replace(currentJavaJarFile.getName(), "");
+		this.chemin=currentRootDirectoryPath+"src\\Ressources\\Sounds\\";
+		
 		// EFFETS SONORES
 		cheminsSons[0] = chemin+"/cave1.wav";
 		cheminsSons[1] = chemin+"PoserPieceCamp/poserPieceCamp1.wav";

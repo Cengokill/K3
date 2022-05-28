@@ -5,7 +5,6 @@
 package Vue.Phase0;
 import Controleur.*;
 import Modeles.InitPartie;
-import Vue.Plateau;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -441,7 +440,6 @@ public class New_game {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bp_STARTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bp_STARTActionPerformed      
-        Plateau plateau = new Plateau();
         Jeu partie;
         int type_joueur1=-1;
         int type_joueur2=-1;

@@ -54,11 +54,10 @@ public class Partie {
 	}
 	
 	public void demarrerTimer(int a) {
-		Timer timer = new Timer();
 		if(a==0) {
-			j1.setTempsConstruction(timer);
+			j1.setTempsConstruction();
 		}else {
-			j2.setTempsConstruction(timer);
+			j2.setTempsConstruction();
 		}
 	}
 
@@ -106,6 +105,10 @@ public class Partie {
 
 	public int getJoueurCourant() {
 		return this.joueurCourant;
+	}
+	
+	public void setJoueurCourant(int a) {
+		this.joueurCourant=a;
 	}
 
 	public boolean joueurPeutJouer(Acteur j) {

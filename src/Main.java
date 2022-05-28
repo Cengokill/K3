@@ -1,13 +1,9 @@
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import Controleur.*;
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
@@ -15,13 +11,7 @@ import Modeles.SoundPlayer;
 import Vue.Menu.Chargement;
 import Vue.Menu.Chargement.TypeFenetre;
 import Vue.Menu.StartJeu;
-import Vue.Menu.StartJeuClics;
 import Vue.Option.*;
-import Vue.Phase0.New_game;
-import Vue.Phase1.GifAnime;
-//import Modeles.SoundPlayer;
-import Vue.Phase1.Phase1Panel;
-import Vue.Phase1.ecouteurClick;
 import Vue.TexturePack.LoadTexture;
 import Vue.NouvellePartie;
 import Vue.Charger.*;
@@ -29,7 +19,7 @@ import Vue.Tutoriel.*;
 
 public class Main {
 	
-	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {	
+	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		LoadTexture texture = new LoadTexture("./src/Ressources/");
 		String chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		OptionsJeu options = new OptionsJeu(chemin);

@@ -41,16 +41,25 @@ public class Acteur {
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
 	// -------------------------------------------------------------------
 	
+	public void resetTempsConstruction() {
+		this.tempsConstruction=0;
+	}
+	
 	public double getTempsConstruction() {
 		return this.tempsConstruction;
 	}
 	
-	public void setTempsConstruction(Timer timer) {
-		this.timer = timer;
-		timer.schedule(new TimerTask() {
+	public void stopTempsConstruction() {
+		this.timer.cancel();
+	}
+	
+	public void setTempsConstruction() {
+		this.timer = new Timer();
+		this.timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				tempsConstruction+=0.01;
+				System.out.println("temps += "+tempsConstruction);
 			}
 		}, 1,10);
 	}

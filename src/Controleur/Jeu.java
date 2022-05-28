@@ -1,10 +1,8 @@
 package Controleur;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,7 +24,6 @@ public class Jeu {
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
-	public Plateau plateau;
 	public JFrame window;
 	public Phase1Panel panel;
 	private int NB_LIGNES_SAUVEGARDE=43;
@@ -52,7 +49,6 @@ public class Jeu {
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
-		plateau = new Plateau();
 		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,500,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		//lancer une partie
 		/*
@@ -226,6 +222,7 @@ public class Jeu {
 				}
 			}
 			System.out.println(acteurCourant.getTempsConstruction());
+			acteurCourant.stopTempsConstruction();
 			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();
@@ -269,14 +266,32 @@ public class Jeu {
 			afficherTour();
 			this.valeur_paire++;
 		}
-		//attribution du joueur courant et precedent
-		if (this.partieEnCours.getJoueurCourant() == 0) {
+		double tempsJ1 = this.partieEnCours.joueur1().getTempsConstruction();
+		double tempsJ2 = this.partieEnCours.joueur1().getTempsConstruction();
+		if(tempsJ1<tempsJ2) {
 			jCourant=this.partieEnCours.joueur1();
 			jPrecedent=this.partieEnCours.joueur2();
-		}else {
+			this.partieEnCours.setJoueurCourant(0);
+		}
+		else if(tempsJ1>tempsJ2) {
 			jCourant=this.partieEnCours.joueur2();
 			jPrecedent=this.partieEnCours.joueur1();
+			this.partieEnCours.setJoueurCourant(1);
 		}
+		else {
+			int a = Aleatoire.genInt(0,1);
+			if(a==0) {
+				jCourant=this.partieEnCours.joueur1();
+				jPrecedent=this.partieEnCours.joueur2();
+				this.partieEnCours.setJoueurCourant(0);
+			}else {
+				jCourant=this.partieEnCours.joueur2();
+				jPrecedent=this.partieEnCours.joueur1();
+				this.partieEnCours.setJoueurCourant(1);
+			}
+		}
+		this.partieEnCours.joueur1().resetTempsConstruction();
+		this.partieEnCours.joueur2().resetTempsConstruction();
 		//affichage dans la console de la partie
 		afficherBaseMontagne();
 		System.out.println("Votre camp :");
@@ -300,9 +315,11 @@ public class Jeu {
 		if (this.partieEnCours.joueurCourant == 0) {
 			jCourant = this.partieEnCours.joueur1();
 			jPrecedent = this.partieEnCours.joueur2();
+			this.partieEnCours.demarrerTimer(0);
 		} else {
 			jCourant = this.partieEnCours.joueur2();
 			jPrecedent = this.partieEnCours.joueur1();
+			this.partieEnCours.demarrerTimer(1);
 		}
 		ArrayList<Coup> cJ = this.partieEnCours.coupsJouables(jCourant);
 		Coup coupDemande = jCourant.jouer(cJ, this.partieEnCours);// le joueur courant a choisi un coup a jouer
@@ -354,6 +371,11 @@ public class Jeu {
 			timer(temps);
 			panel.repaint();
 			System.out.println("Vous avez decide de passer votre tour !");
+		}
+		if (this.partieEnCours.joueurCourant == 0) {
+			this.partieEnCours.joueur1().stopTempsConstruction();
+		} else {
+			this.partieEnCours.joueur2().stopTempsConstruction();
 		}
 		partieEnCours.changementJoueurCourant();
 	}

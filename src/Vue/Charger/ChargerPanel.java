@@ -47,7 +47,7 @@ public class ChargerPanel extends JPanel{
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;
 		nomSauvegarde=Jeu.listerSauvegardes(System.getProperty("user.home")+ "/Desktop/Jeu_K3/Sauvegardes/");
-		list = new JList(nomSauvegarde);
+		this.list = new JList(nomSauvegarde);
 		this.scrollPane = new JScrollPane(list);
 		this.add(scrollPane);
 		tailleFenetre = window.getSize();

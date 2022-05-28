@@ -35,14 +35,14 @@ public class TestStrategie {
 
             // création de pyramide
             IApiocheAlea iaP = new IApiocheAlea();
-            PyramideJoueur pj1 = iaP.CreerPioche(ktrois.joueur1().getPiecesPiochees());
-            PyramideJoueur pj2 = iaP.CreerPioche(ktrois.joueur2().getPiecesPiochees());
-            System.out.println("Les pyramides des joueurs sont initialisées");
+            PyramideJoueur pj1; // =iaP.CreerPioche(ktrois.joueur1().getPiecesPiochees());
+            PyramideJoueur pj2; // =iaP.CreerPioche(ktrois.joueur2().getPiecesPiochees());
+            System.out.println("Les pyramides des joueurs sont initialiseees");
             System.out.println();
             System.out.println("Pyramide joueur 1:");
-            System.out.println(pj1.toString());
+            //System.out.println(pj1.toString());
             System.out.println("Pyramide joueur 2:");
-            System.out.println(pj2.toString());
+            //System.out.println(pj2.toString());
             // Jeu aléatoire
 
             System.out.println("Le jeu commence");
