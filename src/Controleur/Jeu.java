@@ -44,8 +44,8 @@ public class Jeu {
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
 		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique);
-		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores);
+		this.simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique,textures.CHEMIN);
+		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, textures.CHEMIN);
 		this.simpleSoundPlayerMusic.setNumSon(43);
 		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
@@ -74,8 +74,8 @@ public class Jeu {
 	
 	public void modifVolume() {
 		Slider slider = new Slider();
-		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique);
-		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores);
+		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique, textures.CHEMIN);
+		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores, textures.CHEMIN);
 		options.ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique);
 	}
 	

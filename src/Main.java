@@ -1,6 +1,13 @@
 
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
@@ -20,12 +27,13 @@ import Vue.Tutoriel.*;
 public class Main {
 	
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		LoadTexture texture = new LoadTexture("./src/Ressources/");
+		String CHEMIN = getChemin();
+		LoadTexture texture = new LoadTexture(CHEMIN);
 		String chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		OptionsJeu options = new OptionsJeu(chemin);
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
-		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique);
+		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique, CHEMIN);
 		simpleSoundPlayerMusic.setNumSon(43);
 		simpleSoundPlayerMusic.loopSon();
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
@@ -110,5 +118,49 @@ public class Main {
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 		}
+	}
+	
+	public static String getChemin() {
+		String r="";
+		String path = "src/Ressources/";
+		File jarFile = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+
+		if(jarFile.isFile()) {  // si .jar execute
+		    JarFile jar;
+			try {
+				jar = new JarFile(jarFile);
+				Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+			    while(entries.hasMoreElements()) {
+			        String name = entries.nextElement().getName();
+			        if (name.startsWith(path + "/")) { //filter according to the path
+			            System.out.println(name);
+			        }
+			    }
+			    try {
+					jar.close();
+				} catch (IOException e) {
+					System.err.println("Erreur");
+					e.printStackTrace();
+				}
+			} catch (IOException e1) {
+				System.err.println("Erreur");
+				e1.printStackTrace();
+			}
+		    
+		} else { // Run avec IDE
+		    URL url = Main.class.getResource("Ressources/");
+		    if (url != null) {
+		        try {
+		            final File apps = new File(url.toURI());
+		            r = apps.toString()+"/";
+		        } catch (URISyntaxException ex) {
+		        	System.err.println("Erreur");
+		        }
+		    }else {
+		    	System.err.println("Erreur url est nul.");
+		    }
+		}
+		System.out.println(r);
+		return r;
 	}
 }

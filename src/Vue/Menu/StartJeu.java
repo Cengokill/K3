@@ -47,7 +47,7 @@ public class StartJeu extends JPanel implements ActionListener{
 		this.chargement=ch;
 		this.texture = texture;
 		this.options=o;
-		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores);
+		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, texture.CHEMIN);
 		this.setLayout(null);
 		this.jpanel = new JpanelOptions();
 		this.add(jpanel);

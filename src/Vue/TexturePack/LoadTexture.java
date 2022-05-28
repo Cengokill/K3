@@ -42,8 +42,8 @@ public class LoadTexture{
 	//TEXT FIELDS
 	public JTextField texte_nomJ1, texte_nomJ2, texte_nomJoueur;
 
-	public LoadTexture(String optionchemin) {
-		this.CHEMIN = System.getProperty("user.dir")+optionchemin;
+	public LoadTexture(String c) {
+		this.CHEMIN = c;
 		//IMAGE FOND -------------------------------------------------------------
 		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.png");
 		backgroundSansLogo = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background_sans_logo.png");

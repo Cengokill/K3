@@ -21,20 +21,11 @@ public class SoundPlayer {
 	private int numSon, volume;
 	private FloatControl volumeLevel;
 	
-	public SoundPlayer(int volume) {
+	public SoundPlayer(int volume, String c) {
 		String path="";
 		this.numSon=-1;
 		this.volume=volume;
-		File currentJavaJarFile = new File(SoundPlayer.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
-		try {
-			path = URLDecoder.decode(currentJavaJarFilePath, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String currentRootDirectoryPath = path.replace(currentJavaJarFile.getName(), "");
-		this.chemin=currentRootDirectoryPath+"src\\Ressources\\Sounds\\";
+		this.chemin=c+"Sounds/";
 		
 		// EFFETS SONORES
 		cheminsSons[0] = chemin+"/cave1.wav";
