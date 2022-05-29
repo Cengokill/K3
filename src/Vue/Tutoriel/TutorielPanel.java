@@ -18,9 +18,9 @@ public class TutorielPanel extends JPanel{
 	public Chargement chargement;
 	
 	// PARAMETRE AFFICHAGE
-	public int fenetreActuel = 0;
-	public int fenetreMin = 0;
-	public int fenetreMax = 2;
+	public int fenetreActuel = 1;
+	public int fenetreMin = 1;
+	public int fenetreMax = 4;
 	
 	public int posXSuivant, posYSuivant, largeurSuivant, hauteurSuivant;
 	public boolean presseSuivant = false;
@@ -30,6 +30,8 @@ public class TutorielPanel extends JPanel{
 	
 	public int posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu;
 	public boolean presseRetourMenu = false;
+
+	public int posXtuto, posYtuto, largeurTuto, hauteurTuto;
 	
 	// CONSTRUCTEUR----------------------------------------------
 	public TutorielPanel(JFrame w, LoadTexture texture, Chargement chargement){
@@ -50,17 +52,22 @@ public class TutorielPanel extends JPanel{
 		posXSuivant =0;
 		posYSuivant = 0;
 		largeurSuivant = 100;
-		hauteurSuivant = 50;
+		hauteurSuivant = 80;
 		
 		posXPrecedent =0;
 		posYPrecedent = posYSuivant+hauteurSuivant;
 		largeurPrecedent = 100;
-		hauteurPrecedent = 50;
+		hauteurPrecedent = 80;
 		
 		posXRetourMenu =0;
 		posYRetourMenu = posYPrecedent+hauteurPrecedent;
 		largeurRetourMenu = 100;
-		hauteurRetourMenu = 50;
+		hauteurRetourMenu = 80;
+
+		posXtuto = 200;
+		posYtuto = 100;
+		largeurTuto = 1000;
+		hauteurTuto = 600;
 		
 	}
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
@@ -72,25 +79,21 @@ public class TutorielPanel extends JPanel{
 	public void tutoPrecedent() {
 		if(fenetreActuel>fenetreMin) {
 			fenetreActuel--;
-		}    
+				}    
 	}
 		
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBackGround(Graphics g) {
-		if(fenetreActuel ==0) {
-			g.drawImage(texture.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
-		}else{
-			g.drawImage(texture.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
-		}    
+			g.drawImage(texture.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);   
 	}
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBoutonSuivant(Graphics g) {
 		if(fenetreActuel < fenetreMax) {
 			if(!presseSuivant) {
-				g.drawImage(texture.boutonLoad, posXSuivant, posYSuivant, largeurSuivant, hauteurSuivant, null);
+				g.drawImage(texture.TutoSuivant, posXSuivant, posYSuivant, largeurSuivant, hauteurSuivant, null);
 			}else {
-				g.drawImage(texture.boutonLoadPresse, posXSuivant, posYSuivant, largeurSuivant, hauteurSuivant, null);
+				g.drawImage(texture.TutoSuivant, posXSuivant, posYSuivant, largeurSuivant, hauteurSuivant, null);
 			}
 		}
 	}
@@ -98,18 +101,30 @@ public class TutorielPanel extends JPanel{
 	public void affichageBoutonPrecedent(Graphics g) {
 		if(fenetreActuel > fenetreMin) {
 			if(!pressePrecedent) {
-				g.drawImage(texture.boutonLoad, posXPrecedent, posYPrecedent, largeurPrecedent, hauteurPrecedent, null);
+				g.drawImage(texture.TutoPrecedent, posXPrecedent, posYPrecedent, largeurPrecedent, hauteurPrecedent, null);
 			}else {
-				g.drawImage(texture.boutonLoadPresse, posXPrecedent, posYPrecedent, largeurPrecedent, hauteurPrecedent, null);
+				g.drawImage(texture.TutoPrecedent, posXPrecedent, posYPrecedent, largeurPrecedent, hauteurPrecedent, null);
 			}
 		}
 	}
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageRetourMenu(Graphics g) {
 		if(!presseRetourMenu) {
-			g.drawImage(texture.boutonLoad, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+			g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
 		}else {
-			g.drawImage(texture.boutonLoadPresse, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+			g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+		}
+	}
+
+	public void affichageTuto(Graphics g) {
+		if(fenetreActuel == 1) {
+			g.drawImage(texture.Tuto1, posXtuto, posYtuto, largeurTuto, hauteurTuto, null);
+		}else if (fenetreActuel == 2){
+			g.drawImage(texture.Tuto2, posXtuto, posYtuto, largeurTuto, hauteurTuto, null);
+		}else if (fenetreActuel == 3){
+			g.drawImage(texture.Tuto3, posXtuto, posYtuto, largeurTuto, hauteurTuto, null);
+		}else{
+			g.drawImage(texture.Tuto4, posXtuto, posYtuto, largeurTuto, hauteurTuto, null);
 		}
 	}
 	
@@ -121,5 +136,6 @@ public class TutorielPanel extends JPanel{
 		affichageBoutonSuivant(g);
 		affichageBoutonPrecedent(g);
 		affichageRetourMenu(g);
+		affichageTuto(g);
 	}
 }
