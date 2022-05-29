@@ -7,9 +7,8 @@ import javax.swing.JTextField;
 public class LoadTexture{
 	public String CHEMIN;
 	
-	//IMAGE FOND
+	//IMAGES FOND
 	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, chrono;
-	
 	//IMAGE PIECE
 	public Image pieceVide;
 	public Image pieceNoire;
@@ -29,7 +28,8 @@ public class LoadTexture{
 	boutonDifficulteOrdi1,boutonDifficulteOrdi2,boutonDifficulteOrdi,boutonFacile,boutonFacile_vert,boutonMoyen,boutonMoyen_vert,
 	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse, boutonPVP_gris, boutonPVM_gris,
 	boutonMVM_gris, boutonNomJ1_gris, boutonNomJ2_gris, boutonNomJoueur_gris, boutonDifficulteOrdi1_gris, boutonDifficulteOrdi2_gris,
-	boutonDifficulteOrdi_gris, boutonFacile_gris, boutonMoyen_gris, boutonDifficile_gris, menuSuivant, menuRetour;
+	boutonDifficulteOrdi_gris, boutonFacile_gris, boutonMoyen_gris, boutonDifficile_gris, menuSuivant, menuRetour,
+	boutonPasserTour,boutonPasserTour_gris,boutonCoupPrecedent,boutonCoupPrecedent_gris;
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -106,6 +106,10 @@ public class LoadTexture{
 		boutonValider = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider.png");
 		boutonValider_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider_presse.png");
 		boutonValider_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"bouton_valider_gris.png");
+		boutonPasserTour = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_flou.png");
+		boutonPasserTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_gris.png");
+		boutonCoupPrecedent = Toolkit.getDefaultToolkit().createImage(CHEMIN+"coup_precedent_flou.png");
+		boutonCoupPrecedent_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"coup_precedent_gris.png");
 		//CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");
