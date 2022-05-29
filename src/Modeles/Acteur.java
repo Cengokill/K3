@@ -31,7 +31,7 @@ public class Acteur {
 		this.nb_Vols = 0;
 
 		// variable GAMEPLAY
-		this.tempsConstruction=0;
+		this.tempsConstruction = 0;
 		campJ = new PyramideJoueur(6, 6);
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
@@ -40,30 +40,30 @@ public class Acteur {
 
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN
 	// -------------------------------------------------------------------
-	
+
 	public void resetTempsConstruction() {
-		this.tempsConstruction=0;
+		this.tempsConstruction = 0;
 	}
-	
+
 	public double getTempsConstruction() {
 		return this.tempsConstruction;
 	}
-	
+
 	public void stopTempsConstruction() {
 		this.timer.cancel();
 	}
-	
+
 	public void setTempsConstruction() {
 		this.timer = new Timer();
 		this.timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				tempsConstruction+=0.01;
-				//System.out.println("temps += "+tempsConstruction);
+				tempsConstruction += 0.01;
+				// System.out.println("temps += "+tempsConstruction);
 			}
-		}, 1,10);
+		}, 1, 10);
 	}
-	
+
 	public int tempsReflexion() {
 		return 0;
 	}
@@ -158,7 +158,6 @@ public class Acteur {
 	// LISTE piecesVolees -------------------
 	public void addPieceVolee(Piece p) {// ok
 		this.piecesVolees.add(p);
-		this.addVol();
 	}
 
 	public Piece retirerPieceVolee(Piece p) {// ok
@@ -406,10 +405,10 @@ public class Acteur {
 			}
 		}
 	}
-	
+
 	public void setCoupDemander(Coup c) {
 	}
-	
+
 	public void setChoixVol(PiecePyramide choixVol) {
 	}
 }

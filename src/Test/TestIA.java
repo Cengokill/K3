@@ -167,15 +167,19 @@ public class TestIA {
             // GAGNANT
             System.out.println("Partie numero "+nbParties);
             int gagnant;
-            if (ktrois.getJoueurCourant() == 0) {
-                gagnant = 1;
+            if (ktrois.getBaseMontagne().estPleine()) { // Si egalite
+                gagnant = 2;
             } else {
-                gagnant = 0;
-            }
-            if (ktrois.getJoueurCourant() == 0) {
-                victoirej2++;
-            } else {
-                victoirej1++;
+                if (ktrois.getJoueurCourant() == 0) {
+                    gagnant = 1;
+                } else {
+                    gagnant = 0;
+                }
+                if (ktrois.getJoueurCourant() == 0) {
+                    victoirej2++;
+                } else {
+                    victoirej1++;
+                }
             }
             nbParties++;
             ktrois.sauvegarderStatsPartie(gagnant);
