@@ -2,7 +2,6 @@ package Controleur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -16,6 +15,7 @@ public class MinMax {
     HashMap<String, PiecePyramide> volspossibles;
     int heur1;
     int heur2;
+    boolean AFFICHE=false;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -147,9 +147,11 @@ public class MinMax {
                 return valeurconfig;
             }
         }
-        if (flag) {
-            System.out.println("utilisation de l affination de l heuristique 1: " + heur1 + " fois");
-            System.out.println("utilisation de l affination de l heuristique 2: " + heur2 + " fois");
+        if(AFFICHE) {
+	        if (flag) {
+	            System.out.println("utilisation de l affination de l heuristique 1: " + heur1 + " fois");
+	            System.out.println("utilisation de l affination de l heuristique 2: " + heur2 + " fois");
+	        }
         }
         return valeurconfig;
 
@@ -236,11 +238,11 @@ public class MinMax {
 
     public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr, Partie p) {
         if (volspossibles.containsKey(p.optiIA())) {
-            System.out.println("CA MARCHE");
+            //System.out.println("CA MARCHE");
             return volspossibles.get(p.optiIA());
         } else {
             Random r = new Random();
-            System.out.println("On vole en aleatoire");
+            //System.out.println("On vole en aleatoire");
             int alea = r.nextInt(arr.size());
             return arr.get(alea);
         }

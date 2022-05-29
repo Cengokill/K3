@@ -11,6 +11,7 @@ public class piocheMC implements IApioche {
     IAjeu commentjouer = new IAjeuAlea();
     int meilleurvictoire;
     PyramideJoueur meilleurpyra;
+    boolean AFFICHE=false;
 
     @Override
     public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
@@ -110,8 +111,10 @@ public class piocheMC implements IApioche {
         }
 
         double tf = (double) System.currentTimeMillis();
-        System.out.println((tf - td) / 1000 + " s de création de la pioche");
-        System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
+        if(AFFICHE) {
+	        System.out.println((tf - td) / 1000 + " s de creation de la pioche");
+	        System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
+        }
         return aempiler;
     }
 

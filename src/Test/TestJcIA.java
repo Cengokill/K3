@@ -43,7 +43,7 @@ public class TestJcIA {
 
             // CREATION DES PYRAMIDES
             System.out.println("Le joueur numero " + (ktrois.joueurDebut + 1) + " commence la partie");
-            System.out.println("Phase de Création");
+            System.out.println("Phase de Creation");
             System.out.println("Pyramide de jeu");
             System.out.println(ktrois.getBaseMontagne().toString());
 
@@ -54,10 +54,10 @@ public class TestJcIA {
             // AFFICHAGE PYRA JOUEUR ET MONTAGNE
             System.out.println("Pyramide de " + ktrois.joueur1().getNom());
             System.out.println(ktrois.joueur1().getCamp().toString());
-            System.out.println("Liste des pieces volées: " + ktrois.joueur1().toStringPiecesVolees());
+            System.out.println("Liste des pieces volees: " + ktrois.joueur1().toStringPiecesVolees());
             System.out.println("Pyramide de " + ktrois.joueur2().getNom());
             System.out.println(ktrois.joueur2().getCamp().toString());
-            System.out.println("Liste des pieces volées: " + ktrois.joueur2().toStringPiecesVolees());
+            System.out.println("Liste des pieces volees: " + ktrois.joueur2().toStringPiecesVolees());
             System.out.println("Pyramide de jeu");
             System.out.println(ktrois.getBaseMontagne().toString());
 
@@ -101,10 +101,10 @@ public class TestJcIA {
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println("Pyramide de " + ktrois.joueur1().getNom());
                 System.out.println(ktrois.joueur1().getCamp().toString());
-                System.out.println("Liste des pieces volées: " + ktrois.joueur1().toStringPiecesVolees());
+                System.out.println("Liste des pieces volees: " + ktrois.joueur1().toStringPiecesVolees());
                 System.out.println("Pyramide de " + ktrois.joueur2().getNom());
                 System.out.println(ktrois.joueur2().getCamp().toString());
-                System.out.println("Liste des pieces volées: " + ktrois.joueur2().toStringPiecesVolees());
+                System.out.println("Liste des pieces volees: " + ktrois.joueur2().toStringPiecesVolees());
                 System.out.println("Pyramide de jeu");
                 System.out.println(ktrois.getBaseMontagne().toString());
 
