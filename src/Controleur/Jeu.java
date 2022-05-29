@@ -209,7 +209,7 @@ public class Jeu {
 				panel.repaint();//fficherTimer(panel.getGraphics());
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
-						timer((int)(0.3*temps));
+						timer((int)(temps));
 						if(acteurCourant.getCamp().empilerPhase1(p)) {//pas de verif pieces porteuse
 							acteurCourant.removePiecePiochee(p.getPiece());
 							this.panel.repaint();
@@ -236,6 +236,24 @@ public class Jeu {
 		}
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
+		double tempsJ1 = this.partieEnCours.joueur1().getTempsConstruction();
+		double tempsJ2 = this.partieEnCours.joueur1().getTempsConstruction();
+		if(tempsJ1<tempsJ2) {
+			this.partieEnCours.setJoueurCourant(0);
+		}
+		else if(tempsJ1>tempsJ2) {
+			this.partieEnCours.setJoueurCourant(1);
+		}
+		else {
+			int a = Aleatoire.genInt(0,1);
+			if(a==0) {
+				this.partieEnCours.setJoueurCourant(0);
+			}else {
+				this.partieEnCours.setJoueurCourant(1);
+			}
+		}
+		this.partieEnCours.joueur1().resetTempsConstruction();
+		this.partieEnCours.joueur2().resetTempsConstruction();
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			panel.repaint();
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
@@ -258,40 +276,19 @@ public class Jeu {
 	}
 	
 	public void faireJouerActeurs() {
-		Coup coupDemande;
-		ArrayList<Coup> cJ=new ArrayList<Coup>();
 		Acteur jCourant, jPrecedent;
 		
+		if(this.partieEnCours.getJoueurCourant()==0) {
+			jCourant=this.partieEnCours.joueur1();
+			jPrecedent=this.partieEnCours.joueur2();
+		}else {
+			jCourant=this.partieEnCours.joueur2();
+			jPrecedent=this.partieEnCours.joueur1();
+		}
 		if(this.valeur_paire%2==0) {//affichage du numero du tour actuel
 			afficherTour();
 			this.valeur_paire++;
 		}
-		double tempsJ1 = this.partieEnCours.joueur1().getTempsConstruction();
-		double tempsJ2 = this.partieEnCours.joueur1().getTempsConstruction();
-		if(tempsJ1<tempsJ2) {
-			jCourant=this.partieEnCours.joueur1();
-			jPrecedent=this.partieEnCours.joueur2();
-			this.partieEnCours.setJoueurCourant(0);
-		}
-		else if(tempsJ1>tempsJ2) {
-			jCourant=this.partieEnCours.joueur2();
-			jPrecedent=this.partieEnCours.joueur1();
-			this.partieEnCours.setJoueurCourant(1);
-		}
-		else {
-			int a = Aleatoire.genInt(0,1);
-			if(a==0) {
-				jCourant=this.partieEnCours.joueur1();
-				jPrecedent=this.partieEnCours.joueur2();
-				this.partieEnCours.setJoueurCourant(0);
-			}else {
-				jCourant=this.partieEnCours.joueur2();
-				jPrecedent=this.partieEnCours.joueur1();
-				this.partieEnCours.setJoueurCourant(1);
-			}
-		}
-		this.partieEnCours.joueur1().resetTempsConstruction();
-		this.partieEnCours.joueur2().resetTempsConstruction();
 		//affichage dans la console de la partie
 		afficherBaseMontagne();
 		System.out.println("Votre camp :");
@@ -301,7 +298,6 @@ public class Jeu {
 		System.out.println(jPrecedent.getCamp().toString());
 		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
 		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
-
 		//fait jouer un joueur
 		jouer();
 	}
