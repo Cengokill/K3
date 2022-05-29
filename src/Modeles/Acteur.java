@@ -59,7 +59,7 @@ public class Acteur {
 			@Override
 			public void run() {
 				tempsConstruction+=0.01;
-				System.out.println("temps += "+tempsConstruction);
+				//System.out.println("temps += "+tempsConstruction);
 			}
 		}, 1,10);
 	}
