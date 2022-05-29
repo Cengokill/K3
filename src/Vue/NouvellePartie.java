@@ -195,11 +195,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonPVP(Graphics g) {
 		if(!enfonce_pb_PVP) {
-			if(enfonce_pb_PVM || enfonce_pb_MVM) {
-				g.drawImage(textures.boutonPVP_gris, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
-			}else {
-				g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
-			}
+			g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
 		}else {
 			g.drawImage(textures.boutonPVP_vert, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
 		}
@@ -207,11 +203,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonPVM(Graphics g) {   
 		if(!enfonce_pb_PVM) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM) {
-				g.drawImage(textures.boutonPVM_gris, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
-			}else {
-	            g.drawImage(textures.boutonPVM, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
-			}
+			g.drawImage(textures.boutonPVM, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
 		}else {
             g.drawImage(textures.boutonPVM_vert, posX_PVM, posY_PVM, largeur_bouton1, hauteur_bouton1, null);
 		}
@@ -219,11 +211,7 @@ public class NouvellePartie extends JPanel {
     
     public void afficheBoutonMVM(Graphics g) {   
 		if(!enfonce_pb_MVM) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM) {
-	            g.drawImage(textures.boutonMVM_gris, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
-			}else {
-				g.drawImage(textures.boutonMVM, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
-			}
+	        g.drawImage(textures.boutonMVM, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
 		}else {
             g.drawImage(textures.boutonMVM_vert, posX_MVM, posY_MVM, largeur_bouton1, hauteur_bouton1, null);
 		}
