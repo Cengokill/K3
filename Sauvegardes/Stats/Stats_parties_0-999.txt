@@ -1,0 +1,16 @@
+======= Statistiques generales =======
+
+Nombre d'egalites : 0
+======= IA 1 =======
+Nombre de victoires : 300
+Nombre de fois ou il a commence : 508
+Pieces Blanches jouees : 1380
+Vols effectues : 13722941
+Mauvais coups joues : 1228
+
+======= IA 2 =======
+Nombre de victoires : 700
+Nombre de fois ou il a commence : 492
+Pieces Blanches jouees : 1191
+Vols effectues : 45475088
+Mauvais coups joues : 873
