@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
-import Controleur.Jeu;
 import Modeles.Acteur;
 import Modeles.Joueur;
 import Modeles.Piece;
@@ -161,22 +160,21 @@ public class ecouteurClick implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+			Acteur a = panel.initAffichageJoueurs();
 			if(clicMelange(e)) {
 				panel.emettreSonClic();
 				if(!panel.enfonce_melange) {
 					panel.enfonce_melange=true;
 				}
-				Acteur a = panel.initAffichageJoueurs();
 				a.melangeAleatCamp();
 				panel.estValiderDispo=true;
 				panel.repaint();
 			}
-			if(clicValider(e) && panel.estValiderDispo) {
+			if(clicValider(e) && a.getCamp().estPleine()) {
 				panel.emettreSonClic();
 				if(!panel.enfonce_valider) {
 					panel.enfonce_valider=true;
 				}
-				Acteur a = panel.initAffichageJoueurs();
 				a.valideCamp=true;
 				panel.repaint();
 			}
@@ -219,6 +217,8 @@ public class ecouteurClick implements MouseListener {
 				else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
 					typeCurseur = "mainFermee";//ok
 				}else if(clicMelange(e)) {
+					typeCurseur="main";
+				}else if(clicValider(e)) {
 					typeCurseur="main";
 				}else {
 					typeCurseur = "Default Cursor";

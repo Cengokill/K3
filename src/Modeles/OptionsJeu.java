@@ -11,9 +11,10 @@ import java.util.ArrayList;
 public class OptionsJeu {
 	
 	public String chemin;
-	public int  NB_LIGNES_OPTIONS=3;
+	public int NB_LIGNES_OPTIONS=4;
 	public String nom_fichier = "Options.txt";
 	public int modeDaltonien;
+	public int modePleinEcran;
 	public int volumeEffetsSonores=6, volumeMusique=5;
 	
 	public OptionsJeu(String chemin) {
@@ -42,14 +43,23 @@ public class OptionsJeu {
 					// Mode daltonien 0/1
 					// Volume des effets sonores
 					// Volume de la musique
+					// Mode plein ecran 0/1
 					verifDaltonien(Integer.parseInt(tab.get(0)));
 					verifVolume(Integer.parseInt(tab.get(1)), Integer.parseInt(tab.get(2)));
+					verifEntier(Integer.parseInt(tab.get(3)));
 				}
 			}
 			catch (Exception e) {
 				System.err.println("Erreur : le fichier Options.txt est corrompu.");
 				e.printStackTrace();
 			}
+	}
+	public void verifEntier(int e){
+		if(e!=0 || e!=1) {
+			this.modePleinEcran=1;
+		}else {
+			this.modePleinEcran=e;
+		}
 	}
 	
 	public void verifDaltonien(int v) {// renvoie true si v est compris entre 0 et 1
@@ -99,11 +109,14 @@ public class OptionsJeu {
 			this.modeDaltonien=0;
 			this.volumeEffetsSonores=6;
 			this.volumeMusique=5;
+			this.modePleinEcran=1;
 			bw.write(String.valueOf(this.modeDaltonien));
 			bw.newLine();
 			bw.write(String.valueOf(this.volumeEffetsSonores));
 			bw.newLine();
 			bw.write(String.valueOf(this.volumeMusique));
+			bw.newLine();
+			bw.write(String.valueOf(this.modePleinEcran));
 			bw.close();
 			writer.close();
 			System.out.println("Un nouveau fichier Options.txt a ete creer.");
@@ -112,7 +125,7 @@ public class OptionsJeu {
 		}
 	}
 	
-	public void ecrireOptions(String photoProfil, int modeDaltonien, int volumeEffetsSonores, int volumeMusique) {
+	public void ecrireOptions(String photoProfil, int modeDaltonien, int volumeEffetsSonores, int volumeMusique, int pleinEcran) {
 		try {
 			File f = new File(this.chemin + "/Options.txt");
 			try {
@@ -127,6 +140,8 @@ public class OptionsJeu {
 			bw.write(String.valueOf(volumeEffetsSonores));
 			bw.newLine();
 			bw.write(String.valueOf(volumeMusique));
+			bw.newLine();
+			bw.write(String.valueOf(pleinEcran));
 			bw.close();
 			writer.close();
 			System.out.println("Le fichier Options.txt a ete modifie.");

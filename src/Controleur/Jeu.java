@@ -21,7 +21,7 @@ public class Jeu {
 	public String nomActeur1, nomActeur2;
 	public String chemin, cheminStats, cheminImages, cheminSauvegardes, photoProfil;
 	private int num_tour, valeur_paire, typeActeurs, difficulte1, difficulte2, vitesseIA;
-	public int volumeEffetsSonores, volumeMusique, modeDaltonien;
+	public int volumeEffetsSonores, volumeMusique, modeDaltonien, modePleinEcran;
 	private final int TAILLE_CAMP_JOUEUR=21;
 	private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	public JFrame window;
@@ -33,6 +33,10 @@ public class Jeu {
 	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, LoadTexture t, OptionsJeu o) {
 		this.textures=t;
 		this.options=o;
+		this.volumeEffetsSonores=options.volumeEffetsSonores;
+		this.volumeMusique=options.volumeMusique;
+		this.modeDaltonien=options.modeDaltonien;
+		this.modePleinEcran=options.modePleinEcran;
 		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
@@ -76,7 +80,7 @@ public class Jeu {
 		Slider slider = new Slider();
 		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique, textures.CHEMIN);
 		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores, textures.CHEMIN);
-		options.ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique);
+		options.ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique, this.modePleinEcran);
 	}
 	
 	public void lancerPhase1() {
@@ -118,34 +122,6 @@ public class Jeu {
 			//PHASE 2
 			jouerPhase2();//a modifier
 		}
-	}
-	
-	public void lancerPartieEnLigne(String nomJ, int difficulte) throws IOException {
-		Serveur serveur = new Serveur(nomJ, difficulte);
-		int dateAncienne = LocalTime.now().getSecond();
-		int dateCourante;
-		while(!serveur.getReady()) {
-			dateCourante=LocalTime.now().getSecond();
-			if(dateAncienne-dateCourante>10) {
-				System.err.println("Temp de connection depasse.");
-				return;
-			}
-		}
-		//creation de la partie
-		Joueur j1 = new Joueur(nomJ);
-		Joueur j2 = new Joueur(serveur.getClientName());
-		this.partieEnCours = new Partie(j1, j2, 500);
-		this.partieEnCours.setCheminStats(cheminStats);
-		this.num_tour=1;
-		this.valeur_paire=0;
-		//PHASE 1
-		jouerPhase1();
-		//PHASE 2
-		jouerPhase2();
-	}
-	
-	public void rejoindrePartieEnLigne(String nomJ) throws IOException {
-		Client client = new Client(nomJ);
 	}
 	
 	public void lancerPartieJcIA(String nomJ1, String nomJ2, int numPartie) {
@@ -206,7 +182,7 @@ public class Jeu {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
 				timer(16);
-				panel.repaint();//fficherTimer(panel.getGraphics());
+				panel.repaint();//afficherTimer(panel.getGraphics());
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
 						timer((int)(temps));

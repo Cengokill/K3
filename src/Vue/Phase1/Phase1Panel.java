@@ -221,7 +221,7 @@ public class Phase1Panel extends JPanel{
 	
 	// AFFICHAGE BOUTONS-------------------------------------------------------------
 	public void affichageBoutonValider(Graphics g) {
-		if(initAffichageJoueurs().getTaillePiecesPiochees()!=0) {
+		if(initAffichageJoueurs().getTaillePiecesPiochees()>0) {
 			g.drawImage(textures.boutonValider_gris, posX_bouton_valider, posY_bouton_valider, largeur_bouton, hauteur_bouton, null);
 		}else if(!enfonce_valider) {
 			g.drawImage(textures.boutonValider, posX_bouton_valider, posY_bouton_valider, largeur_bouton, hauteur_bouton, null);

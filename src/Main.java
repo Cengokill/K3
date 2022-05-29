@@ -29,8 +29,8 @@ public class Main {
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		String CHEMIN = getChemin();
 		LoadTexture texture = new LoadTexture(CHEMIN);
-		String chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
-		OptionsJeu options = new OptionsJeu(chemin);
+		//String chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
+		OptionsJeu options = new OptionsJeu(CHEMIN);
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
 		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique, CHEMIN);
@@ -42,6 +42,7 @@ public class Main {
 		window.setSize(1024,768);
 		window.setMinimumSize(new Dimension(960, 540));
 		window.setLocationRelativeTo(null);//centrage de la fenetre
+		window.setUndecorated(true);;
 		while(chargement.getProchaineFenetre()!=TypeFenetre.FENETREJEU) {
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
