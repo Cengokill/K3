@@ -34,6 +34,9 @@ public class LoadTexture{
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
 	
+	//IMAGE TUTO
+	public Image Tuto1, Tuto2, Tuto3, Tuto4;
+	
 	//IMAGES BOUTONS
 	public Image boutonMelange, boutonMelange_presse, boutonValider, boutonValider_presse, boutonValider_gris;
 	
@@ -68,6 +71,11 @@ public class LoadTexture{
 		//IMAGE CHARGEMENT---------------------------------------------------------------
 		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
 		boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_presse.png");
+		//IMAGE TUTO---------------------------------------------------------------
+		Tuto1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ConstructionPyramide.png");
+		Tuto2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PhaseDeJeu.png");
+		Tuto3 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"Penalite.png");
+		Tuto4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"finDePartie.png");
 		//IMAGES BOUTONS---------------------------------------------------------------
 		boutonPVP = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP.png");
 		boutonPVP_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP_vert.png");
