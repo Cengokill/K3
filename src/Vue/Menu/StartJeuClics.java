@@ -1,6 +1,8 @@
 package Vue.Menu;
 
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
@@ -9,7 +11,7 @@ import javax.swing.JPanel;
 
 import Vue.Menu.Chargement.TypeFenetre;
 
-public class StartJeuClics implements MouseListener{
+public class StartJeuClics implements MouseListener, KeyListener {
 	
 	private StartJeu startJeu;
 	public JPanel jpanel;
@@ -204,6 +206,30 @@ public class StartJeuClics implements MouseListener{
 			}
 			startJeu.repaint();
 		}
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			startJeu.window.setUndecorated(false);
+			System.out.println("plein ecran desactive");
+        }
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
+			startJeu.window.setUndecorated(true);
+			System.out.println("plein ecran active");
+        }
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

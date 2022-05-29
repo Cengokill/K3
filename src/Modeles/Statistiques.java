@@ -114,7 +114,7 @@ public class Statistiques {
 				}
 				// 0 nomJ1
 				// 1 nomJ2
-				// 2 vainqueur
+				// 2 vainqueur : 0/1/2 si égalité
 				// 3 Qui premier coup
 				// 4 nbBlancsJ1
 				// 5 nbVolsJ1

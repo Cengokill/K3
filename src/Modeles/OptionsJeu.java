@@ -55,7 +55,7 @@ public class OptionsJeu {
 			}
 	}
 	public void verifEntier(int e){
-		if(e!=0 || e!=1) {
+		if(e!=0 && e!=1) {
 			this.modePleinEcran=1;
 		}else {
 			this.modePleinEcran=e;

@@ -12,9 +12,9 @@ public class TestIA {
         Scanner s = new Scanner(System.in);
         System.out.print("Combien de parties voulez vous simulez? ");
         int objectif = s.nextInt(); // nombre de parties de test
-        System.out.println("Quel difficulte pour l'IA 1? [0,1,2]");
+        System.out.println("Quel difficulte pour l'IA 1 ? [0,1,2]");
         int diff1 = s.nextInt();
-        System.out.println("Quel difficulte pour l'IA 1? [0,1,2]");
+        System.out.println("Quel difficulte pour l'IA 2 ? [0,1,2]");
         int diff2 = s.nextInt();
         int nbParties = 0;
         int victoirej1 = 0;
@@ -45,7 +45,7 @@ public class TestIA {
 
             // CREATION DES PYRAMIDES
             System.out.println("Le joueur numero " + (ktrois.joueurDebut + 1) + "commence la partie");
-            System.out.println("Phase de Création");
+            System.out.println("Phase de Creation");
             System.out.println("Pyramide de jeu");
             System.out.println(ktrois.getBaseMontagne().toString());
 

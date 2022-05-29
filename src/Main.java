@@ -43,7 +43,8 @@ public class Main {
 		window.setMinimumSize(new Dimension(960, 540));
 		window.setLocationRelativeTo(null);//centrage de la fenetre
 		if(options.modePleinEcran==1) {
-			window.setUndecorated(true);;
+			window.setUndecorated(true);
+			System.out.println("plein ecran");
 		}
 		while(chargement.getProchaineFenetre()!=TypeFenetre.FENETREJEU) {
 			if(chargement.lancement == true) {
