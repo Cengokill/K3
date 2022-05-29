@@ -147,7 +147,6 @@ public class ecouteurClick implements MouseListener {
 						Piece pie = a.getCamp().retirePhase1(p);
 						if(pie!=null) {
 							a.addPiecePiochee(pie);
-							panel.estValiderDispo=false;
 						}
 					}
 				}else {
@@ -167,7 +166,6 @@ public class ecouteurClick implements MouseListener {
 					panel.enfonce_melange=true;
 				}
 				a.melangeAleatCamp();
-				panel.estValiderDispo=true;
 				panel.repaint();
 			}
 			if(clicValider(e) && a.getCamp().estPleine()) {

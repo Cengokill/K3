@@ -37,7 +37,6 @@ public class Phase1Panel extends JPanel{
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
-	boolean estValiderDispo=false;
 	
 	public int POSX_BASE_JOUEUR;
 	public int POSY_BASE_JOUEUR;
