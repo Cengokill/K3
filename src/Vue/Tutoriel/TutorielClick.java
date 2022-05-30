@@ -1,5 +1,6 @@
 package Vue.Tutoriel;
 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
@@ -55,15 +56,15 @@ public class TutorielClick implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(clickBoutonSuivant(e)) {
+			panel.jouerSonClic();
 			panel.tutoSuivant();
-			System.out.println(panel.fenetreActuel);
 			panel.repaint();
 		}else if(clickBoutonPrecedent(e)) {
+			panel.jouerSonClic();
 			panel.tutoPrecedent();
-			System.out.println(panel.fenetreActuel);
 			panel.repaint();
 		}else if(clickBoutonRetourMenu(e)) {
-			System.out.println("retour au menu precedent");
+			panel.jouerSonClic();
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 		}
@@ -94,12 +95,16 @@ public class TutorielClick implements MouseListener {
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
 			if(clickBoutonSuivant(e)) {
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				panel.presseSuivant = true;
 			}else if(clickBoutonPrecedent(e)) {
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				panel.pressePrecedent = true;
 			}else if(clickBoutonRetourMenu(e)) {
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				panel.presseRetourMenu = true;
 			}else {
+				panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				panel.presseSuivant = false;
 				panel.pressePrecedent = false;
 				panel.presseRetourMenu = false;

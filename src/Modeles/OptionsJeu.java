@@ -38,7 +38,7 @@ public class OptionsJeu {
 	
 	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
 		if(!testFichierExistant(this.chemin+nom_fichier)) {
-			System.out.println("ici");
+			System.out.println("Options.txt non trouve !");
 			ecrireInitOptions();
 		}
 		ArrayList<String> tab = new ArrayList<String>();

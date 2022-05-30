@@ -1,14 +1,11 @@
 package Vue.Menu;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Modeles.Aleatoire;
@@ -39,10 +36,9 @@ public class StartJeu extends PanelGeneral implements ActionListener{
     Aleatoire rand = new Aleatoire();
 	
 	public StartJeu(JFrame w, Chargement ch, LoadTexture t, OptionsJeu o) {
-		super(w, t);
+		super(w, t, o);
 		this.chargement=ch;
 		this.options=o;
-		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, texture.CHEMIN);
 		this.setLayout(null);
 		this.jpanel = new JpanelOptions();
 		this.add(jpanel);
@@ -116,16 +112,6 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 		window.setUndecorated(b);;
 	}
 	
-	public void jouerSonSurvol() {
-		this.simpleSoundPlayerSon.setNumSon(38);
-		this.simpleSoundPlayerSon.jouerSon();
-	}
-	
-	public void jouerSonClic() {
-		this.simpleSoundPlayerSon.setNumSon(17);
-		this.simpleSoundPlayerSon.jouerSon();
-	}
-	
 	public void afficheBoutonNouvellePartie(Graphics g) {
 		if(!enfonce_nouvellePartie) {
 			g.drawImage(texture.menuBouton1, posX_bouton, posY_nouvellePartie, largeur_bouton, hauteur_bouton, null);
@@ -175,7 +161,7 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 			//on detecte un changement de fenetre -> on met a jour L IHM
 			changementTaillefenetre();
 		}
-		affichageBackGround(g);
+		affichageBackGround(g,0);
 		afficheIle1(g);
 		afficheBoutonNouvellePartie(g);
 		afficheBoutonCharger(g);

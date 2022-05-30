@@ -30,6 +30,7 @@ public class OptionPanelClick implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) {
 		if(clickBoutonRetourMenu(e)) {
+			panel.jouerSonClic();
 			System.out.println("retour menu principal");
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());

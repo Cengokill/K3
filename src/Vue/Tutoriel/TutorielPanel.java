@@ -4,18 +4,19 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 
+import Modeles.OptionsJeu;
+import Vue.PanelGeneral;
 import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
-public class TutorielPanel extends JPanel{
+public class TutorielPanel extends PanelGeneral{
 	// PARAMETRE JEU
 	private JFrame window;
 	public Dimension tailleFenetre;
 	public LoadTexture texture;
 	public Chargement chargement;
+	private OptionsJeu options;
 	
 	// PARAMETRE AFFICHAGE
 	public int fenetreActuel = 1;
@@ -34,41 +35,44 @@ public class TutorielPanel extends JPanel{
 	public int posXtuto, posYtuto, largeurTuto, hauteurTuto;
 	
 	// CONSTRUCTEUR----------------------------------------------
-	public TutorielPanel(JFrame w, LoadTexture texture, Chargement chargement){
-		
+	public TutorielPanel(JFrame w, LoadTexture texture, Chargement chargement, OptionsJeu o){
+		super(w, texture, o);
+		this.options=o;
 		this.chargement = chargement;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;
 		tailleFenetre = window.getSize();
 		
-		changementTaillefenetre();
-		
 	}
 	public void changementTaillefenetre() {
-		tailleFenetre = window.getSize();
-	
-		//Position objet
-		posXSuivant =0;
-		posYSuivant = 0;
-		largeurSuivant = 100;
-		hauteurSuivant = 80;
+		setChangementTaillefenetre();
+		double rapportRetour = 1.171597633136095;
+		double rapportBackMenu = 1.185567010309278;
 		
-		posXPrecedent =0;
-		posYPrecedent = posYSuivant+hauteurSuivant;
-		largeurPrecedent = 100;
-		hauteurPrecedent = 80;
+		double rapport=0.500262467191601;//rapport de 953/1905
+        this.largeurTuto=Math.min((int)(largeur_background/1.3), (int)(frameWidth/1.3));
+        this.hauteurTuto=(int)(largeurTuto*rapport);
+		//Position tutoriel
+		posXtuto = frameWidth/2-largeurTuto/2;
+		posYtuto = (int)(posY_background+hauteur_background/2)-hauteurTuto/2;
 		
-		posXRetourMenu =0;
-		posYRetourMenu = posYPrecedent+hauteurPrecedent;
-		largeurRetourMenu = 100;
-		hauteurRetourMenu = 80;
-
-		posXtuto = 200;
-		posYtuto = 100;
-		largeurTuto = 1000;
-		hauteurTuto = 600;
+		//Dimensions bouton retour et accueil
+		largeurSuivant = Math.min(largeur_background/15, frameWidth/15);
+		hauteurSuivant = (int)(largeurSuivant/rapportRetour);
+		largeurPrecedent=largeurSuivant;
+		hauteurPrecedent=hauteurSuivant;
+		largeurRetourMenu=(int)(largeurSuivant*1.1);
+		hauteurRetourMenu=(int)(largeurRetourMenu/rapportBackMenu);
+		//Position bouton retour
+		posXSuivant = (int)(posXtuto*1.5);
+		posYSuivant = posYtuto;
 		
+		posXPrecedent = (int)(posXtuto+largeurTuto-largeurPrecedent);
+		posYPrecedent = (int)(posYSuivant+hauteurSuivant*1.5);
+		//Position bouton accueil
+		posXRetourMenu=frameWidth/2-largeurRetourMenu/2;
+		posYRetourMenu=(int)(posYtuto+hauteurTuto*1.02);
 	}
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void tutoSuivant() {
@@ -79,15 +83,9 @@ public class TutorielPanel extends JPanel{
 	public void tutoPrecedent() {
 		if(fenetreActuel>fenetreMin) {
 			fenetreActuel--;
-				}    
-	}
-		
-	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
-	public void affichageBackGround(Graphics g) {
-			g.drawImage(texture.background, 0, 0, tailleFenetre.width, tailleFenetre.height,null);   
+		}    
 	}
 	
-	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBoutonSuivant(Graphics g) {
 		if(fenetreActuel < fenetreMax) {
 			if(!presseSuivant) {
@@ -97,7 +95,6 @@ public class TutorielPanel extends JPanel{
 			}
 		}
 	}
-	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageBoutonPrecedent(Graphics g) {
 		if(fenetreActuel > fenetreMin) {
 			if(!pressePrecedent) {
@@ -132,7 +129,7 @@ public class TutorielPanel extends JPanel{
 		if(tailleFenetre != window.getSize()) {
 			changementTaillefenetre();
 		}
-		affichageBackGround(g);
+		affichageBackGround(g,1);
 		affichageBoutonSuivant(g);
 		affichageBoutonPrecedent(g);
 		affichageRetourMenu(g);

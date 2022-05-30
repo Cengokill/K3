@@ -19,7 +19,7 @@ import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
-public class NouvellePartie extends JPanel {
+public class NouvellePartie extends PanelGeneral {
     //PARAMETRES JEU
     private final JFrame window;
     public Dimension tailleFenetre;
@@ -60,6 +60,7 @@ public class NouvellePartie extends JPanel {
   
     // METHODE NOUVELLE PARTIE
     public NouvellePartie(JFrame w, LoadTexture t, InitPartie p, OptionsJeu o){
+    	super(w, t, o);
         this.window=w;
         this.textures=t;
         this.partie=p;
@@ -387,7 +388,7 @@ public class NouvellePartie extends JPanel {
 			//on detecte un changement de fenetre -> on met a jour L IHM
 			changementTaillefenetre();
 		}
-        affichageBackGround(g);
+        affichageBackGround(g,1);
         afficheBoutonPVP(g);
         afficheBoutonPVM(g);
         afficheBoutonMVM(g);

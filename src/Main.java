@@ -12,10 +12,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import Controleur.*;
-import Modeles.GestionSons;
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
-import Modeles.SoundPlayer;
 import Vue.Menu.Chargement;
 import Vue.Menu.Chargement.TypeFenetre;
 import Vue.Menu.StartJeu;
@@ -57,11 +55,11 @@ public class Main {
 					lancementNouvellePartie(window, texture, partie, chargement, options);
 				}
 				else if(prochaineFenetre==TypeFenetre.CHARGERPARTIE){
-					lancementChargerPartie(window, texture, partie, chargement);
+					lancementChargerPartie(window, texture, partie, options, chargement);
 				}else if(prochaineFenetre==TypeFenetre.OPTION) {
 					lancementOption(window, texture, chargement, options);
 				}else if(prochaineFenetre==TypeFenetre.TUTO) {
-					lancementTuto(window, texture, chargement);
+					lancementTuto(window, texture, chargement, options);
 				}
 			}
 		}
@@ -93,9 +91,9 @@ public class Main {
 		chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
 	}
 	
-	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement) {	
+	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, OptionsJeu options, Chargement chargement) {	
 		partie.paramCharges = false;
-		ChargerPanel panel = new ChargerPanel(window, texture, chargement, partie);
+		ChargerPanel panel = new ChargerPanel(window, texture, chargement, options, partie);
 		window.setContentPane(panel);
 		panel.addMouseListener(new ChargementClick(panel));
 		window.paintAll(window.getGraphics());
@@ -113,8 +111,8 @@ public class Main {
 		}
 	}
 	
-	public static void lancementTuto(JFrame window, LoadTexture texture, Chargement chargement) {	
-		TutorielPanel panel = new TutorielPanel(window,texture, chargement);
+	public static void lancementTuto(JFrame window, LoadTexture texture, Chargement chargement, OptionsJeu options) {	
+		TutorielPanel panel = new TutorielPanel(window,texture, chargement, options);
 		window.setContentPane(panel);
 		panel.addMouseListener(new TutorielClick(panel));
 		window.paintAll(window.getGraphics());
