@@ -37,8 +37,8 @@ public class Main {
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
 		JFrame window = new JFrame("Jeu K3");
-		window.setSize(1024,768);
 		window.setMinimumSize(new Dimension(960, 540));
+		window.setSize(1024,768);
 		window.setLocationRelativeTo(null);//centrage de la fenetre
 		if(options.modePleinEcran==1) {
 			window.setUndecorated(true);
@@ -149,7 +149,7 @@ public class Main {
 			}
 		    
 		} else { // Run avec IDE
-		    URL url = Main.class.getResource("Ressources/");
+		    URL url = Main.class.getClassLoader().getResource("Ressources/");
 		    if (url != null) {
 		        try {
 		            final File apps = new File(url.toURI());
@@ -157,6 +157,7 @@ public class Main {
 		        } catch (URISyntaxException ex) {
 		        	System.err.println("Erreur");
 		        }
+		        System.out.println("chemin de l'IDE");
 		    }else {
 		    	System.err.println("Erreur url est nul.");
 		    }

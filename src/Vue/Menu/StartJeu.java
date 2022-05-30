@@ -30,7 +30,6 @@ public class StartJeu extends PanelGeneral implements ActionListener{
     public boolean animation1_bordureX=false;
     public boolean animation1_bordureY=false;
     public Chargement chargement;
-    private SoundPlayer simpleSoundPlayerSon;
     private OptionsJeu options;
     Timer animationTimer;
     Aleatoire rand = new Aleatoire();
@@ -44,9 +43,6 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 		this.add(jpanel);
 		window.setTitle("Partie en cours");
         addMouseListener(new StartJeuClics(this));
-	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    window.setBackground(Color.BLACK);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 
 		this.animationTimer = new Timer(100, this);

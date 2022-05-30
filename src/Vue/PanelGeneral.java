@@ -1,5 +1,6 @@
 package Vue;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -32,6 +33,8 @@ public class PanelGeneral extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
+        window.setBackground(Color.BLACK);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addKeyListener(new TouchesClavier(this));
 	}
 	
@@ -42,6 +45,11 @@ public class PanelGeneral extends JPanel{
 	
 	public void jouerSonClic() {
 		this.simpleSoundPlayerSon.setNumSon(17);
+		this.simpleSoundPlayerSon.jouerSon();
+	}
+	
+    public void jouerSonLancement() {
+		this.simpleSoundPlayerSon.setNumSon(29);
 		this.simpleSoundPlayerSon.jouerSon();
 	}
 	

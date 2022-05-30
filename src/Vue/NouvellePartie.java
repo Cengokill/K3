@@ -47,15 +47,11 @@ public class NouvellePartie extends PanelGeneral {
     public boolean debut = true;
     public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3, largeur_back, hauteur_back; 
     public int frameHeight, frameWidth;
-    private final Dimension tailleEcran;
-    private final int screenWidth;
-    private final int screenHeight;
     int espacement_horizontal;
     int espacement_vertical;
     int offset_horizontal, offset_vertical, offset_h2, offset_h3;
     public LoadTexture textures;
     public InitPartie partie;
-    private SoundPlayer simpleSoundPlayerSon;
     private OptionsJeu options;
   
     // METHODE NOUVELLE PARTIE
@@ -65,40 +61,14 @@ public class NouvellePartie extends PanelGeneral {
         this.textures=t;
         this.partie=p;
         this.options=o;
-        this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, textures.CHEMIN);
         window.setTitle("Nouvelle Partie");
-        this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.screenWidth=tailleEcran.width;
-        this.screenHeight=tailleEcran.height;
-       	this.tailleFenetre=window.getSize();
-        this.frameWidth=tailleFenetre.width;
-        this.frameHeight=tailleFenetre.height;
         addMouseListener(new NouvellePartieClics(this));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
-    public void affichageBackGround(Graphics g) {//3840x2160
-    	double rapport = 0.5625;// rapport de 2160/3840
-		if(frameHeight/frameWidth>rapport) {
-			largeur_background=frameWidth;
-			hauteur_background=(int)(largeur_background*rapport);
-			posX_background=0;
-			posY_background=(frameHeight-hauteur_background)/2;
-		}
-		else { //if(frameHeight/frameWidth<=rapport) {
-			hauteur_background=frameHeight;
-			largeur_background=(int)(hauteur_background/rapport);
-			posX_background=(frameWidth-largeur_background)/2;
-			posY_background=0;
-		}
-	    g.drawImage(textures.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background, null);
-    }
     
     public void changementTaillefenetre() {
-		this.tailleFenetre=window.getSize();
-		this.frameWidth=window.getWidth();
-        this.frameHeight=window.getHeight();
+    	setChangementTaillefenetre();
         double rapport1=0.1813304721030043;//rapport de 169/932
         double rapport2=0.2203389830508475;//rapport de 169/767
         double rapport3=0.4183168316831683;//rapport de 169/404
@@ -179,16 +149,6 @@ public class NouvellePartie extends PanelGeneral {
         this.posX_back = posX_PVP+largeur_bouton1/2+largeur_back/2;
         this.posY_back = posY_COMMENCER-hauteur_bouton1/2;
     }
-    
-    public void jouerSonClic() {
-		this.simpleSoundPlayerSon.setNumSon(17);
-		this.simpleSoundPlayerSon.jouerSon();
-	}
-    
-    public void jouerSonLancement() {
-		this.simpleSoundPlayerSon.setNumSon(29);
-		this.simpleSoundPlayerSon.jouerSon();
-	}
     
     public void afficheBoutonBack(Graphics g) {
 		g.drawImage(textures.menuRetour, posX_back, posY_back, largeur_back, hauteur_back, null);

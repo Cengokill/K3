@@ -40,10 +40,8 @@ public class TutorielPanel extends PanelGeneral{
 		this.options=o;
 		this.chargement = chargement;
 		this.window = w;
-		this.tailleFenetre = window.getSize();
 		this.texture = texture;
-		tailleFenetre = window.getSize();
-		
+		window.setVisible(true);
 	}
 	public void changementTaillefenetre() {
 		setChangementTaillefenetre();
@@ -55,7 +53,7 @@ public class TutorielPanel extends PanelGeneral{
         this.hauteurTuto=(int)(largeurTuto*rapport);
 		//Position tutoriel
 		posXtuto = frameWidth/2-largeurTuto/2;
-		posYtuto = (int)(posY_background+hauteur_background/2)-hauteurTuto/2;
+		posYtuto = (int)(posY_background+hauteur_background/2.2)-hauteurTuto/2;
 		
 		//Dimensions bouton retour et accueil
 		largeurSuivant = Math.min(largeur_background/15, frameWidth/15);
@@ -65,11 +63,11 @@ public class TutorielPanel extends PanelGeneral{
 		largeurRetourMenu=(int)(largeurSuivant*1.1);
 		hauteurRetourMenu=(int)(largeurRetourMenu/rapportBackMenu);
 		//Position bouton retour
-		posXSuivant = (int)(posXtuto*1.5);
-		posYSuivant = posYtuto;
+		posXSuivant = (int)(posXtuto+largeurTuto*0.91);
+		posYSuivant = posYtuto+hauteurTuto;
 		
-		posXPrecedent = (int)(posXtuto+largeurTuto-largeurPrecedent);
-		posYPrecedent = (int)(posYSuivant+hauteurSuivant*1.5);
+		posXPrecedent = (int)(posXtuto);
+		posYPrecedent = (int)(posYSuivant);
 		//Position bouton accueil
 		posXRetourMenu=frameWidth/2-largeurRetourMenu/2;
 		posYRetourMenu=(int)(posYtuto+hauteurTuto*1.02);
