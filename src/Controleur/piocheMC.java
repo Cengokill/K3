@@ -11,7 +11,7 @@ public class piocheMC implements IApioche {
     IAjeu commentjouer = new IAjeuAlea();
     int meilleurvictoire;
     PyramideJoueur meilleurpyra;
-    boolean AFFICHE = true;
+    boolean AFFICHE = false;
     int nbParties;
     int nbPioche;
     int nbPiocheadv;
@@ -19,12 +19,12 @@ public class piocheMC implements IApioche {
     public piocheMC(int diff) {
         if (diff == 0) {
             nbParties = 10;
-            nbPioche = 100;
+            nbPioche = 10;
             nbPiocheadv = 10;
         } else if (diff == 1) {
-            nbParties = 1;
+            nbParties = 10;
             nbPioche = 100;
-            nbPiocheadv = 100;
+            nbPiocheadv = 10;
         } else {
             nbParties = 10;
             nbPioche = 100;

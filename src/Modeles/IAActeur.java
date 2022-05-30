@@ -17,7 +17,7 @@ public class IAActeur extends Acteur {
         switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:
                 pioche = new piocheMC(diff);
-                jeu = new IAjeuExpert(3);
+                jeu = new IAjeuExpert(1);
                 break;
             case 1:
                 pioche = new piocheMC(diff);
