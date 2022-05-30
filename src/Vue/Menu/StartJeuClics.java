@@ -25,7 +25,6 @@ public class StartJeuClics implements MouseListener {
 		this.jpanel=panel.jpanel;
 		DetectionSurvol survol = new DetectionSurvol();
 		this.startJeu.addMouseMotionListener(survol);
-		this.startJeu.addKeyListener(t);
 	}
 	
 	public boolean clicMenu(MouseEvent e){
