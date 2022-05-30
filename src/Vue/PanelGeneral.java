@@ -22,6 +22,7 @@ public class PanelGeneral extends JPanel{
 	public LoadTexture texture;
 	public SoundPlayer simpleSoundPlayerSon;
 	public OptionsJeu options;
+	public boolean estPleinEcran;
 	
 	public PanelGeneral(JFrame w, LoadTexture t, OptionsJeu o) {
 		this.window=w;
@@ -34,10 +35,28 @@ public class PanelGeneral extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
+        window.setLocation(0,0);
         window.setBackground(Color.BLACK);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addKeyListener(new TouchesClavier(this));
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}
+	
+	public void fullScreenOn() {
+		estPleinEcran=true;
+    	window.dispose();
+    	window.setLocation(0,0);
+    	window.setSize(tailleEcran);
+    	window.setUndecorated(true);
+    	window.setVisible(true);
+	}
+	
+	public void fullScreenOff() {
+		estPleinEcran=false;
+    	window.dispose();
+    	window.setLocation(screenWidth/2-frameWidth/2,screenHeight/2-frameHeight/3);
+    	window.setUndecorated(false);
+    	window.setVisible(true);
 	}
 	
 	public void jouerSonSurvol() {

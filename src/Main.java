@@ -40,10 +40,6 @@ public class Main {
 		window.setMinimumSize(new Dimension(960, 540));
 		window.setSize(1024,768);
 		window.setLocationRelativeTo(null);//centrage de la fenetre
-		if(options.modePleinEcran==1) {
-			window.setUndecorated(true);
-			System.out.println("plein ecran");
-		}
 		while(chargement.getProchaineFenetre()!=TypeFenetre.FENETREJEU) {
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
@@ -72,8 +68,12 @@ public class Main {
 	
 	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement, OptionsJeu options) {		
 		StartJeu panel = new StartJeu(window, chargement, texture, options);
+		if(options.modePleinEcran==1) {
+			panel.fullScreenOn();
+        }else {
+        	panel.fullScreenOff();
+        }
 		window.setContentPane(panel);
-		//panel.addMouseListener(new StartJeuClics(panel));
 		window.paintAll(window.getGraphics());
 		while(!panel.chargement.lancement) {
 			Jeu.timer(100);

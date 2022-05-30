@@ -31,35 +31,27 @@ public class OptionPanel extends PanelGeneral {
 	
 	//SOUND
 	public int taille_police;
-	public int POSX_sound_Label;
-	public int POSY_sound_Label;
-	public int LARGEUR_sound_Label;
-	public int HAUTEUR_sound_Label;
+	public int POSX_sound_Label,POSY_sound_Label,LARGEUR_sound_Label,HAUTEUR_sound_Label,posXvolumeSons, posYvolumeSons;
 	
 	public int soundMin = 0;
 	public int soundMax = 10;
 	public int soundInit;
-	public int POSX_sound;
-	public int POSY_sound;
-	public int LARGEUR_sound;
-	public int HAUTEUR_sound;
+	public int POSX_sound,POSY_sound,LARGEUR_sound,HAUTEUR_sound;
 	public JSlider slideSound;
 	
 	//MUSIC
-	public int LARGEUR_music_Label;
-	public int HAUTEUR_music_Label;
-	public int POSX_music_Label;
-	public int POSY_music_Label;
+	public int LARGEUR_music_Label,HAUTEUR_music_Label,POSX_music_Label,POSY_music_Label,posXvolumeMusique, posYvolumeMusique;
 	
 	public int musicMin = 0;
 	public int musicMax = 10;
 	public int musicInit;
-	public int POSX_music;
-	public int POSY_music;
-	public int LARGEUR_music;
-	public int HAUTEUR_music;
+	public int POSX_music,POSY_music,LARGEUR_music,HAUTEUR_music;
 	public JSlider slideMusic;
 	public boolean peutPaint=false;
+	//MODE PLEIN ECRAN
+	public int posXPleinEcran, posYPleinEcran;
+	//LABELS
+	public int largeur_label, hauteur_label;
 	
 	// CONSTRUCTEUR----------------------------------------------
 	public OptionPanel(JFrame w, LoadTexture t, Chargement chargement, OptionsJeu o){
@@ -109,6 +101,7 @@ public class OptionPanel extends PanelGeneral {
 	public void changementTaillefenetre() {
 		setChangementTaillefenetre();	
 		double rapportBackMenu = 1.185567010309278;
+		double rapportLabel=0.2360335195530726;
 		//SLIDER
 		LARGEUR_sound = 350;
 		HAUTEUR_sound = 50;
@@ -118,11 +111,6 @@ public class OptionPanel extends PanelGeneral {
 		slideSound.setFont(new Font("Dialog", Font.BOLD, taille_police));
 		slideSound.setBounds(POSX_sound, POSY_sound, LARGEUR_sound, HAUTEUR_sound);
 		
-		LARGEUR_sound_Label = 100;
-		HAUTEUR_sound_Label = 50;
-		POSX_sound_Label =POSX_sound-LARGEUR_sound_Label/2;
-		POSY_sound_Label =POSY_sound;
-		
 		POSX_music = POSX_sound;
 		POSY_music = POSY_sound+HAUTEUR_sound*2;
 		LARGEUR_music = LARGEUR_sound;
@@ -130,10 +118,18 @@ public class OptionPanel extends PanelGeneral {
 		slideMusic.setFont(new Font("Dialog", Font.BOLD, taille_police));
 		slideMusic.setBounds(POSX_music, POSY_music, LARGEUR_music, HAUTEUR_music);
 		
-		LARGEUR_music_Label = 100;
-		HAUTEUR_music_Label = 50;
-		POSX_music_Label =POSX_sound_Label;
-		POSY_music_Label =POSY_music;
+		//labels
+		largeur_label = 100;
+		hauteur_label = (int)(LARGEUR_sound_Label*rapportLabel);
+		
+		POSX_sound_Label = POSX_sound-LARGEUR_sound_Label/2;
+		POSY_sound_Label = POSY_sound;
+		
+		POSX_music_Label = POSX_sound_Label;
+		POSY_music_Label = POSY_music;
+		
+		posXPleinEcran = POSX_music_Label;
+		posYPleinEcran = POSY_music;
 		
 		//Position bouton retour
 		largeurRetourMenu = Math.min(largeur_background/14, frameWidth/14);
@@ -158,6 +154,18 @@ public class OptionPanel extends PanelGeneral {
 			g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
 		}			
 	}
+	//AFFICHAGE LABELS
+	public void affichageLabelSound(Graphics g) {
+		g.drawImage(texture.modePleinEcran, posXPleinEcran, posYPleinEcran, largeur_label, hauteur_label, null);	
+	}
+	
+	public void affichageLabelMusic(Graphics g) {
+		g.drawImage(texture.volumeMusique, posXvolumeMusique, posYvolumeMusique, largeur_label, hauteur_label, null);	
+	}
+	
+	public void affichageLabelPleinEcran(Graphics g) {
+		g.drawImage(texture.volumeSons, posXvolumeSons, posYvolumeSons, largeur_label, hauteur_label, null);	
+	}
 	
 	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
 	public void paint(Graphics g) {
@@ -167,6 +175,9 @@ public class OptionPanel extends PanelGeneral {
 			affichageSliderSound(g);
 			affichageSliderMusic(g);
 			affichageRetourMenu(g);
+			affichageLabelSound(g);
+			affichageLabelMusic(g);
+			affichageLabelPleinEcran(g);
 		}
 	}
 	

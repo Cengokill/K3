@@ -29,7 +29,7 @@ public class LoadTexture{
 	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse, boutonPVP_gris, boutonPVM_gris,
 	boutonMVM_gris, boutonNomJ1_gris, boutonNomJ2_gris, boutonNomJoueur_gris, boutonDifficulteOrdi1_gris, boutonDifficulteOrdi2_gris,
 	boutonDifficulteOrdi_gris, boutonFacile_gris, boutonMoyen_gris, boutonDifficile_gris, menuSuivant, menuRetour,
-	boutonPasserTour,boutonPasserTour_gris,boutonCoupPrecedent,boutonCoupPrecedent_gris;
+	boutonPasserTour,boutonPasserTour_gris,boutonCoupPrecedent,boutonCoupPrecedent_gris,modePleinEcran,volumeMusique,volumeSons;
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -68,6 +68,9 @@ public class LoadTexture{
 		menuBouton4_presse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"quitter_presse.png");
 		menuSuivant = Toolkit.getDefaultToolkit().createImage(CHEMIN+"suivant.png");
 		menuRetour = Toolkit.getDefaultToolkit().createImage(CHEMIN+"retour.png");
+		modePleinEcran = Toolkit.getDefaultToolkit().createImage(CHEMIN+"mode_plein_ecran_flou.png");
+		volumeMusique = Toolkit.getDefaultToolkit().createImage(CHEMIN+"volume_musiques_flou.png");
+		volumeSons = Toolkit.getDefaultToolkit().createImage(CHEMIN+"volume_effets_sonores_flou.png");
 		//IMAGE CHARGEMENT---------------------------------------------------------------
 		boutonLoad = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_flou.png");
 		boutonLoadPresse = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chargerPartie_presse.png");

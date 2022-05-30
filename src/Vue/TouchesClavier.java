@@ -3,14 +3,11 @@ package Vue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JFrame;
 
 public class TouchesClavier extends KeyAdapter {
 	PanelGeneral panel;
-	public boolean estPleinEcran;
 	TouchesClavier(PanelGeneral p) {
 		this.panel=p;
-		estPleinEcran=false;
     }
 
 
@@ -18,19 +15,15 @@ public class TouchesClavier extends KeyAdapter {
     public void keyPressed(KeyEvent event) {
         switch (event.getKeyCode()) {
             case KeyEvent.VK_F1:
-            	if(!estPleinEcran) {
-	            	panel.window.dispose();
-	            	panel.window.setUndecorated(true);
-	            	panel.window.setVisible(true);
-	            	estPleinEcran=true;
+            	if(!panel.estPleinEcran) {
+            		panel.fullScreenOn();
             	}
             	break;
             case KeyEvent.VK_ESCAPE:
-            	if(estPleinEcran) {
-	            	panel.window.dispose();
-	            	panel.window.setUndecorated(false);
-	            	panel.window.setVisible(true);
-	            	estPleinEcran=false;
+            	if(panel.estPleinEcran) {
+            		panel.window.setLocation(0,0);
+            		panel.window.setSize(panel.tailleEcran);
+            		panel.fullScreenOff();
             	}
                 break;
         }

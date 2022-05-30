@@ -5,8 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
-import Vue.Menu.Chargement.TypeFenetre;
-
 public class OptionPanelClick implements MouseListener {
 	private OptionPanel panel;
 	public String typeCurseur;
