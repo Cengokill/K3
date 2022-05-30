@@ -11,13 +11,13 @@ public class piocheMC implements IApioche {
     IAjeu commentjouer = new IAjeuAlea();
     int meilleurvictoire;
     PyramideJoueur meilleurpyra;
-    boolean AFFICHE=false;
+    boolean AFFICHE = true;
 
     @Override
-    public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
+    public ArrayList<PiecePyramide> CreerPioche(Partie originale, int numerojoueur) {
         double td = (double) System.currentTimeMillis();
         PyramideJoueur pyraadv = new PyramideJoueur(6, 6);
-
+        Partie p = originale.clonePartie();
         boolean flag = true;
         int numeroadv;
         if (numerojoueur == 0) {
@@ -111,9 +111,9 @@ public class piocheMC implements IApioche {
         }
 
         double tf = (double) System.currentTimeMillis();
-        if(AFFICHE) {
-	        System.out.println((tf - td) / 1000 + " s de creation de la pioche");
-	        System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
+        if (AFFICHE) {
+            System.out.println((tf - td) / 1000 + " s de creation de la pioche");
+            System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
         }
         return aempiler;
     }

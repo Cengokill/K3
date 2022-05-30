@@ -411,4 +411,28 @@ public class Acteur {
 
 	public void setChoixVol(PiecePyramide choixVol) {
 	}
+
+	// Clone
+	public Acteur cloneActeur() {
+		Acteur res = new Acteur(this.getNom());
+		res.setCamp(this.getCamp().clonepyraJ());
+		for (Piece p : this.getPiecesPiochees()) {
+			res.addPiecePiochee(new Piece(p.getColor()));
+		}
+		for (Piece p : this.getPiecesVolees()) {
+			res.addPieceVolee(new Piece(p.getColor()));
+		}
+		res.setDiff(this.getDiff());
+		if (valideCamp) {
+			res.valideCamp = true;
+		} else {
+			res.valideCamp = false;
+		}
+		return res;
+	}
+
+	private void setDiff(int diff) {
+		this.diff = diff;
+	}
+
 }
