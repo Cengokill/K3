@@ -7,8 +7,10 @@ import javax.swing.JFrame;
 
 public class TouchesClavier extends KeyAdapter {
 	PanelGeneral panel;
+	public boolean estPleinEcran;
 	TouchesClavier(PanelGeneral p) {
 		this.panel=p;
+		estPleinEcran=false;
     }
 
 
@@ -17,12 +19,20 @@ public class TouchesClavier extends KeyAdapter {
     	System.out.println("key pressed");
         switch (event.getKeyCode()) {
             case KeyEvent.VK_F1:
-            	System.out.println("f1");
-            	//panel.window.setUndecorated(true);
+            	if(!estPleinEcran) {
+	            	panel.window.dispose();
+	            	panel.window.setUndecorated(true);
+	            	panel.window.setVisible(true);
+	            	estPleinEcran=true;
+            	}
             	break;
             case KeyEvent.VK_ESCAPE:
-            	System.out.println("echap");
-            	//panel.window.setUndecorated(false);
+            	if(estPleinEcran) {
+	            	panel.window.dispose();
+	            	panel.window.setUndecorated(false);
+	            	panel.window.setVisible(true);
+	            	estPleinEcran=false;
+            	}
                 break;
         }
     }

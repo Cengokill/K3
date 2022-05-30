@@ -25,7 +25,6 @@ public class StartJeuClics implements MouseListener {
 		this.jpanel=panel.jpanel;
 		DetectionSurvol survol = new DetectionSurvol();
 		this.startJeu.addMouseMotionListener(survol);
-		Touches t = new Touches();
 		this.startJeu.addKeyListener(t);
 	}
 	
@@ -207,33 +206,6 @@ public class StartJeuClics implements MouseListener {
 				}
 			}
 			startJeu.repaint();
-		}
-	}
-
-	public class Touches implements KeyListener{
-		@Override
-		public void keyTyped(KeyEvent e) {
-			System.out.println("ici");
-			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-				startJeu.window.setUndecorated(false);
-				System.out.println("plein ecran desactive");
-	        }
-			if (e.getKeyCode() == KeyEvent.VK_F1) {
-				startJeu.window.setUndecorated(true);
-				System.out.println("plein ecran active");
-	        }
-			
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			System.out.println("ici");
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			System.out.println("ici");
-			
 		}
 	}
 
