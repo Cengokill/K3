@@ -16,7 +16,6 @@ public class TouchesClavier extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent event) {
-    	System.out.println("key pressed");
         switch (event.getKeyCode()) {
             case KeyEvent.VK_F1:
             	if(!estPleinEcran) {
