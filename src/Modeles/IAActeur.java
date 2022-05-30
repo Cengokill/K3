@@ -17,7 +17,7 @@ public class IAActeur extends Acteur {
         switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:
                 pioche = new piocheMC(diff);
-                jeu = new IAjeuAlea();
+                jeu = new IAjeuExpert(3);
                 break;
             case 1:
                 pioche = new piocheMC(diff);
@@ -25,7 +25,7 @@ public class IAActeur extends Acteur {
                 break;
             case 2:
                 pioche = new piocheMC(diff);
-                jeu = new IAjeuExpert(6); // definir la pronfondeur de recherche pour les prochains coups
+                jeu = new IAjeuExpert(5); // definir la pronfondeur de recherche pour les prochains coups
                 break;
             default:
                 break;
