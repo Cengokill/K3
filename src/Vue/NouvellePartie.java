@@ -64,7 +64,6 @@ public class NouvellePartie extends PanelGeneral {
         window.setTitle("Nouvelle Partie");
         addMouseListener(new NouvellePartieClics(this));
 		window.setVisible(true);
-		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
     
     public void changementTaillefenetre() {
@@ -155,6 +154,7 @@ public class NouvellePartie extends PanelGeneral {
     }
     
     public void afficheBoutonPVP(Graphics g) {
+    	System.out.println("pvp");
 		if(!enfonce_pb_PVP) {
 			g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
 		}else {

@@ -1,6 +1,7 @@
 package Vue;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -36,6 +37,7 @@ public class PanelGeneral extends JPanel{
         window.setBackground(Color.BLACK);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addKeyListener(new TouchesClavier(this));
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 	
 	public void jouerSonSurvol() {
