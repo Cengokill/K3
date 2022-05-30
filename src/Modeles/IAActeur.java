@@ -16,15 +16,15 @@ public class IAActeur extends Acteur {
         this.valideCamp = true;
         switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:
-                pioche = new IApiocheAlea();
+                pioche = new piocheMC(diff);
                 jeu = new IAjeuAlea();
                 break;
             case 1:
-                pioche = new IApiocheExpert();
+                pioche = new piocheMC(diff);
                 jeu = new IAjeuExpert(3);
                 break;
             case 2:
-                pioche = new piocheMC();
+                pioche = new piocheMC(diff);
                 jeu = new IAjeuExpert(6); // definir la pronfondeur de recherche pour les prochains coups
                 break;
             default:

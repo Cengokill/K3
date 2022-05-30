@@ -11,7 +11,26 @@ public class piocheMC implements IApioche {
     IAjeu commentjouer = new IAjeuAlea();
     int meilleurvictoire;
     PyramideJoueur meilleurpyra;
-    boolean AFFICHE = false;
+    boolean AFFICHE = true;
+    int nbParties;
+    int nbPioche;
+    int nbPiocheadv;
+
+    public piocheMC(int diff) {
+        if (diff == 0) {
+            nbParties = 10;
+            nbPioche = 100;
+            nbPiocheadv = 10;
+        } else if (diff == 1) {
+            nbParties = 1;
+            nbPioche = 100;
+            nbPiocheadv = 100;
+        } else {
+            nbParties = 10;
+            nbPioche = 100;
+            nbPiocheadv = 100;
+        }
+    }
 
     @Override
     public ArrayList<PiecePyramide> CreerPioche(Partie originale, int numerojoueur) {
@@ -41,20 +60,23 @@ public class piocheMC implements IApioche {
         }
 
         // Pour i allant de 0 a 100
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < nbPioche; i++) {
             // Creer une picohe alea pour notre joueur
             CreerPyraAlea(p, numerojoueur);
             int nbvictoire = 0;
             // Pour j allant de 0 a 100
-            for (int j = 0; j < 100; j++) {
+            for (int j = 0; j < nbPiocheadv; j++) {
                 // Creer une pioche alea pour l'adversaire
                 CreerPyraAlea(p, numeroadv);
                 // Simule la partie
                 // Si gagnant
                 // nbvictoire ++
-                if (simulePartie(p, numerojoueur)) {
-                    nbvictoire++;
+                for (int k = 0; k < nbParties; k++) {
+                    if (simulePartie(p, numerojoueur)) {
+                        nbvictoire++;
+                    }
                 }
+
                 // Remet la pioche du joueur dans son etat de base
                 AnnulCreerPyra(p, numeroadv);
             }
