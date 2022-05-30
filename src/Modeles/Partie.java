@@ -52,11 +52,11 @@ public class Partie {
 		initialiserSac();
 		initBaseMontagne();
 	}
-	
+
 	public void demarrerTimer(int a) {
-		if(a==0) {
+		if (a == 0) {
 			j1.setTempsConstruction();
-		}else {
+		} else {
 			j2.setTempsConstruction();
 		}
 	}
@@ -106,9 +106,9 @@ public class Partie {
 	public int getJoueurCourant() {
 		return this.joueurCourant;
 	}
-	
+
 	public void setJoueurCourant(int a) {
-		this.joueurCourant=a;
+		this.joueurCourant = a;
 	}
 
 	public boolean joueurPeutJouer(Acteur j) {
@@ -562,4 +562,25 @@ public class Partie {
 		return res;
 	}
 
+	public Partie clonePartie() {
+		Partie p = new Partie(new Acteur("clone"), new Acteur("clone"), this.numPartie);
+		p.setjoueur1(this.j1.cloneActeur());
+		p.setjoueur2(this.j2.cloneActeur());
+		p.setBaseMontagne(this.getBaseMontagne().clonepyraB());
+		p.basePieces = new ArrayList<>();
+		p.joueurDebut = this.joueurDebut;
+		p.joueurCourant = this.joueurCourant;
+		for (Piece pp : this.basePieces) {
+			p.basePieces.add(new Piece(pp.getColor()));
+		}
+		return p;
+	}
+
+	private void setjoueur2(Acteur cloneActeur) {
+		this.j2 = cloneActeur;
+	}
+
+	private void setjoueur1(Acteur cloneActeur) {
+		this.j1 = cloneActeur;
+	}
 }

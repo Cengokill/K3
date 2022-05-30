@@ -109,19 +109,19 @@ public class Pyramide {
 			}
 		}
 	}
-	
+
 	public Piece retirePhase1(Position p) {
 		if (p.etage >= hauteur || p.etage < 0 || p.rang >= pyramide[p.etage].length || p.rang < 0
 				|| pyramide[p.etage][p.rang] == null) {
 			System.err.println("erreur impossible de retirer la piece.");
 			return null;
-		}else {
+		} else {
 			Piece pie = this.pyramide[p.etage][p.rang];
-			this.pyramide[p.etage][p.rang]=null;
+			this.pyramide[p.etage][p.rang] = null;
 			return pie;
 		}
 	}
-	
+
 	public boolean empilerPhase1(PiecePyramide pp) {
 		Piece piece = pp.getPiece();
 		Position p = pp.getPos();
@@ -138,59 +138,59 @@ public class Pyramide {
 			return true;
 		}
 	}
-	
+
 	public boolean ajoutPieceString(char s, int etage, int rang) {
-		switch(s) {
-		case 'B':
-			this.pyramide[etage][rang]=new Piece(Couleurs.BLEU);
-			break;
-		case 'N':
-			this.pyramide[etage][rang]=new Piece(Couleurs.NOIR);
-			break;
-		case 'R':
-			this.pyramide[etage][rang]=new Piece(Couleurs.ROUGE);
-			break;
-		case 'V':
-			this.pyramide[etage][rang]=new Piece(Couleurs.VERT);
-			break;
-		case 'J':
-			this.pyramide[etage][rang]=new Piece(Couleurs.JAUNE);
-			break;
-		case 'W':
-			this.pyramide[etage][rang]=new Piece(Couleurs.BLANC);
-			break;
-		case '#':
-			this.pyramide[etage][rang]=new Piece(Couleurs.NATUREL);
-			break;
-		default:
-			return false;
+		switch (s) {
+			case 'B':
+				this.pyramide[etage][rang] = new Piece(Couleurs.BLEU);
+				break;
+			case 'N':
+				this.pyramide[etage][rang] = new Piece(Couleurs.NOIR);
+				break;
+			case 'R':
+				this.pyramide[etage][rang] = new Piece(Couleurs.ROUGE);
+				break;
+			case 'V':
+				this.pyramide[etage][rang] = new Piece(Couleurs.VERT);
+				break;
+			case 'J':
+				this.pyramide[etage][rang] = new Piece(Couleurs.JAUNE);
+				break;
+			case 'W':
+				this.pyramide[etage][rang] = new Piece(Couleurs.BLANC);
+				break;
+			case '#':
+				this.pyramide[etage][rang] = new Piece(Couleurs.NATUREL);
+				break;
+			default:
+				return false;
 		}
 		return true;
 	}
-	
+
 	public boolean ajoutPieceStringCase(char c, int etage, int rang) {
-		if(c=='.') {
-			this.pyramide[etage][rang]=null;
+		if (c == '.') {
+			this.pyramide[etage][rang] = null;
 			return true;
-		}else {
+		} else {
 			ajoutPieceString(c, etage, rang);
 			return true;
 		}
 	}
-	
+
 	public boolean stringToPyramide(ArrayList<String> tab) {
 		boolean a;
-        String piece;
-        for(int i=this.hauteur-1; i>=0; i--) {
-            for(int j=0; j<this.largeur-i; j++) {
-                piece=tab.get((this.hauteur-1) - i);
-                a = ajoutPieceStringCase(piece.charAt(j), i, j);
-                if(!a) {
-                    return a;
-                }
-            }
-        }
-        return true;
+		String piece;
+		for (int i = this.hauteur - 1; i >= 0; i--) {
+			for (int j = 0; j < this.largeur - i; j++) {
+				piece = tab.get((this.hauteur - 1) - i);
+				a = ajoutPieceStringCase(piece.charAt(j), i, j);
+				if (!a) {
+					return a;
+				}
+			}
+		}
+		return true;
 	}
 
 	public String toString() {
@@ -262,10 +262,10 @@ public class Pyramide {
 		}
 		return tableau;
 	}
-	
+
 	public String toStringSauvegarde() {
 		String tableau = new String();
-		String ligne="";
+		String ligne = "";
 		for (int i = hauteur - 1; i >= 0; i--) {
 			for (int j = 0; j < pyramide[i].length; j++) {
 				if (pyramide[i][j] != null) {

@@ -11,13 +11,13 @@ public class piocheMC implements IApioche {
     IAjeu commentjouer = new IAjeuAlea();
     int meilleurvictoire;
     PyramideJoueur meilleurpyra;
-    boolean AFFICHE=false;
+    boolean AFFICHE = false;
 
     @Override
-    public ArrayList<PiecePyramide> CreerPioche(Partie p, int numerojoueur) {
+    public ArrayList<PiecePyramide> CreerPioche(Partie originale, int numerojoueur) {
         double td = (double) System.currentTimeMillis();
         PyramideJoueur pyraadv = new PyramideJoueur(6, 6);
-
+        Partie p = originale.clonePartie();
         boolean flag = true;
         int numeroadv;
         if (numerojoueur == 0) {
@@ -111,9 +111,9 @@ public class piocheMC implements IApioche {
         }
 
         double tf = (double) System.currentTimeMillis();
-        if(AFFICHE) {
-	        System.out.println((tf - td) / 1000 + " s de creation de la pioche");
-	        System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
+        if (AFFICHE) {
+            System.out.println((tf - td) / 1000 + " s de creation de la pioche");
+            System.out.println("Taux de victoire de cette pioche: " + meilleurvictoire);
         }
         return aempiler;
     }
@@ -195,6 +195,35 @@ public class piocheMC implements IApioche {
             } else {
                 p.joueur2().getCamp().empiler(piece);
                 p.joueur2().getPiecesPiochees().remove(piece.getPiece());
+            }
+        }
+        if (numerojoueur == 0) {
+            while (p.coupsJouables(p.joueur1()).size() < 2) {
+                AnnulCreerPyra(p, numerojoueur);
+                pieces = commentpiocher.CreerPioche(p, numerojoueur);
+                for (PiecePyramide piece : pieces) { // a voir si mieux qu'utiliser des iterateurs
+                    if (numerojoueur == 0) {
+                        p.joueur1().getCamp().empiler(piece);
+                        p.joueur1().getPiecesPiochees().remove(piece.getPiece());
+                    } else {
+                        p.joueur2().getCamp().empiler(piece);
+                        p.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                    }
+                }
+            }
+        } else {
+            while (p.coupsJouables(p.joueur2()).size() < 2) {
+                AnnulCreerPyra(p, numerojoueur);
+                pieces = commentpiocher.CreerPioche(p, numerojoueur);
+                for (PiecePyramide piece : pieces) { // a voir si mieux qu'utiliser des iterateurs
+                    if (numerojoueur == 0) {
+                        p.joueur1().getCamp().empiler(piece);
+                        p.joueur1().getPiecesPiochees().remove(piece.getPiece());
+                    } else {
+                        p.joueur2().getCamp().empiler(piece);
+                        p.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                    }
+                }
             }
         }
     }

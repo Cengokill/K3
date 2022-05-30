@@ -8,30 +8,35 @@ public class PyramideMontagne extends Pyramide {
 		super(largeur, hauteur);
 	}
 
-	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur la pyramide de la base
-		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();	
+	public ArrayList<PiecePyramide> piecesPosables() {// renvoie la liste de toutes les pieces que l'on peut placer sur
+														// la pyramide de la base
+		ArrayList<PiecePyramide> arr = new ArrayList<PiecePyramide>();
 		for (int i = 1; i <= hauteur - 1; i++) {
 			for (int j = 0; j < pyramide[i].length; j++) {
 				if (pyramide[i][j] == null) {// si la case courante ne contient pas de piece
 					Position pp = new Position(i, j);
-					if(aPiecesPorteuses(i,j)){
-						PiecePyramide porteurGauche=new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()), new Position(i-1, j));
-						PiecePyramide porteurDroit=new PiecePyramide(new Piece(pyramide[i - 1][j+1].getColor()), new Position(i-1, j+1));
-						PiecePyramide pieceNaturelle=new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
-						Couleurs portGaucheColor=porteurGauche.getPiece().getColor();
-						Couleurs portDroitColor=porteurDroit.getPiece().getColor();
-						if(portGaucheColor!=Couleurs.NATUREL && portDroitColor!=Couleurs.NATUREL) {//si pas de NATUREL
-							PiecePyramide pAjoutG=new PiecePyramide(new Piece(portGaucheColor), pp);
+					if (aPiecesPorteuses(i, j)) {
+						PiecePyramide porteurGauche = new PiecePyramide(new Piece(pyramide[i - 1][j].getColor()),
+								new Position(i - 1, j));
+						PiecePyramide porteurDroit = new PiecePyramide(new Piece(pyramide[i - 1][j + 1].getColor()),
+								new Position(i - 1, j + 1));
+						PiecePyramide pieceNaturelle = new PiecePyramide(new Piece(Couleurs.NATUREL), pp);
+						Couleurs portGaucheColor = porteurGauche.getPiece().getColor();
+						Couleurs portDroitColor = porteurDroit.getPiece().getColor();
+						if (portGaucheColor != Couleurs.NATUREL && portDroitColor != Couleurs.NATUREL) {// si pas de
+																										// NATUREL
+							PiecePyramide pAjoutG = new PiecePyramide(new Piece(portGaucheColor), pp);
 							arr.add(pieceNaturelle);
-							arr.add(pAjoutG);//ajout de la piece de la couleur du porteur gauche avec la position (i,j)
-							if(portDroitColor!=portGaucheColor) {//si les 2 couleurs sont differentes
-								PiecePyramide pAjoutD=new PiecePyramide(new Piece(portDroitColor), pp);
-								arr.add(pAjoutD);//ajout de la piece de la couleur du porteur droit avec la position (i,j)
+							arr.add(pAjoutG);// ajout de la piece de la couleur du porteur gauche avec la position (i,j)
+							if (portDroitColor != portGaucheColor) {// si les 2 couleurs sont differentes
+								PiecePyramide pAjoutD = new PiecePyramide(new Piece(portDroitColor), pp);
+								arr.add(pAjoutD);// ajout de la piece de la couleur du porteur droit avec la position
+													// (i,j)
 							}
-						}else {
-							for(Couleurs c : Couleurs.values()) {//si NATUREL
-								PiecePyramide pAjout=new PiecePyramide(new Piece(c), pp);
-								arr.add(pAjout);//ajout des pieces de toutes les couleurs a la position (i,j)
+						} else {
+							for (Couleurs c : Couleurs.values()) {// si NATUREL
+								PiecePyramide pAjout = new PiecePyramide(new Piece(c), pp);
+								arr.add(pAjout);// ajout des pieces de toutes les couleurs a la position (i,j)
 							}
 						}
 					}
@@ -52,10 +57,31 @@ public class PyramideMontagne extends Pyramide {
 		return porteurGauche.getColor() == porteurDroit.getColor();
 	}
 
-	public boolean conditionEmpiler(Piece piece, Piece porteurDroit, Piece porteurGauche) { //vérification que les pieces porteuse possède la meme couleur que la piece posée
+	public boolean conditionEmpiler(Piece piece, Piece porteurDroit, Piece porteurGauche) { // vï¿½rification que les
+																							// pieces porteuse possï¿½de
+																							// la meme couleur que la
+																							// piece posï¿½e
 		return (piece.getColor() == Couleurs.NATUREL || (porteurDroit.getColor() == piece.getColor()
 				|| porteurGauche.getColor() == piece.getColor() || porteurDroit.getColor() == Couleurs.NATUREL
 				|| porteurGauche.getColor() == Couleurs.NATUREL));
 	}
-	
+
+	public PyramideMontagne clonepyraB() {
+		PyramideMontagne res = new PyramideMontagne(this.largeur, this.hauteur);
+		for (int i = 0; i < this.hauteur; i++) {
+			for (int j = 0; j < (this.hauteur - i); j++) {
+				if (this.pyramide[i][j] != null) {
+					res.pyramide[i][j] = new Piece(this.pyramide[i][j].getColor());
+				} else {
+					res.pyramide[i][j] = null;
+				}
+			}
+		}
+		for (PiecePyramide p : this.historiquePieces) {
+			res.historiquePieces.add(new PiecePyramide(new Piece(p.getPiece().getColor()),
+					new Position(p.getPos().etage, p.getPos().rang)));
+		}
+		return res;
+	}
+
 }

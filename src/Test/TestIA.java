@@ -20,7 +20,7 @@ public class TestIA {
         int victoirej1 = 0;
         int victoirej2 = 0;
         final int TAILLE_CAMP_JOUEUR = 21;
-        final boolean AFFICHAGE=false;
+        final boolean AFFICHAGE = false;
 
         // Chronometre du temps de toutes les parties
         double t1 = (double) System.currentTimeMillis();
@@ -45,11 +45,11 @@ public class TestIA {
             }
 
             // CREATION DES PYRAMIDES
-            if(AFFICHAGE) {
-	            System.out.println("Le joueur numero " + (ktrois.joueurDebut + 1) + "commence la partie");
-	            System.out.println("Phase de Creation");
-	            System.out.println("Pyramide de jeu");
-	            System.out.println(ktrois.getBaseMontagne().toString());
+            if (AFFICHAGE) {
+                System.out.println("Le joueur numero " + (ktrois.joueurDebut + 1) + "commence la partie");
+                System.out.println("Phase de Creation");
+                System.out.println("Pyramide de jeu");
+                System.out.println(ktrois.getBaseMontagne().toString());
             }
 
             // A RETESTER
@@ -58,51 +58,51 @@ public class TestIA {
 
                 for (PiecePyramide piece : piecesj1) { // a voir si mieux qu'utiliser des iterateurs
                     ktrois.joueur1().getCamp().empiler(piece);
-                    ktrois.joueur1().getPiecesPiochees().remove(piece.getPiece());
+                    ktrois.joueur1().removePiecePiochee(piece.getPiece());
                 }
 
                 ArrayList<PiecePyramide> piecesj2 = ktrois.joueur2().phase1(ktrois);
 
                 for (PiecePyramide piece : piecesj2) { // a voir si mieux qu'utiliser des iterateurs
                     ktrois.joueur2().getCamp().empiler(piece);
-                    ktrois.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                    ktrois.joueur2().removePiecePiochee(piece.getPiece());
                 }
             } else {
                 ArrayList<PiecePyramide> piecesj2 = ktrois.joueur2().phase1(ktrois);
 
                 for (PiecePyramide piece : piecesj2) { // a voir si mieux qu'utiliser des iterateurs
                     ktrois.joueur2().getCamp().empiler(piece);
-                    ktrois.joueur2().getPiecesPiochees().remove(piece.getPiece());
+                    ktrois.joueur2().removePiecePiochee(piece.getPiece());
                 }
 
                 ArrayList<PiecePyramide> piecesj1 = ktrois.joueur1().phase1(ktrois);
 
                 for (PiecePyramide piece : piecesj1) { // a voir si mieux qu'utiliser des iterateurs
                     ktrois.joueur1().getCamp().empiler(piece);
-                    ktrois.joueur1().getPiecesPiochees().remove(piece.getPiece());
+                    ktrois.joueur1().removePiecePiochee(piece.getPiece());
                 }
             }
-            if(AFFICHAGE) {
-            System.out.println(
-                    "Nombre de pieces dans la pioche du joueur 1: " + ktrois.joueur1().getPiecesPiochees().size());
-            System.out.println("Boolean camp j1 " + ktrois.joueur1().valideCamp);
-            System.out.println(
-                    "Nombre de pieces dans la pioche du joueur 2: " + ktrois.joueur2().getPiecesPiochees().size());
-            System.out.println("Boolean camp j2 " + ktrois.joueur2().valideCamp);
+            if (AFFICHAGE) {
+                System.out.println(
+                        "Nombre de pieces dans la pioche du joueur 1: " + ktrois.joueur1().getPiecesPiochees().size());
+                System.out.println("Boolean camp j1 " + ktrois.joueur1().valideCamp);
+                System.out.println(
+                        "Nombre de pieces dans la pioche du joueur 2: " + ktrois.joueur2().getPiecesPiochees().size());
+                System.out.println("Boolean camp j2 " + ktrois.joueur2().valideCamp);
 
-            // AFFICHAGE PYRA JOUEUR ET MONTAGNE
-            System.out.println("Pyramide de " + ktrois.joueur1().getNom());
-            System.out.println(ktrois.joueur1().getCamp().toString());
-            System.out.println("Liste des pieces volees: " + ktrois.joueur1().toStringPiecesVolees());
-            System.out.println("Pyramide de " + ktrois.joueur2().getNom());
-            System.out.println(ktrois.joueur2().getCamp().toString());
-            System.out.println("Liste des pieces volees: " + ktrois.joueur2().toStringPiecesVolees());
-            System.out.println("Pyramide de jeu");
-            System.out.println(ktrois.getBaseMontagne().toString());
+                // AFFICHAGE PYRA JOUEUR ET MONTAGNE
+                System.out.println("Pyramide de " + ktrois.joueur1().getNom());
+                System.out.println(ktrois.joueur1().getCamp().toString());
+                System.out.println("Liste des pieces volees: " + ktrois.joueur1().toStringPiecesVolees());
+                System.out.println("Pyramide de " + ktrois.joueur2().getNom());
+                System.out.println(ktrois.joueur2().getCamp().toString());
+                System.out.println("Liste des pieces volees: " + ktrois.joueur2().toStringPiecesVolees());
+                System.out.println("Pyramide de jeu");
+                System.out.println(ktrois.getBaseMontagne().toString());
 
-            // PHASE DE JEU
-            System.out.println();
-            System.out.println("Phase de jeu");
+                // PHASE DE JEU
+                System.out.println();
+                System.out.println("Phase de jeu");
             }
             while (!ktrois.estPartieFinie()) { // Argument partie en cours
                 Coup c;
@@ -119,16 +119,16 @@ public class TestIA {
                 } else {
                     c = jCourant.jouer(arr, ktrois);
                 }
-                if(AFFICHAGE) {
-	                System.out.print("Le joueur " + jCourant.getNom() + " joue le coup ");
-	                System.out.println(c.toString());
+                if (AFFICHAGE) {
+                    System.out.print("Le joueur " + jCourant.getNom() + " joue le coup ");
+                    System.out.println(c.toString());
                 }
 
                 // Joue
                 if (ktrois.IAjoueCoup(c, ktrois.getJoueurCourant())) { // On peut se faire voler une piece
                     jCourant.addMauvaisCoup();
-                    if(AFFICHAGE) {
-                    	System.out.println("on recupere les pieces volables de " + jCourant.getNom());
+                    if (AFFICHAGE) {
+                        System.out.println("on recupere les pieces volables de " + jCourant.getNom());
                     }
                     ArrayList<PiecePyramide> accessibles = jCourant.getPiecesJouables();
                     if (ktrois.getJoueurCourant() == 0) {
@@ -146,18 +146,18 @@ public class TestIA {
                 }
 
                 // Afiichage
-                if(AFFICHAGE) {
-	                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	                System.out.println("Pyramide de " + ktrois.joueur1().getNom());
-	                System.out.println(ktrois.joueur1().getCamp().toString());
-	                System.out.println("Liste des pieces volees: " + ktrois.joueur1().toStringPiecesVolees());
-	                System.out.println("Pyramide de " + ktrois.joueur2().getNom());
-	                System.out.println(ktrois.joueur2().getCamp().toString());
-	                System.out.println("Liste des pieces volees: " + ktrois.joueur2().toStringPiecesVolees());
-	                System.out.println("Pyramide de jeu");
-	                System.out.println(ktrois.getBaseMontagne().toString());
+                if (AFFICHAGE) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println("Pyramide de " + ktrois.joueur1().getNom());
+                    System.out.println(ktrois.joueur1().getCamp().toString());
+                    System.out.println("Liste des pieces volees: " + ktrois.joueur1().toStringPiecesVolees());
+                    System.out.println("Pyramide de " + ktrois.joueur2().getNom());
+                    System.out.println(ktrois.joueur2().getCamp().toString());
+                    System.out.println("Liste des pieces volees: " + ktrois.joueur2().toStringPiecesVolees());
+                    System.out.println("Pyramide de jeu");
+                    System.out.println(ktrois.getBaseMontagne().toString());
                 }
 
                 // changer le joueur courant
@@ -165,7 +165,7 @@ public class TestIA {
             }
 
             // GAGNANT
-            System.out.println("Partie numero "+nbParties);
+            System.out.println("Partie numero " + nbParties);
             int gagnant;
             if (ktrois.getBaseMontagne().estPleine()) { // Si egalite
                 gagnant = 2;
