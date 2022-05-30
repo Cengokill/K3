@@ -162,6 +162,9 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.enfonce_IA2_FACILE=true;
 				nouvellePartie.enfonce_IA2_MOYEN=false;
 				nouvellePartie.enfonce_IA2_DIFFICILE=false;
+				nouvellePartie.enfonce_IA3_FACILE=false;
+				nouvellePartie.enfonce_IA3_MOYEN=false;
+				nouvellePartie.enfonce_IA3_DIFFICILE=false;
 				nouvellePartie.debut=false;
 				lvl_IA2 = 0;
 			}

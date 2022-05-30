@@ -169,111 +169,120 @@ public class NouvellePartie extends PanelGeneral {
 		}
     }
     
-    public void afficheBoutonIA1_FACILE(Graphics g) {// joueur vs ordi   
-		if(!enfonce_IA1_FACILE) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
-	            g.drawImage(textures.boutonFacile_gris, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonFacile, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
-			}
+    public void afficheBoutonIA1_FACILE(Graphics g) {// joueur vs ordi 
+		if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
+            g.drawImage(textures.boutonFacile_gris, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA1_FACILE=false;
 		}else {
-            g.drawImage(textures.boutonFacile_vert, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA1_FACILE) {
+			g.drawImage(textures.boutonFacile, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+	            g.drawImage(textures.boutonFacile_vert, posX_IA1_FACILE, posY_IA1_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
-    public void afficheBoutonIA1_MOYEN(Graphics g) {// joueur vs ordi   
-		if(!enfonce_IA1_MOYEN) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
-	            g.drawImage(textures.boutonMoyen_gris, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
-			}else {
+    public void afficheBoutonIA1_MOYEN(Graphics g) {// joueur vs ordi
+		if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
+            g.drawImage(textures.boutonMoyen_gris, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA1_MOYEN=false;
+		}else {
+			if(!enfonce_IA1_MOYEN) {
 				g.drawImage(textures.boutonMoyen, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+	            g.drawImage(textures.boutonMoyen_vert, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 			}
-		}else {
-            g.drawImage(textures.boutonMoyen_vert, posX_IA1_MOYEN, posY_IA1_MOYEN, largeur_bouton3, hauteur_bouton3, null);
 		}
     }
     
-    public void afficheBoutonIA1_DIFFICILE(Graphics g) {// joueur vs ordi   
-		if(!enfonce_IA1_DIFFICILE) {
-			if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
-	            g.drawImage(textures.boutonDifficile_gris, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				 g.drawImage(textures.boutonDifficile, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
-			}
+    public void afficheBoutonIA1_DIFFICILE(Graphics g) {// joueur vs ordi
+		if(enfonce_pb_PVP || enfonce_pb_MVM || debut) {
+            g.drawImage(textures.boutonDifficile_gris, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA1_DIFFICILE=false;
 		}else {
-            g.drawImage(textures.boutonDifficile_vert, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA1_DIFFICILE) {
+			 g.drawImage(textures.boutonDifficile, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+	            g.drawImage(textures.boutonDifficile_vert, posX_IA1_DIFFICILE, posY_IA1_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
     public void afficheBoutonIA2_FACILE(Graphics g) {// ordi vs ordi
-		if(!enfonce_IA2_FACILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
-	            g.drawImage(textures.boutonFacile_gris, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonFacile, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
-			}
+		if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
+            g.drawImage(textures.boutonFacile_gris, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA2_FACILE=false;
 		}else {
-            g.drawImage(textures.boutonFacile_vert, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA2_FACILE) {
+				g.drawImage(textures.boutonFacile, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+	            g.drawImage(textures.boutonFacile_vert, posX_IA2_FACILE, posY_IA2_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
     public void afficheBoutonIA2_MOYEN(Graphics g) {// ordi vs ordi
-		if(!enfonce_IA2_MOYEN) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
-	            g.drawImage(textures.boutonMoyen_gris, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonMoyen, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
-			}
+		if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
+            g.drawImage(textures.boutonMoyen_gris, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA2_MOYEN=false;
 		}else {
-            g.drawImage(textures.boutonMoyen_vert, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA2_MOYEN) {
+				g.drawImage(textures.boutonMoyen, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+	            g.drawImage(textures.boutonMoyen_vert, posX_IA2_MOYEN, posY_IA2_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
     public void afficheBoutonIA2_DIFFICILE(Graphics g) {// ordi vs ordi
-		if(!enfonce_IA2_DIFFICILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
-	            g.drawImage(textures.boutonDifficile_gris, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonDifficile, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
-			}
+		if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
+            g.drawImage(textures.boutonDifficile_gris, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA2_DIFFICILE=false;
 		}else {
-            g.drawImage(textures.boutonDifficile_vert, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA2_DIFFICILE) {
+				g.drawImage(textures.boutonDifficile, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonDifficile_vert, posX_IA2_DIFFICILE, posY_IA2_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
     public void afficheBoutonIA3_FACILE(Graphics g) {// ordi vs ordi
-		if(!enfonce_IA3_FACILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
-	            g.drawImage(textures.boutonFacile_gris, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonFacile, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
-			}
+		if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
+            g.drawImage(textures.boutonFacile_gris, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA3_FACILE=false;
 		}else {
-            g.drawImage(textures.boutonFacile_vert, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA3_FACILE) {
+				g.drawImage(textures.boutonFacile, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonFacile_vert, posX_IA3_FACILE, posY_IA3_FACILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
     public void afficheBoutonIA3_MOYEN(Graphics g) {// ordi vs ordi
-		if(!enfonce_IA3_MOYEN) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
-	            g.drawImage(textures.boutonMoyen_gris, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonMoyen, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
-			}
+		if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
+            g.drawImage(textures.boutonMoyen_gris, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA3_MOYEN=false;
 		}else {
-            g.drawImage(textures.boutonMoyen_vert, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA3_MOYEN) {
+				g.drawImage(textures.boutonMoyen, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonMoyen_vert, posX_IA3_MOYEN, posY_IA3_MOYEN, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
     public void afficheBoutonIA3_DIFFICILE(Graphics g) {// ordi vs ordi
-		if(!enfonce_IA3_DIFFICILE) {
-			if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
-	            g.drawImage(textures.boutonDifficile_gris, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
-			}else {
-				g.drawImage(textures.boutonDifficile, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
-			}
+		if(enfonce_pb_PVP || enfonce_pb_PVM || debut) {
+            g.drawImage(textures.boutonDifficile_gris, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+            enfonce_IA3_DIFFICILE=false;
 		}else {
-            g.drawImage(textures.boutonDifficile_vert, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			if(!enfonce_IA3_DIFFICILE) {
+				g.drawImage(textures.boutonDifficile, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}else {
+				g.drawImage(textures.boutonDifficile_vert, posX_IA3_DIFFICILE, posY_IA3_DIFFICILE, largeur_bouton3, hauteur_bouton3, null);
+			}
 		}
     }
     
