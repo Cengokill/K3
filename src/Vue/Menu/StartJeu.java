@@ -10,7 +10,6 @@ import javax.swing.Timer;
 
 import Modeles.Aleatoire;
 import Modeles.OptionsJeu;
-import Modeles.SoundPlayer;
 import Vue.PanelGeneral;
 import Vue.TexturePack.LoadTexture;
 
@@ -153,10 +152,7 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 	}
 	
 	public void paint(Graphics g) {
-		if(tailleFenetre != window.getSize()) {
-			//on detecte un changement de fenetre -> on met a jour L IHM
-			changementTaillefenetre();
-		}
+		changementTaillefenetre();
 		affichageBackGround(g,0);
 		afficheIle1(g);
 		afficheBoutonNouvellePartie(g);
@@ -164,7 +160,6 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 		afficheBoutonOptions(g);
 		afficheBoutonTuto(g);
 		afficheBoutonQuitter(g);
-		jpanel.paint(g);
 	}
 
 	@Override

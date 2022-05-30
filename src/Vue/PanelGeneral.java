@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -74,14 +73,14 @@ public class PanelGeneral extends JPanel{
 	}
 	
     public void affichageBackGround(Graphics g, int i) {//3840x2160
-    	double rapport = 0.5625;// rapport de 2160/3840
-		if(frameHeight/frameWidth>rapport) {
+    	double rapport = (double) 0.5625;// rapport de 2160/3840
+		if((double)((double)frameHeight/(double)frameWidth)>rapport) {
 			largeur_background=frameWidth;
 			hauteur_background=(int)(largeur_background*rapport);
 			posX_background=0;
 			posY_background=(frameHeight-hauteur_background)/2;
 		}
-		else { //if(frameHeight/frameWidth<=rapport) {
+		else {//si largeur fenetre tres grande
 			hauteur_background=frameHeight;
 			largeur_background=(int)(hauteur_background/rapport);
 			posX_background=(frameWidth-largeur_background)/2;

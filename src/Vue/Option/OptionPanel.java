@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,7 +30,7 @@ public class OptionPanel extends PanelGeneral {
 	
 	//SOUND
 	public int taille_police;
-	public int POSX_sound_Label,POSY_sound_Label,LARGEUR_sound_Label,HAUTEUR_sound_Label,posXvolumeSons, posYvolumeSons;
+	public int POSX_sound_Label,POSY_sound_Label,LARGEUR_sound_Label,HAUTEUR_sound_Label;
 	
 	public int soundMin = 0;
 	public int soundMax = 10;
@@ -40,7 +39,7 @@ public class OptionPanel extends PanelGeneral {
 	public JSlider slideSound;
 	
 	//MUSIC
-	public int LARGEUR_music_Label,HAUTEUR_music_Label,POSX_music_Label,POSY_music_Label,posXvolumeMusique, posYvolumeMusique;
+	public int LARGEUR_music_Label,HAUTEUR_music_Label,POSX_music_Label,POSY_music_Label;
 	
 	public int musicMin = 0;
 	public int musicMax = 10;
@@ -70,6 +69,7 @@ public class OptionPanel extends PanelGeneral {
 		slideMusic.setMajorTickSpacing(5);
 		slideMusic.setPaintTicks(true);
 		slideMusic.setPaintLabels(true);
+		window.setVisible(true);
 		
 		this.addMouseListener(new OptionPanelClick(this));
 		slideSound.addChangeListener(new ChangeListener() {
@@ -81,9 +81,7 @@ public class OptionPanel extends PanelGeneral {
 			public void stateChanged(ChangeEvent e) {
 				options.setVolumeMusique(slideMusic.getValue());
 			}
-		});
-		changementTaillefenetre();
-		
+		});		
 		this.add(slideSound);
 		this.add(slideMusic);
 		peutPaint=true;
@@ -156,29 +154,28 @@ public class OptionPanel extends PanelGeneral {
 	}
 	//AFFICHAGE LABELS
 	public void affichageLabelSound(Graphics g) {
-		g.drawImage(texture.modePleinEcran, posXPleinEcran, posYPleinEcran, largeur_label, hauteur_label, null);	
+		System.out.println(POSX_sound_Label);
+		g.drawImage(texture.volumeSons, POSX_sound_Label, POSY_sound_Label, largeur_label, hauteur_label, null);	
 	}
 	
 	public void affichageLabelMusic(Graphics g) {
-		g.drawImage(texture.volumeMusique, posXvolumeMusique, posYvolumeMusique, largeur_label, hauteur_label, null);	
+		g.drawImage(texture.volumeMusique, POSX_music_Label, POSY_music_Label, largeur_label, hauteur_label, null);	
 	}
 	
 	public void affichageLabelPleinEcran(Graphics g) {
-		g.drawImage(texture.volumeSons, posXvolumeSons, posYvolumeSons, largeur_label, hauteur_label, null);	
+		g.drawImage(texture.modePleinEcran, posXPleinEcran, posYPleinEcran, largeur_label, hauteur_label, null);	
 	}
 	
 	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
 	public void paint(Graphics g) {
-		if(peutPaint) {
-			changementTaillefenetre();
-			affichageBackGround(g,1);
-			affichageSliderSound(g);
-			affichageSliderMusic(g);
-			affichageRetourMenu(g);
-			affichageLabelSound(g);
-			affichageLabelMusic(g);
-			affichageLabelPleinEcran(g);
-		}
+		changementTaillefenetre();
+		affichageBackGround(g,1);
+		affichageSliderSound(g);
+		affichageSliderMusic(g);
+		affichageRetourMenu(g);
+		affichageLabelSound(g);
+		affichageLabelMusic(g);
+		affichageLabelPleinEcran(g);
 	}
 	
 	
