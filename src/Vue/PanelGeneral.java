@@ -35,7 +35,6 @@ public class PanelGeneral extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
-        window.setLocation(0,0);
         window.setBackground(Color.BLACK);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addKeyListener(new TouchesClavier(this));

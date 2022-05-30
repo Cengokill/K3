@@ -68,11 +68,6 @@ public class Main {
 	
 	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement, OptionsJeu options) {		
 		StartJeu panel = new StartJeu(window, chargement, texture, options);
-		if(options.modePleinEcran==1) {
-			panel.fullScreenOn();
-        }else {
-        	panel.fullScreenOff();
-        }
 		window.setContentPane(panel);
 		window.paintAll(window.getGraphics());
 		while(!panel.chargement.lancement) {

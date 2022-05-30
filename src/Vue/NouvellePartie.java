@@ -4,25 +4,18 @@
  */
 package Vue;
 
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
-import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
 public class NouvellePartie extends PanelGeneral {
     //PARAMETRES JEU
     private final JFrame window;
-    public Dimension tailleFenetre;
     public JTextField nomJ1, nomJ2, nomJ3;
     
     //AFFICHAGE FIXE
@@ -30,7 +23,7 @@ public class NouvellePartie extends PanelGeneral {
     public int posX_PVP, posX_PVM, posX_MVM, posX_IA1_FACILE, posX_IA1_MOYEN, posX_IA1_DIFFICILE, posX_IA2_FACILE, posX_IA2_MOYEN, posX_IA2_DIFFICILE, posX_IA3_FACILE, posX_IA3_MOYEN, posX_IA3_DIFFICILE, posX_COMMENCER;
     public int posY_label_nomJ1, posY_label_nomJ2, posY_label_nomJ3, posY_Label_diff_IA1, posY_Label_diff_IA2, posY_Label_diff_IA3;
     public int posY_PVP, posY_PVM, posY_MVM, posY_IA1_FACILE, posY_IA1_MOYEN, posY_IA1_DIFFICILE, posY_IA2_FACILE, posY_IA2_MOYEN, posY_IA2_DIFFICILE, posY_IA3_FACILE, posY_IA3_MOYEN, posY_IA3_DIFFICILE, posY_COMMENCER;
-    public int posX_back, posY_back, posX_background, posY_background, largeur_background, hauteur_background;
+    public int posX_back, posY_back;
     public boolean enfonce_pb_PVP = false;
     public boolean enfonce_pb_PVM = false;
     public boolean enfonce_pb_MVM = false;
@@ -46,10 +39,9 @@ public class NouvellePartie extends PanelGeneral {
     public boolean enfonce_pb_COMMENCER = false;
     public boolean debut = true;
     public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3, largeur_back, hauteur_back; 
-    public int frameHeight, frameWidth;
     int espacement_horizontal;
     int espacement_vertical;
-    int offset_horizontal, offset_vertical, offset_h2, offset_h3;
+    int offset_horizontal, offset_h2, offset_h3;
     public LoadTexture textures;
     public InitPartie partie;
     private OptionsJeu options;
@@ -63,7 +55,7 @@ public class NouvellePartie extends PanelGeneral {
         this.options=o;
         window.setTitle("Nouvelle Partie");
         addMouseListener(new NouvellePartieClics(this));
-		window.setVisible(true);
+        changementTaillefenetre();
     }
     
     public void changementTaillefenetre() {
@@ -154,7 +146,6 @@ public class NouvellePartie extends PanelGeneral {
     }
     
     public void afficheBoutonPVP(Graphics g) {
-    	System.out.println("pvp");
 		if(!enfonce_pb_PVP) {
 			g.drawImage(textures.boutonPVP, posX_PVP, posY_PVP, largeur_bouton1, hauteur_bouton1, null);
 		}else {
@@ -334,7 +325,7 @@ public class NouvellePartie extends PanelGeneral {
     	}
     }
     
-    public void afficheBoutonCOMMENCER(Graphics g) {   
+    public void afficheBoutonCOMMENCER(Graphics g) {
 		if(!enfonce_pb_COMMENCER) {
 	        g.drawImage(textures.boutonCommencer, posX_COMMENCER, posY_COMMENCER, largeur_bouton1, hauteur_bouton1, null);
 		}else {
