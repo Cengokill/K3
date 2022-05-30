@@ -25,7 +25,7 @@ public class IAActeur extends Acteur {
                 break;
             case 2:
                 pioche = new piocheMC();
-                jeu = new IAjeuExpert(5); // definir la pronfondeur de recherche pour les prochains coups
+                jeu = new IAjeuExpert(6); // definir la pronfondeur de recherche pour les prochains coups
                 break;
             default:
                 break;
