@@ -29,6 +29,12 @@ public class Heuristique {
         return prem;
     }
 
+    public void setinit(int val) {
+        this.prem = val;
+        this.deux = val;
+        this.trois = val;
+    }
+
     public String toString() {
         String res = "";
         res += "Premier Heuristique Difference : " + prem;

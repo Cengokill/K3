@@ -16,7 +16,9 @@ public class IAjeuExpert implements IAjeu {
 
     public Coup IACoup(Partie p, int numeroJoueur) {
         mm = new MinMax(numeroJoueur);
-        mm.meilleurConfigJ(p, horizon, true, 10001);
+        Heuristique valeurecourante = new Heuristique();
+        valeurecourante.setinit(10001);
+        mm.meilleurConfigJ(p, horizon, true, valeurecourante);
         return mm.getparfait();
     }
 

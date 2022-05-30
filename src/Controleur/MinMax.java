@@ -15,7 +15,7 @@ public class MinMax {
     HashMap<String, PiecePyramide> volspossibles;
     int heur1;
     int heur2;
-    boolean AFFICHE=false;
+    boolean AFFICHE = false;
 
     MinMax(int numerojoueur) { // on créer une IA associé à un joueur
         this.numerojoueur = numerojoueur;
@@ -52,7 +52,7 @@ public class MinMax {
         return heur;
     }
 
-    public Heuristique meilleurConfigJ(Partie p, int horizon, boolean flag, int valeurcourante) {
+    public Heuristique meilleurConfigJ(Partie p, int horizon, boolean flag, Heuristique valeurcourante) {
 
         if (flag) {
             volspossibles = new HashMap<>();
@@ -91,9 +91,7 @@ public class MinMax {
 
         // RECHERCHE DE LA VALEURE DE LA MEILLEURE CONFIG-------------
         Heuristique valeurconfig = new Heuristique();
-        valeurconfig.setprem(-10001);
-        valeurconfig.setdeux(-10001);
-        valeurconfig.settrois(-10001);
+        valeurconfig.setinit(-10001);
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig.getprem() != 10000) { // On itere sur les coups possibles
             Coup c = it.next();
@@ -104,14 +102,12 @@ public class MinMax {
                 Iterator<PiecePyramide> volables = piecesVolables.iterator();
                 // On simule tout les vols possibles
                 Heuristique confvol = new Heuristique();
-                confvol.setprem(10001);
-                confvol.setdeux(10001);
-                confvol.settrois(10001);
+                confvol.setinit(10001);
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
-                    Heuristique stock = meilleurConfigAD(p, horizon - 1, flag, valeurconfig.getprem()); // evalue la
-                                                                                                        // config
+                    Heuristique stock = meilleurConfigAD(p, horizon - 1, flag, valeurconfig); // evalue la
+                                                                                              // config
                     if (compareHeuristique(stock, confvol)) { // maj de la valeur de config actu
                         confvol = stock;
                     }
@@ -127,8 +123,8 @@ public class MinMax {
                 }
 
             } else {
-                Heuristique valeurfils = meilleurConfigAD(p, horizon - 1, flag, valeurconfig.getprem());// calcule la
-                                                                                                        // valeur de
+                Heuristique valeurfils = meilleurConfigAD(p, horizon - 1, flag, valeurconfig);// calcule la
+                                                                                              // valeur de
                 // la config
 
                 if (flag && compareHeuristique(valeurconfig, valeurfils)) { // si new valeur> old valeur && premier tour
@@ -143,21 +139,21 @@ public class MinMax {
 
             p.IAannulCoup(c, joueurcourant); // annule le coup
 
-            if (valeurconfig.getprem() > valeurcourante) {
+            if (compareHeuristique(valeurcourante, valeurconfig)) {
                 return valeurconfig;
             }
         }
-        if(AFFICHE) {
-	        if (flag) {
-	            System.out.println("utilisation de l affination de l heuristique 1: " + heur1 + " fois");
-	            System.out.println("utilisation de l affination de l heuristique 2: " + heur2 + " fois");
-	        }
+        if (AFFICHE) {
+            if (flag) {
+                System.out.println("utilisation de l affination de l heuristique 1: " + heur1 + " fois");
+                System.out.println("utilisation de l affination de l heuristique 2: " + heur2 + " fois");
+            }
         }
         return valeurconfig;
 
     }
 
-    public Heuristique meilleurConfigAD(Partie p, int horizon, boolean flag, int valeurcourante) {
+    public Heuristique meilleurConfigAD(Partie p, int horizon, boolean flag, Heuristique valeurcourante) {
         int joueurcourant = 100;
         if (numerojoueur == 0) {
             joueurcourant = 1;
@@ -176,9 +172,7 @@ public class MinMax {
         ArrayList<Coup> lc = p.coupsJouables(JoueurCourant);
 
         Heuristique valeurconfig = new Heuristique();
-        valeurconfig.setprem(10001);
-        valeurconfig.setdeux(10001);
-        valeurconfig.settrois(10001);
+        valeurconfig.setinit(10001);
 
         Iterator<Coup> it = lc.iterator();
         while (it.hasNext() && valeurconfig.getprem() != -10000) {
@@ -187,14 +181,12 @@ public class MinMax {
                 ArrayList<PiecePyramide> piecesVolables = JoueurCourant.getPiecesJouables();
                 Iterator<PiecePyramide> volables = piecesVolables.iterator();
                 Heuristique confvol = new Heuristique();
-                confvol.setprem(-10001);
-                confvol.setdeux(-10001);
-                confvol.settrois(-10001);
+                confvol.setinit(-10001);
                 while (volables.hasNext()) {
                     PiecePyramide next = volables.next();
                     p.IAvol(next, joueurcourant); // vole la piece
-                    Heuristique stock = meilleurConfigJ(p, horizon - 1, false, valeurconfig.getprem()); // evalue la
-                                                                                                        // config
+                    Heuristique stock = meilleurConfigJ(p, horizon - 1, false, valeurconfig); // evalue la
+                                                                                              // config
                     if (compareHeuristique(confvol, stock)) { // maj de la valeur de config actu
                         confvol = stock;
                         if (flag) { // A CHANGER EN STRUCTURE
@@ -210,13 +202,13 @@ public class MinMax {
                     valeurconfig = confvol;
                 }
             } else {
-                Heuristique valeurfils = meilleurConfigJ(p, horizon - 1, false, valeurconfig.getprem());
+                Heuristique valeurfils = meilleurConfigJ(p, horizon - 1, false, valeurconfig);
                 if (compareHeuristique(valeurfils, valeurconfig)) {
                     valeurconfig = valeurfils;
                 }
             }
             p.IAannulCoup(c, joueurcourant);
-            if (valeurconfig.getprem() < valeurcourante) {
+            if (compareHeuristique(valeurconfig, valeurcourante)) {
                 return valeurconfig;
             }
         }
@@ -238,11 +230,11 @@ public class MinMax {
 
     public PiecePyramide PieceAVoler(ArrayList<PiecePyramide> arr, Partie p) {
         if (volspossibles.containsKey(p.optiIA())) {
-            //System.out.println("CA MARCHE");
+            // System.out.println("CA MARCHE");
             return volspossibles.get(p.optiIA());
         } else {
             Random r = new Random();
-            //System.out.println("On vole en aleatoire");
+            // System.out.println("On vole en aleatoire");
             int alea = r.nextInt(arr.size());
             return arr.get(alea);
         }
