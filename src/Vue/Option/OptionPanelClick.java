@@ -1,5 +1,6 @@
 package Vue.Option;
 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
@@ -61,15 +62,16 @@ public class OptionPanelClick implements MouseListener {
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
 			if(clickBoutonRetourMenu(e)) {
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				panel.presseRetourMenu = true;
 			}else {
+				panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				panel.presseRetourMenu = false;
 			}
 			if(panel.oldPresseRetourMenu != panel.presseRetourMenu) {
 				panel.oldPresseRetourMenu = panel.presseRetourMenu;
 				panel.repaint();
 			}
-			
 		}
 	}
 	
