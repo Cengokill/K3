@@ -25,6 +25,7 @@ public class PanelGeneral extends JPanel{
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
+        window.addKeyListener(new TouchesClavier(this));
 	}
 	
     public void affichageBackGround(Graphics g) {//3840x2160
