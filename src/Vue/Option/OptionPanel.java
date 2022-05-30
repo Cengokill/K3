@@ -59,6 +59,7 @@ public class OptionPanel extends PanelGeneral {
 	public int LARGEUR_music;
 	public int HAUTEUR_music;
 	public JSlider slideMusic;
+	public boolean peutPaint=false;
 	
 	// CONSTRUCTEUR----------------------------------------------
 	public OptionPanel(JFrame w, LoadTexture t, Chargement chargement, OptionsJeu o){
@@ -93,6 +94,7 @@ public class OptionPanel extends PanelGeneral {
 		
 		this.add(slideSound);
 		this.add(slideMusic);
+		peutPaint=true;
 	}
 	
 	public void recupParametres() {
@@ -108,17 +110,17 @@ public class OptionPanel extends PanelGeneral {
 		setChangementTaillefenetre();	
 		double rapportRetour = 1.171597633136095;
 		//SLIDER
-		POSX_sound =frameWidth/2;
-		POSY_sound = frameHeight/2;
 		LARGEUR_sound = 350;
 		HAUTEUR_sound = 50;
+		POSX_sound =frameWidth/2-LARGEUR_sound/2;
+		POSY_sound = frameHeight/2;
 		taille_police = LARGEUR_sound/17;
 		slideSound.setFont(new Font("Dialog", Font.BOLD, taille_police));
 		slideSound.setBounds(POSX_sound, POSY_sound, LARGEUR_sound, HAUTEUR_sound);
 		
 		LARGEUR_sound_Label = 100;
 		HAUTEUR_sound_Label = 50;
-		POSX_sound_Label =POSX_sound-LARGEUR_sound_Label-10;
+		POSX_sound_Label =POSX_sound-LARGEUR_sound_Label/2;
 		POSY_sound_Label =POSY_sound;
 		
 		POSX_music = POSX_sound;
@@ -159,12 +161,13 @@ public class OptionPanel extends PanelGeneral {
 	
 	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
 	public void paint(Graphics g) {
-		changementTaillefenetre();
-		System.out.println(largeurRetourMenu);
-		affichageBackGround(g);
-		affichageSliderSound(g);
-		affichageSliderMusic(g);
-		affichageRetourMenu(g);
+		if(peutPaint) {
+			changementTaillefenetre();
+			affichageBackGround(g);
+			affichageSliderSound(g);
+			affichageSliderMusic(g);
+			affichageRetourMenu(g);
+		}
 	}
 	
 	

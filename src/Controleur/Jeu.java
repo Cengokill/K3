@@ -14,6 +14,7 @@ import Modeles.*;
 import Reseau.*;
 import Vue.*;
 import Vue.Phase1.*;
+import Vue.Phase2.Phase2;
 import Vue.TexturePack.LoadTexture;
 
 public class Jeu {

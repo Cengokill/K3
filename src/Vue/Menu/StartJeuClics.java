@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import Vue.Menu.Chargement.TypeFenetre;
 
-public class StartJeuClics implements MouseListener, KeyListener {
+public class StartJeuClics implements MouseListener {
 	
 	private StartJeu startJeu;
 	public JPanel jpanel;
@@ -25,6 +25,8 @@ public class StartJeuClics implements MouseListener, KeyListener {
 		this.jpanel=panel.jpanel;
 		DetectionSurvol survol = new DetectionSurvol();
 		this.startJeu.addMouseMotionListener(survol);
+		Touches t = new Touches();
+		this.startJeu.addKeyListener(t);
 	}
 	
 	public boolean clicMenu(MouseEvent e){
@@ -207,29 +209,32 @@ public class StartJeuClics implements MouseListener, KeyListener {
 			startJeu.repaint();
 		}
 	}
-	
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			startJeu.window.setUndecorated(false);
-			System.out.println("plein ecran desactive");
-        }
-		if (e.getKeyCode() == KeyEvent.VK_F1) {
-			startJeu.window.setUndecorated(true);
-			System.out.println("plein ecran active");
-        }
-		
-	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-	}
+	public class Touches implements KeyListener{
+		@Override
+		public void keyTyped(KeyEvent e) {
+			System.out.println("ici");
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				startJeu.window.setUndecorated(false);
+				System.out.println("plein ecran desactive");
+	        }
+			if (e.getKeyCode() == KeyEvent.VK_F1) {
+				startJeu.window.setUndecorated(true);
+				System.out.println("plein ecran active");
+	        }
+			
+		}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		@Override
+		public void keyPressed(KeyEvent e) {
+			System.out.println("ici");
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			System.out.println("ici");
+			
+		}
 	}
 
 }

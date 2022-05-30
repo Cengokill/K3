@@ -70,7 +70,7 @@ public class OptionPanelClick implements MouseListener {
 			}
 			if(panel.oldPresseRetourMenu != panel.presseRetourMenu) {
 				panel.oldPresseRetourMenu = panel.presseRetourMenu;
-				panel.repaint();
+				panel.paint(panel.getGraphics());
 			}
 		}
 	}

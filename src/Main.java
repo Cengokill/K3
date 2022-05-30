@@ -108,7 +108,6 @@ public class Main {
 		OptionPanel panel = new OptionPanel(window,texture, chargement, options);
 		window.setContentPane(panel);
 		window.paintAll(window.getGraphics());
-		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 		}
