@@ -12,10 +12,12 @@ import javax.swing.JScrollPane;
 
 import Controleur.Jeu;
 import Modeles.InitPartie;
+import Modeles.OptionsJeu;
+import Vue.PanelGeneral;
 import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
-public class ChargerPanel extends JPanel{
+public class ChargerPanel extends PanelGeneral{
 	
 	// PARAMETRE JEU
 	private JFrame window;
@@ -39,7 +41,8 @@ public class ChargerPanel extends JPanel{
 	//COMPOSYANT IMPORTER
 	public LoadTexture texture;
 	
-	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement, InitPartie i) {
+	public ChargerPanel(JFrame w, LoadTexture texture, Chargement chargement, OptionsJeu o, InitPartie i) {
+		super(w, texture, o);
 		this.setLayout(null);
 		this.initPartie=i;
 		this.chargement = chargement;
@@ -108,7 +111,7 @@ public class ChargerPanel extends JPanel{
 		if(tailleFenetre != window.getSize()) {
 			changementTaillefenetre();
 		}
-		affichageBackGround(g);
+		affichageBackGround(g,1);
 		affichageBoutonLoad(g);
 		affichageRetourMenu(g);
 		scrollPane.paint(g);

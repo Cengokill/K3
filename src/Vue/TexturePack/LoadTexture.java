@@ -78,7 +78,7 @@ public class LoadTexture{
 		Tuto4 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"finDePartie.png");
 		TutoPrecedent = Toolkit.getDefaultToolkit().createImage(CHEMIN+"retour.png");
 		TutoSuivant = Toolkit.getDefaultToolkit().createImage(CHEMIN+"suivant.png");
-		TutoMenu = Toolkit.getDefaultToolkit().createImage(CHEMIN+"Menu.png");
+		TutoMenu = Toolkit.getDefaultToolkit().createImage(CHEMIN+"menu_flou.png");
 		//IMAGES BOUTONS---------------------------------------------------------------
 		boutonPVP = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP.png");
 		boutonPVP_vert = Toolkit.getDefaultToolkit().createImage(CHEMIN+"PVP_vert.png");

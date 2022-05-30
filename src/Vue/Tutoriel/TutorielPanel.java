@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
+
+import Modeles.OptionsJeu;
 import Vue.PanelGeneral;
 import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
@@ -14,6 +16,7 @@ public class TutorielPanel extends PanelGeneral{
 	public Dimension tailleFenetre;
 	public LoadTexture texture;
 	public Chargement chargement;
+	private OptionsJeu options;
 	
 	// PARAMETRE AFFICHAGE
 	public int fenetreActuel = 1;
@@ -32,14 +35,15 @@ public class TutorielPanel extends PanelGeneral{
 	public int posXtuto, posYtuto, largeurTuto, hauteurTuto;
 	
 	// CONSTRUCTEUR----------------------------------------------
-	public TutorielPanel(JFrame w, LoadTexture texture, Chargement chargement){
-		super(w, texture);
+	public TutorielPanel(JFrame w, LoadTexture texture, Chargement chargement, OptionsJeu o){
+		super(w, texture, o);
+		this.options=o;
 		this.chargement = chargement;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
 		this.texture = texture;
 		tailleFenetre = window.getSize();
-		//changementTaillefenetre();
+		
 	}
 	public void changementTaillefenetre() {
 		setChangementTaillefenetre();
@@ -50,7 +54,6 @@ public class TutorielPanel extends PanelGeneral{
         this.largeurTuto=Math.min((int)(largeur_background/1.3), (int)(frameWidth/1.3));
         this.hauteurTuto=(int)(largeurTuto*rapport);
 		//Position tutoriel
-        System.out.println(frameWidth);
 		posXtuto = frameWidth/2-largeurTuto/2;
 		posYtuto = (int)(posY_background+hauteur_background/2)-hauteurTuto/2;
 		
@@ -62,14 +65,14 @@ public class TutorielPanel extends PanelGeneral{
 		largeurRetourMenu=(int)(largeurSuivant*1.1);
 		hauteurRetourMenu=(int)(largeurRetourMenu/rapportBackMenu);
 		//Position bouton retour
-		posXSuivant = posXtuto-largeurSuivant;
+		posXSuivant = (int)(posXtuto*1.5);
 		posYSuivant = posYtuto;
 		
-		posXPrecedent = posXSuivant;
+		posXPrecedent = (int)(posXtuto+largeurTuto-largeurPrecedent);
 		posYPrecedent = (int)(posYSuivant+hauteurSuivant*1.5);
 		//Position bouton accueil
 		posXRetourMenu=frameWidth/2-largeurRetourMenu/2;
-		posYRetourMenu=(int)(posYtuto+posYtuto*0.1);
+		posYRetourMenu=(int)(posYtuto+hauteurTuto*1.02);
 	}
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void tutoSuivant() {
@@ -126,7 +129,7 @@ public class TutorielPanel extends PanelGeneral{
 		if(tailleFenetre != window.getSize()) {
 			changementTaillefenetre();
 		}
-		affichageBackGround(g);
+		affichageBackGround(g,1);
 		affichageBoutonSuivant(g);
 		affichageBoutonPrecedent(g);
 		affichageRetourMenu(g);

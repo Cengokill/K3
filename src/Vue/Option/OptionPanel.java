@@ -63,7 +63,7 @@ public class OptionPanel extends PanelGeneral {
 	
 	// CONSTRUCTEUR----------------------------------------------
 	public OptionPanel(JFrame w, LoadTexture t, Chargement chargement, OptionsJeu o){
-		super(w, t);
+		super(w, t, o);
 		this.chargement = chargement;
 		this.options=o;
 		this.gestionSons=options.gestionSons;
@@ -108,7 +108,7 @@ public class OptionPanel extends PanelGeneral {
 	
 	public void changementTaillefenetre() {
 		setChangementTaillefenetre();	
-		double rapportRetour = 1.171597633136095;
+		double rapportBackMenu = 1.185567010309278;
 		//SLIDER
 		LARGEUR_sound = 350;
 		HAUTEUR_sound = 50;
@@ -137,7 +137,7 @@ public class OptionPanel extends PanelGeneral {
 		
 		//Position bouton retour
 		largeurRetourMenu = Math.min(largeur_background/14, frameWidth/14);
-		hauteurRetourMenu = (int)(largeurRetourMenu/rapportRetour);
+		hauteurRetourMenu = (int)(largeurRetourMenu/rapportBackMenu);
 		posXRetourMenu = frameWidth/2-largeurRetourMenu/2;
 		posYRetourMenu = POSY_music_Label+(hauteurRetourMenu);
 		
@@ -153,9 +153,9 @@ public class OptionPanel extends PanelGeneral {
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageRetourMenu(Graphics g) {
 		if(!presseRetourMenu) {
-			g.drawImage(texture.menuRetour, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+			g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
 		}else {
-			g.drawImage(texture.menuRetour, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
+			g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
 		}			
 	}
 	
@@ -163,7 +163,7 @@ public class OptionPanel extends PanelGeneral {
 	public void paint(Graphics g) {
 		if(peutPaint) {
 			changementTaillefenetre();
-			affichageBackGround(g);
+			affichageBackGround(g,1);
 			affichageSliderSound(g);
 			affichageSliderMusic(g);
 			affichageRetourMenu(g);
