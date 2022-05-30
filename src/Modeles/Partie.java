@@ -557,8 +557,10 @@ public class Partie {
 		String res = "";
 		res += "\n";
 		res += joueur1().getCamp().toString();
+		res += joueur1().getPiecesVolees().toString();
 		res += baseMontagne.toString();
 		res += joueur2().getCamp().toString();
+		res += joueur2().getPiecesVolees().toString();
 		return res;
 	}
 
