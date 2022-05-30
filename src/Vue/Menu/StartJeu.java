@@ -14,16 +14,12 @@ import javax.swing.Timer;
 import Modeles.Aleatoire;
 import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
+import Vue.PanelGeneral;
 import Vue.TexturePack.LoadTexture;
 
-public class StartJeu extends JPanel implements ActionListener{
+public class StartJeu extends PanelGeneral implements ActionListener{
 
-	public JFrame window;
 	public JpanelOptions jpanel;
-	public Dimension tailleEcran, tailleFenetre;
-	public LoadTexture texture;
-    public int screenHeight, screenWidth, frameHeight, frameWidth;
-    public int posX_background, posY_background, largeur_background, hauteur_background, offset_vertical;
     public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posY_options, posY_quitter, posY_charger, posY_tuto;
     public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile;
@@ -42,23 +38,15 @@ public class StartJeu extends JPanel implements ActionListener{
     Timer animationTimer;
     Aleatoire rand = new Aleatoire();
 	
-	public StartJeu(JFrame w, Chargement ch, LoadTexture texture, OptionsJeu o) {
-		this.window = w;
+	public StartJeu(JFrame w, Chargement ch, LoadTexture t, OptionsJeu o) {
+		super(w, t);
 		this.chargement=ch;
-		this.texture = texture;
 		this.options=o;
 		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, texture.CHEMIN);
 		this.setLayout(null);
 		this.jpanel = new JpanelOptions();
 		this.add(jpanel);
 		window.setTitle("Partie en cours");
-		
-		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-		this.screenWidth=tailleEcran.width;
-        this.screenHeight=tailleEcran.height;
-		this.tailleFenetre=window.getSize();
-        this.frameWidth=tailleFenetre.width;
-        this.frameHeight=tailleFenetre.width;
         addMouseListener(new StartJeuClics(this));
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    window.setBackground(Color.BLACK);
@@ -71,33 +59,12 @@ public class StartJeu extends JPanel implements ActionListener{
 		animY=1;
 	}
 	
-    public void affichageBackGround(Graphics g) {//3840x2160
-    	double rapport = 0.5625;// rapport de 2160/3840
-		if(frameHeight/frameWidth>rapport) {
-			largeur_background=frameWidth;
-			hauteur_background=(int)(largeur_background*rapport);
-			posX_background=0;
-			posY_background=(frameHeight-hauteur_background)/2;
-		}
-		else { //if(frameHeight/frameWidth<=rapport) {
-			hauteur_background=frameHeight;
-			largeur_background=(int)(hauteur_background/rapport);
-			posX_background=(frameWidth-largeur_background)/2;
-			posY_background=0;
-		}
-	    g.drawImage(texture.background, posX_background, posY_background, largeur_background, hauteur_background, null);
-    }
-	
 	public void changementTaillefenetre() {
-		this.tailleFenetre=window.getSize();
-		this.frameWidth=window.getWidth();
-        this.frameHeight=window.getHeight();
+		setChangementTaillefenetre();
         double rapport=0.1924821775761504;//rapport de 297/1543
         this.largeur_bouton=Math.min(largeur_background/5, frameWidth/5);
         this.hauteur_bouton=(int)(largeur_bouton*rapport);
         int espacement = (int)(hauteur_bouton/4);
-        
-        offset_vertical = hauteur_background/3;
         
         this.posX_bouton=frameWidth/2-largeur_bouton/2;
         this.posY_nouvellePartie=posY_background+offset_vertical;

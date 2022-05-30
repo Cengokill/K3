@@ -12,6 +12,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import Controleur.*;
+import Modeles.GestionSons;
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
@@ -33,9 +34,8 @@ public class Main {
 		OptionsJeu options = new OptionsJeu(CHEMIN);
 		Chargement chargement = new Chargement();
 		InitPartie partie = new InitPartie();
-		SoundPlayer simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique, CHEMIN);
-		simpleSoundPlayerMusic.setNumSon(43);
-		simpleSoundPlayerMusic.loopSon();
+		options.gestionSons.changeMusique(43);
+		options.gestionSons.playMusique();
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
 		JFrame window = new JFrame("Jeu K3");
@@ -59,7 +59,7 @@ public class Main {
 				else if(prochaineFenetre==TypeFenetre.CHARGERPARTIE){
 					lancementChargerPartie(window, texture, partie, chargement);
 				}else if(prochaineFenetre==TypeFenetre.OPTION) {
-					lancementOption(window, texture, chargement);
+					lancementOption(window, texture, chargement, options);
 				}else if(prochaineFenetre==TypeFenetre.TUTO) {
 					lancementTuto(window, texture, chargement);
 				}
@@ -68,7 +68,7 @@ public class Main {
 		window.setTitle("Partie en cours");
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
-        simpleSoundPlayerMusic.stopSound();
+        options.gestionSons.stopMusique();
 		new Jeu(window, partie, texture, options);
 	}
 	
@@ -104,10 +104,10 @@ public class Main {
 		}
 	}
 	
-	public static void lancementOption(JFrame window, LoadTexture texture, Chargement chargement) {	
-		OptionPanel panel = new OptionPanel(window,texture, chargement);
+	public static void lancementOption(JFrame window, LoadTexture texture, Chargement chargement, OptionsJeu options) {	
+		OptionPanel panel = new OptionPanel(window,texture, chargement, options);
 		window.setContentPane(panel);
-		//panel.addMouseListener(new ChargementClick(panel));
+		window.paintAll(window.getGraphics());
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);

@@ -16,14 +16,29 @@ public class OptionsJeu {
 	public int modeDaltonien;
 	public int modePleinEcran;
 	public int volumeEffetsSonores=6, volumeMusique=5;
+	public GestionSons gestionSons;
 	
 	public OptionsJeu(String chemin) {
 		this.chemin=chemin;
 		lireOptions();
+		this.gestionSons = new GestionSons(new SoundPlayer(volumeMusique, chemin), new SoundPlayer(volumeEffetsSonores, chemin));
+		//setVolumeSons(volumeEffetsSonores);
+		//setVolumeMusique(volumeMusique);
+	}
+	
+	public void setVolumeMusique(int v) {
+		this.volumeMusique=v;
+		this.gestionSons.setVolumeMusique(v);
+	}
+	
+	public void setVolumeSons(int v) {
+		this.volumeEffetsSonores=v;
+		this.gestionSons.setVolumeSon(v);
 	}
 	
 	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
 		if(!testFichierExistant(this.chemin+nom_fichier)) {
+			System.out.println("ici");
 			ecrireInitOptions();
 		}
 		ArrayList<String> tab = new ArrayList<String>();
@@ -125,7 +140,7 @@ public class OptionsJeu {
 		}
 	}
 	
-	public void ecrireOptions(String photoProfil, int modeDaltonien, int volumeEffetsSonores, int volumeMusique, int pleinEcran) {
+	public void ecrireOptions() {
 		try {
 			File f = new File(this.chemin + "/Options.txt");
 			try {
@@ -141,7 +156,7 @@ public class OptionsJeu {
 			bw.newLine();
 			bw.write(String.valueOf(volumeMusique));
 			bw.newLine();
-			bw.write(String.valueOf(pleinEcran));
+			bw.write(String.valueOf(modePleinEcran));
 			bw.close();
 			writer.close();
 			System.out.println("Le fichier Options.txt a ete modifie.");

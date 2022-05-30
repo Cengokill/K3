@@ -23,7 +23,6 @@ public class Jeu {
 	private int num_tour, valeur_paire, typeActeurs, difficulte1, difficulte2, vitesseIA;
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien, modePleinEcran;
 	private final int TAILLE_CAMP_JOUEUR=21;
-	private SoundPlayer simpleSoundPlayerMusic, simpleSoundPlayerSon;
 	public JFrame window;
 	public Phase1Panel panel;
 	private int NB_LIGNES_SAUVEGARDE=43;
@@ -34,9 +33,6 @@ public class Jeu {
 		this.textures=t;
 		this.options=o;
 		this.volumeEffetsSonores=options.volumeEffetsSonores;
-		this.volumeMusique=options.volumeMusique;
-		this.modeDaltonien=options.modeDaltonien;
-		this.modePleinEcran=options.modePleinEcran;
 		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		this.cheminStats=chemin+"Statistiques/";
@@ -47,11 +43,6 @@ public class Jeu {
 		new File(this.cheminStats).mkdirs();
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
-		//initialiser le son
-		this.simpleSoundPlayerMusic = new SoundPlayer(options.volumeMusique,textures.CHEMIN);
-		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, textures.CHEMIN);
-		this.simpleSoundPlayerMusic.setNumSon(43);
-		this.simpleSoundPlayerMusic.loopSon();
 		//initialiser les parties graphiques
 		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,500,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		//lancer une partie
@@ -74,13 +65,6 @@ public class Jeu {
 		File f = new File(chemin);
 		String[] sauvegardesListe = f.list();
 		return sauvegardesListe;
-	}
-	
-	public void modifVolume() {
-		Slider slider = new Slider();
-		this.simpleSoundPlayerMusic = new SoundPlayer(this.volumeMusique, textures.CHEMIN);
-		this.simpleSoundPlayerSon = new SoundPlayer(this.volumeEffetsSonores, textures.CHEMIN);
-		options.ecrireOptions(this.photoProfil, this.modeDaltonien, this.volumeEffetsSonores, this.volumeMusique, this.modePleinEcran);
 	}
 	
 	public void lancerPhase1() {
@@ -190,8 +174,7 @@ public class Jeu {
 							acteurCourant.removePiecePiochee(p.getPiece());
 							this.panel.repaint();
 							if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-								this.simpleSoundPlayerSon.setNumSon(1);//son de lancement de partie
-								this.simpleSoundPlayerSon.jouerSon();
+								this.options.gestionSons.playSon(1);//son de lancement de partie
 							}
 						}
 					}
@@ -233,8 +216,7 @@ public class Jeu {
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			panel.repaint();
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-				this.simpleSoundPlayerSon.setNumSon(35);
-				this.simpleSoundPlayerSon.jouerSon();
+				this.options.gestionSons.playSon(35);
 			}
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 			timer(temps);
@@ -306,27 +288,23 @@ public class Jeu {
 		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-				this.simpleSoundPlayerSon.setNumSon(4);
-				this.simpleSoundPlayerSon.jouerSon();
+				this.options.gestionSons.playSon(4);
 			}
 			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
 				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-					this.simpleSoundPlayerSon.setNumSon(7);
-					this.simpleSoundPlayerSon.jouerSon();
+					this.options.gestionSons.playSon(7);
 				}
 			}
 			timer(temps);
 			panel.repaint();
 			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
 				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-					this.simpleSoundPlayerSon.setNumSon(23);
-					this.simpleSoundPlayerSon.jouerSon();
+					this.options.gestionSons.playSon(23);
 				}
 				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
 				if (vol != null) {//si le joueur vole une piece
 					if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-						this.simpleSoundPlayerSon.setNumSon(26);
-						this.simpleSoundPlayerSon.jouerSon();
+						this.options.gestionSons.playSon(26);
 						timer(500);
 					}
 					this.partieEnCours.addCoupHist(vol);
@@ -337,8 +315,7 @@ public class Jeu {
 		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-				this.simpleSoundPlayerSon.setNumSon(10);
-				this.simpleSoundPlayerSon.jouerSon();
+				this.options.gestionSons.playSon(10);
 			}
 			timer(temps);
 			panel.repaint();
@@ -353,8 +330,7 @@ public class Jeu {
 	}
 	
 	public void partieVictoire() {
-		this.simpleSoundPlayerSon.setNumSon(32);
-		this.simpleSoundPlayerSon.jouerSon();
+		this.options.gestionSons.playSon(32);
 		afficherBaseMontagne();
 		System.out.println(this.partieEnCours.joueur1().getCamp().toString());
 		System.out.println(this.partieEnCours.joueur2().getCamp().toString());

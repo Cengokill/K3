@@ -1,14 +1,6 @@
 package Modeles;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.security.CodeSource;
-import java.security.ProtectionDomain;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -18,7 +10,7 @@ public class SoundPlayer {
 	private Clip clip;
 	private String[] cheminsSons = new String[50];//stocker les chemins des sons
 	private String chemin;
-	private int numSon, volume;
+	private int numSon=0, volume=0;
 	private FloatControl volumeLevel;
 	
 	public SoundPlayer(int volume, String c) {
@@ -113,6 +105,10 @@ public class SoundPlayer {
 	public void setVolume(int v) {
 		float volumeConverti=Volume10ToRange(v);
 		this.volumeLevel.setValue(volumeConverti);
+	}
+	
+	public void setVolume2(int v) {
+		this.volume=v;
 	}
 	
 	public void jouerSon() {

@@ -32,6 +32,7 @@ public class OptionPanelClick implements MouseListener {
 			System.out.println("retour menu principal");
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
+			panel.ecrireOptions();
 		}
 	}
 
