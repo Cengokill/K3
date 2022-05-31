@@ -35,7 +35,7 @@ public class LoadTexture {
 			boutonDifficulteOrdi_gris, boutonFacile_gris, boutonMoyen_gris, boutonDifficile_gris, menuSuivant,
 			menuRetour,
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
-			volumeMusique, volumeSons, active, desactive;
+			volumeMusique, volumeSons, active, desactive, valider, valider2;
 	// IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -133,6 +133,8 @@ public class LoadTexture {
 		boutonPasserTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN + "passer_son_tour_gris.png");
 		boutonCoupPrecedent = Toolkit.getDefaultToolkit().createImage(CHEMIN + "coup_precedent_flou.png");
 		boutonCoupPrecedent_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN + "coup_precedent_gris.png");
+		valider = Toolkit.getDefaultToolkit().createImage(CHEMIN + "valider.png");
+		valider2 = Toolkit.getDefaultToolkit().createImage(CHEMIN + "valider2.png");
 		// CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN + "hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN + "hand-depose.png");
