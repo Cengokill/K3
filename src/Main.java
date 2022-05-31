@@ -87,13 +87,12 @@ public class Main {
 	
 	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement, OptionsJeu options) {
 		partie.paramCharges = false;	
-		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options);
+		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options, chargement);
 		window.setContentPane(newPartie);
 		window.paintAll(window.getGraphics());
-		while(!partie.paramCharges) {
+		while(!chargement.lancement) {
 			Jeu.timer(200);
 		}
-		chargement.setProchaineFenetre(TypeFenetre.FIN);
 	}
 	
 	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, OptionsJeu options, Chargement chargement) {	
