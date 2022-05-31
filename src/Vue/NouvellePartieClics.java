@@ -17,8 +17,7 @@ public class NouvellePartieClics implements MouseListener {
 		super();
 		this.nouvellePartie = panel;
 		DetectionSurvol survol = new DetectionSurvol();
-		this.nouvellePartie.addMouseMotionListener(survol);
-		
+		this.nouvellePartie.addMouseMotionListener(survol);		
 	}
 
 	public boolean estSurBouton(MouseEvent e, int startx, int starty, int largeur_bouton, int hauteur_bouton){
@@ -317,27 +316,23 @@ public class NouvellePartieClics implements MouseListener {
 			if(clicPVP(e)||clicPVM(e)||clicMVM(e)) {
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
-			//Choix des difficulte des IA
-			else if (nouvellePartie.enfonce_pb_MVM){
-				//Clic difficulte IA2
-				if (clicBpIA2_F(e)||clicBpIA2_M(e)||clicBpIA2_D(e)||clicBpIA3_F(e)||clicBpIA3_M(e)||clicBpIA3_D(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
-				}
-			}
-			else if (nouvellePartie.enfonce_pb_PVM){
-				//Clic difficulte IA1
-				if (clicBpIA1_F(e)||clicBpIA1_M(e)||clicBpIA1_D(e)){
-					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
-				}
-			}
 			else if (clicBp_COMMENCER(e)){
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			else if(clicRetour(e)) {
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
+			//Choix des difficulte des IA
+			//Clic difficulte IA2
+			else if ((clicBpIA2_F(e)||clicBpIA2_M(e)||clicBpIA2_D(e)||clicBpIA3_F(e)||clicBpIA3_M(e)||clicBpIA3_D(e))&&nouvellePartie.enfonce_pb_MVM){
+				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
+			}
+			//Clic difficulte IA1
+			else if ((clicBpIA1_F(e)||clicBpIA1_M(e)||clicBpIA1_D(e))&&nouvellePartie.enfonce_pb_PVM){
+					nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));	
+			}
 			else {
-				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));	
+				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			nouvellePartie.repaint();
 		}
