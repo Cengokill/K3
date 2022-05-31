@@ -41,18 +41,7 @@ public class Jeu {
 		new File(this.cheminStats).mkdirs();
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
-		//lancer une partie
-		/*
-		if(partieInit.nomFichierCharge!=null) {
-			if(!chargerPartie(cheminSauvegardes+partieInit.nomFichierCharge)) {
-				System.err.println("Erreur de lecture de la sauvegarde de la partie.");
-				
-				setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
-			}
-		}else {
-			setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
-		}
-		*/
+		//lancer IHM
 		LoadTexture texture = new LoadTexture(options.chemin);
 		this.ihm = new IHM(fenetrePrincipale, options, this, texture, chargement, partieInit);
 		this.ihm.start();
@@ -589,87 +578,86 @@ public class Jeu {
 			p.joueurCourant = jCourant;
 			
 			boolean b1 = p.getBaseMontagne().stringToPyramide(lectureBase);
-			System.err.println(p.getBaseMontagne().toString());
+			//System.err.println(p.getBaseMontagne().toString());
 			
 			i++;
 			
 			boolean b2 = j1.getCamp().stringToPyramide(lectureBaseJoueur1);
-			System.err.println(j1.getCamp().toString());
+			//System.err.println(j1.getCamp().toString());
 			
 			i++;
 			
 			j1.stringToPiecesPiochees(lecturePiocheJoueur1);
-			System.err.println("J1PIO"+j1.piecesPiocheesToString());
+			//System.err.println("J1PIO"+j1.piecesPiocheesToString());
 			
 			i++;
 			
 			j1.stringToPiecesVolees(piecesVoleesJ1);
-			System.err.println("J1VOL"+j1.toStringPiecesVolees().length());
+			//System.err.println("J1VOL"+j1.toStringPiecesVolees().length());
 			
 			i++;
 			
 			j1.setBlancsJoues(nbBlancsJouesJ1);
-			System.err.println("J1BLC"+j1.getBlancsJoues());
-			System.out.println(i+"B");
+			//System.err.println("J1BLC"+j1.getBlancsJoues());
 			i++;
 			
 			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ1);
-			System.err.println("J1BAD"+j1.getMauvaisCoupsJoues());
+			//System.err.println("J1BAD"+j1.getMauvaisCoupsJoues());
 			
 			i++;
 			
 			j1.setVols(nbVolsJ1);
-			System.err.println("J1VOL"+j1.getNbVols());
+			//System.err.println("J1VOL"+j1.getNbVols());
 			
 			i++;
 			
 			boolean b3 = j2.getCamp().stringToPyramide(lectureBaseJoueur2);
-			System.err.println(j2.getCamp().toString());
+			//System.err.println(j2.getCamp().toString());
 			
 			i++;
 			
 			j2.stringToPiecesPiochees(lecturePiocheJoueur2);
-			System.err.println("J2PIO"+j2.piecesPiocheesToString());
+			//System.err.println("J2PIO"+j2.piecesPiocheesToString());
 			
 			i++;
 			
 			j2.stringToPiecesVolees(piecesVoleesJ2);
-			System.err.println("J2VOL"+j2.toStringPiecesVolees().length());
+			//System.err.println("J2VOL"+j2.toStringPiecesVolees().length());
 			
 			i++;
 			
 			j2.setBlancsJoues(nbBlancsJouesJ2);
-			System.err.println("J2BLC"+j2.getBlancsJoues());
+			////System.err.println("J2BLC"+j2.getBlancsJoues());
 			
 			i++;
 			
 			j2.setMauvaisCoupsJoues(nbMauvaisCoupsJ2);
-			System.err.println("J2BAD"+j2.getMauvaisCoupsJoues());
+			////System.err.println("J2BAD"+j2.getMauvaisCoupsJoues());
 			
 			i++;
 			
 			j2.setVols(nbVolsJ2);
-			System.err.println("J2VOL"+j2.getNbVols());
+			////System.err.println("J2VOL"+j2.getNbVols());
 			
 			i++;
 			
 			if(b1&&b2&&b3) {
 				this.partieEnCours=p;
-				System.err.println("J1 : " + j1.getTaillePiecesPiochees());
-				System.err.println("J1m : " + this.partieEnCours.joueur1().getTaillePiecesPiochees());
-				System.err.println("J2 : " + j2.getTaillePiecesPiochees());
-				System.err.println("J2m : " + this.partieEnCours.joueur2().getTaillePiecesPiochees());
-				System.err.println("JC : " + p.joueurCourant);
-				System.err.println("JCm : " + this.partieEnCours.joueurCourant);
+				//System.err.println("J1 : " + j1.getTaillePiecesPiochees());
+				//System.err.println("J1m : " + this.partieEnCours.joueur1().getTaillePiecesPiochees());
+				//System.err.println("J2 : " + j2.getTaillePiecesPiochees());
+				//System.err.println("J2m : " + this.partieEnCours.joueur2().getTaillePiecesPiochees());
+				//System.err.println("JC : " + p.joueurCourant);
+				//System.err.println("JCm : " + this.partieEnCours.joueurCourant);
 				if(j1.getTaillePiecesPiochees()>0 || j2.getTaillePiecesPiochees()>0) {
-					System.err.println("ATTETION");
+					//System.err.println("ATTETION");
 					if(j1.getTaillePiecesPiochees()>0) {
-						System.err.println("J1");
+						//System.err.println("J1");
 					}else {
 						j1.valideCamp = true;
 					}
 					if(j2.getTaillePiecesPiochees()>0){
-						System.err.println("J2");
+						//System.err.println("J2");
 					}
 					else {
 						j2.valideCamp = true;
