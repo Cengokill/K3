@@ -112,7 +112,7 @@ public class OptionPanel extends PanelGeneral {
 		//SLIDER
 		LARGEUR_sound = Math.min(largeur_background/6, frameWidth/6);
 		HAUTEUR_sound = (int)(LARGEUR_sound*0.2);
-		POSX_sound =largeur_background/2;
+		POSX_sound = posX_background+largeur_background/2;
 		POSY_sound = posY_background+hauteur_background/3;
 		taille_police = LARGEUR_sound/17;
 		Font text1= new Font("Dialog", Font.BOLD, taille_police);
