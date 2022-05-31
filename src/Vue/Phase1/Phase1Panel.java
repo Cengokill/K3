@@ -202,7 +202,6 @@ public class Phase1Panel extends PanelGeneral{
 		g.setFont(new Font("Courier New", Font.BOLD, taille_police_nom_joueur));
 		g.drawString(nom, posX_nom_joueur, posY_nom_joueur);
 	}
-	
 
 	public void afficherTimer(Graphics g) {
 		double temps;

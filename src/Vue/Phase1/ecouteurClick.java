@@ -162,23 +162,53 @@ public class ecouteurClick implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		if(panel.partieEnCoursSet == true) {
 			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-				Acteur a = panel.initAffichageJoueurs();
-				if(clicMelange(e)) {
-					panel.emettreSonClic();
-					if(!panel.enfonce_melange) {
-						panel.enfonce_melange=true;
+				if(e.getButton() == MouseEvent.BUTTON1) { 
+					if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
+						int index = clickPioche(e);
+						if(index>=0) {
+							Acteur a = panel.initAffichageJoueurs();
+							panel.setPieceSelectionnee(a.getPiecesPiochees().get(index));
+						}
+					}else {
+						Position p = clickpyramide(e);
+						if(p != null) {
+							panel.empiler(p);//on empile la piece a l'endroit clique
+						}
 					}
-					a.melangeAleatCamp();
-					panel.repaint();
-				}
-				if(clicValider(e) && a.getCamp().estPleine()) {
-					panel.emettreSonClic();
-					if(!panel.enfonce_valider) {
-						panel.enfonce_valider=true;
+				}else { // deselectionner avec clic droit
+					if(panel.getPieceSelectionnee() == null) {
+						Position p = clickpyramide(e);
+						if(p != null) {
+							Acteur a = panel.initAffichageJoueurs();
+							Piece pie = a.getCamp().retirePhase1(p);
+							if(pie!=null) {
+								a.addPiecePiochee(pie);
+							}
+						}
+					}else {
+						panel.setPieceSelectionnee(null);
 					}
-					a.valideCamp=true;
-					panel.repaint();
 				}
+			}
+		}
+
+		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+			Acteur a = panel.initAffichageJoueurs();
+			if(clicMelange(e)) {
+				panel.emettreSonClic();
+				if(!panel.enfonce_melange) {
+					panel.enfonce_melange=true;
+				}
+				a.melangeAleatCamp();
+				panel.repaint();
+			}
+			if(clicValider(e) && a.getCamp().estPleine()) {
+				panel.emettreSonClic();
+				if(!panel.enfonce_valider) {
+					panel.enfonce_valider=true;
+				}
+				a.valideCamp=true;
+				panel.repaint();
 			}
 		}
 	}
