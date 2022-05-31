@@ -25,13 +25,13 @@ public class IHM {
 	private Chargement chargement;
 	private InitPartie partie;
 	private Jeu jeu;
-	private StartJeu startJeuPanel;
-	private NouvellePartie newPartiePanel;
-	private ChargerPanel chargerPanel;
-	private OptionPanel optionsPanel;
-	private TutorielPanel tutoPanel;
-	private Phase1Panel phase1Panel;
-	private Phase2 phase2Panel;
+	public StartJeu startJeuPanel;
+	public NouvellePartie newPartiePanel;
+	public ChargerPanel chargerPanel;
+	public OptionPanel optionsPanel;
+	public TutorielPanel tutoPanel;
+	public Phase1Panel phase1Panel;
+	public PanelPhase2 phase2Panel;
 	
 	public IHM(JFrame w, OptionsJeu options, Jeu jeu, LoadTexture t, Chargement c, InitPartie p) {
 		//RECUPERATION
@@ -53,13 +53,25 @@ public class IHM {
 		this.chargerPanel = new ChargerPanel(window, texture, chargement, options, partie);
 		this.optionsPanel = new OptionPanel(window,texture, chargement, options);
 		this.tutoPanel = new TutorielPanel(window,texture, chargement, options);
-		//this.phase1Panel = new Phase1Panel(window, this.jeu.partieEnCours, this.texture);
-		//this.phase2Panel = new Phase2();
+		this.phase1Panel = new Phase1Panel(window, this.jeu.partieEnCours, this.texture);
+		this.phase2Panel = new PanelPhase2(texture);
+		phase2Panel.partie_actuel = this.jeu;
+		
+		options.gestionSons.changeMusique(43);
+		options.gestionSons.playMusique();
+		
+		if(options.modePleinEcran==0) {
+			System.out.println("MODE PLEIN ECRAN DESACTIVE");
+		}else {
+			System.out.println("MODE PLEIN ECRAN ACTIVE");
+		}
+		
+	}
+	public void start(){
 		//SWITCH DE FENETRE
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
 		chargement.lancement = true;
 		while(chargement.getProchaineFenetre() != TypeFenetre.FIN) {
-			System.out.println(chargement.getProchaineFenetre().toString());
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
 				chargement.lancement = false;
@@ -86,11 +98,17 @@ public class IHM {
 			           
 			       case PHASE1:
 			    	   lancementPhase1();
-			    	   jeu.initNewPhase1(partie);
+			    	   if(partie.NewPhase1) {
+			    		   jeu.initNewPhase1(partie);
+			    	   }
 			           break;
 			           
 			       case PHASE2:
+			    	   if(!partie.NewPhase2) {
+			    		   //a ajouter
+			    	   }
 			    	   lancementPhase2();
+			    	   jeu.lancementPhase2();
 			           break;
 			           
 			       default:
@@ -151,28 +169,31 @@ public class IHM {
 		}
 	}
 	
-	public void lancementPhase1() {	
-		this.phase1Panel = new Phase1Panel(window, this.jeu.partieEnCours, this.texture);
+	public void lancementPhase1() {
 		window.setContentPane(phase1Panel);
 		window.paintAll(window.getGraphics());
+		/*
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 			//phase1Panel.repaint();
 		}
+		*/
 	}
 	
-	public void lancementPhase2() {	
-		this.phase2Panel = new Phase2();
+	public void lancementPhase2() {
 		window.setContentPane(phase2Panel);
 		window.paintAll(window.getGraphics());
+		/*
 		while(!chargement.lancement) {
 			Jeu.timer(100);
 			phase2Panel.repaint();
 		}
+		*/
 	}
 	
 	public void changementFenetre(TypeFenetre prochaineFenetre) {	
 		chargement.setProchaineFenetre(prochaineFenetre);
 		chargement.lancement = true;
 	}
+	
 }
