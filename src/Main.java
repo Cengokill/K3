@@ -14,14 +14,6 @@ import Controleur.*;
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
 import Vue.Menu.Chargement;
-import Vue.Menu.Chargement.TypeFenetre;
-import Vue.Menu.StartJeu;
-import Vue.Option.*;
-import Vue.TexturePack.LoadTexture;
-import Vue.IHM;
-import Vue.NouvellePartie;
-import Vue.Charger.*;
-import Vue.Tutoriel.*;
 
 public class Main {
 
