@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
+import Vue.Menu.Chargement.TypeFenetre;
+
 public class NouvellePartieClics implements MouseListener {
 	public String nomJ1, nomJ2, nomJ3;
 	public int lvl_IA1, lvl_IA2, lvl_IA3;
@@ -118,6 +120,14 @@ public class NouvellePartieClics implements MouseListener {
         int largeurBouton=nouvellePartie.largeur_bouton3;
         return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
     }
+
+	public boolean clic_RETOURMENU(MouseEvent e){
+		int startx = nouvellePartie.posX_back;
+        int starty = nouvellePartie.posY_back;;
+        int hauteurBouton=nouvellePartie.hauteur_back;
+        int largeurBouton=nouvellePartie.largeur_back;
+        return estSurBouton(e, startx, starty, largeurBouton, hauteurBouton);
+	}
       
     public boolean clicBp_COMMENCER(MouseEvent e){
         int startx = nouvellePartie.posX_COMMENCER;
@@ -236,36 +246,45 @@ public class NouvellePartieClics implements MouseListener {
 			}
 		}
 
+		if (clic_RETOURMENU(e)){
+			nouvellePartie.jouerSonClic();
+			nouvellePartie.chargement.lancement = true;
+			nouvellePartie.chargement.setProchaineFenetre(nouvellePartie.chargement.getProchainePrecedent());
+		}
+
 		if (clicBp_COMMENCER(e)){
 			/*
          	* modeDeJeu 0 : joueur contre joueur
          	* modeDeJeu 1 : IA contre joueur
          	* modeDeJeu 2 : IA contre IA
          	*/
-			 if (nouvellePartie.enfonce_pb_MVM){
-				 nouvellePartie.jouerSonLancement();
-				 nouvellePartie.partie.modeDeJeu=2;
-				 nouvellePartie.partie.nomJoueur1="Ordinateur 1";
-				 nouvellePartie.partie.nomJoueur2="Ordinateur 2";
-				 nouvellePartie.partie.difficulteIA1=lvl_IA2;
-				 nouvellePartie.partie.difficulteIA2=lvl_IA3;
-				 nouvellePartie.partie.paramCharges=true;
-			 }
-			 else if (nouvellePartie.enfonce_pb_PVM){
-				 nouvellePartie.jouerSonLancement();
-				 nouvellePartie.partie.modeDeJeu=1;
-				 nouvellePartie.partie.nomJoueur1=" temporaire";
-				 nouvellePartie.partie.nomJoueur2=" Ordinateur ";
-				 nouvellePartie.partie.difficulteIA2=lvl_IA1;
-				 nouvellePartie.partie.paramCharges=true;
-			 }
-			 else if (nouvellePartie.enfonce_pb_PVP){
-				 nouvellePartie.jouerSonLancement();
-				 nouvellePartie.partie.modeDeJeu = 0;
-				 nouvellePartie.partie.nomJoueur1=" temporaire";
-				 nouvellePartie.partie.nomJoueur2=" temporaire ";
-				 nouvellePartie.partie.paramCharges=true;
-			 }
+			if (nouvellePartie.enfonce_pb_MVM){
+				nouvellePartie.jouerSonLancement();
+				nouvellePartie.partie.modeDeJeu=2;
+				nouvellePartie.partie.nomJoueur1="Ordinateur 1";
+				nouvellePartie.partie.nomJoueur2="Ordinateur 2";
+				nouvellePartie.partie.difficulteIA1=lvl_IA2;
+				nouvellePartie.partie.difficulteIA2=lvl_IA3;
+				nouvellePartie.chargement.lancement = true;
+				nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
+			}
+			else if (nouvellePartie.enfonce_pb_PVM){
+				nouvellePartie.jouerSonLancement();
+				nouvellePartie.partie.modeDeJeu=1;
+				nouvellePartie.partie.nomJoueur1=" temporaire";
+				nouvellePartie.partie.nomJoueur2=" Ordinateur ";
+				nouvellePartie.partie.difficulteIA2=lvl_IA1;
+				nouvellePartie.chargement.lancement = true;
+				nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
+			}
+			else if (nouvellePartie.enfonce_pb_PVP){
+				nouvellePartie.jouerSonLancement();
+				nouvellePartie.partie.modeDeJeu = 0;
+				nouvellePartie.partie.nomJoueur1="temporaire";
+				nouvellePartie.partie.nomJoueur2="temporaire ";
+				nouvellePartie.chargement.lancement = true;
+				nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
+			}
 		}
 		nouvellePartie.repaint();
 	}
