@@ -18,19 +18,12 @@ public class NouvellePartieClics implements MouseListener {
 		this.nouvellePartie = panel;
 		DetectionSurvol survol = new DetectionSurvol();
 		this.nouvellePartie.addMouseMotionListener(survol);
+		
 	}
 
 	public boolean estSurBouton(MouseEvent e, int startx, int starty, int largeur_bouton, int hauteur_bouton){
         return e.getX() >= startx && e.getX() <= startx+largeur_bouton && e.getY() >= starty && e.getY() <= starty+hauteur_bouton;
     }
-    
-    public boolean clicRetour(MouseEvent e){
-		int startx = nouvellePartie.posX_back;
-		int starty = nouvellePartie.posY_back;
-		int hauteurBouton=nouvellePartie.largeur_back;
-		int largeurBouton=nouvellePartie.hauteur_back;
-		return estSurBouton( e, startx, starty, largeurBouton, hauteurBouton);
-	}
 
 	public boolean clicPVP(MouseEvent e){
 		int startx = nouvellePartie.posX_PVP;
@@ -243,7 +236,9 @@ public class NouvellePartieClics implements MouseListener {
 				nouvellePartie.debut=false;
 				lvl_IA1 = 2;
 			}
-		}else if (clicBp_COMMENCER(e)){
+		}
+
+		if (clicBp_COMMENCER(e)){
 			/*
          	* modeDeJeu 0 : joueur contre joueur
          	* modeDeJeu 1 : IA contre joueur
@@ -276,11 +271,6 @@ public class NouvellePartieClics implements MouseListener {
 				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
 				 nouvellePartie.chargement.lancement=true;
 			 }
-		}
-		else if(clicRetour(e)) {
-			nouvellePartie.jouerSonClic();
-			nouvellePartie.chargement.lancement = true;
-			nouvellePartie.chargement.setProchaineFenetre(nouvellePartie.chargement.getProchainePrecedent());
 		}
 		nouvellePartie.repaint();
 	}
@@ -330,9 +320,6 @@ public class NouvellePartieClics implements MouseListener {
 				}
 			}
 			else if (clicBp_COMMENCER(e)){
-				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-			else if(clicRetour(e)) {
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			else {

@@ -46,7 +46,7 @@ public class Jeu {
 		if(partieInit.nomFichierCharge!=null) {
 			if(!chargerPartie(cheminSauvegardes+partieInit.nomFichierCharge)) {
 				System.err.println("Erreur de lecture de la sauvegarde de la partie.");
-				System.exit(0);
+				
 				setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
 			}
 		}else {
@@ -168,12 +168,15 @@ public class Jeu {
 			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
 			this.ihm.phase1Panel.repaint();
+			this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+"partie10.txt");
 		}
 		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
 		this.chargement.lancement=true;
 	}
 	
 	public void lancementPhase2() {
+		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
+		this.chargement.lancement=true;
 		jouerPhase2();
 	}
 	
@@ -362,6 +365,8 @@ public class Jeu {
 	}
 	
 	public boolean chargerPartie(String nomFichier) {
+		int i = 0;
+		nomFichier = cheminSauvegardes + nomFichier;
 		ArrayList<String> arr=new ArrayList<String>();
 		ArrayList<String> tab = new ArrayList<String>();
 		ArrayList<String> lectureBase = new ArrayList<String>();
@@ -398,91 +403,291 @@ public class Jeu {
 				System.err.println("Erreur : le fichier de sauvegarde ne contient pas le bon nombre de lignes."+tab.size());
 				return false;
 			}
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
 			lectureBase.add(tab.get(1));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
 			lectureBase.add(tab.get(2));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
 			lectureBase.add(tab.get(3));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
 			lectureBase.add(tab.get(4));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
 			lectureBase.add(tab.get(5));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
 			lectureBase.add(tab.get(6));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBase.add(tab.get(7));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBase.add(tab.get(8));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBase.add(tab.get(9));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			i++;
 			jCourant=Integer.parseInt((tab.get(11).split(":")[1]));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			numPartie=Integer.parseInt((tab.get(12).split(":")[1]));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			i++;
 			// JOUEUR 1
 			difficulteJ1=Integer.parseInt((tab.get(14).split(":")[1]));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nomJ1=(tab.get(15).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur1.add(tab.get(16));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur1.add(tab.get(17));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur1.add(tab.get(18));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur1.add(tab.get(19));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur1.add(tab.get(20));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur1.add(tab.get(21));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			i++;
 			if(tab.get(23).split(":").length<2) {
 				lecturePiocheJoueur1="";
 			}else {
 				lecturePiocheJoueur1=tab.get(23).split(":")[1];
+				System.out.println(tab.get(23).split(":")[1]+"aaaaaaaaaaaaaaaa");
 			}
+			System.out.println(tab.get(i).toString()+"||"+i+"rouge");
+			i++;
+			
 			if(tab.get(24).split(":").length<2) {
 				piecesVoleesJ1="";
 			}else {
 				piecesVoleesJ1=tab.get(24).split(":")[1];
 			}
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nbBlancsJouesJ1=Integer.parseInt(tab.get(25).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nbMauvaisCoupsJ1=Integer.parseInt(tab.get(26).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nbVolsJ1=Integer.parseInt(tab.get(27).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			// JOUEUR 2
 			difficulteJ2=Integer.parseInt((tab.get(29).split(":")[1]));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nomJ2=(tab.get(30).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur2.add(tab.get(31));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur2.add(tab.get(32));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur2.add(tab.get(33));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur2.add(tab.get(34));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur2.add(tab.get(35));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			lectureBaseJoueur2.add(tab.get(36));
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			if(tab.get(38).split(":").length<2) {
 				lecturePiocheJoueur2="";
 			}else {
 				lecturePiocheJoueur2=tab.get(38).split(":")[1];
 			}
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			if(tab.get(39).split(":").length<2) {
 				piecesVoleesJ2="";
 			}else {
 				piecesVoleesJ2=tab.get(39).split(":")[1];
 			}
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nbBlancsJouesJ2=Integer.parseInt(tab.get(40).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nbMauvaisCoupsJ2=Integer.parseInt(tab.get(41).split(":")[1]);
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
 			nbVolsJ2=Integer.parseInt(tab.get(42).split(":")[1]);
-			if(difficulteJ1==0 || difficulteJ1==1) {
+			System.out.println(tab.get(i).toString()+"||"+i);
+			i++;
+			
+			
+			if(difficulteJ1==0 || difficulteJ1==1 || difficulteJ1==2) {
 				j1 = new IAActeur(nomJ1, difficulteJ1, 0);
 			}else {
 				j1 = new Joueur(nomJ1);
 			}
-			if(difficulteJ2==0 || difficulteJ2==1) {
+			System.out.println(i);
+			i++;
+			if(difficulteJ2==0 || difficulteJ2==1 || difficulteJ1==2) {
 				j2 = new IAActeur(nomJ2, difficulteJ2, 1);
 			}else {
 				j2 = new Joueur(nomJ2);
 			}
+			System.out.println(i);
+			i++;
+			
 			Partie p=new Partie(j1, j2, numPartie);
+			System.out.println(i);
+			i++;
+			
+			p.joueurCourant = jCourant;
+			
 			boolean b1 = p.getBaseMontagne().stringToPyramide(lectureBase);
+			System.err.println(p.getBaseMontagne().toString());
+			System.out.println(i);
+			i++;
+			
 			boolean b2 = j1.getCamp().stringToPyramide(lectureBaseJoueur1);
+			System.err.println(j1.getCamp().toString());
+			System.out.println(i);
+			i++;
+			
 			j1.stringToPiecesPiochees(lecturePiocheJoueur1);
+			System.err.println("J1PIO"+j1.piecesPiocheesToString());
+			System.out.println(i);
+			i++;
+			
 			j1.stringToPiecesVolees(piecesVoleesJ1);
+			System.err.println("J1VOL"+j1.toStringPiecesVolees().length());
+			System.out.println(i);
+			i++;
+			
 			j1.setBlancsJoues(nbBlancsJouesJ1);
+			System.err.println("J1BLC"+j1.getBlancsJoues());
+			System.out.println(i+"B");
+			i++;
+			
 			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ1);
+			System.err.println("J1BAD"+j1.getMauvaisCoupsJoues());
+			System.out.println(i);
+			i++;
+			
 			j1.setVols(nbVolsJ1);
-			j2.getCamp().stringToPyramide(lectureBaseJoueur2);
+			System.err.println("J1VOL"+j1.getNbVols());
+			System.out.println(i);
+			i++;
+			
+			boolean b3 = j2.getCamp().stringToPyramide(lectureBaseJoueur2);
+			System.err.println(j2.getCamp().toString());
+			System.out.println(i);
+			i++;
+			
 			j2.stringToPiecesPiochees(lecturePiocheJoueur2);
+			System.err.println("J2PIO"+j2.piecesPiocheesToString());
+			System.out.println(i);
+			i++;
+			
 			j2.stringToPiecesVolees(piecesVoleesJ2);
+			System.err.println("J2VOL"+j2.toStringPiecesVolees().length());
+			System.out.println(i);
+			i++;
+			
 			j2.setBlancsJoues(nbBlancsJouesJ2);
+			System.err.println("J2BLC"+j2.getBlancsJoues());
+			System.out.println(i);
+			i++;
+			
 			j2.setMauvaisCoupsJoues(nbMauvaisCoupsJ2);
+			System.err.println("J2BAD"+j2.getMauvaisCoupsJoues());
+			System.out.println(i);
+			i++;
+			
 			j2.setVols(nbVolsJ2);
-			if(b1&&b2) {
+			System.err.println("J2VOL"+j2.getNbVols());
+			System.out.println(i);
+			i++;
+			
+			if(b1&&b2&&b3) {
 				this.partieEnCours=p;
-				jouerPhase1();
-				jouerPhase2();
+				System.err.println("J1 : " + j1.getTaillePiecesPiochees());
+				System.err.println("J1m : " + this.partieEnCours.joueur1().getTaillePiecesPiochees());
+				System.err.println("J2 : " + j2.getTaillePiecesPiochees());
+				System.err.println("J2m : " + this.partieEnCours.joueur2().getTaillePiecesPiochees());
+				System.err.println("JC : " + p.joueurCourant);
+				System.err.println("JCm : " + this.partieEnCours.joueurCourant);
+				if(j1.getTaillePiecesPiochees()>0 || j2.getTaillePiecesPiochees()>0) {
+					System.err.println("ATTETION");
+					if(j1.getTaillePiecesPiochees()>0) {
+						System.err.println("J1");
+						p.joueurCourant = 0;
+						p.joueurDebut = 0;
+					}
+					if(j2.getTaillePiecesPiochees()>0){
+						System.err.println("J2");
+						p.joueurCourant = 1;
+						p.joueurDebut = 1;
+					}
+					
+					this.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
+					this.chargement.nouvellePartie=false;
+					this.chargement.lancement=true;
+					
+					this.ihm.phase1Panel.setPartieEnCours(p);
+					return true;
+				}else {
+					this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
+					this.chargement.lancement=true;
+					return true;
+				}
 			}
-			return b1&&b2;
+			return b1&&b2&&b3;
 		}
 		catch (Exception e) {
 			System.err.println("Erreur : le fichier "+fichier+" n'a pas pu etre lu.");

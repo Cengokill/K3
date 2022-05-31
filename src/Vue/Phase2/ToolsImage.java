@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  * @author Said
  */
 public class ToolsImage {
-    String Path = "C:\\Users\\farid\\Documents\\NetBeansProjects\\K3\\src\\main\\java\\ressources\\";
+    String Path = "C:\\Users\\mathi\\eclipse-workspace\\K3\\bin\\Ressources/";
     File FileBLUE = new File(Path + "BLUE" + ".png");    
     File FileGREEN = new File(Path + "GREEN" + ".png");
     File FileBLACK = new File(Path + "BLACK" + ".png");  
