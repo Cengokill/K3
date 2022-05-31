@@ -65,7 +65,6 @@ public class Phase1Panel extends PanelGeneral{
 		addMouseListener(new ecouteurClick(this));
 		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
 		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//changementTaillefenetre();
 	}
 	
 	public void setPartieEnCours(Partie p) {
@@ -100,18 +99,18 @@ public class Phase1Panel extends PanelGeneral{
         
         double rapport=0.8576709797;
         double rapport_chrono=1.395;//400x558
-		TAILLE_CUBES_LARGEUR = tailleFenetre.width/28;//541
+		TAILLE_CUBES_LARGEUR = Math.min(largeur_background/28, frameWidth/28);
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
 		//Position objet
-		POSX_BASE_JOUEUR = posX_background+largeur_background/10;
-		POSY_BASE_JOUEUR = hauteur_background/3;
+		POSX_BASE_JOUEUR = posX_background+(int)(largeur_background*0.11);
+		POSY_BASE_JOUEUR = posY_background+(int)(hauteur_background*0.37);
 		
-		POSX_PIOCHE = 0;
-		POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
+		POSX_PIOCHE = posX_background+(int)(largeur_background*0.17);
+		POSY_PIOCHE = posY_background+(int)(hauteur_background*0.76);
 		
-		POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
-		POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
+		POSX_BASE_MONTAGNE = posX_background+(int)(largeur_background*0.61);
+		POSY_BASE_MONTAGNE = POSY_BASE_JOUEUR-(int)(TAILLE_CUBES_HAUTEUR*3.4);
 		
 		posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
 		posY_chrono = POSY_BASE_JOUEUR-(int)(3.8*TAILLE_CUBES_HAUTEUR);
@@ -127,10 +126,10 @@ public class Phase1Panel extends PanelGeneral{
 		posX_nom_joueur = posX_chrono-(int)(taille_police_nom_joueur*1.2);
 		posY_nom_joueur = posY_chrono-TAILLE_CUBES_HAUTEUR;
 		
-		posX_bouton_melange=POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR/2;
-		posY_bouton_melange=POSY_PIOCHE+(int)(TAILLE_CUBES_HAUTEUR*1.5);
-	    posX_bouton_valider=posX_bouton_melange+largeur_bouton+TAILLE_CUBES_LARGEUR/2;
-	    posY_bouton_valider=posY_bouton_melange;
+		posX_bouton_melange=posX_background+(int)(largeur_background*0.4);
+		posY_bouton_melange=posY_chrono;
+	    posX_bouton_valider=posX_bouton_melange;
+	    posY_bouton_valider=posY_bouton_melange+(int)(hauteur_bouton*1.1);
 	}
 	
 	// PIECE SELECTIONEE----------------------------------------------
@@ -284,10 +283,51 @@ public class Phase1Panel extends PanelGeneral{
 	// AFFICHAGE PIOCHE----------------------------------------------------------------------
 	public void affichePioche(Graphics g) {
 		Acteur a = initAffichageJoueurs();
-		for(int i = 0; i < a.getPiecesPiochees().size(); i++) {
+		int nb_pieces=a.getPiecesPiochees().size();
+		int posX=POSX_PIOCHE;
+		int posY=POSY_PIOCHE;
+		for(int i = 0; i < nb_pieces; i++) {
 			Piece p = a.getPiecesPiochees().get(i);
-			g.drawImage(getpetitcolor(p), i*(TAILLE_CUBES_LARGEUR+1)+POSX_PIOCHE, POSY_PIOCHE, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
+			if(i<10) {
+				g.drawImage(getpetitcolor(p), posX, posY, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
+				posX+=TAILLE_CUBES_LARGEUR;
+			}else {
+				if(i==10) {
+					posX=POSX_PIOCHE;
+					posY+=TAILLE_CUBES_HAUTEUR+2;
+				}
+				g.drawImage(getpetitcolor(p), posX, posY, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
+				posX+=TAILLE_CUBES_LARGEUR;
+			}
 		}
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
