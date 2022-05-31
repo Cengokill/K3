@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 import Modeles.Couleurs;
+import Modeles.Joueur;
 import Modeles.Piece;
 import Modeles.Position;
 import Vue.TexturePack.LoadTexture;
@@ -143,16 +144,16 @@ public class PanelPhase2 extends javax.swing.JPanel {
 
   public void drawBoutons(Graphics g) {
     g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
-    g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour,
-        null);
-    g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder,
-        null);
+    g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
+    if(this.partie_actuel.partieEnCours.joueur1().getClass() == Joueur.class) {
+    	g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
+    }
   }
 
   public void drawIle(Graphics g) {
     g.drawImage(this.texture.ile_joueur1, posX_ileJ1, posY_ileJ1, largeur_ileJ, hauteur_ileJ, null);
     g.drawImage(this.texture.ile_joueur2, posX_ileJ2, posY_ileJ2, largeur_ileJ, hauteur_ileJ, null);
-    g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
+	g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
 
   public void drawbaPyramideJ1(Graphics g) {

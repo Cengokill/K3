@@ -143,6 +143,7 @@ public class LoadTexture {
 		imagevol = Toolkit.getDefaultToolkit().createImage(CHEMIN + "espacevol.png");
 		valider = Toolkit.getDefaultToolkit().createImage(CHEMIN + "valider_flou.png");
 		valider2 = Toolkit.getDefaultToolkit().createImage(CHEMIN + "valider2.png");
+		boutonSauvegarde = Toolkit.getDefaultToolkit().createImage(CHEMIN + "sauvegarder_flou.png");
 		// CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN + "hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN + "hand-depose.png");
