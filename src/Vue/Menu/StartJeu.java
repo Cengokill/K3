@@ -1,10 +1,10 @@
 package Vue.Menu;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -13,12 +13,12 @@ import Modeles.OptionsJeu;
 import Vue.PanelGeneral;
 import Vue.TexturePack.LoadTexture;
 
-public class StartJeu extends PanelGeneral implements ActionListener{
+public class StartJeu extends PanelGeneral implements ActionListener, ComponentListener{
 
 	public JpanelOptions jpanel;
     public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posY_options, posY_quitter, posY_charger, posY_tuto;
-    public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile;
+    public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile, largeur_ile, hauteur_ile;
     public int animX, animY;
     public boolean enfonce_nouvellePartie=false;
     public boolean enfonce_options=false;
@@ -28,6 +28,7 @@ public class StartJeu extends PanelGeneral implements ActionListener{
     public boolean animation1=false;
     public boolean animation1_bordureX=false;
     public boolean animation1_bordureY=false;
+    public boolean estFenetreResized=true;
     public Chargement chargement;
     private OptionsJeu options;
     Timer animationTimer;
@@ -41,6 +42,7 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 		this.jpanel = new JpanelOptions();
 		this.add(jpanel);
 		window.setTitle("Partie en cours");
+		addComponentListener(this);
         addMouseListener(new StartJeuClics(this));
 		window.setVisible(true);
 
@@ -53,20 +55,23 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 	public void changementTaillefenetre() {
 		setChangementTaillefenetre();
         double rapport=0.1924821775761504;//rapport de 297/1543
+        double rapportIle=0.6818181818181818;//660/968
         this.largeur_bouton=Math.min(largeur_background/5, frameWidth/5);
         this.hauteur_bouton=(int)(largeur_bouton*rapport);
         int espacement = (int)(hauteur_bouton/4);
         
-        this.posX_bouton=frameWidth/2-largeur_bouton/2;
+        this.posX_bouton=posX_background+largeur_background/2-largeur_bouton/2;
         this.posY_nouvellePartie=posY_background+offset_vertical;
         this.posY_charger=posY_nouvellePartie+hauteur_bouton+espacement;
         this.posY_options=posY_charger+hauteur_bouton+espacement;
         this.posY_tuto=posY_options+hauteur_bouton+espacement;
         this.posY_quitter=posY_tuto+hauteur_bouton+espacement;
         
-        if(!animation1) {
+        if(estFenetreResized) {
 	        posX_Ile=posX_bouton-largeur_bouton;
 			posY_Ile=posY_charger;
+			largeur_ile=Math.min(largeur_background/8, frameWidth/8);
+			hauteur_ile=(int)(largeur_ile/rapportIle);
 			posMaxX_Ile=posX_Ile+1;
 			posMinX_Ile=posX_Ile-1;
 			posMaxY_Ile=posY_Ile+4;
@@ -100,6 +105,7 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 		else if(posY_Ile==posMinY_Ile) {
 			animation1_bordureY=false;
 		}
+		this.estFenetreResized=false;
 		repaint();
 	}
 	
@@ -148,7 +154,7 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 	}
 	
 	public void afficheIle1(Graphics g) {
-		g.drawImage(texture.ile1, posX_Ile, posY_Ile, 660/3, 968/3, null);
+		g.drawImage(texture.ile1, posX_Ile, posY_Ile, largeur_ile, hauteur_ile, null);
 	}
 	
 	public void paint(Graphics g) {
@@ -165,6 +171,26 @@ public class StartJeu extends PanelGeneral implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		animerIle1();
+	}
+	
+	@Override
+	public void componentResized(ComponentEvent e) {
+		this.estFenetreResized=true;
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 }

@@ -13,7 +13,7 @@ import Modeles.OptionsJeu;
 import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
-public class PanelGeneral extends JPanel{
+public class PanelGeneral extends JPanel {
 	public Dimension tailleEcran, tailleFenetre;
 	public int screenHeight, screenWidth, frameHeight, frameWidth;
 	public JFrame window;
@@ -99,7 +99,5 @@ public class PanelGeneral extends JPanel{
         this.frameHeight=window.getHeight();
         offset_vertical = hauteur_background/3;
 	}
-    
-    
-
+	
 }
