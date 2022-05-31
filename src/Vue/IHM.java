@@ -98,15 +98,12 @@ public class IHM {
 			           
 			       case PHASE1:
 			    	   lancementPhase1();
-			    	   if(partie.NewPhase1) {
+			    	   if(partie.NouvellePartie) {
 			    		   jeu.initNewPhase1(partie);
 			    	   }
 			           break;
 			           
 			       case PHASE2:
-			    	   if(!partie.NewPhase2) {
-			    		   //a ajouter
-			    	   }
 			    	   lancementPhase2();
 			    	   jeu.lancementPhase2();
 			           break;
