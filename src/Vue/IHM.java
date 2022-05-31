@@ -98,7 +98,7 @@ public class IHM {
 			           
 			       case PHASE1:
 			    	   lancementPhase1();
-			    	   if(partie.NouvellePartie) {
+			    	   if(chargement.nouvellePartie) {
 			    		   jeu.initNewPhase1(partie);
 			    	   }
 			           break;
@@ -107,6 +107,16 @@ public class IHM {
 			    	   lancementPhase2();
 			    	   jeu.lancementPhase2();
 			           break;
+			           
+			       case LOAD:
+			    	   
+			    	   if(!jeu.chargerPartie(partie.nomFichierCharge)) {
+							System.err.println("Erreur de lecture de la sauvegarde de la partie.");
+							chargement.lancement = true;
+							chargement.setProchaineFenetre(TypeFenetre.MENU);
+						}
+			    	   System.err.println("ok.");
+			    	   break;
 			           
 			       default:
 			           System.out.println("Choix incorrect");
