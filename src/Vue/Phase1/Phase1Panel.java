@@ -96,7 +96,7 @@ public class Phase1Panel extends PanelGeneral{
 	
 	// FONCTION POUR REDIMENTIONNER LES ELEMENTS----------------------------------------------
 	public void changementTaillefenetre() {
-		tailleFenetre = window.getSize();
+		super.setChangementTaillefenetre();
 		//taille objet
         largeur_bouton=(int)(tailleFenetre.width/12);
         hauteur_bouton=(int)(largeur_bouton);
