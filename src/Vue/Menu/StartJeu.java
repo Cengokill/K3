@@ -15,7 +15,6 @@ import Vue.TexturePack.LoadTexture;
 
 public class StartJeu extends PanelGeneral implements ActionListener, ComponentListener{
 
-	public JpanelOptions jpanel;
     public int posX_bouton, posY_nouvellePartie, hauteur_bouton, largeur_bouton;
     public int posY_options, posY_quitter, posY_charger, posY_tuto;
     public int posX_Ile, posY_Ile, posMaxX_Ile, posMaxY_Ile, posMinX_Ile, posMinY_Ile, largeur_ile, hauteur_ile;
@@ -39,8 +38,6 @@ public class StartJeu extends PanelGeneral implements ActionListener, ComponentL
 		this.chargement=ch;
 		this.options=o;
 		this.setLayout(null);
-		this.jpanel = new JpanelOptions();
-		this.add(jpanel);
 		window.setTitle("Partie en cours");
 		addComponentListener(this);
         addMouseListener(new StartJeuClics(this));
