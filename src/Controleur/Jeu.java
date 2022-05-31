@@ -168,7 +168,6 @@ public class Jeu {
 			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
 			this.ihm.phase1Panel.repaint();
-			this.partieEnCours.sauvegarderPartie(this.cheminSauvegardes+"partie10.txt");
 		}
 		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
 		this.chargement.lancement=true;
@@ -573,40 +572,40 @@ public class Jeu {
 			}else {
 				j1 = new Joueur(nomJ1);
 			}
-			System.out.println(i);
+			
 			i++;
 			if(difficulteJ2==0 || difficulteJ2==1 || difficulteJ1==2) {
 				j2 = new IAActeur(nomJ2, difficulteJ2, 1);
 			}else {
 				j2 = new Joueur(nomJ2);
 			}
-			System.out.println(i);
+			
 			i++;
 			
 			Partie p=new Partie(j1, j2, numPartie);
-			System.out.println(i);
+			
 			i++;
 			
 			p.joueurCourant = jCourant;
 			
 			boolean b1 = p.getBaseMontagne().stringToPyramide(lectureBase);
 			System.err.println(p.getBaseMontagne().toString());
-			System.out.println(i);
+			
 			i++;
 			
 			boolean b2 = j1.getCamp().stringToPyramide(lectureBaseJoueur1);
 			System.err.println(j1.getCamp().toString());
-			System.out.println(i);
+			
 			i++;
 			
 			j1.stringToPiecesPiochees(lecturePiocheJoueur1);
 			System.err.println("J1PIO"+j1.piecesPiocheesToString());
-			System.out.println(i);
+			
 			i++;
 			
 			j1.stringToPiecesVolees(piecesVoleesJ1);
 			System.err.println("J1VOL"+j1.toStringPiecesVolees().length());
-			System.out.println(i);
+			
 			i++;
 			
 			j1.setBlancsJoues(nbBlancsJouesJ1);
@@ -616,42 +615,42 @@ public class Jeu {
 			
 			j1.setMauvaisCoupsJoues(nbMauvaisCoupsJ1);
 			System.err.println("J1BAD"+j1.getMauvaisCoupsJoues());
-			System.out.println(i);
+			
 			i++;
 			
 			j1.setVols(nbVolsJ1);
 			System.err.println("J1VOL"+j1.getNbVols());
-			System.out.println(i);
+			
 			i++;
 			
 			boolean b3 = j2.getCamp().stringToPyramide(lectureBaseJoueur2);
 			System.err.println(j2.getCamp().toString());
-			System.out.println(i);
+			
 			i++;
 			
 			j2.stringToPiecesPiochees(lecturePiocheJoueur2);
 			System.err.println("J2PIO"+j2.piecesPiocheesToString());
-			System.out.println(i);
+			
 			i++;
 			
 			j2.stringToPiecesVolees(piecesVoleesJ2);
 			System.err.println("J2VOL"+j2.toStringPiecesVolees().length());
-			System.out.println(i);
+			
 			i++;
 			
 			j2.setBlancsJoues(nbBlancsJouesJ2);
 			System.err.println("J2BLC"+j2.getBlancsJoues());
-			System.out.println(i);
+			
 			i++;
 			
 			j2.setMauvaisCoupsJoues(nbMauvaisCoupsJ2);
 			System.err.println("J2BAD"+j2.getMauvaisCoupsJoues());
-			System.out.println(i);
+			
 			i++;
 			
 			j2.setVols(nbVolsJ2);
 			System.err.println("J2VOL"+j2.getNbVols());
-			System.out.println(i);
+			
 			i++;
 			
 			if(b1&&b2&&b3) {
@@ -666,20 +665,20 @@ public class Jeu {
 					System.err.println("ATTETION");
 					if(j1.getTaillePiecesPiochees()>0) {
 						System.err.println("J1");
-						p.joueurCourant = 0;
-						p.joueurDebut = 0;
+					}else {
+						j1.valideCamp = true;
 					}
 					if(j2.getTaillePiecesPiochees()>0){
 						System.err.println("J2");
-						p.joueurCourant = 1;
-						p.joueurDebut = 1;
+					}
+					else {
+						j2.valideCamp = true;
 					}
 					
 					this.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
 					this.chargement.nouvellePartie=false;
-					this.chargement.lancement=true;
-					
 					this.ihm.phase1Panel.setPartieEnCours(p);
+					this.chargement.lancement=true;
 					return true;
 				}else {
 					this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
