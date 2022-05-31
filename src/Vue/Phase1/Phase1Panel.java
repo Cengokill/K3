@@ -75,10 +75,7 @@ public class Phase1Panel extends PanelGeneral{
 	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
 	public void paint(Graphics g) {
 		if(this.partieEnCoursSet == true) {
-			if(tailleFenetre != window.getSize()) {
-				//on detecte un changement de fenetre -> on met a jour L IHM
-				changementTaillefenetre();
-			}
+			changementTaillefenetre();
 			affichageBackGround(g,2);
 			if(initAffichageJoueurs().getClass() == Joueur.class) {
 				affichageBoutonMelange(g);
@@ -96,10 +93,10 @@ public class Phase1Panel extends PanelGeneral{
 	
 	// FONCTION POUR REDIMENTIONNER LES ELEMENTS----------------------------------------------
 	public void changementTaillefenetre() {
-		super.setChangementTaillefenetre();
+		setChangementTaillefenetre();
 		//taille objet
-        largeur_bouton=(int)(tailleFenetre.width/12);
-        hauteur_bouton=(int)(largeur_bouton);
+        largeur_bouton=Math.min(largeur_background/12, frameWidth/12);
+        hauteur_bouton=largeur_bouton;//pas de rapport puisque 1x1
         
         double rapport=0.8576709797;
         double rapport_chrono=1.395;//400x558
@@ -107,7 +104,7 @@ public class Phase1Panel extends PanelGeneral{
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
 		//Position objet
-		POSX_BASE_JOUEUR = largeur_background/10;
+		POSX_BASE_JOUEUR = posX_background+largeur_background/10;
 		POSY_BASE_JOUEUR = hauteur_background/3;
 		
 		POSX_PIOCHE = 0;
