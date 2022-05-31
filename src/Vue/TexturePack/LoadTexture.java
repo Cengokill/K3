@@ -2,13 +2,15 @@ package Vue.TexturePack;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+
 import javax.swing.JTextField;
 
 public class LoadTexture{
 	public String CHEMIN;
 	
 	//IMAGES FOND
-	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, chrono;
+	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, ile_montagne, chrono;
 	//IMAGE PIECE
 	public Image pieceVide;
 	public Image pieceNoire;
@@ -29,7 +31,8 @@ public class LoadTexture{
 	boutonDifficile,boutonDifficile_vert, boutonCommencer, boutonCommencer_presse, boutonPVP_gris, boutonPVM_gris,
 	boutonMVM_gris, boutonNomJ1_gris, boutonNomJ2_gris, boutonNomJoueur_gris, boutonDifficulteOrdi1_gris, boutonDifficulteOrdi2_gris,
 	boutonDifficulteOrdi_gris, boutonFacile_gris, boutonMoyen_gris, boutonDifficile_gris, menuSuivant, menuRetour,
-	boutonPasserTour,boutonPasserTour_gris,boutonCoupPrecedent,boutonCoupPrecedent_gris,modePleinEcran,volumeMusique,volumeSons, active, desactive;
+	boutonPasserTour,boutonPasserTour_gris,boutonCoupPrecedent,boutonCoupPrecedent_gris,modePleinEcran,volumeMusique,volumeSons, active, desactive,
+	passerTour, passerTour_gris, imagevol;
 	//IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -54,6 +57,7 @@ public class LoadTexture{
 		ile1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile1.png");
 		ile_joueur1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile_joueur1.png");
 		ile_joueur2 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile_joueur2.png");
+		ile_montagne = Toolkit.getDefaultToolkit().createImage(CHEMIN+"ile3.png");
 		chrono = Toolkit.getDefaultToolkit().createImage(CHEMIN+"chrono_jeu.png");
 		//IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = Toolkit.getDefaultToolkit().createImage(CHEMIN+"nouvellePartie_flou.png");
@@ -126,6 +130,9 @@ public class LoadTexture{
 		boutonPasserTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_gris.png");
 		boutonCoupPrecedent = Toolkit.getDefaultToolkit().createImage(CHEMIN+"coup_precedent_flou.png");
 		boutonCoupPrecedent_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"coup_precedent_gris.png");
+		passerTour = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_flou.png");
+		passerTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_gris.png");
+		imagevol = passerTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"espacevol.png");
 		//CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");

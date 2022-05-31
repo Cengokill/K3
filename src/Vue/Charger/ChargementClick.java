@@ -47,7 +47,7 @@ public class ChargementClick implements MouseListener {
 				String a =panel.initPartie.nomFichierCharge;
 				System.out.println(a);
 				panel.chargement.lancement = true;
-				panel.chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
+				panel.chargement.setProchaineFenetre(TypeFenetre.FIN);
 			}
 		}else if(clickBoutonRetourMenu(e)) {
 			System.out.println("retour menu principal");
