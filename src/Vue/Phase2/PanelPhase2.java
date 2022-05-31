@@ -27,6 +27,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	public int largeur_ileM, hauteur_ileM, posX_ileM, posY_ileM;
 	public int largeur_piece, hauteur_piece, posY_depart;
 	public int largeur_vol, hauteur_vol, posX_volJ1, poxY_volJ1, posX_volJ2, poxY_volJ2;
+	public int posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder;
     /**
      * Creates new form PanelPhase2
      */
@@ -71,6 +72,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
        drawbaPyramideJ1(g);
        drawbaPyramideJ2(g);
        drawbaPyramideMilieu(g);
+       drawBoutons(g);
    }
     
     public void setChangementTaillefenetre() {
@@ -99,6 +101,12 @@ public class PanelPhase2 extends javax.swing.JPanel {
 		posYPasserTour=posY_background+(int)(hauteur_background*0.8);
 		//Coup precedent
 		posXCoupPrecedent=posXPasserTour+largeurPasserTour+espacement;
+		//Sauvegarder
+		double rapportSauvegarder=0.3498964803312629; //169/483
+		hauteur_sauvegarder=(int)(hauteurPasserTour*0.7);
+		largeur_sauvegarder=(int)(hauteur_sauvegarder/rapportSauvegarder);
+		posX_sauvegarder=posX_background+(int)(largeur_background*0.88);
+		posY_sauvegarder=posY_background+(int)(hauteur_background*0.92);
 		//Iles joueurs
 		double rapportIlesJoueurs=0.9269340974212034;// 647/698
 		largeur_ileJ=Math.min((int)(largeur_background/3.6), (int)(frameWidth/3.6));
@@ -127,7 +135,6 @@ public class PanelPhase2 extends javax.swing.JPanel {
 		
 		posX_volJ2=posX_ileJ2+largeur_ileJ/2-largeur_vol/2-(int)(largeur_piece*0.2);
 		poxY_volJ2=poxY_volJ1;
-		
 	}
    
    public void drawbackground(Graphics g) {
@@ -137,6 +144,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
    public void drawBoutons(Graphics g) {
       g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
       g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
+      g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
 	}
    
    public void drawIle(Graphics g) {        
