@@ -1,5 +1,6 @@
 package Vue.Charger;
 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
@@ -41,6 +42,10 @@ public class ChargementClick implements MouseListener {
 	//GESTION SOURI----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 		if(clickBoutonLoad(e)) {
 			if(panel.list.getSelectedValue() != null) {
 				panel.initPartie.nomFichierCharge=panel.list.getSelectedValue().toString();
@@ -54,11 +59,6 @@ public class ChargementClick implements MouseListener {
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -81,14 +81,26 @@ public class ChargementClick implements MouseListener {
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
 			if(clickBoutonLoad(e)) {
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				panel.presseBoutonLoad = true;
+				panel.presseRetourMenu = false;
 			}else if(clickBoutonRetourMenu(e)) {
+				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				panel.presseRetourMenu = true;
+				panel.presseBoutonLoad = false;
 			}else {
+				panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				panel.presseBoutonLoad = false;
 				panel.presseRetourMenu = false;
 			}
-			panel.repaint();
+			if(panel.oldPresseRetourMenu !=panel.presseRetourMenu) {
+				panel.oldPresseRetourMenu =panel.presseRetourMenu;
+				panel.repaint();
+			}
+			if(panel.oldPresseBoutonLoad !=panel.presseBoutonLoad) {
+				panel.oldPresseBoutonLoad =panel.presseBoutonLoad;
+				panel.repaint();
+			}
 		}
 	}
 

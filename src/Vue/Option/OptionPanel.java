@@ -153,13 +153,6 @@ public class OptionPanel extends PanelGeneral {
 		
 	}
 
-	// AFFICHAGE SLIDER -------------------------------------------------------------------
-	public void affichageSliderSound(Graphics g) {
-		g.drawRect(POSX_sound_Label, POSY_sound_Label, LARGEUR_sound_Label, HAUTEUR_sound_Label);
-	}
-	public void affichageSliderMusic(Graphics g) {
-		g.drawRect(POSX_music_Label, POSY_music_Label, LARGEUR_music_Label, HAUTEUR_music_Label);
-	}
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageRetourMenu(Graphics g) {
 		if(!presseRetourMenu) {
@@ -193,8 +186,6 @@ public class OptionPanel extends PanelGeneral {
 	public void paint(Graphics g) {
 		changementTaillefenetre();
 		affichageBackGround(g,1);
-		affichageSliderSound(g);
-		affichageSliderMusic(g);
 		affichageRetourMenu(g);
 		affichageLabelSound(g);
 		affichageLabelMusic(g);

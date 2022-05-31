@@ -4,9 +4,12 @@
  */
 package Vue;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
@@ -37,8 +40,23 @@ public class NouvellePartie extends PanelGeneral {
     public boolean enfonce_IA3_MOYEN = false;
     public boolean enfonce_IA3_DIFFICILE = false;
     public boolean enfonce_pb_COMMENCER = false;
+    public boolean oldEnfonce_pb_PVP = false;
+    public boolean oldEnfonce_pb_PVM = false;
+    public boolean oldEnfonce_pb_MVM = false;
+    public boolean oldEnfonce_IA1_FACILE = false;
+    public boolean oldEnfonce_IA1_MOYEN = false;
+    public boolean oldEnfonce_IA1_DIFFICILE = false;
+    public boolean oldEnfonce_IA2_FACILE = false;
+    public boolean oldEnfonce_IA2_MOYEN = false;
+    public boolean oldEnfonce_IA2_DIFFICILE = false;
+    public boolean oldEnfonce_IA3_FACILE = false;
+    public boolean oldEnfonce_IA3_MOYEN = false;
+    public boolean oldEnfonce_IA3_DIFFICILE = false;
+    public boolean oldEnfonce_pb_COMMENCER = false;
     public boolean debut = true;
-    public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3, largeur_back, hauteur_back; 
+    public int largeur_bouton1, hauteur_bouton1, largeur_bouton2, hauteur_bouton2, largeur_bouton3, hauteur_bouton3, largeur_back, hauteur_back;
+    public int posX_jText_nomJ1, posY_jText_nomJ1, posX_jText_nomJ2, posY_jText_nomJ2, posX_jText_nomJ3, posY_jText_nomJ3;
+    public int largeur_jText, hauteur_jText, taille_police;
     int espacement_horizontal;
     int espacement_vertical;
     int offset_horizontal, offset_h2, offset_h3;
@@ -46,6 +64,7 @@ public class NouvellePartie extends PanelGeneral {
     public InitPartie partie;
     private OptionsJeu options;
     public Chargement chargement;
+    private Color couleur;
   
     // METHODE NOUVELLE PARTIE
     public NouvellePartie(JFrame w, LoadTexture t, InitPartie p, Chargement c, OptionsJeu o){
@@ -55,8 +74,16 @@ public class NouvellePartie extends PanelGeneral {
         this.partie=p;
         this.chargement=c;
         this.options=o;
+        this.couleur = new Color(230,230,230);
+        setLayout(null);
         window.setTitle("Nouvelle Partie");
         addMouseListener(new NouvellePartieClics(this));
+        nomJ1 = new JTextField();
+        nomJ2 = new JTextField();
+        nomJ3 = new JTextField();
+        this.add(nomJ1);
+        this.add(nomJ2);
+        this.add(nomJ3);
         changementTaillefenetre();
     }
     
@@ -94,7 +121,11 @@ public class NouvellePartie extends PanelGeneral {
         this.posY_PVP = posY_background+offset_vertical;
         this.posX_MVM = posX_PVM+espacement1+largeur_bouton1;
         this.posY_MVM = posY_background+offset_vertical;
-
+        //Position Text fiels
+        largeur_jText=largeur_bouton1;
+        hauteur_jText=hauteur_bouton1;
+        taille_police = largeur_jText/11;
+        Font text1= new Font("Dialog", Font.BOLD, taille_police);
         //Position bouton label
         //nom des joueurs
         this.posX_label_nomJ1 = posX_PVP;
@@ -103,6 +134,28 @@ public class NouvellePartie extends PanelGeneral {
         this.posY_label_nomJ2 = posY_label_nomJ1+espacement2*3;
         this.posX_label_nomJ3 = posX_PVM;
         this.posY_label_nomJ3 = posY_label_nomJ1;
+        
+        posX_jText_nomJ1=posX_label_nomJ1;
+        posY_jText_nomJ1=posY_label_nomJ1+espacement1;
+        posX_jText_nomJ2=posX_label_nomJ2;
+        posY_jText_nomJ2=posY_label_nomJ2+espacement1;
+        posX_jText_nomJ3=posX_label_nomJ3;
+        posY_jText_nomJ3=posY_jText_nomJ1;
+        
+        
+        nomJ1.setBounds(posX_jText_nomJ1, posY_jText_nomJ1, largeur_jText, hauteur_jText);
+        nomJ1.setBackground(couleur);
+        nomJ2.setBounds(posX_jText_nomJ2, posY_jText_nomJ2, largeur_jText, hauteur_jText);
+        nomJ2.setBackground(couleur);
+        nomJ3.setBounds(posX_jText_nomJ3, posY_jText_nomJ3, largeur_jText, hauteur_jText);
+        nomJ3.setBackground(couleur);
+        nomJ1.setFont(text1);
+        nomJ2.setFont(text1);
+        nomJ3.setFont(text1);
+        
+        nomJ1.setVisible(enfonce_pb_PVP);
+        nomJ2.setVisible(enfonce_pb_PVP);
+        nomJ3.setVisible(enfonce_pb_PVM);
         
         //IA1 et ses difficultes
         this.posX_Label_diff_IA1 = posX_PVM;
@@ -346,10 +399,7 @@ public class NouvellePartie extends PanelGeneral {
     
     @Override
     public void paint(Graphics g) {
-        if(tailleFenetre != window.getSize()) {
-			//on detecte un changement de fenetre -> on met a jour L IHM
-			changementTaillefenetre();
-		}
+		changementTaillefenetre();
         affichageBackGround(g,1);
         afficheBoutonPVP(g);
         afficheBoutonPVM(g);

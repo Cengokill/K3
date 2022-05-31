@@ -1,6 +1,8 @@
 package Vue.Charger;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,7 +23,6 @@ public class ChargerPanel extends PanelGeneral{
 	
 	// PARAMETRE JEU
 	private JFrame window;
-	public Dimension tailleFenetre;
 	public JScrollPane scrollPane;
 	public Chargement chargement;
 	public JList list;
@@ -29,14 +30,18 @@ public class ChargerPanel extends PanelGeneral{
 	
 	//AFFICHAGE FIXE
 	public int posXScrollpanel, posYScrollpanel;
-	public int largeurScrollpanel, hauteurScrollpanel;
+	public int largeurScrollpanel, hauteurScrollpanel, taille_police;
 	public String nomSauvegarde[];
 	
 	public int posXBoutonLoad, posYBoutonLoad, largeurBoutonLoad, hauteurBoutonLoad;
 	public boolean presseBoutonLoad = false;
+	public boolean oldPresseBoutonLoad = false;
 	
 	public int posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu;
 	public boolean presseRetourMenu = false;
+	public boolean oldPresseRetourMenu = false;
+	
+	private Color couleur;
 			
 	//COMPOSYANT IMPORTER
 	public LoadTexture texture;
@@ -46,37 +51,42 @@ public class ChargerPanel extends PanelGeneral{
 		this.setLayout(null);
 		this.initPartie=i;
 		this.chargement = chargement;
-		window = w; 
-		this.tailleFenetre = window.getSize();
+		this.window = w; 
 		this.texture = texture;
 		nomSauvegarde=Jeu.listerSauvegardes(System.getProperty("user.home")+ "/Desktop/Jeu_K3/Sauvegardes/");
+		this.couleur = new Color(230,230,230);
 		this.list = new JList(nomSauvegarde);
 		this.scrollPane = new JScrollPane(list);
 		this.add(scrollPane);
-		tailleFenetre = window.getSize();
 		changementTaillefenetre();
 	}
 	
 	// FONCTION POUR REDIMENTIONNER LES ELEMENTS----------------------------------------------
 	public void changementTaillefenetre() {
-		tailleFenetre = window.getSize();
-	
+		setChangementTaillefenetre();
 		//Position objet
-		posXScrollpanel = 0;
-		posYScrollpanel = 0;
-		largeurScrollpanel = tailleFenetre.width/4;
-		hauteurScrollpanel = tailleFenetre.height/2;
+		largeurScrollpanel = largeur_background/5;
+		hauteurScrollpanel = (int)(largeurScrollpanel*0.6);
+		posXScrollpanel = posX_background+largeur_background/2-largeurScrollpanel/2;
+		posYScrollpanel = posY_background+(int)(hauteur_background*0.2);
+		taille_police = hauteurScrollpanel/11;
+		Font text1= new Font("Dialog", Font.BOLD, taille_police);
 		scrollPane.setBounds(posXScrollpanel, posYScrollpanel, largeurScrollpanel, hauteurScrollpanel);
+		list.setFont(text1);
+		list.setBackground(couleur);
 		
-		posXBoutonLoad = largeurScrollpanel;
-		posYBoutonLoad = 0;
-		largeurBoutonLoad = tailleFenetre.width/10;
-		hauteurBoutonLoad = tailleFenetre.height/10;
+		double rapportBoutonLoad=0.193304535637149;//rapport de 179/926
+		double rapportBackMenu = 1.185567010309278;
+	       
+		largeurBoutonLoad=Math.min(largeur_background/6, frameWidth/6);
+		hauteurBoutonLoad=(int)(largeurBoutonLoad*rapportBoutonLoad);
+		posXBoutonLoad = posX_background+largeur_background/2-largeurBoutonLoad/2;
+		posYBoutonLoad = posYScrollpanel+(int)(hauteurScrollpanel*1.2);
 		
-		posXRetourMenu = largeurScrollpanel;
-		posYRetourMenu = posYBoutonLoad+hauteurBoutonLoad + 100;
-		largeurRetourMenu = tailleFenetre.width/10;
-		hauteurRetourMenu = tailleFenetre.height/10;
+		largeurRetourMenu = Math.min(largeur_background/15, frameWidth/15);
+		hauteurRetourMenu = (int)(largeurRetourMenu/rapportBackMenu);
+		posXRetourMenu = posX_background+largeur_background/2-largeurRetourMenu/2;
+		posYRetourMenu = (int)(posYScrollpanel+hauteurScrollpanel*1.9);
 		
 	}
 	
@@ -99,22 +109,14 @@ public class ChargerPanel extends PanelGeneral{
 	
 	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
 	public void affichageRetourMenu(Graphics g) {
-		if(!presseRetourMenu) {
-			g.drawImage(texture.boutonLoad, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
-		}else {
-			g.drawImage(texture.boutonLoadPresse, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);
-		}
-			
+		g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);	
 	}
 	
 	public void paint(Graphics g) {
-		if(tailleFenetre != window.getSize()) {
-			changementTaillefenetre();
-		}
+		changementTaillefenetre();
 		affichageBackGround(g,1);
 		affichageBoutonLoad(g);
 		affichageRetourMenu(g);
-		scrollPane.paint(g);
 	}
 	
 }

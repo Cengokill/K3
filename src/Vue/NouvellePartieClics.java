@@ -268,7 +268,7 @@ public class NouvellePartieClics implements MouseListener {
 			 else if (nouvellePartie.enfonce_pb_PVM){
 				 nouvellePartie.jouerSonLancement();
 				 nouvellePartie.partie.modeDeJeu=1;
-				 nouvellePartie.partie.nomJoueur1=" temporaire";
+				 nouvellePartie.partie.nomJoueur1=nouvellePartie.nomJ3.getText();
 				 nouvellePartie.partie.nomJoueur2=" Ordinateur ";
 				 nouvellePartie.partie.difficulteIA2=lvl_IA1;
 				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
@@ -277,8 +277,8 @@ public class NouvellePartieClics implements MouseListener {
 			 else if (nouvellePartie.enfonce_pb_PVP){
 				 nouvellePartie.jouerSonLancement();
 				 nouvellePartie.partie.modeDeJeu = 0;
-				 nouvellePartie.partie.nomJoueur1=" temporaire";
-				 nouvellePartie.partie.nomJoueur2=" temporaire ";
+				 nouvellePartie.partie.nomJoueur1=nouvellePartie.nomJ1.getText();
+				 nouvellePartie.partie.nomJoueur2=nouvellePartie.nomJ2.getText();
 				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
 				 nouvellePartie.chargement.lancement=true;
 			 }
@@ -334,7 +334,33 @@ public class NouvellePartieClics implements MouseListener {
 			else {
 				nouvellePartie.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
-			nouvellePartie.repaint();
+			if(nouvellePartie.oldEnfonce_pb_PVP!=nouvellePartie.enfonce_pb_PVP) {
+				nouvellePartie.repaint();
+				nouvellePartie.oldEnfonce_pb_PVP=nouvellePartie.enfonce_pb_PVP;
+			}
+			if(nouvellePartie.oldEnfonce_pb_PVM!=nouvellePartie.enfonce_pb_PVM) {
+				nouvellePartie.repaint();
+				nouvellePartie.oldEnfonce_pb_PVM=nouvellePartie.enfonce_pb_PVM;
+			}
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,7 +18,6 @@ import Vue.Phase2.*;
 import Vue.Charger.*;
 
 public class IHM {
-	
 	private OptionsJeu options;
 	private JFrame window;
 	private LoadTexture texture;
@@ -141,7 +140,7 @@ public class IHM {
 		window.setContentPane(newPartiePanel);
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
-			Jeu.timer(200);
+			Jeu.timer(100);
 			//newPartiePanel.repaint();
 		}
 	}
@@ -159,7 +158,6 @@ public class IHM {
 	
 	public void lancementOption() {	
 		window.setContentPane(optionsPanel);
-		Jeu.timer(100);
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);

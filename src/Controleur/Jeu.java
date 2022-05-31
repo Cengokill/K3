@@ -3,6 +3,7 @@ package Controleur;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -27,7 +28,7 @@ public class Jeu {
 	public Chargement chargement;
 	public IHM ihm;
 
-	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, OptionsJeu o, Chargement c) {
+	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, OptionsJeu o, Chargement c) throws IOException {
 		this.options=o;
 		this.chargement=c;
 		this.volumeEffetsSonores=options.volumeEffetsSonores;
