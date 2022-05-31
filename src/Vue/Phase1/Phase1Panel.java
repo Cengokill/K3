@@ -10,9 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Modeles.*;
+import Vue.PanelGeneral;
 import Vue.TexturePack.LoadTexture;
 
-public class Phase1Panel extends JPanel{
+public class Phase1Panel extends PanelGeneral{
 	
 	// PARAMETRES JEU
 	public Partie partieEnCours;
@@ -54,7 +55,8 @@ public class Phase1Panel extends JPanel{
 	private SoundPlayer simpleSoundPlayerSon;
 
 	// CONSTRUCTEUR----------------------------------------------
-	public Phase1Panel(JFrame w, Partie p, LoadTexture t){
+	public Phase1Panel(JFrame w, Partie p, LoadTexture t, OptionsJeu o){
+		super(w,t,o);
 		this.textures=t;
 		this.simpleSoundPlayerSon = new SoundPlayer(8, textures.CHEMIN);
 		this.partieEnCours=p;
@@ -77,13 +79,12 @@ public class Phase1Panel extends JPanel{
 				//on detecte un changement de fenetre -> on met a jour L IHM
 				changementTaillefenetre();
 			}
-			affichageBackGround(g);
+			affichageBackGround(g,2);
 			if(initAffichageJoueurs().getClass() == Joueur.class) {
 				affichageBoutonMelange(g);
 				affichageBoutonValider(g);
 			}
 			afficherTimer(g);
-			
 			afficheBaseMontagne(g);
 			affichePyramideJoueur1(g);
 			affichePioche(g);
@@ -95,48 +96,44 @@ public class Phase1Panel extends JPanel{
 	
 	// FONCTION POUR REDIMENTIONNER LES ELEMENTS----------------------------------------------
 	public void changementTaillefenetre() {
-		if(this.partieEnCoursSet == true) {
-			tailleFenetre = window.getSize();
-			//taille objet
-	        largeur_bouton=(int)(tailleFenetre.width/12);
-	        hauteur_bouton=(int)(largeur_bouton);
-	        
-	        double rapport=0.8576709797;
-	        double rapport_chrono=1.395;//400x558
-			TAILLE_CUBES_LARGEUR = tailleFenetre.width/28;//541
-			TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
-			
-			//Position objet
-			POSX_BASE_JOUEUR = tailleFenetre.height/10;
-			POSY_BASE_JOUEUR = tailleFenetre.height/3;
-			
-			POSX_PIOCHE = 0;
-			POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
-			
-			POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
-			POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
-			
-			posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
-			posY_chrono = POSY_BASE_JOUEUR-(int)(3.8*TAILLE_CUBES_HAUTEUR);
-			largeur_chrono = (int)(TAILLE_CUBES_LARGEUR*2);
-			hauteur_chrono = (int)(largeur_chrono*rapport_chrono);
-			
-			taille_police_timer = (int)(hauteur_chrono/8);
-			posX_text_chrono = posX_chrono+(int)(taille_police_timer*1.8);
-			posY_text_chrono = (int)(posY_chrono+hauteur_chrono*0.94);
-			/*
-			taille_nom_joueur = initAffichageJoueurs().getNom().length();
-			*/
-			taille_nom_joueur = 0;
-			taille_police_nom_joueur=(int)(hauteur_chrono/6);
-			posX_nom_joueur = posX_chrono-(int)(taille_police_nom_joueur*1.2);
-			posY_nom_joueur = posY_chrono-TAILLE_CUBES_HAUTEUR;
-			
-			posX_bouton_melange=POSX_BASE_JOUEUR-TAILLE_CUBES_LARGEUR;
-			posY_bouton_melange=POSY_PIOCHE+TAILLE_CUBES_HAUTEUR*2;
-		    posX_bouton_valider=posX_bouton_melange+largeur_bouton+TAILLE_CUBES_LARGEUR/2;
-		    posY_bouton_valider=posY_bouton_melange;
-		}
+		tailleFenetre = window.getSize();
+		//taille objet
+        largeur_bouton=(int)(tailleFenetre.width/12);
+        hauteur_bouton=(int)(largeur_bouton);
+        
+        double rapport=0.8576709797;
+        double rapport_chrono=1.395;//400x558
+		TAILLE_CUBES_LARGEUR = tailleFenetre.width/28;//541
+		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
+		
+		//Position objet
+		POSX_BASE_JOUEUR = tailleFenetre.height/10;
+		POSY_BASE_JOUEUR = tailleFenetre.height/3;
+		
+		POSX_PIOCHE = 0;
+		POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
+		
+		POSX_BASE_MONTAGNE = POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR*9;
+		POSY_BASE_MONTAGNE = POSX_BASE_JOUEUR;
+		
+		posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
+		posY_chrono = POSY_BASE_JOUEUR-(int)(3.8*TAILLE_CUBES_HAUTEUR);
+		largeur_chrono = (int)(TAILLE_CUBES_LARGEUR*2);
+		hauteur_chrono = (int)(largeur_chrono*rapport_chrono);
+		
+		taille_police_timer = (int)(hauteur_chrono/8);
+		posX_text_chrono = posX_chrono+(int)(taille_police_timer*1.8);
+		posY_text_chrono = (int)(posY_chrono+hauteur_chrono*0.94);
+		
+		taille_nom_joueur = initAffichageJoueurs().getNom().length();
+		taille_police_nom_joueur=(int)(hauteur_chrono/6);
+		posX_nom_joueur = posX_chrono-(int)(taille_police_nom_joueur*1.2);
+		posY_nom_joueur = posY_chrono-TAILLE_CUBES_HAUTEUR;
+		
+		posX_bouton_melange=POSX_BASE_JOUEUR+TAILLE_CUBES_LARGEUR/2;
+		posY_bouton_melange=POSY_PIOCHE+(int)(TAILLE_CUBES_HAUTEUR*1.5);
+	    posX_bouton_valider=posX_bouton_melange+largeur_bouton+TAILLE_CUBES_LARGEUR/2;
+	    posY_bouton_valider=posY_bouton_melange;
 	}
 	
 	// PIECE SELECTIONEE----------------------------------------------
@@ -207,7 +204,7 @@ public class Phase1Panel extends JPanel{
 		}
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Courier New", Font.BOLD, taille_police_nom_joueur));
-		//g.drawString(nom, posX_nom_joueur, posY_nom_joueur);
+		g.drawString(nom, posX_nom_joueur, posY_nom_joueur);
 	}
 	
 
@@ -225,12 +222,6 @@ public class Phase1Panel extends JPanel{
 		g.setFont(new Font("Courier New", Font.BOLD, taille_police_timer));
 		g.drawString(tempsAffiche, posX_text_chrono, posY_text_chrono);
 	}
-	
-	// AFFICHAGE FOND D ECRAN -------------------------------------------------------------------
-	public void affichageBackGround(Graphics g) {
-	    g.drawImage(textures.backgroundPhase1, 0, 0, tailleFenetre.width, tailleFenetre.height,null);
-	}
-	
 	// AFFICHAGE BOUTONS-------------------------------------------------------------
 	public void affichageBoutonValider(Graphics g) {
 		if(initAffichageJoueurs().getTaillePiecesPiochees()>0) {
