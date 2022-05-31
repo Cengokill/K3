@@ -16,6 +16,7 @@ public class Phase1Panel extends JPanel{
 	
 	// PARAMETRES JEU
 	public Partie partieEnCours;
+	public boolean partieEnCoursSet = false;
 	private JFrame window;
 	public Dimension tailleFenetre;
 	public final Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
@@ -62,24 +63,32 @@ public class Phase1Panel extends JPanel{
 		addMouseListener(new ecouteurClick(this));
 		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
 		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		changementTaillefenetre();
+		//changementTaillefenetre();
+	}
+	
+	public void setPartieEnCours(Partie p) {
+		this.partieEnCours=p;
+		this.partieEnCoursSet = true;
 	}
 	// FONCTION POUR AFFICHER TOUT LES ELEMENTS VISUELS----------------------------------------
 	public void paint(Graphics g) {
-		if(tailleFenetre != window.getSize()) {
-			//on detecte un changement de fenetre -> on met a jour L IHM
-			changementTaillefenetre();
+		if(this.partieEnCoursSet == true) {
+			if(tailleFenetre != window.getSize()) {
+				//on detecte un changement de fenetre -> on met a jour L IHM
+				changementTaillefenetre();
+			}
+			affichageBackGround(g);
+			if(initAffichageJoueurs().getClass() == Joueur.class) {
+				affichageBoutonMelange(g);
+				affichageBoutonValider(g);
+			}
+			afficherTimer(g);
+			
+			afficheBaseMontagne(g);
+			affichePyramideJoueur1(g);
+			affichePioche(g);
+			dragNdrop(g);
 		}
-		affichageBackGround(g);
-		if(initAffichageJoueurs().getClass() == Joueur.class) {
-			affichageBoutonMelange(g);
-			affichageBoutonValider(g);
-		}
-		afficherTimer(g);
-		afficheBaseMontagne(g);
-		affichePyramideJoueur1(g);
-		affichePioche(g);
-		dragNdrop(g);
 	}
 	
 	// CALCUL ***************************************************************

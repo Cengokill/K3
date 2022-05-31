@@ -125,56 +125,60 @@ public class ecouteurClick implements MouseListener {
 	//GESTION SOURIS----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-			if(e.getButton() == MouseEvent.BUTTON1) { 
-				if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
-					int index = clickPioche(e);
-					if(index>=0) {
-						Acteur a = panel.initAffichageJoueurs();
-						panel.setPieceSelectionnee(a.getPiecesPiochees().get(index));
-					}
-				}else {
-					Position p = clickpyramide(e);
-					if(p != null) {
-						panel.empiler(p);//on empile la piece a l'endroit clique
-					}
-				}
-			}else { // deselectionner avec clic droit
-				if(panel.getPieceSelectionnee() == null) {
-					Position p = clickpyramide(e);
-					if(p != null) {
-						Acteur a = panel.initAffichageJoueurs();
-						Piece pie = a.getCamp().retirePhase1(p);
-						if(pie!=null) {
-							a.addPiecePiochee(pie);
+		if(panel.partieEnCoursSet == true) {
+			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+				if(e.getButton() == MouseEvent.BUTTON1) { 
+					if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
+						int index = clickPioche(e);
+						if(index>=0) {
+							Acteur a = panel.initAffichageJoueurs();
+							panel.setPieceSelectionnee(a.getPiecesPiochees().get(index));
+						}
+					}else {
+						Position p = clickpyramide(e);
+						if(p != null) {
+							panel.empiler(p);//on empile la piece a l'endroit clique
 						}
 					}
-				}else {
-					panel.setPieceSelectionnee(null);
+				}else { // deselectionner avec clic droit
+					if(panel.getPieceSelectionnee() == null) {
+						Position p = clickpyramide(e);
+						if(p != null) {
+							Acteur a = panel.initAffichageJoueurs();
+							Piece pie = a.getCamp().retirePhase1(p);
+							if(pie!=null) {
+								a.addPiecePiochee(pie);
+							}
+						}
+					}else {
+						panel.setPieceSelectionnee(null);
+					}
 				}
 			}
-		}		
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-			Acteur a = panel.initAffichageJoueurs();
-			if(clicMelange(e)) {
-				panel.emettreSonClic();
-				if(!panel.enfonce_melange) {
-					panel.enfonce_melange=true;
+		if(panel.partieEnCoursSet == true) {
+			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+				Acteur a = panel.initAffichageJoueurs();
+				if(clicMelange(e)) {
+					panel.emettreSonClic();
+					if(!panel.enfonce_melange) {
+						panel.enfonce_melange=true;
+					}
+					a.melangeAleatCamp();
+					panel.repaint();
 				}
-				a.melangeAleatCamp();
-				panel.repaint();
-			}
-			if(clicValider(e) && a.getCamp().estPleine()) {
-				panel.emettreSonClic();
-				if(!panel.enfonce_valider) {
-					panel.enfonce_valider=true;
+				if(clicValider(e) && a.getCamp().estPleine()) {
+					panel.emettreSonClic();
+					if(!panel.enfonce_valider) {
+						panel.enfonce_valider=true;
+					}
+					a.valideCamp=true;
+					panel.repaint();
 				}
-				a.valideCamp=true;
-				panel.repaint();
 			}
 		}
 	}
@@ -199,34 +203,36 @@ public class ecouteurClick implements MouseListener {
 	
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
-			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-				panel.OldX = panel.currentX;
-				panel.OldY = panel.currentY;
-				panel.currentX = e.getX();
-				panel.currentY = e.getY();
-				
-				if(clickpyramide(e)!=null) {
-					if(panel.getPieceSelectionnee()!=null) {
-						typeCurseur="curseurPlus";
-					}else {
-						typeCurseur="Default Cursor";
+			if(panel.partieEnCoursSet == true) {
+				if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+					panel.OldX = panel.currentX;
+					panel.OldY = panel.currentY;
+					panel.currentX = e.getX();
+					panel.currentY = e.getY();
+					
+					if(clickpyramide(e)!=null) {
+						if(panel.getPieceSelectionnee()!=null) {
+							typeCurseur="curseurPlus";
+						}else {
+							typeCurseur="Default Cursor";
+						}
 					}
+					else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
+						typeCurseur = "mainFermee";//ok
+					}else if(clicMelange(e)) {
+						typeCurseur="main";
+					}else if(clicValider(e)) {
+						typeCurseur="main";
+					}else {
+						typeCurseur = "Default Cursor";
+					}
+					changeCustomCurseur();
 				}
-				else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
-					typeCurseur = "mainFermee";//ok
-				}else if(clicMelange(e)) {
-					typeCurseur="main";
-				}else if(clicValider(e)) {
-					typeCurseur="main";
-				}else {
-					typeCurseur = "Default Cursor";
+				else if(panel.getCursor().getType() != 3) {
+					panel.setCursor(new Cursor(0));
 				}
-				changeCustomCurseur();
+				panel.repaint();
 			}
-			else if(panel.getCursor().getType() != 3) {
-				panel.setCursor(new Cursor(0));
-			}
-			panel.repaint();
 		}
 	}
 
