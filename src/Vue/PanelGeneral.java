@@ -89,6 +89,8 @@ public class PanelGeneral extends JPanel {
 			g.drawImage(texture.background, posX_background, posY_background, largeur_background, hauteur_background, null);
 		}else if(i==1) {
 			g.drawImage(texture.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background, null);
+		}else if(i==2) {
+			g.drawImage(texture.backgroundPhase1, posX_background, posY_background, largeur_background, hauteur_background, null);
 		}
 	    
     }
