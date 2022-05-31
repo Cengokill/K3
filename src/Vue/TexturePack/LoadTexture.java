@@ -38,7 +38,7 @@ public class LoadTexture {
 			menuRetour,
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
-			passerTour, passerTour_gris, imagevol;
+			passerTour, passerTour_gris, imagevol, boutonSauvegarde;
 	// IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -56,7 +56,6 @@ public class LoadTexture {
 
 	public LoadTexture(String c) {
 		this.CHEMIN = c;
-<<<<<<< HEAD
 		//IMAGE FOND -------------------------------------------------------------
 		background = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background.png");
 		backgroundSansLogo = Toolkit.getDefaultToolkit().createImage(CHEMIN+"background_sans_logo.png");
@@ -156,7 +155,6 @@ public class LoadTexture {
 		pieceBlanche = Toolkit.getDefaultToolkit().createImage(CHEMIN+"BLANC.png");
 		pieceNature = Toolkit.getDefaultToolkit().createImage(CHEMIN+"NATUREL.png");	
 		pieceJaune = Toolkit.getDefaultToolkit().createImage(CHEMIN+"JAUNE.png");
-=======
 		try {
 			// IMAGE FOND -------------------------------------------------------------
 			background = Toolkit.getDefaultToolkit().createImage(CHEMIN + "background.png");
@@ -241,7 +239,8 @@ public class LoadTexture {
 			boutonCoupPrecedent_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN + "coup_precedent_gris.png");
 			passerTour = Toolkit.getDefaultToolkit().createImage(CHEMIN + "passer_son_tour_flou.png");
 			passerTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN + "passer_son_tour_gris.png");
-			imagevol = passerTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN + "espacevol.png");
+			imagevol = Toolkit.getDefaultToolkit().createImage(CHEMIN + "espacevol.png");
+			boutonSauvegarde = Toolkit.getDefaultToolkit().createImage(CHEMIN + "sauvegarder_flou.png");
 			// CURSEURS
 			mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN + "hand-closed.png");
 			mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN + "hand-depose.png");
@@ -261,6 +260,5 @@ public class LoadTexture {
 		} catch (Exception e) {
 			System.out.println("Erreur lors du chargement des images");
 		}
->>>>>>> eaf545058e819f33074b581cfc7dae9be0a11957
 	}
 }
