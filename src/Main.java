@@ -18,7 +18,7 @@ import Vue.Menu.Chargement;
 public class Main {
 
 	public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		String CHEMIN = "/Ressources/"; // /ressources/ si .jar
+		String CHEMIN = "src/Ressources/"; // /ressources/ si .jar
 		OptionsJeu options = new OptionsJeu(CHEMIN);
 		Chargement chargement = new Chargement();
 
