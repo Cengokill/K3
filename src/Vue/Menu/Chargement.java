@@ -3,7 +3,7 @@ package Vue.Menu;
 public class Chargement {
 	
 	public enum TypeFenetre { 
-	    MENU, NEWPARTIE, CHARGERPARTIE, OPTION, TUTO, FENETREJEU  
+	    MENU, NEWPARTIE, CHARGERPARTIE, OPTION, TUTO, FIN, PHASE1, PHASE2
 	}
 	
 	public boolean lancement=false;
@@ -13,10 +13,12 @@ public class Chargement {
 	public TypeFenetre getProchaineFenetre() {
 		return prochaineFenetre;
 	}
+	
 	public void setProchaineFenetre(TypeFenetre i) {
 		this.prochainePrecedent = prochaineFenetre;
 		this.prochaineFenetre = i;
 	}
+	
 	public TypeFenetre getProchainePrecedent() {
 		return prochainePrecedent;
 	}

@@ -4,6 +4,7 @@
  */
 package Vue;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JFrame;

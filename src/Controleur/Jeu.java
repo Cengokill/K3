@@ -3,19 +3,14 @@ package Controleur;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
-import java.time.LocalTime;
-
 import Modeles.*;
-import Reseau.*;
-import Vue.*;
+import Vue.Menu.Chargement;
+import Vue.Menu.Chargement.TypeFenetre;
 import Vue.Phase1.*;
 import Vue.Phase2.Phase2;
-import Vue.TexturePack.LoadTexture;
 
 public class Jeu {
 	public Partie partieEnCours;
@@ -27,12 +22,12 @@ public class Jeu {
 	public JFrame window;
 	public Phase1Panel panel;
 	private int NB_LIGNES_SAUVEGARDE=43;
-	public LoadTexture textures;
 	public OptionsJeu options;
+	public Chargement chargement;
 
-	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, LoadTexture t, OptionsJeu o) {
-		this.textures=t;
+	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, OptionsJeu o, Chargement c) {
 		this.options=o;
+		this.chargement=c;
 		this.volumeEffetsSonores=options.volumeEffetsSonores;
 		this.window=fenetrePrincipale;
 		this.chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
@@ -44,8 +39,6 @@ public class Jeu {
 		new File(this.cheminStats).mkdirs();
 		new File(this.cheminImages).mkdirs();
 		new File(this.cheminSauvegardes).mkdirs();
-		//initialiser les parties graphiques
-		setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,500,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		//lancer une partie
 		/*
 		if(partieInit.nomFichierCharge!=null) {
@@ -58,21 +51,6 @@ public class Jeu {
 			setParametresPartie(partieInit.modeDeJeu,partieInit.difficulteIA1,partieInit.difficulteIA2,2000,partieInit.nomJoueur1,partieInit.nomJoueur2);
 		}
 		*/
-		lancerPartie();
-		//modifVolume();
-	}
-	
-	public static String[] listerSauvegardes(String chemin) {
-		File f = new File(chemin);
-		String[] sauvegardesListe = f.list();
-		return sauvegardesListe;
-	}
-	
-	public void lancerPhase1() {
-		this.panel = new Phase1Panel(this.window, this.partieEnCours, this.textures);
-		this.window.setContentPane(panel);
-		//this.panel.addMouseListener(new ecouteurClick(panel));
-		window.paintAll(window.getGraphics());
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, int v, String nom1, String nom2) {
@@ -84,10 +62,23 @@ public class Jeu {
 		this.vitesseIA=v;
 	}
 	
-	public void lancerPartie() {
-		//this.simpleSoundPlayerMusic.stopSound();//stopper la mussique d'accueil du jeu
-		//this.simpleSoundPlayerMusic.setNumSon(?); MUSIQUE DE LA PARTIE
-		//this.simpleSoundPlayerMusic.jouerSon();
+	public void initNewPhase1(InitPartie p) {
+		setParametresPartie(p.modeDeJeu,p.difficulteIA1,p.difficulteIA2,500,p.nomJoueur1,p.nomJoueur2);
+		setActeurs();
+		initPhase1();
+		lancerPhase1();
+	}
+	
+	public void initPhase1() {
+		//initialisation des blancs et des naturels aux joueurs
+		this.partieEnCours.distribuerBlancEtNaturels();
+		//initialisation des pieces des deux joueurs
+		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
+			piocher();
+		}
+	}
+	
+	public void setActeurs() {
 		if(this.typeActeurs==0) {//Joueur contre joueur
 			lancerPartieJcJ(this.nomActeur1, this.nomActeur2, 0);
 		}
@@ -101,11 +92,6 @@ public class Jeu {
 			this.num_tour=1;
 			this.valeur_paire=0;
 			//UTILISER this.difficulte
-			//PHASE 1
-			initPhase1();
-			jouerPhase1();//a modifier
-			//PHASE 2
-			jouerPhase2();//a modifier
 		}
 	}
 	
@@ -116,11 +102,6 @@ public class Jeu {
 		this.partieEnCours.setCheminStats(cheminStats);
 		this.num_tour=1;
 		this.valeur_paire=0;
-		//PHASE 1
-		initPhase1();
-		jouerPhase1();
-		//PHASE 2
-		jouerPhase2();
 	}
 	
 	public void lancerPartieJcJ(String nomJ1, String nomJ2, int numPartie) {
@@ -130,20 +111,17 @@ public class Jeu {
 		this.partieEnCours.setCheminStats(cheminStats);
 		this.num_tour=1;
 		this.valeur_paire=0;
-		//PHASE 1
-		initPhase1();
-		jouerPhase1();
-		//PHASE 2
-		jouerPhase2();
 	}
 	
-	public void initPhase1() {
-		//initialisation des blancs et des naturels aux joueurs
-		this.partieEnCours.distribuerBlancEtNaturels();
-		//initialisation des pieces des deux joueurs
-		while (this.partieEnCours.joueur1().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR || this.partieEnCours.joueur2().getTaillePiecesPiochees() < this.TAILLE_CAMP_JOUEUR) {
-			piocher();
-		}
+	public void lancerPhase1() {
+		/*
+		this.panel = new Phase1Panel(this.window, this.partieEnCours, this.textures);
+		this.window.setContentPane(panel);
+		window.paintAll(window.getGraphics());
+		*/
+		this.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
+		this.chargement.lancement=true;
+		jouerPhase1();
 	}
 		
 	public void jouerPhase1() {
@@ -153,8 +131,6 @@ public class Jeu {
 		}
 		ArrayList<PiecePyramide> arr;
 		Acteur acteurCourant;
-		lancerPhase1();
-		timer(1000);
 		for(int i=0; i<2; i++) {
 			if(this.partieEnCours.getJoueurCourant()==0) {
 				acteurCourant=this.partieEnCours.joueur1();
@@ -187,6 +163,13 @@ public class Jeu {
 			this.partieEnCours.changementJoueurCourant();
 			this.panel.repaint();
 		}
+		lancementPhase2();
+	}
+	
+	public void lancementPhase2() {
+		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
+		this.chargement.lancement=true;
+		jouerPhase2();
 	}
 	
 	public void jouerPhase2() {
@@ -236,7 +219,6 @@ public class Jeu {
 	
 	public void faireJouerActeurs() {
 		Acteur jCourant, jPrecedent;
-		
 		if(this.partieEnCours.getJoueurCourant()==0) {
 			jCourant=this.partieEnCours.joueur1();
 			jPrecedent=this.partieEnCours.joueur2();
@@ -355,10 +337,6 @@ public class Jeu {
 		}
 		partieEnCours.changementJoueurCourant();
 	}
-
-	
-	
-
 	
 	public static void timer(int t) {
 		try {
@@ -366,6 +344,12 @@ public class Jeu {
 		} catch (InterruptedException ie) {
 		    // ...
 		}
+	}
+	
+	public static String[] listerSauvegardes(String chemin) {
+		File f = new File(chemin);
+		String[] sauvegardesListe = f.list();
+		return sauvegardesListe;
 	}
 	
 	public void sauvegarderUnePartie() {

@@ -26,33 +26,28 @@ public class IHM {
 	private InitPartie partie;
 	private Jeu jeu;
 	
-	
-	public IHM(OptionsJeu options, Jeu jeu) {
+	public IHM(JFrame w, OptionsJeu options, Jeu jeu, LoadTexture t, Chargement c, InitPartie p) {
 		//RECUPERATION
-		texture = jeu.textures;
-		//CREATION
-		
-		chargement = new Chargement();
-		partie = new InitPartie();
-		window = new JFrame("Jeu K3");
+		this.window=w;
 		this.options = options;
+		this.texture=t;
 		this.jeu = jeu;
+		this.chargement=c;
+		this.partie=p;
+		
 		//MODIFICATION DE LA FENETRE
 		window.setSize(1024,768);
 		window.setMinimumSize(new Dimension(960, 540));
 		window.setLocationRelativeTo(null);//centrage de la fenetre
-		if(options.modePleinEcran==1) { //modePleinEcran
-			window.setUndecorated(true);
-			System.out.println("plein ecran");
-		}
+		window.setVisible(true);
 		//SWITCH DE FENETRE
 		TypeFenetre prochaineFenetre = chargement.getProchaineFenetre();
-		while(chargement.getProchaineFenetre()!= null) {
+		chargement.lancement = true;
+		while(chargement.getProchaineFenetre() != TypeFenetre.FIN) {
 			if(chargement.lancement == true) {
 				prochaineFenetre = chargement.getProchaineFenetre();
 				chargement.lancement = false;
 				switch(prochaineFenetre){
-				   
 			       case MENU: 
 			    	   lancementMenu();
 			           break;
@@ -74,6 +69,7 @@ public class IHM {
 			           break;
 			           
 			       case PHASE1:
+			    	   jeu.initNewPhase1(partie);
 			    	   lancementPhase1();
 			           break;
 			           
@@ -101,7 +97,7 @@ public class IHM {
 	
 	public void lancementNouvellePartie() {
 		partie.paramCharges = false;	
-		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options, chargement);
+		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options);
 		window.setContentPane(newPartie);
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
@@ -111,7 +107,7 @@ public class IHM {
 	
 	public void lancementChargerPartie() {	
 		partie.paramCharges = false;
-		ChargerPanel panel = new ChargerPanel(window, texture, chargement, partie);
+		ChargerPanel panel = new ChargerPanel(window, texture, chargement, options, partie);
 		window.setContentPane(panel);
 		panel.addMouseListener(new ChargementClick(panel));
 		window.paintAll(window.getGraphics());
@@ -130,7 +126,7 @@ public class IHM {
 	}
 	
 	public void lancementTuto() {	
-		TutorielPanel panel = new TutorielPanel(window,texture, chargement);
+		TutorielPanel panel = new TutorielPanel(window,texture, chargement, options);
 		window.setContentPane(panel);
 		panel.addMouseListener(new TutorielClick(panel));
 		window.paintAll(window.getGraphics());

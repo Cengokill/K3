@@ -19,6 +19,7 @@ import Vue.Menu.Chargement.TypeFenetre;
 import Vue.Menu.StartJeu;
 import Vue.Option.*;
 import Vue.TexturePack.LoadTexture;
+import Vue.IHM;
 import Vue.NouvellePartie;
 import Vue.Charger.*;
 import Vue.Tutoriel.*;
@@ -31,6 +32,14 @@ public class Main {
 		//String chemin=System.getProperty("user.home")+ "/Desktop/Jeu_K3/";
 		OptionsJeu options = new OptionsJeu(CHEMIN);
 		Chargement chargement = new Chargement();
+		
+		JFrame window = new JFrame("Jeu K3");
+
+		InitPartie partie = new InitPartie();
+		Jeu jeu = new Jeu(window, partie, options, chargement);
+		
+		IHM ihm = new IHM(window, options, jeu, texture, chargement, partie);
+		/*
 		InitPartie partie = new InitPartie();
 		options.gestionSons.changeMusique(43);
 		options.gestionSons.playMusique();
@@ -63,7 +72,8 @@ public class Main {
         window.setMinimumSize(new java.awt.Dimension(1200, 1080));
         window.setResizable(true);
         options.gestionSons.stopMusique();
-		new Jeu(window, partie, texture, options);
+		new Jeu(window, partie, texture, options, chargement);
+		*/
 	}
 	
 	public static void lancementMenu(JFrame window, LoadTexture texture, Chargement chargement, OptionsJeu options) {		
@@ -83,7 +93,7 @@ public class Main {
 		while(!partie.paramCharges) {
 			Jeu.timer(200);
 		}
-		chargement.setProchaineFenetre(TypeFenetre.FENETREJEU);
+		chargement.setProchaineFenetre(TypeFenetre.FIN);
 	}
 	
 	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, OptionsJeu options, Chargement chargement) {	
