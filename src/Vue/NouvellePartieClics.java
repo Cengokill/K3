@@ -5,10 +5,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
+import Vue.Menu.Chargement;
+import Vue.Menu.Chargement.TypeFenetre;
+
 public class NouvellePartieClics implements MouseListener {
 	public String nomJ1, nomJ2, nomJ3;
 	public int lvl_IA1, lvl_IA2, lvl_IA3;
-	
 	public NouvellePartie nouvellePartie;
 	
 	public NouvellePartieClics(NouvellePartie panel) {
@@ -249,7 +251,8 @@ public class NouvellePartieClics implements MouseListener {
 				 nouvellePartie.partie.nomJoueur2="Ordinateur 2";
 				 nouvellePartie.partie.difficulteIA1=lvl_IA2;
 				 nouvellePartie.partie.difficulteIA2=lvl_IA3;
-				 nouvellePartie.partie.paramCharges=true;
+				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
+				 nouvellePartie.chargement.lancement=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVM){
 				 nouvellePartie.jouerSonLancement();
@@ -257,14 +260,16 @@ public class NouvellePartieClics implements MouseListener {
 				 nouvellePartie.partie.nomJoueur1=" temporaire";
 				 nouvellePartie.partie.nomJoueur2=" Ordinateur ";
 				 nouvellePartie.partie.difficulteIA2=lvl_IA1;
-				 nouvellePartie.partie.paramCharges=true;
+				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
+				 nouvellePartie.chargement.lancement=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVP){
 				 nouvellePartie.jouerSonLancement();
 				 nouvellePartie.partie.modeDeJeu = 0;
 				 nouvellePartie.partie.nomJoueur1=" temporaire";
 				 nouvellePartie.partie.nomJoueur2=" temporaire ";
-				 nouvellePartie.partie.paramCharges=true;
+				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
+				 nouvellePartie.chargement.lancement=true;
 			 }
 		}
 		nouvellePartie.repaint();

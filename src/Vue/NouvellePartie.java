@@ -4,14 +4,13 @@
  */
 package Vue;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import Modeles.InitPartie;
 import Modeles.OptionsJeu;
+import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
 public class NouvellePartie extends PanelGeneral {
@@ -46,13 +45,15 @@ public class NouvellePartie extends PanelGeneral {
     public LoadTexture textures;
     public InitPartie partie;
     private OptionsJeu options;
+    public Chargement chargement;
   
     // METHODE NOUVELLE PARTIE
-    public NouvellePartie(JFrame w, LoadTexture t, InitPartie p, OptionsJeu o){
+    public NouvellePartie(JFrame w, LoadTexture t, InitPartie p, Chargement c, OptionsJeu o){
     	super(w, t, o);
         this.window=w;
         this.textures=t;
         this.partie=p;
+        this.chargement=c;
         this.options=o;
         window.setTitle("Nouvelle Partie");
         addMouseListener(new NouvellePartieClics(this));

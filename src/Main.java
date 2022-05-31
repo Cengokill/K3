@@ -1,5 +1,4 @@
 
-import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -37,8 +36,7 @@ public class Main {
 
 		InitPartie partie = new InitPartie();
 		Jeu jeu = new Jeu(window, partie, options, chargement);
-		
-		IHM ihm = new IHM(window, options, jeu, texture, chargement, partie);
+
 		/*
 		InitPartie partie = new InitPartie();
 		options.gestionSons.changeMusique(43);
@@ -87,7 +85,7 @@ public class Main {
 	
 	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement, OptionsJeu options) {
 		partie.paramCharges = false;	
-		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options);
+		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, chargement, options);
 		window.setContentPane(newPartie);
 		window.paintAll(window.getGraphics());
 		while(!partie.paramCharges) {

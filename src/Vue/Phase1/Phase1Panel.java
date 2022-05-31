@@ -53,10 +53,10 @@ public class Phase1Panel extends JPanel{
 	private SoundPlayer simpleSoundPlayerSon;
 
 	// CONSTRUCTEUR----------------------------------------------
-	public Phase1Panel(JFrame w, Partie partieEnCours, LoadTexture t){
+	public Phase1Panel(JFrame w, Partie p, LoadTexture t){
 		this.textures=t;
 		this.simpleSoundPlayerSon = new SoundPlayer(8, textures.CHEMIN);
-		this.partieEnCours=partieEnCours;
+		this.partieEnCours=p;
 		this.window = w;
 		this.tailleFenetre = window.getSize();
 		addMouseListener(new ecouteurClick(this));
