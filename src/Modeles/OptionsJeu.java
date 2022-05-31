@@ -22,8 +22,6 @@ public class OptionsJeu {
 		this.chemin=chemin;
 		lireOptions();
 		this.gestionSons = new GestionSons(new SoundPlayer(volumeMusique, chemin), new SoundPlayer(volumeEffetsSonores, chemin));
-		//setVolumeSons(volumeEffetsSonores);
-		//setVolumeMusique(volumeMusique);
 	}
 	
 	public void setVolumeMusique(int v) {
@@ -123,7 +121,7 @@ public class OptionsJeu {
 			BufferedWriter bw = new BufferedWriter(writer);
 			this.modeDaltonien=0;
 			this.volumeEffetsSonores=6;
-			this.volumeMusique=5;
+			this.volumeMusique=4;
 			this.modePleinEcran=1;
 			bw.write(String.valueOf(this.modeDaltonien));
 			bw.newLine();

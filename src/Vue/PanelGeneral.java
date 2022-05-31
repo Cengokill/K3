@@ -52,7 +52,6 @@ public class PanelGeneral extends JPanel{
 	public void fullScreenOff() {
 		estPleinEcran=false;
     	window.dispose();
-    	//window.setLocation(screenWidth/2-frameWidth/2,screenHeight/2-frameHeight/3);
     	window.setUndecorated(false);
     	window.setVisible(true);
 	}
