@@ -21,7 +21,7 @@ public class Jeu {
 	public int volumeEffetsSonores, volumeMusique, modeDaltonien, modePleinEcran;
 	private final int TAILLE_CAMP_JOUEUR=21;
 	//public JFrame window;
-	//public Phase1Panel panel;
+	//public Phase1ihm.phase1Panel ihm.phase1Panel;
 	private int NB_LIGNES_SAUVEGARDE=43;
 	public OptionsJeu options;
 	public Chargement chargement;
@@ -55,6 +55,7 @@ public class Jeu {
 		*/
 		LoadTexture texture = new LoadTexture(options.chemin);
 		this.ihm = new IHM(fenetrePrincipale, options, this, texture, chargement, partieInit);
+		this.ihm.start();
 	}
 	
 	public void setParametresPartie(int t, int d1, int d2, int v, String nom1, String nom2) {
@@ -119,12 +120,13 @@ public class Jeu {
 	
 	public void lancerPhase1() {
 		/*
-		this.panel = new Phase1Panel(this.window, this.partieEnCours, this.textures);
-		this.window.setContentPane(panel);
+		this.ihm.phase1Panel = new Phase1ihm.phase1Panel(this.window, this.partieEnCours, this.textures);
+		this.window.setContentPane(ihm.phase1Panel);
 		window.paintAll(window.getGraphics());
 		*/
 		this.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
 		this.chargement.lancement=true;
+		this.ihm.phase1Panel.setPartieEnCours(this.partieEnCours);
 		jouerPhase1();
 	}
 		
@@ -147,13 +149,13 @@ public class Jeu {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
 				timer(16);
-				//panel.repaint();//afficherTimer(panel.getGraphics());
+				ihm.phase1Panel.repaint();//afficherTimer(ihm.phase1Panel.getGraphics());
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
 						timer((int)(temps));
 						if(acteurCourant.getCamp().empilerPhase1(p)) {//pas de verif pieces porteuse
 							acteurCourant.removePiecePiochee(p.getPiece());
-							//this.panel.repaint();
+							this.ihm.phase1Panel.repaint();
 							if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 								this.options.gestionSons.playSon(1);//son de lancement de partie
 							}
@@ -165,14 +167,13 @@ public class Jeu {
 			acteurCourant.stopTempsConstruction();
 			timer(1200);
 			this.partieEnCours.changementJoueurCourant();
-			//this.panel.repaint();
+			this.ihm.phase1Panel.repaint();
 		}
-		lancementPhase2();
+		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
+		this.chargement.lancement=true;
 	}
 	
 	public void lancementPhase2() {
-		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
-		this.chargement.lancement=true;
 		jouerPhase2();
 	}
 	
@@ -202,7 +203,7 @@ public class Jeu {
 		this.partieEnCours.joueur1().resetTempsConstruction();
 		this.partieEnCours.joueur2().resetTempsConstruction();
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
-			//panel.repaint();
+			ihm.phase2Panel.repaint();
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 				this.options.gestionSons.playSon(35);
 			}
@@ -271,7 +272,7 @@ public class Jeu {
 			jCourant.retirerPieceVolee(coupDemande.getPiece());
 		}
 		timer(temps);
-		//panel.repaint();
+		ihm.phase2Panel.repaint();
 		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
 			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
 			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
@@ -283,7 +284,7 @@ public class Jeu {
 				}
 			}
 			timer(temps);
-			//panel.repaint();
+			ihm.phase2Panel.repaint();
 			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
 				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
 					this.options.gestionSons.playSon(23);
@@ -297,7 +298,7 @@ public class Jeu {
 					this.partieEnCours.addCoupHist(vol);
 				}
 				timer(temps);
-				//panel.repaint();
+				ihm.phase2Panel.repaint();
 			}
 		} else {// joue une piece BLANCHE
 			jCourant.addBlancJoue();
@@ -305,7 +306,7 @@ public class Jeu {
 				this.options.gestionSons.playSon(10);
 			}
 			timer(temps);
-			//panel.repaint();
+			ihm.phase2Panel.repaint();
 			System.out.println("Vous avez decide de passer votre tour !");
 		}
 		if (this.partieEnCours.joueurCourant == 0) {
