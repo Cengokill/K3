@@ -132,7 +132,7 @@ public class LoadTexture{
 		boutonCoupPrecedent_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"coup_precedent_gris.png");
 		passerTour = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_flou.png");
 		passerTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"passer_son_tour_gris.png");
-		imagevol = passerTour_gris = Toolkit.getDefaultToolkit().createImage(CHEMIN+"espacevol.png");
+		imagevol = Toolkit.getDefaultToolkit().createImage(CHEMIN+"espacevol.png");
 		//CURSEURS
 		mainFermee = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-closed.png");
 		mainDepose = Toolkit.getDefaultToolkit().createImage(CHEMIN+"hand-depose.png");

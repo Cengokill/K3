@@ -27,6 +27,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	public int largeur_ileJ, hauteur_ileJ, posX_ileJ1, posY_ileJ1, posX_ileJ2, posY_ileJ2;
 	public int largeur_ileM, hauteur_ileM, posX_ileM, posY_ileM;
 	public int largeur_piece, hauteur_piece, posY_depart;
+	public int largeur_vol, hauteur_vol, posX_volJ1, poxY_volJ1, posX_volJ2, poxY_volJ2;
     /**
      * Creates new form PanelPhase2
      */
@@ -118,6 +119,16 @@ public class PanelPhase2 extends javax.swing.JPanel {
 		double rapportPiece=0.8576709796672828;// 464/541
 		largeur_piece=Math.min((int)(largeur_background/35), (int)(frameWidth/35));
 		hauteur_piece=(int)(largeur_piece*rapportPiece);
+		//Vols
+		double rapportVol=0.8104738154613466;// 975/1203
+		largeur_vol=largeur_piece*6;
+		hauteur_vol=(int)(largeur_vol*rapportVol);
+		posX_volJ1=posX_ileJ1+largeur_ileJ/2-largeur_vol/2+(int)(largeur_piece*0.4);
+		poxY_volJ1=posY_background+hauteur_background/24;
+		
+		posX_volJ2=posX_ileJ2+largeur_ileJ/2-largeur_vol/2-(int)(largeur_piece*0.2);
+		poxY_volJ2=poxY_volJ1;
+		
 	}
    
    public void drawbackground(Graphics g) {
@@ -136,6 +147,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
    }
  
    public void drawbaPyramideJ1(Graphics g) {
+	   g.drawImage(texture.imagevol,posX_volJ1,poxY_volJ1,largeur_vol,hauteur_vol, null);
 	     Position actualpos = new Position(0, 0);
 	     int posX_depart = posX_ileJ1+(int)(largeur_ileJ*0.54)-((largeur_piece*6)/2);
 	     int posX = posX_depart;
@@ -162,6 +174,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
    }
    
    public void drawbaPyramideJ2(Graphics g) {
+	   g.drawImage(texture.imagevol,posX_volJ2,poxY_volJ2,largeur_vol,hauteur_vol, null);
 	     Position actualpos = new Position(0, 0);
 	     int posX_depart = posX_ileJ2+(int)(largeur_ileJ*0.49)-((largeur_piece*6)/2);
 	     int posX = posX_depart;
