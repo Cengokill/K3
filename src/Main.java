@@ -35,7 +35,7 @@ public class Main {
 		JFrame window = new JFrame("Jeu K3");
 
 		InitPartie partie = new InitPartie();
-		Jeu jeu = new Jeu(window, partie, options, chargement);
+		Jeu jeu = new Jeu(window, partie, options, chargement);//
 
 		/*
 		InitPartie partie = new InitPartie();
@@ -85,13 +85,16 @@ public class Main {
 	
 	public static void lancementNouvellePartie(JFrame window, LoadTexture texture, InitPartie partie, Chargement chargement, OptionsJeu options) {
 		partie.paramCharges = false;	
+<<<<<<< HEAD
 		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, chargement, options);
+=======
+		NouvellePartie newPartie = new NouvellePartie(window, texture, partie, options, chargement);
+>>>>>>> d8df7c450c34722fc21c9cc22d41e2bfc7e8a6dd
 		window.setContentPane(newPartie);
 		window.paintAll(window.getGraphics());
-		while(!partie.paramCharges) {
+		while(!chargement.lancement) {
 			Jeu.timer(200);
 		}
-		chargement.setProchaineFenetre(TypeFenetre.FIN);
 	}
 	
 	public static void lancementChargerPartie(JFrame window, LoadTexture texture, InitPartie partie, OptionsJeu options, Chargement chargement) {	
