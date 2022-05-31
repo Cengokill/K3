@@ -117,11 +117,10 @@ public class IHM {
 							chargement.lancement = true;
 							chargement.setProchaineFenetre(TypeFenetre.MENU);
 						}
-			    	   System.err.println("ok.");
 			    	   break;
 			           
 			       default:
-			           System.out.println("Choix incorrect");
+			           System.err.println("Choix incorrect");
 			           break;
 				}
 			}
@@ -130,7 +129,6 @@ public class IHM {
 	
 	public void lancementMenu() {		
 		window.setContentPane(startJeuPanel);
-		//panel.addMouseListener(new StartJeuClics(panel));
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
@@ -181,23 +179,11 @@ public class IHM {
 	public void lancementPhase1() {
 		window.setContentPane(phase1Panel);
 		window.paintAll(window.getGraphics());
-		/*
-		while(!chargement.lancement) {
-			Jeu.timer(100);
-			//phase1Panel.repaint();
-		}
-		*/
 	}
 	
 	public void lancementPhase2() {
 		window.setContentPane(phase2Panel);
 		window.paintAll(window.getGraphics());
-		/*
-		while(!chargement.lancement) {
-			Jeu.timer(100);
-			phase2Panel.repaint();
-		}
-		*/
 	}
 	
 	public void changementFenetre(TypeFenetre prochaineFenetre) {	

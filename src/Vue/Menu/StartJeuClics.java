@@ -22,19 +22,8 @@ public class StartJeuClics implements MouseListener {
 	public StartJeuClics(StartJeu panel) {
 		super();
 		this.startJeu = panel;
-		this.jpanel=panel.jpanel;
 		DetectionSurvol survol = new DetectionSurvol();
 		this.startJeu.addMouseMotionListener(survol);
-	}
-	
-	public boolean clicMenu(MouseEvent e){
-		int startx = 0;
-		int starty = 0;
-		int hauteurBouton=400;
-		int largeurBouton=startJeu.frameWidth;
-		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
-			return true;
-		}else return false;
 	}
 	
 	public boolean clicNouvellePartie(MouseEvent e){
@@ -115,24 +104,6 @@ public class StartJeuClics implements MouseListener {
 			this.startJeu.chargement.lancement=true;
 			this.startJeu.chargement.setProchaineFenetre(TypeFenetre.TUTO);
 			//new OptionsPanel(startJeu.window, startJeu.getGraphics());
-		}
-		else if(clicMenu(e)) {
-			this.startJeu.jouerSonClic();
-			System.out.println("clic menu");
-			
-			Thread th = new Thread() {
-				@Override
-				public void run() {
-					try {
-						for(int i=0; i<startJeu.frameWidth/8; i++) {
-							Thread.sleep(3);
-							startJeu.jpanel.setSize(400,0+i);
-						}
-					}catch(Exception e) {
-						System.err.println();
-					}
-				}
-			};th.start();
 		}
 	}
 
