@@ -33,10 +33,10 @@ public class IHM {
 	public Phase1Panel phase1Panel;
 	public PanelPhase2 phase2Panel;
 	
-	public IHM(JFrame w, OptionsJeu options, Jeu jeu, LoadTexture t, Chargement c, InitPartie p) {
+	public IHM(JFrame w, OptionsJeu o, Jeu jeu, LoadTexture t, Chargement c, InitPartie p) {
 		//RECUPERATION
 		this.window=w;
-		this.options = options;
+		this.options = o;
 		this.texture=t;
 		this.jeu = jeu;
 		this.chargement=c;
@@ -53,7 +53,7 @@ public class IHM {
 		this.chargerPanel = new ChargerPanel(window, texture, chargement, options, partie);
 		this.optionsPanel = new OptionPanel(window,texture, chargement, options);
 		this.tutoPanel = new TutorielPanel(window,texture, chargement, options);
-		this.phase1Panel = new Phase1Panel(window, this.jeu.partieEnCours, this.texture);
+		this.phase1Panel = new Phase1Panel(window, jeu.partieEnCours, texture, options);
 		this.phase2Panel = new PanelPhase2(texture);
 		phase2Panel.partie_actuel = this.jeu;
 		
