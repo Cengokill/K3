@@ -107,8 +107,8 @@ public class Phase1Panel extends PanelGeneral{
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
 		//Position objet
-		POSX_BASE_JOUEUR = tailleFenetre.height/10;
-		POSY_BASE_JOUEUR = tailleFenetre.height/3;
+		POSX_BASE_JOUEUR = largeur_background/10;
+		POSY_BASE_JOUEUR = hauteur_background/3;
 		
 		POSX_PIOCHE = 0;
 		POSY_PIOCHE = POSY_BASE_JOUEUR+(TAILLE_CUBES_HAUTEUR+1)*6+30;
