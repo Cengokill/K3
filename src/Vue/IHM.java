@@ -132,7 +132,7 @@ public class IHM {
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
-			startJeuPanel.repaint();
+			//startJeuPanel.repaint();
 		}
 	}
 	
@@ -142,7 +142,7 @@ public class IHM {
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(200);
-			newPartiePanel.repaint();
+			//newPartiePanel.repaint();
 		}
 	}
 	
@@ -153,16 +153,17 @@ public class IHM {
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
-			chargerPanel.repaint();
+			//chargerPanel.repaint();
 		}
 	}
 	
 	public void lancementOption() {	
 		window.setContentPane(optionsPanel);
+		Jeu.timer(100);
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
-			optionsPanel.repaint();
+			//optionsPanel.repaint();
 		}
 	}
 	
@@ -172,7 +173,7 @@ public class IHM {
 		window.paintAll(window.getGraphics());
 		while(!chargement.lancement) {
 			Jeu.timer(100);
-			tutoPanel.repaint();
+			//tutoPanel.repaint();
 		}
 	}
 	

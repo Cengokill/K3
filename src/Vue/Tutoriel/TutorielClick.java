@@ -55,6 +55,10 @@ public class TutorielClick implements MouseListener {
 	//GESTION SOURI----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 		if(clickBoutonSuivant(e)) {
 			panel.jouerSonClic();
 			panel.tutoSuivant();
@@ -68,11 +72,6 @@ public class TutorielClick implements MouseListener {
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override

@@ -24,6 +24,14 @@ public class NouvellePartieClics implements MouseListener {
 	public boolean estSurBouton(MouseEvent e, int startx, int starty, int largeur_bouton, int hauteur_bouton){
         return e.getX() >= startx && e.getX() <= startx+largeur_bouton && e.getY() >= starty && e.getY() <= starty+hauteur_bouton;
     }
+	
+	public boolean clicRetour(MouseEvent e){
+		int startx = nouvellePartie.posX_back;
+		int starty = nouvellePartie.posY_back;
+		int hauteurBouton=nouvellePartie.hauteur_back;
+		int largeurBouton=nouvellePartie.largeur_back;
+		return estSurBouton( e, startx, starty, largeurBouton, hauteurBouton);
+	}
 
 	public boolean clicPVP(MouseEvent e){
 		int startx = nouvellePartie.posX_PVP;
@@ -131,6 +139,10 @@ public class NouvellePartieClics implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 		if(clicPVP(e)) {
 			if(!nouvellePartie.enfonce_pb_PVP) {
 				nouvellePartie.jouerSonClic();
@@ -272,18 +284,17 @@ public class NouvellePartieClics implements MouseListener {
 				 nouvellePartie.chargement.lancement=true;
 			 }
 		}
+		else if(clicRetour(e)) {
+			nouvellePartie.jouerSonClic();
+			nouvellePartie.chargement.lancement = true;
+			nouvellePartie.chargement.setProchaineFenetre(nouvellePartie.chargement.getProchainePrecedent());
+		}
 		nouvellePartie.repaint();
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		nouvellePartie.repaint();
+		//nouvellePartie.repaint();
 		// TODO Auto-generated method stub
 		
 	}
@@ -320,6 +331,9 @@ public class NouvellePartieClics implements MouseListener {
 				}
 			}
 			else if (clicBp_COMMENCER(e)){
+				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+			else if(clicRetour(e)) {
 				nouvellePartie.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			else {

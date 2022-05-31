@@ -320,6 +320,9 @@ public class Jeu {
 			System.out.print(this.partieEnCours.joueur1().getNom());
 		}
 		System.out.println(" a gagné !");
+		Jeu.timer(10000);
+		this.chargement.setProchaineFenetre(TypeFenetre.MENU);
+		this.chargement.lancement=true;
 	}
 
 	public void piocher() {
