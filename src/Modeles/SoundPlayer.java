@@ -30,9 +30,9 @@ public class SoundPlayer {
 		cheminsSons[7] = chemin + "PoserPieceNaturelle/poserPieceNaturelle1.wav";// ok
 		cheminsSons[8] = chemin + "PoserPieceNaturelle/poserPieceNaturelle2.wav";
 		cheminsSons[9] = chemin + "PoserPieceNaturelle/poserPieceNaturelle3.wav";
-		cheminsSons[10] = chemin + "PasserTour/passerTour1.wav";// ok
-		cheminsSons[11] = chemin + "PasserTour/passerTour2.wav";
-		cheminsSons[12] = chemin + "PasserTour/passerTour3.wav";
+		cheminsSons[10] = chemin + "PasserTour/PasserTour1.wav";// ok
+		cheminsSons[11] = chemin + "PasserTour/PasserTour2.wav";
+		cheminsSons[12] = chemin + "PasserTour/PasserTour3.wav";
 		cheminsSons[13] = chemin + "JouerCoupBlanc/jouerCoupBlanc1.wav";
 		cheminsSons[14] = chemin + "JouerCoupBlanc/jouerCoupBlanc2.wav";
 		cheminsSons[15] = chemin + "JouerCoupBlanc/jouerCoupBlanc2.wav";
