@@ -13,7 +13,7 @@ public class LoadTexture {
 	// IMAGES FOND
 	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, ile_montagne, chrono;
 	// IMAGE PIECE
-	public Image pieceVide, pieceNoire, pieceBleue, pieceVert, pieceRouge, pieceBlanche, pieceNature, pieceJaune;
+	public Image pieceVide,pieceNoire,pieceBleue,pieceVert,pieceRouge,pieceBlanche,pieceNature,pieceJaune;
 	// IMAGE MENU
 	public Image menuBouton1, menuBouton1_presse;
 	public Image menuBoutonCharger, menuBoutonCharger_presse;
@@ -32,15 +32,10 @@ public class LoadTexture {
 			menuRetour,
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
-<<<<<<< HEAD
 			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings,
 			cadre_joueur,cadre_joueur_gris,popup_save,fermer;
-=======
-			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup, settings,
-			cadre_joueur, cadre_joueur_gris;
->>>>>>> c6504971e879e3f853dcb35875cc41aba0e9f50c
 	// IMAGE CHARGEMENT
-	public Image boutonLoad, boutonLoadPresse;
+	public Image boutonLoad,boutonLoadPresse;
 	// IMAGE TUTO
 	public Image Tuto1, Tuto2, Tuto3, Tuto4, TutoPrecedent, TutoSuivant, TutoMenu;
 	// IMAGES BOUTONS
@@ -52,7 +47,6 @@ public class LoadTexture {
 
 	public LoadTexture(String c) throws IOException {
 		this.CHEMIN = c;
-		// Si jar remplacer new File par getClass().getResourceAsStream
 		// IMAGE FOND -------------------------------------------------------------
 		background = ImageIO.read(new File(CHEMIN + "background.png"));
 		backgroundSansLogo = ImageIO.read(new File(CHEMIN + "background_sans_logo.png"));
@@ -160,6 +154,5 @@ public class LoadTexture {
 		pieceBlanche = ImageIO.read(new File(CHEMIN + "BLANC.png"));
 		pieceNature = ImageIO.read(new File(CHEMIN + "NATUREL.png"));
 		pieceJaune = ImageIO.read(new File(CHEMIN + "JAUNE.png"));
-
 	}
 }
