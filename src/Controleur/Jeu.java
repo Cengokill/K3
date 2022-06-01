@@ -185,7 +185,7 @@ public class Jeu {
 		System.out.println("Les deux camps des joueurs ont ete creer !");
 		System.out.println("================ Deuxieme phase du jeu ================");
 		double tempsJ1 = this.partieEnCours.joueur1().getTempsConstruction();
-		double tempsJ2 = this.partieEnCours.joueur1().getTempsConstruction();
+		double tempsJ2 = this.partieEnCours.joueur2().getTempsConstruction();
 		if (tempsJ1 < tempsJ2) {
 			this.partieEnCours.setJoueurCourant(0);
 		} else if (tempsJ1 > tempsJ2) {

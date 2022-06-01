@@ -15,11 +15,13 @@ public class IAjeuExpert implements IAjeu {
     }
 
     public Coup IACoup(Partie p, int numeroJoueur) {
+        p.IAreflechis = true;
         mm = new MinMax(numeroJoueur);
         // Partie p = originale.clonePartie();
         Heuristique valeurecourante = new Heuristique();
         valeurecourante.setinit(10001);
         mm.meilleurConfigJ(p, horizon, true, valeurecourante);
+        p.IAreflechis = false;
         return mm.getparfait();
     }
 
