@@ -44,9 +44,13 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int largeur_valider, hauteur_valider, largeur_fermer, posX_valider, posY_valider, posX_fermer, posY_fermer;
   public int posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext;
   public int posX_back, posY_back, largeur_back, hauteur_back;
+  public int posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, posX_cadre_victoire, posY_cadre_victoire;
+  public int posX_jtext2, posY_jtext2, largeur_jtext2, hauteur_jtext2;
+  public int largeur_degrade, hauteur_degade, posX_degrade, posY_degrade;
+  public int posX_piece_voleeJ1, posY_piece_voleeJ1, posX_piece_voleeJ2, posY_piece_voleeJ2;
   boolean popup = false;
   boolean popup_save = false;
-  public JTextField nomSave;
+  public JTextField nomSave, joueurVictorieux;
 
   /**
    * Creates new form PanelPhase2
@@ -92,6 +96,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawIle(g);
     drawbaPyramideJ1(g);
     drawbaPyramideJ2(g);
+    drawPiecesVoleesJ2(g);
     drawbaPyramideMilieu(g);
     if (showcheck) {
       System.out.println("Repaint transparence");
@@ -122,7 +127,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     }
     // Passer son tour
     double rapportPasserTour = 0.3001776198934281;// 169/563
-    largeurPasserTour = Math.min(largeur_background / 6, frameWidth / 6);
+    largeurPasserTour = Math.min(largeur_background / 8, frameWidth / 8);
     hauteurPasserTour = (int) (largeurPasserTour * rapportPasserTour);
     int espacement = largeurPasserTour / 4;
     posXPasserTour = posX_background + largeur_background / 2 - largeurPasserTour - espacement / 2;
@@ -211,6 +216,28 @@ public class PanelPhase2 extends javax.swing.JPanel {
     hauteur_back = (int) (largeur_back * rapportBack);
     posX_back = posX_background + (int) (largeur_background * 0.9);
     posY_back = posY_background + (int) (hauteur_background * 0.8);
+    // Victoire
+    double rapportVictoire = 0.2055030094582975;// 239/1163
+    largeur_victoire = Math.min(largeur_background / 3, frameWidth / 3);
+    hauteur_victoire = (int) (largeur_victoire * rapportVictoire);
+    posX_victoire = posX_background + largeur_background / 2 - largeur_victoire / 2;
+    posY_victoire = posY_background + (int) (hauteur_background * 0.05);
+    // cadre fond joueur victorieux
+    posX_cadre_victoire = posX_victoire + largeur_victoire / 2 - largeur_cadre / 2;
+    posY_cadre_victoire = posY_victoire + (int) (hauteur_victoire * 1.5);
+    // nom du gagnant
+    posX_jtext2 = posX_cadre_victoire + (int) (largeur_cadre * 0.12);
+    posY_jtext2 = posY_cadre_victoire + (int) (hauteur_cadre * 0.6);
+    // fond degrade noir
+    largeur_degrade = largeur_victoire * 2;
+    hauteur_degade = hauteur_background;
+    posX_degrade = posX_background + largeur_background / 2 - largeur_degrade / 2;
+    posY_degrade = posY_background;
+    // Pieces volees
+    posX_piece_voleeJ1 = posX_volJ1 + (int) (largeur_vol * 0.11);
+    posY_piece_voleeJ1 = poxY_volJ1 + (int) (hauteur_vol * 0.41);
+    posX_piece_voleeJ2 = posX_volJ2 + (int) (largeur_vol * 0.11);
+    posY_piece_voleeJ2 = poxY_volJ2 + (int) (hauteur_vol * 0.41);
   }
 
   public void afficheBoutonBack(Graphics g) {
@@ -273,6 +300,11 @@ public class PanelPhase2 extends javax.swing.JPanel {
     g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
 
+  public void drawPiecesVoleesJ2(Graphics g) {
+    g.drawImage(texture.imagevol, posX_volJ2, poxY_volJ2, largeur_vol, hauteur_vol, null);
+    g.drawImage(texture.pieceBlanche, posX_piece_voleeJ2, posY_piece_voleeJ2, largeur_piece, hauteur_piece, null);
+  }
+
   public void drawbaPyramideJ1(Graphics g) {
     g.drawImage(texture.imagevol, posX_volJ1, poxY_volJ1, largeur_vol, hauteur_vol, null);
     Position actualpos = new Position(0, 0);
@@ -301,7 +333,6 @@ public class PanelPhase2 extends javax.swing.JPanel {
   }
 
   public void drawbaPyramideJ2(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ2, poxY_volJ2, largeur_vol, hauteur_vol, null);
     Position actualpos = new Position(0, 0);
     int posX_depart = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
     int posX = posX_depart;
