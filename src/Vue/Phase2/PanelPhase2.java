@@ -123,7 +123,6 @@ public class PanelPhase2 extends PanelGeneral {
     double rapportIlesJoueurs = 0.9269340974212034;// 647/698
     largeur_ileJ = Math.min((int) (largeur_background / 3.6), (int) (frameWidth / 3.6));
     hauteur_ileJ = (int) (largeur_ileJ * rapportIlesJoueurs);
-    
     posX_ileJ1 = posX_background + (int)(largeur_background * 0.02);
     posY_ileJ1 = posY_background + (int)(hauteur_background * 0.52);
     posX_campJ1 = posX_ileJ1+(int)(largeur_ileJ*0.23);

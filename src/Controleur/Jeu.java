@@ -251,11 +251,12 @@ public class Jeu {
 	}
 
 	public void jouer() {
-		int temps = 1000;
+		int temps = 100;
 		if (this.typeActeurs == 2) {
 			temps = this.vitesseIA;
 		}
 		Acteur jCourant, jPrecedent;
+		partieEnCours.afficheVictoire = false;
 		if (this.partieEnCours.joueurCourant == 0) {
 			jCourant = this.partieEnCours.joueur1();
 			jPrecedent = this.partieEnCours.joueur2();
@@ -327,6 +328,7 @@ public class Jeu {
 			}
 			changement_joueur = true;
 			partieEnCours.changementJoueurCourant();
+			partieEnCours.afficheVictoire = true;
 		}
 	}
 
