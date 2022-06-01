@@ -172,10 +172,12 @@ public class ecouteurClick implements MouseListener {
 		if(panel.partieEnCoursSet == true) {
 			if(panel.popup) {
 				if(clicOui(e)) {
+					panel.jouerSonClic();
 					panel.popup=false;
 					panel.chargement.lancement = true;
 					panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
 				}else if(clicNon(e)) {
+					panel.jouerSonClic();
 					panel.popup=false;
 				}
 			}else {
