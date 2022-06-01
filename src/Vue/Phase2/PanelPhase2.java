@@ -31,7 +31,8 @@ public class PanelPhase2 extends PanelGeneral {
   public int coupure = 5;
   public int posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, posXCoupPrecedent;
   public int largeur_ileJ, hauteur_ileJ, posX_ileJ1, posY_ileJ1, posX_ileJ2, posY_ileJ2;
-  public int largeur_ileM, hauteur_ileM, posX_ileM, posY_ileM;
+  public int largeur_ileM, hauteur_ileM, posX_ileM, posY_ileM, posX_campM, posY_campM;
+  public int posX_campJ1,posY_campJ1,posX_campJ2,posY_campJ2;
   public int largeur_piece, hauteur_piece, posY_depart;
   public int largeur_vol, hauteur_vol, posX_volJ1, posY_volJ1, posX_volJ2, posY_volJ2;
   public int posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder;
@@ -50,11 +51,6 @@ public class PanelPhase2 extends PanelGeneral {
   boolean popup = false;
   boolean popup_save = false;
   public JTextField nomSave, joueurVictorieux;
-  
-  //test
-  public int posX_ileJ1_Pyramide;
-  public int posY_ile_Pyramide;
-  public int posX_ileJ2_Pyramide;
 
   // TEXTURES IMPORTEES
   public LoadTexture textures;
@@ -90,11 +86,9 @@ public class PanelPhase2 extends PanelGeneral {
       drawIle(g);
       affichePyramideJoueurJ1(g);
       affichePyramideJoueurJ2(g);
-      afficheBaseMontagne(g);
-      drawbaPyramideJ2(g);
       drawPiecesVoleesJ1(g);
       drawPiecesVoleesJ2(g);
-      drawbaPyramideMilieu(g);
+      affichePyramideMontagne(g);
       drawBoutons(g);
       afficherNomJoueur(g);
       afficheBoutonBack(g);
@@ -130,26 +124,29 @@ public class PanelPhase2 extends PanelGeneral {
     largeur_ileJ = Math.min((int) (largeur_background / 3.6), (int) (frameWidth / 3.6));
     hauteur_ileJ = (int) (largeur_ileJ * rapportIlesJoueurs);
     
-    posX_ileJ1 = posX_background + (int) (largeur_background * 0.02);
-    posX_ileJ1_Pyramide = posX_ileJ1 + (int) (largeur_ileJ * 0.54) - ((largeur_piece * 6) / 2);
-    posY_ileJ1 = posY_background + (int) (hauteur_background * 0.52);
-    posY_ile_Pyramide = posY_ileJ1-(partieEnCours.joueur1().getCamp().getHauteur()-1)*hauteur_piece;
+    posX_ileJ1 = posX_background + (int)(largeur_background * 0.02);
+    posY_ileJ1 = posY_background + (int)(hauteur_background * 0.52);
+    posX_campJ1 = posX_ileJ1+(int)(largeur_ileJ*0.23);
+    posY_campJ1 = posY_ileJ1 - (int)(hauteur_ileJ * 0.5);
     
-    posX_ileJ2 = posX_background + (int) (largeur_background * 0.98) - largeur_ileJ;
-    posX_ileJ2_Pyramide = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
-    ;
+    posX_ileJ2 = posX_background + (int)(largeur_background * 0.98) - largeur_ileJ;
     posY_ileJ2 = posY_ileJ1;
-    posY_depart = posY_ileJ1 - (int) (hauteur_ileJ * 0.04);
+    posX_campJ2 = posX_ileJ2+(int)(largeur_ileJ*0.17);
+    posY_campJ2 = posY_campJ1;
+    posY_depart = posY_ileJ1 - (int)(hauteur_ileJ * 0.04);
     
     // Ile montagne
     double rapportIleMontagne = 0.7764198418404026;// 1080/1391
-    largeur_ileM = Math.min((int) (largeur_background / 2.5), (int) (frameWidth / 2.5));
+    largeur_ileM = Math.min((int)(largeur_background / 2.5), (int)(frameWidth / 2.5));
     hauteur_ileM = (int) (largeur_ileM * rapportIleMontagne);
     posX_ileM = posX_background + largeur_background / 2 - largeur_ileM / 2;
-    posY_ileM = posY_background + hauteur_background - (int) (hauteur_background / 1.7);
+    posY_ileM = posY_ileJ1-(int)(hauteur_ileJ*0.25);
+    // Camp montagne
+    posX_campM = posX_ileM+(int)(largeur_ileM*0.17);
+    posY_campM = posY_campJ1 - hauteur_piece*3;
     // Camp joueur
     double rapportPiece = 0.8576709796672828;// 464/541
-    largeur_piece = Math.min((int) (largeur_background / 35), (int) (frameWidth / 35));
+    largeur_piece = Math.min((int)(largeur_background / 35), (int)(frameWidth / 35));
     hauteur_piece = (int) (largeur_piece * rapportPiece);
     // Cadres joueurs
     double rapportCadre = 0.2200647249190939;// 204/927
@@ -300,60 +297,170 @@ public class PanelPhase2 extends PanelGeneral {
     g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
 
-  
+ 
 
-  public void drawbaPyramideJ2(Graphics g) {
-    Position actualpos = new Position(0, 0);
-    int posX_depart = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
-    int posX = posX_depart;
-    int posY = posY_depart;
-    int decalage = 0;
-    for (int i = 0; i < this.jeu.partieEnCours.joueur2().getCamp().getHauteur(); i++) { // etage
-      for (int j = 0; j < (this.jeu.partieEnCours.joueur2().getCamp().getLargeur() - i); j++) { // rang
-        actualpos.rang = j;
-        actualpos.etage = i;
-        Piece c = this.jeu.partieEnCours.joueur2().getCamp().getPiece(actualpos);
-        Image image;
-        if (c == null) {
-          image = colortoimage(Couleurs.VIDE);
-        } else {
-          image = colortoimage(c.getColor());
-        }
-        g.drawImage(image, posX, posY, largeur_piece, hauteur_piece, null);
-        posX += largeur_piece;
-      }
-      decalage += largeur_piece / 2;
-      posY -= hauteur_piece * 0.9;
-      posX = posX_depart + decalage;// +decalage;
+  // INTERACTION ACTEUR COURANT----------------------------------------------
+  public Acteur initAffichageJoueurs() {
+    Acteur a;
+    if (this.partieEnCours.getJoueurCourant() == 0) {
+      a = this.partieEnCours.joueur1();
+    } else {
+      a = this.partieEnCours.joueur2();
+    }
+    return a;
+  }
+
+  public void setCoup(Position POSYitionPiecePyramide, Acteur a) { /////////////////////////////////////////////////////////////////////////////////////////////
+    a.setCoupDemande(new Coup(pieceSelectionnee.getPiece(), pieceSelectionnee.getPos(), POSYitionPiecePyramide));
+    a.validerCoup = true;
+    pieceSelectionnee = null;
+    this.repaint();
+  }
+
+  public void setPasser(Acteur a) { /////////////////////////////////////////////////////////////////////////////////////////////
+    a.setCoupDemande(new Coup(pieceSelectionnee.getPiece(), pieceSelectionnee.getPos(), null));
+    a.validerCoup = true;
+    pieceSelectionnee = null;
+    this.repaint();
+  }
+
+  // AFFICHAGE PIECE
+  // SELECTIONNEE-------------------------------------------------------------
+  public void dragNdrop(Graphics g) {
+    if (pieceSelectionnee != null) {
+      g.drawImage(getpetitcolor(pieceSelectionnee.getPiece(), 1), currentX, currentY,
+          (int) (largeur_piece / 1.5), (int) (hauteur_piece / 1.5), null);
     }
   }
 
-  public void drawbaPyramideMilieu(Graphics g) {
-    Position actualpos = new Position(0, 0);
-    int posX_depart = posX_ileM + largeur_ileM / 2 - ((largeur_piece * 9) / 2);
-    int posX = posX_depart;
-    int posY = posY_depart;
+  // AFFICHAGE
+  // J1----------------------------------------------------------------------
+  public void affichePyramideJoueurJ1(Graphics g) {
+    Acteur a = this.partieEnCours.joueur1();
+    Position POSYitionPiecePyramide;
     int decalage = 0;
-    for (int i = 0; i < this.jeu.partieEnCours.getBaseMontagne().getHauteur(); i++) { // etage
-      for (int j = 0; j < (this.jeu.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
-        actualpos.rang = j;
-        actualpos.etage = i;
-        Piece c = this.jeu.partieEnCours.getBaseMontagne().getPiece(actualpos);
-        Image image;
-        if (c == null) {
-          image = colortoimage(Couleurs.VIDE);
-        } else {
-          image = colortoimage(c.getColor());
-        }
-        g.drawImage(image, posX, posY, largeur_piece, hauteur_piece, null);
-        posX += largeur_piece;
+    for (int etage = 0; etage < a.getCamp().getHauteur(); etage++) {
+      for (int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
+        POSYitionPiecePyramide = new Position(etage, rang);
+        Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
+        g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_campJ1,
+        		posY_campJ1 + 5 * (hauteur_piece) - etage * (hauteur_piece),
+            largeur_piece, hauteur_piece, null);
       }
-      decalage += largeur_piece / 2;
-      posY -= hauteur_piece * 0.9;
-      posX = posX_depart + decalage;// +decalage;
+      decalage += (largeur_piece) / 2;
     }
   }
 
+  public void drawVictoire(Graphics g) {
+    if (!jeu.partieEnCours.IAreflechis) {
+      String nom = "";
+      if (jeu.partieEnCours.estPartieFinie()) {
+        g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
+        if (jeu.partieEnCours.getBaseMontagne().estPleine()) {// si EGALITE
+          g.drawImage(texture.egalite, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
+        } else {
+          if (jeu.partieEnCours.getJoueurCourant() == 0) {
+            nom = jeu.partieEnCours.joueur2().getNom();
+          } else {
+            nom = jeu.partieEnCours.joueur1().getNom();
+          }
+          g.drawImage(texture.victoire, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
+          g.drawImage(texture.cadre_joueur, posX_cadre_victoire, posY_cadre_victoire, largeur_cadre, hauteur_cadre,
+              null);
+          g.drawString(nom, posX_jtext2, posY_jtext2);
+        }
+      }
+    }
+  }
+
+  // AFFICHAGE
+  // J2----------------------------------------------------------------------
+  public void affichePyramideJoueurJ2(Graphics g) {
+    Acteur a = this.partieEnCours.joueur2();
+    Position POSYitionPiecePyramide;
+    int decalage = 0;
+    for (int etage = 0; etage < a.getCamp().getHauteur(); etage++) {
+      for (int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
+        POSYitionPiecePyramide = new Position(etage, rang);
+        Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
+        g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_campJ2,
+        		posY_campJ2 + 5 * (hauteur_piece) - etage * (hauteur_piece),
+            largeur_piece, hauteur_piece, null);
+      }
+      decalage += (largeur_piece) / 2;
+    }
+  }
+
+  // AFFICHAGE
+  // MONTAGNE----------------------------------------------------------------------
+  public void affichePyramideMontagne(Graphics g) {
+    PyramideMontagne m = this.partieEnCours.getBaseMontagne();
+    int alpha = 1;
+    Position POSYitionPiecePyramide;
+    int largeurCube = largeur_piece;
+    int hauteurCube = hauteur_piece;
+    int decalage = 0;
+    for (int etage = 0; etage < m.getHauteur(); etage++) {
+      for (int rang = 0; rang < m.getLargeur() - etage; rang++) {
+        POSYitionPiecePyramide = new Position(etage, rang);
+        Piece piece = m.getPiece(POSYitionPiecePyramide);
+        if (piece == null && pieceSelectionnee != null) {
+          for (PiecePyramide pp : this.partieEnCours.getBaseMontagne().piecesPosables()) {
+            if (pp.getPiece().getColor() == pieceSelectionnee.getPiece().getColor() && pp.getPos().etage == etage
+                && pp.getPos().rang == rang) {
+              piece = pieceSelectionnee.getPiece();
+              alpha = 0;
+            }
+          }
+        }
+        g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeurCube) + posX_campM,
+        		posY_campM + 8 * (hauteurCube) - etage * (hauteurCube), largeurCube, hauteurCube, null);
+      }
+      decalage += (largeurCube) / 2;
+    }
+  }
+
+  public Image colortoimage(Couleurs c) {
+    switch (c) {
+      case VIDE:
+        return this.texture.pieceVide;
+      case BLEU:
+        return this.texture.pieceBleue;
+      case VERT:
+        return this.texture.pieceVert;
+      case NOIR:
+        return this.texture.pieceNoire;
+      case JAUNE:
+        return this.texture.pieceJaune;
+      case ROUGE:
+        return this.texture.pieceRouge;
+      case BLANC:
+        return this.texture.pieceBlanche;
+      case NATUREL:
+        return this.texture.pieceNature;
+    }
+    return null;
+  }
+
+  public void drawPiecesVoleesJ2(Graphics g) {
+    g.drawImage(texture.imagevol, posX_volJ2, posY_volJ2, largeur_vol, hauteur_vol, null);
+    for (int i = 0; i < this.jeu.partieEnCours.joueur2().getPiecesVolees().size(); i++) {
+      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur2().getPiecesVolees().get(i).getColor()),
+          posX_piece_voleeJ2 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
+          null);
+
+    }
+  }
+
+  public void drawPiecesVoleesJ1(Graphics g) {
+    g.drawImage(texture.imagevol, posX_volJ1, posY_volJ1, largeur_vol, hauteur_vol, null);
+    for (int i = 0; i < this.jeu.partieEnCours.joueur1().getPiecesVolees().size(); i++) {
+      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur1().getPiecesVolees().get(i).getColor()),
+          posX_piece_voleeJ1 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
+          null);
+
+    }
+  }
   // PIECE SELECTIONEE----------------------------------------------
   public PiecePyramide getPieceSelectionnee() {
     return pieceSelectionnee;
@@ -412,169 +519,6 @@ public class PanelPhase2 extends PanelGeneral {
       } else {
         return null;
       }
-    }
-  }
-
-  // INTERACTION ACTEUR COURANT----------------------------------------------
-  public Acteur initAffichageJoueurs() {
-    Acteur a;
-    if (this.partieEnCours.getJoueurCourant() == 0) {
-      a = this.partieEnCours.joueur1();
-    } else {
-      a = this.partieEnCours.joueur2();
-    }
-    return a;
-  }
-
-  public void setCoup(Position POSYitionPiecePyramide, Acteur a) { /////////////////////////////////////////////////////////////////////////////////////////////
-    a.setCoupDemande(new Coup(pieceSelectionnee.getPiece(), pieceSelectionnee.getPos(), POSYitionPiecePyramide));
-    a.validerCoup = true;
-    pieceSelectionnee = null;
-    this.repaint();
-  }
-
-  public void setPasser(Acteur a) { /////////////////////////////////////////////////////////////////////////////////////////////
-    a.setCoupDemande(new Coup(pieceSelectionnee.getPiece(), pieceSelectionnee.getPos(), null));
-    a.validerCoup = true;
-    pieceSelectionnee = null;
-    this.repaint();
-  }
-
-  // AFFICHAGE PIECE
-  // SELECTIONNEE-------------------------------------------------------------
-  public void dragNdrop(Graphics g) {
-    if (pieceSelectionnee != null) {
-      g.drawImage(getpetitcolor(pieceSelectionnee.getPiece(), 1), currentX, currentY,
-          (int) (largeur_piece / 1.5), (int) (hauteur_piece / 1.5), null);
-    }
-  }
-
-  // AFFICHAGE
-  // J1----------------------------------------------------------------------
-  public void affichePyramideJoueurJ1(Graphics g) {
-    Acteur a = this.partieEnCours.joueur1();
-    Position POSYitionPiecePyramide;
-    int decalage = 0;
-    for (int etage = 0; etage < a.getCamp().getHauteur(); etage++) {
-      for (int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
-        POSYitionPiecePyramide = new Position(etage, rang);
-        Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
-        g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_ileJ1_Pyramide,
-        	posY_ile_Pyramide + 5 * (hauteur_piece) - etage * (hauteur_piece),
-            largeur_piece, hauteur_piece, null);
-      }
-      decalage += (largeur_piece) / 2;
-    }
-  }
-
-  public void drawVictoire(Graphics g) {
-    if (!jeu.partieEnCours.IAreflechis) {
-      String nom = "";
-      if (jeu.partieEnCours.estPartieFinie()) {
-        g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
-        if (jeu.partieEnCours.getBaseMontagne().estPleine()) {// si EGALITE
-          g.drawImage(texture.egalite, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
-        } else {
-          if (jeu.partieEnCours.getJoueurCourant() == 0) {
-            nom = jeu.partieEnCours.joueur2().getNom();
-          } else {
-            nom = jeu.partieEnCours.joueur1().getNom();
-          }
-          g.drawImage(texture.victoire, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
-          g.drawImage(texture.cadre_joueur, posX_cadre_victoire, posY_cadre_victoire, largeur_cadre, hauteur_cadre,
-              null);
-          g.drawString(nom, posX_jtext2, posY_jtext2);
-        }
-      }
-    }
-  }
-
-  // AFFICHAGE
-  // J2----------------------------------------------------------------------
-  public void affichePyramideJoueurJ2(Graphics g) {
-    Acteur a = this.partieEnCours.joueur2();
-    Position POSYitionPiecePyramide;
-    int decalage = 0;
-    for (int etage = 0; etage < a.getCamp().getHauteur(); etage++) {
-      for (int rang = 0; rang < a.getCamp().getLargeur() - etage; rang++) {
-        POSYitionPiecePyramide = new Position(etage, rang);
-        Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
-        g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_ileJ2,
-        	posY_ile_Pyramide + 5 * (hauteur_piece) - etage * (hauteur_piece),
-            largeur_piece, hauteur_piece, null);
-      }
-      decalage += (largeur_piece) / 2;
-    }
-  }
-
-  // AFFICHAGE
-  // MONTAGNE----------------------------------------------------------------------
-  public void afficheBaseMontagne(Graphics g) {
-    PyramideMontagne m = this.partieEnCours.getBaseMontagne();
-    int alpha = 1;
-    Position POSYitionPiecePyramide;
-    int largeurCube = largeur_piece;
-    int hauteurCube = hauteur_piece;
-    int decalage = 0;
-    for (int etage = 0; etage < m.getHauteur(); etage++) {
-      for (int rang = 0; rang < m.getLargeur() - etage; rang++) {
-        POSYitionPiecePyramide = new Position(etage, rang);
-        Piece piece = m.getPiece(POSYitionPiecePyramide);
-        if (piece == null && pieceSelectionnee != null) {
-          for (PiecePyramide pp : this.partieEnCours.getBaseMontagne().piecesPosables()) {
-            if (pp.getPiece().getColor() == pieceSelectionnee.getPiece().getColor() && pp.getPos().etage == etage
-                && pp.getPos().rang == rang) {
-              piece = pieceSelectionnee.getPiece();
-              alpha = 0;
-            }
-          }
-        }
-        g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeurCube) + posX_ileM,
-        	posY_ile_Pyramide + 8 * (hauteurCube) - etage * (hauteurCube), largeurCube, hauteurCube, null);
-      }
-      decalage += (largeurCube) / 2;
-    }
-  }
-
-  public Image colortoimage(Couleurs c) {
-    switch (c) {
-      case VIDE:
-        return this.texture.pieceVide;
-      case BLEU:
-        return this.texture.pieceBleue;
-      case VERT:
-        return this.texture.pieceVert;
-      case NOIR:
-        return this.texture.pieceNoire;
-      case JAUNE:
-        return this.texture.pieceJaune;
-      case ROUGE:
-        return this.texture.pieceRouge;
-      case BLANC:
-        return this.texture.pieceBlanche;
-      case NATUREL:
-        return this.texture.pieceNature;
-    }
-    return null;
-  }
-
-  public void drawPiecesVoleesJ2(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ2, posY_volJ2, largeur_vol, hauteur_vol, null);
-    for (int i = 0; i < this.jeu.partieEnCours.joueur2().getPiecesVolees().size(); i++) {
-      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur2().getPiecesVolees().get(i).getColor()),
-          posX_piece_voleeJ2 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
-          null);
-
-    }
-  }
-
-  public void drawPiecesVoleesJ1(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ1, posY_volJ1, largeur_vol, hauteur_vol, null);
-    for (int i = 0; i < this.jeu.partieEnCours.joueur1().getPiecesVolees().size(); i++) {
-      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur1().getPiecesVolees().get(i).getColor()),
-          posX_piece_voleeJ1 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
-          null);
-
     }
   }
 
