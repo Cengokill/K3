@@ -62,12 +62,11 @@ public class PanelPhase2 extends PanelGeneral {
   private SoundPlayer simpleSoundPlayerSon;
 
   // CONSTRUCTEUR----------------------------------------------
-  public PanelPhase2(JFrame w, Jeu j, Partie p, LoadTexture t, OptionsJeu o, Chargement c) {
+  public PanelPhase2(JFrame w, Jeu j, LoadTexture t, OptionsJeu o, Chargement c) {
     super(w, t, o);
     this.textures = t;
     this.jeu = j;
     this.simpleSoundPlayerSon = new SoundPlayer(8, textures.CHEMIN);
-    this.partieEnCours = p;
     this.window = w;
     this.chargement = c;
 

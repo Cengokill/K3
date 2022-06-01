@@ -53,7 +53,7 @@ public class IHM {
 		this.optionsPanel = new OptionPanel(window, texture, chargement, options);
 		this.tutoPanel = new TutorielPanel(window, texture, chargement, options);
 		this.phase1Panel = new Phase1Panel(window, jeu.partieEnCours, texture, options, chargement);
-		this.phase2Panel = new PanelPhase2(window, jeu, jeu.partieEnCours, texture, options, chargement);
+		this.phase2Panel = new PanelPhase2(w, jeu, texture, options, chargement);
 		// phase2Panel.partie_actuel = this.jeu;
 
 		options.gestionSons.changeMusique(43);

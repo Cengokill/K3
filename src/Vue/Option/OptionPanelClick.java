@@ -37,6 +37,11 @@ public class OptionPanelClick implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (clickBoutonRetourMenu(e)) {
 			panel.jouerSonClic();
+			try {
+				int a = Integer.parseInt(panel.vitesseOrdinateur.getText());
+				panel.options.setVitesseOrdi(a);
+			} catch (Exception e1) {
+			}
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
 			panel.ecrireOptions();
