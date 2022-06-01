@@ -413,7 +413,7 @@ public class Acteur {
 		}
 	}
 
-	public void setCoupDemander(Coup c) {
+	public void setCoupDemande(Coup c) {
 	}
 
 	public void setChoixVol(PiecePyramide choixVol) {
