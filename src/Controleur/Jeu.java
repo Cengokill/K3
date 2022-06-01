@@ -203,7 +203,6 @@ public class Jeu {
 			ihm.phase2Panel.repaint();
 			if(changement_joueur&&((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2)) {
 				this.options.gestionSons.playSon(35);//debut de tour
-				changement_joueur=false;
 			}
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 			timer(temps);
@@ -234,14 +233,17 @@ public class Jeu {
 			this.valeur_paire++;
 		}
 		//affichage dans la console de la partie
-		afficherBaseMontagne();
-		System.out.println("Votre camp :");
-		System.out.println(jCourant.getCamp().toString());
-		System.out.println("Vos pieces volees : "+jCourant.toStringPiecesVolees());
-		System.out.println("Camp adverse :");
-		System.out.println(jPrecedent.getCamp().toString());
-		System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
-		System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
+		if(changement_joueur) {
+			afficherBaseMontagne();
+			System.out.println("Votre camp :");
+			System.out.println(jCourant.getCamp().toString());
+			System.out.println("Vos pieces volees : "+jCourant.toStringPiecesVolees());
+			System.out.println("Camp adverse :");
+			System.out.println(jPrecedent.getCamp().toString());
+			System.out.println("Ses pieces volees : "+jPrecedent.toStringPiecesVolees());
+			System.out.println(jCourant.getNom()+", veuillez jouer un coup :");
+			changement_joueur=false;
+		}
 		//fait jouer un joueur
 		jouer();
 	}

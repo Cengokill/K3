@@ -154,7 +154,7 @@ public class Phase1Panel extends PanelGeneral{
 		posX_non = posX_popup+(int)(largeur_popup*0.9)-largeur_oui;
 		posY_non = posY_oui;
 		//settings
-		largeur_settings=(int)(largeur_popup/4.5);
+		largeur_settings=largeur_background/18;
 		posX_settings=posX_background+(int)(largeur_background*0.92);
 		posY_settings=posY_background+(int)(hauteur_background*0.04);
 	}

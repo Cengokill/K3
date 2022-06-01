@@ -6,6 +6,7 @@ package Vue.Phase2;
 
 import Controleur.Jeu;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -28,6 +29,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int largeur_piece, hauteur_piece, posY_depart;
   public int largeur_vol, hauteur_vol, posX_volJ1, poxY_volJ1, posX_volJ2, poxY_volJ2;
   public int posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder;
+  public int posX_settings,posY_settings,largeur_settings;
 
   /**
    * Creates new form PanelPhase2
@@ -132,12 +134,17 @@ public class PanelPhase2 extends javax.swing.JPanel {
     hauteur_vol = (int) (largeur_vol * rapportVol);
     posX_volJ1 = posX_ileJ1 + largeur_ileJ / 2 - largeur_vol / 2 + (int) (largeur_piece * 0.4);
     poxY_volJ1 = posY_background + hauteur_background / 24;
-
     posX_volJ2 = posX_ileJ2 + largeur_ileJ / 2 - largeur_vol / 2 - (int) (largeur_piece * 0.2);
     poxY_volJ2 = poxY_volJ1;
+    //settings
+	largeur_settings=largeur_background/18;
+	posX_settings=posX_background+(int)(largeur_background*0.92);
+	posY_settings=posY_background+(int)(hauteur_background*0.04);
   }
 
   public void drawbackground(Graphics g) {
+	g.setColor(Color.BLACK);
+  	g.fillRect(0, 0, frameWidth, frameHeight);
     g.drawImage(texture.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background,
         null);
   }
@@ -145,6 +152,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public void drawBoutons(Graphics g) {
     g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
     g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
+    g.drawImage(texture.settings, posX_settings, posY_settings, largeur_settings, largeur_settings, null);	
     if(this.partie_actuel.partieEnCours.joueur1().getClass() == Joueur.class) {
     	g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
     }

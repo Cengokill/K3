@@ -5,12 +5,10 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Modeles.OptionsJeu;
-import Modeles.SoundPlayer;
 import Vue.TexturePack.LoadTexture;
 
 public class PanelGeneral extends JPanel {
@@ -32,7 +30,6 @@ public class PanelGeneral extends JPanel {
 		this.tailleFenetre=window.getSize();
         this.frameWidth=tailleFenetre.width;
         this.frameHeight=tailleFenetre.width;
-        window.setBackground(Color.BLACK);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addKeyListener(new TouchesClavier(this));
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -67,6 +64,8 @@ public class PanelGeneral extends JPanel {
 	}
 	
     public void affichageBackGround(Graphics g, int i) {//3840x2160
+    	g.setColor(Color.BLACK);
+    	g.fillRect(0, 0, frameWidth, frameHeight);
     	double rapport = (double) 0.5625;// rapport de 2160/3840
 		if((double)((double)frameHeight/(double)frameWidth)>rapport) {
 			largeur_background=frameWidth;
