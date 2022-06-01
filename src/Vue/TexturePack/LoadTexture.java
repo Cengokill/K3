@@ -13,7 +13,9 @@ public class LoadTexture {
 	// IMAGES FOND
 	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, ile_montagne, chrono;
 	// IMAGE PIECE
-	public Image pieceVide,pieceNoire,pieceBleue,pieceVert,pieceRouge,pieceBlanche,pieceNature,pieceJaune;
+	public Image pieceVide, pieceNoire, pieceBleue, pieceVert, pieceRouge, pieceBlanche, pieceNature, pieceJaune;
+	public Image pieceNoireTransparent, pieceBleueTransparent, pieceVertTransparent, pieceRougeTransparent,
+			pieceBlancheTransparent, pieceNatureTransparent, pieceJauneTransparent;
 	// IMAGE MENU
 	public Image menuBouton1, menuBouton1_presse;
 	public Image menuBoutonCharger, menuBoutonCharger_presse;
@@ -32,10 +34,10 @@ public class LoadTexture {
 			menuRetour,
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
-			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings,
-			cadre_joueur,cadre_joueur_gris,popup_save,fermer,victoire,egalite,fond_degrade;
+			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup, settings,
+			cadre_joueur, cadre_joueur_gris, popup_save, fermer;
 	// IMAGE CHARGEMENT
-	public Image boutonLoad,boutonLoadPresse;
+	public Image boutonLoad, boutonLoadPresse;
 	// IMAGE TUTO
 	public Image Tuto1, Tuto2, Tuto3, Tuto4, TutoPrecedent, TutoSuivant, TutoMenu;
 	// IMAGES BOUTONS
@@ -58,7 +60,6 @@ public class LoadTexture {
 		chrono = ImageIO.read(new File(CHEMIN + "chrono_jeu.png"));
 		cadre_joueur = ImageIO.read(new File(CHEMIN + "cadre_joueur.png"));
 		cadre_joueur_gris = ImageIO.read(new File(CHEMIN + "cadre_joueur_gris.png"));
-		fond_degrade = ImageIO.read(new File(CHEMIN + "fond_degrade.png"));
 		// IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = ImageIO.read(new File(CHEMIN + "nouvellePartie_flou.png"));
 		menuBouton1_presse = ImageIO.read(new File(CHEMIN + "nouvellePartie_presse.png"));
@@ -79,8 +80,7 @@ public class LoadTexture {
 		desactive = ImageIO.read(new File(CHEMIN + "desactive.png"));
 		popup = ImageIO.read(new File(CHEMIN + "popup.png"));
 		popup_save = ImageIO.read(new File(CHEMIN + "popup_save.png"));
-		victoire = ImageIO.read(new File(CHEMIN + "victoire_flou.png"));
-		egalite = ImageIO.read(new File(CHEMIN + "egalite.png"));
+		fermer = ImageIO.read(new File(CHEMIN + "fermer.png"));
 		// IMAGE
 		// CHARGEMENT---------------------------------------------------------------
 		boutonLoad = ImageIO.read(new File(CHEMIN + "chargerPartie_flou.png"));
@@ -144,12 +144,11 @@ public class LoadTexture {
 		oui = ImageIO.read(new File(CHEMIN + "oui.png"));
 		non = ImageIO.read(new File(CHEMIN + "non.png"));
 		settings = ImageIO.read(new File(CHEMIN + "settings.png"));
-		fermer = ImageIO.read(new File(CHEMIN + "fermer.png"));
 		// CURSEURS
 		mainFermee = ImageIO.read(new File(CHEMIN + "hand-closed.png"));
 		mainDepose = ImageIO.read(new File(CHEMIN + "hand-depose.png"));
 		// PIECES
-		pieceVide = ImageIO.read(new File(CHEMIN + "VIDE.png"));
+		pieceVide = ImageIO.read(new File(CHEMIN + "EMPTY.png"));
 		pieceNoire = ImageIO.read(new File(CHEMIN + "NOIR.png"));
 		pieceBleue = ImageIO.read(new File(CHEMIN + "BLEU.png"));
 		pieceVert = ImageIO.read(new File(CHEMIN + "VERT.png"));
@@ -157,5 +156,13 @@ public class LoadTexture {
 		pieceBlanche = ImageIO.read(new File(CHEMIN + "BLANC.png"));
 		pieceNature = ImageIO.read(new File(CHEMIN + "NATUREL.png"));
 		pieceJaune = ImageIO.read(new File(CHEMIN + "JAUNE.png"));
+
+		pieceNoireTransparent = ImageIO.read(new File(CHEMIN + "NOIR_TRANSPARENT.png"));
+		pieceBleueTransparent = ImageIO.read(new File(CHEMIN + "BLEU_TRANSPARENT.png"));
+		pieceVertTransparent = ImageIO.read(new File(CHEMIN + "VERT_TRANSPARENT.png"));
+		pieceRougeTransparent = ImageIO.read(new File(CHEMIN + "ROUGE_TRANSPARENT.png"));
+		pieceBlancheTransparent = ImageIO.read(new File(CHEMIN + "BLANC_TRANSPARENT.png"));
+		pieceNatureTransparent = ImageIO.read(new File(CHEMIN + "NATUREL_TRANSPARENT.png"));
+		pieceJauneTransparent = ImageIO.read(new File(CHEMIN + "JAUNE_TRANSPARENT.png"));
 	}
 }

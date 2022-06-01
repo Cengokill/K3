@@ -154,6 +154,39 @@ public class Phase2Click implements MouseListener {
 
 	}
 
+	public void checkpiece(MouseEvent e) {
+		if (panel.jeu.partieEnCours.joueurCourant == 0) {
+			Position piececheck = clicJoueur1(e);
+			if (piececheck != null) {
+				panel.showcheck = true;
+
+				panel.tocheck = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(piececheck).getColor();
+				panel.repaint();
+				return;
+
+			}
+			panel.showcheck = false;
+			return;
+
+		}
+
+		if (panel.jeu.partieEnCours.joueurCourant == 1) {
+			Position piececheck = clicJoueur2(e);
+			if (piececheck != null) {
+				panel.showcheck = true;
+				panel.tocheck = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(piececheck).getColor();
+				panel.repaint();
+				return;
+
+			}
+			panel.showcheck = false;
+
+		}
+
+		panel.showcheck = false;
+
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -245,6 +278,7 @@ public class Phase2Click implements MouseListener {
 
 	public class DragListener extends MouseMotionAdapter {
 		public void mouseMoved(MouseEvent e) {
+			checkpiece(e);
 			if (panel.popup_save) {
 				if (clicValider(e) || clicFermer(e)) {
 					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));

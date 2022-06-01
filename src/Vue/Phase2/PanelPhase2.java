@@ -36,34 +36,31 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int largeur_piece, hauteur_piece, posY_depart;
   public int largeur_vol, hauteur_vol, posX_volJ1, poxY_volJ1, posX_volJ2, poxY_volJ2;
   public int posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder;
-  public int posX_settings,posY_settings,largeur_settings;
-  public int largeur_cadre,hauteur_cadre,posX_cadreJ1,posY_cadreJ1,posX_cadreJ2,posY_cadreJ2;
-  public int taille_police_nom_joueur,posX_nom_joueur1,posY_nom_joueur1,posX_nom_joueur2,posY_nom_joueur2;
-  public int largeur_popup,hauteur_popup,posX_popup,posY_popup,largeur_popup_save,hauteur_popup_save,posX_popup_save,posY_popup_save;
-  public int largeur_valider,hauteur_valider,largeur_fermer,posX_valider,posY_valider,posX_fermer,posY_fermer;
+  public int posX_settings, posY_settings, largeur_settings;
+  public int largeur_cadre, hauteur_cadre, posX_cadreJ1, posY_cadreJ1, posX_cadreJ2, posY_cadreJ2;
+  public int taille_police_nom_joueur, posX_nom_joueur1, posY_nom_joueur1, posX_nom_joueur2, posY_nom_joueur2;
+  public int largeur_popup, hauteur_popup, posX_popup, posY_popup, largeur_popup_save, hauteur_popup_save,
+      posX_popup_save, posY_popup_save;
+  public int largeur_valider, hauteur_valider, largeur_fermer, posX_valider, posY_valider, posX_fermer, posY_fermer;
   public int posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext;
-  public int posX_back,posY_back,largeur_back,hauteur_back;
-  public int posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, posX_cadre_victoire, posY_cadre_victoire;
-  public int posX_jtext2,posY_jtext2,largeur_jtext2,hauteur_jtext2;
-  public int largeur_degrade,hauteur_degade,posX_degrade,posY_degrade;
-  public int posX_piece_voleeJ1, posY_piece_voleeJ1;
-  boolean popup=false;
-  boolean popup_save=false;
-  public JTextField nomSave,joueurVictorieux;
+  public int posX_back, posY_back, largeur_back, hauteur_back;
+  boolean popup = false;
+  boolean popup_save = false;
+  public JTextField nomSave;
+
   /**
    * Creates new form PanelPhase2
    */
   public PanelPhase2(Jeu j, LoadTexture texture) {
     this.texture = texture;
-    this.jeu=j;
+    this.jeu = j;
     setLayout(null);
     initComponents();
     this.addMouseListener(new Phase2Click(this));
     nomSave = new JTextField();
-    joueurVictorieux = new JTextField();
     this.add(nomSave);
-    this.add(joueurVictorieux);
   }
+
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,14 +91,17 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawbackground(g);
     drawIle(g);
     drawbaPyramideJ1(g);
-    drawPiecesVoleesJ1(g);
     drawbaPyramideJ2(g);
     drawbaPyramideMilieu(g);
+    if (showcheck) {
+      System.out.println("Repaint transparence");
+      drawtransparentpion(g);
+      showcheck = false;
+    }
     drawBoutons(g);
     afficherNomJoueur(g);
     afficheBoutonBack(g);
     affichePopupSave(g);
-    drawVictoire(g);
   }
 
   public void setChangementTaillefenetre() {
@@ -155,20 +155,20 @@ public class PanelPhase2 extends javax.swing.JPanel {
     double rapportPiece = 0.8576709796672828;// 464/541
     largeur_piece = Math.min((int) (largeur_background / 35), (int) (frameWidth / 35));
     hauteur_piece = (int) (largeur_piece * rapportPiece);
-    //Cadres joueurs
+    // Cadres joueurs
     double rapportCadre = 0.2200647249190939;// 204/927
-	largeur_cadre = Math.min(largeur_background/6, frameWidth/6);
-	hauteur_cadre = (int)(largeur_cadre*rapportCadre);
-	posX_cadreJ1 = posX_background+(int)(largeur_background*0.08);
-	posY_cadreJ1 = posY_background+(int)(hauteur_background*0.61);
-	posX_cadreJ2 = posX_background+(int)(largeur_background*0.755);
-	posY_cadreJ2 = posY_cadreJ1;
-	//noms joueurs
-	taille_police_nom_joueur=(int)(hauteur_cadre/2.5);
-	posX_nom_joueur1 = posX_cadreJ1+(int)(largeur_cadre*0.07);
-	posY_nom_joueur1 = posY_cadreJ1+(int)(hauteur_cadre*0.64);
-	posX_nom_joueur2 = posX_cadreJ2+(int)(largeur_cadre*0.07);
-	posY_nom_joueur2 = posY_nom_joueur1;
+    largeur_cadre = Math.min(largeur_background / 6, frameWidth / 6);
+    hauteur_cadre = (int) (largeur_cadre * rapportCadre);
+    posX_cadreJ1 = posX_background + (int) (largeur_background * 0.08);
+    posY_cadreJ1 = posY_background + (int) (hauteur_background * 0.61);
+    posX_cadreJ2 = posX_background + (int) (largeur_background * 0.755);
+    posY_cadreJ2 = posY_cadreJ1;
+    // noms joueurs
+    taille_police_nom_joueur = (int) (hauteur_cadre / 2.5);
+    posX_nom_joueur1 = posX_cadreJ1 + (int) (largeur_cadre * 0.07);
+    posY_nom_joueur1 = posY_cadreJ1 + (int) (hauteur_cadre * 0.64);
+    posX_nom_joueur2 = posX_cadreJ2 + (int) (largeur_cadre * 0.07);
+    posY_nom_joueur2 = posY_nom_joueur1;
     // Vols
     double rapportVol = 0.8104738154613466;// 975/1203
     largeur_vol = largeur_piece * 6;
@@ -177,146 +177,104 @@ public class PanelPhase2 extends javax.swing.JPanel {
     poxY_volJ1 = posY_background + hauteur_background / 24;
     posX_volJ2 = posX_ileJ2 + largeur_ileJ / 2 - largeur_vol / 2 - (int) (largeur_piece * 0.2);
     poxY_volJ2 = poxY_volJ1;
-    //settings
-	largeur_settings=largeur_background/18;
-	posX_settings=posX_background+(int)(largeur_background*0.92);
-	posY_settings=posY_background+(int)(hauteur_background*0.04);
-	//popup sauvegarde
-	double rapportPopupSave = 1.169139465875371;
-	largeur_popup_save = (int)(largeur_background/4);
-	hauteur_popup_save = (int)(largeur_popup_save/rapportPopupSave);
-	posX_popup_save = posX_background+largeur_background/2-largeur_popup_save/2;
-	posY_popup_save = posY_background+hauteur_background/2-hauteur_popup_save/2;
-	//valider et fermer
-	double rapportValider = 0.5950704225352113;
-	largeur_valider = largeur_popup_save/3;
-	hauteur_valider = (int)(largeur_valider*rapportValider);
-	largeur_fermer=hauteur_valider;
-	posX_valider = posX_popup_save+(int)(largeur_popup_save*0.1);
-	posY_valider = posY_popup_save+(int)(largeur_popup_save*0.55);
-	posX_fermer = posX_valider+largeur_valider*2;
-	posY_fermer = posY_valider;
-	// jtext
-	Font text1= new Font("Dialog", Font.BOLD, (int)(taille_police_nom_joueur*0.8));
-	posX_jtext=posX_valider;
-	posY_jtext=posY_popup_save+(int)(hauteur_popup_save*0.2);
-	largeur_jtext=(int)(largeur_popup_save*0.79);
-	hauteur_jtext=hauteur_valider;
-	nomSave.setBounds(posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext);
-	nomSave.setFont(text1);
-	nomSave.setVisible(popup_save);
-	//Bouton retour
-	double rapportBack = 0.8441247002398082;//352/417
-	largeur_back = Math.min(largeur_background/15, frameWidth/15);
-	hauteur_back = (int)(largeur_back*rapportBack);
-	posX_back = posX_background+(int)(largeur_background*0.9);
-	posY_back = posY_background+(int)(hauteur_background*0.8);
-	//Victoire
-	double rapportVictoire = 0.2055030094582975;// 239/1163
-	largeur_victoire = Math.min(largeur_background/3, frameWidth/3);
-	hauteur_victoire = (int)(largeur_victoire*rapportVictoire);
-	posX_victoire = posX_background+largeur_background/2-largeur_victoire/2;
-	posY_victoire = posY_background+(int)(hauteur_background*0.05);
-	//cadre fond joueur victorieux
-	posX_cadre_victoire = posX_victoire+largeur_victoire/2-largeur_cadre/2;
-	posY_cadre_victoire = posY_victoire+(int)(hauteur_victoire*1.5);
-	//nom du gagnant
-	posX_jtext2=posX_cadre_victoire+(int)(largeur_cadre*0.12);
-	posY_jtext2=posY_cadre_victoire+(int)(hauteur_cadre*0.6);
-	//fond degrade noir
-	largeur_degrade = largeur_victoire*2;
-	hauteur_degade = hauteur_background;
-	posX_degrade = posX_background+largeur_background/2-largeur_degrade/2;
-	posY_degrade = posY_background;
-	//Pieces volees
-	posX_piece_voleeJ1 = posX_volJ1+(int)(largeur_vol*0.11);
-	posY_piece_voleeJ1 = poxY_volJ1+(int)(hauteur_vol*0.41);
+    // settings
+    largeur_settings = largeur_background / 18;
+    posX_settings = posX_background + (int) (largeur_background * 0.92);
+    posY_settings = posY_background + (int) (hauteur_background * 0.04);
+    // popup sauvegarde
+    double rapportPopupSave = 1.169139465875371;
+    largeur_popup_save = (int) (largeur_background / 4);
+    hauteur_popup_save = (int) (largeur_popup_save / rapportPopupSave);
+    posX_popup_save = posX_background + largeur_background / 2 - largeur_popup_save / 2;
+    posY_popup_save = posY_background + hauteur_background / 2 - hauteur_popup_save / 2;
+    // valider et fermer
+    double rapportValider = 0.5950704225352113;
+    largeur_valider = largeur_popup_save / 3;
+    hauteur_valider = (int) (largeur_valider * rapportValider);
+    largeur_fermer = hauteur_valider;
+    posX_valider = posX_popup_save + (int) (largeur_popup_save * 0.1);
+    posY_valider = posY_popup_save + (int) (largeur_popup_save * 0.55);
+    posX_fermer = posX_valider + largeur_valider * 2;
+    posY_fermer = posY_valider;
+    // jtext
+    Font text1 = new Font("Dialog", Font.BOLD, (int) (taille_police_nom_joueur * 0.8));
+    posX_jtext = posX_valider;
+    posY_jtext = posY_popup_save + (int) (hauteur_popup_save * 0.2);
+    largeur_jtext = (int) (largeur_popup_save * 0.79);
+    hauteur_jtext = hauteur_valider;
+    nomSave.setBounds(posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext);
+    nomSave.setFont(text1);
+    nomSave.setVisible(popup_save);
+    // Bouton retour
+    double rapportBack = 0.8441247002398082;// 352/417
+    largeur_back = Math.min(largeur_background / 15, frameWidth / 15);
+    hauteur_back = (int) (largeur_back * rapportBack);
+    posX_back = posX_background + (int) (largeur_background * 0.9);
+    posY_back = posY_background + (int) (hauteur_background * 0.8);
   }
-  
+
   public void afficheBoutonBack(Graphics g) {
-	g.drawImage(texture.TutoMenu, posX_back, posY_back, largeur_back, hauteur_back, null);
+    g.drawImage(texture.TutoMenu, posX_back, posY_back, largeur_back, hauteur_back, null);
   }
-  
+
   public void affichePopupSave(Graphics g) {
-	  if(popup_save) {
-		g.drawImage(texture.popup_save, posX_popup_save, posY_popup_save, largeur_popup_save, hauteur_popup_save, null);
-		g.drawImage(texture.valider, posX_valider, posY_valider, largeur_valider, hauteur_valider, null);
-		g.drawImage(texture.fermer, posX_fermer, posY_fermer, largeur_fermer, largeur_fermer, null);
-	  }
-	}
-  
-	public void afficherNomJoueur(Graphics g) {
-		String nomJ1, nomJ2;
-		int taille_max = 14;
-		nomJ1=this.jeu.partieEnCours.joueur1().getNom();
-		nomJ2=this.jeu.partieEnCours.joueur2().getNom();
-		if(nomJ1.length()>taille_max) {
-			nomJ1 = nomJ1.substring(0,taille_max);
-		}
-		if(nomJ2.length()>taille_max) {
-			nomJ2 = nomJ2.substring(0,taille_max);
-		}
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Dialog", Font.BOLD, taille_police_nom_joueur));
-		g.drawString(nomJ1, posX_nom_joueur1, posY_nom_joueur1);
-		g.drawString(nomJ2, posX_nom_joueur2, posY_nom_joueur2);
-	}
+    if (popup_save) {
+      g.drawImage(texture.popup_save, posX_popup_save, posY_popup_save, largeur_popup_save, hauteur_popup_save, null);
+      g.drawImage(texture.valider, posX_valider, posY_valider, largeur_valider, hauteur_valider, null);
+      g.drawImage(texture.fermer, posX_fermer, posY_fermer, largeur_fermer, largeur_fermer, null);
+    }
+  }
+
+  public void afficherNomJoueur(Graphics g) {
+    String nomJ1, nomJ2;
+    int taille_max = 14;
+    nomJ1 = this.jeu.partieEnCours.joueur1().getNom();
+    nomJ2 = this.jeu.partieEnCours.joueur2().getNom();
+    if (nomJ1.length() > taille_max) {
+      nomJ1 = nomJ1.substring(0, taille_max);
+    }
+    if (nomJ2.length() > taille_max) {
+      nomJ2 = nomJ2.substring(0, taille_max);
+    }
+    g.setColor(Color.BLACK);
+    g.setFont(new Font("Dialog", Font.BOLD, taille_police_nom_joueur));
+    g.drawString(nomJ1, posX_nom_joueur1, posY_nom_joueur1);
+    g.drawString(nomJ2, posX_nom_joueur2, posY_nom_joueur2);
+  }
 
   public void drawbackground(Graphics g) {
-	g.setColor(Color.BLACK);
-  	g.fillRect(0, 0, frameWidth, frameHeight);
-    g.drawImage(texture.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background, null);
+    g.setColor(Color.BLACK);
+    g.fillRect(0, 0, frameWidth, frameHeight);
+    g.drawImage(texture.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background,
+        null);
   }
 
   public void drawBoutons(Graphics g) {
+    g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
+    g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour,
+        null);
     g.drawImage(texture.settings, posX_settings, posY_settings, largeur_settings, largeur_settings, null);
-    if(this.jeu.partieEnCours.getJoueurCourant()==0) {
-    	g.drawImage(texture.cadre_joueur, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
-    	g.drawImage(texture.cadre_joueur_gris, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
-    }else {
-    	g.drawImage(texture.cadre_joueur_gris, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
-    	g.drawImage(texture.cadre_joueur, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
+    if (this.jeu.partieEnCours.getJoueurCourant() == 0) {
+      g.drawImage(texture.cadre_joueur, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
+      g.drawImage(texture.cadre_joueur_gris, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
+    } else {
+      g.drawImage(texture.cadre_joueur_gris, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
+      g.drawImage(texture.cadre_joueur, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
     }
-    if(this.jeu.partieEnCours.joueur1().getClass() == Joueur.class) {
-    	if(!jeu.partieEnCours.estPartieFinie()) {
-	    	g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
-	        g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
-	    	g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
-    	}
+    if (this.jeu.partieEnCours.joueur1().getClass() == Joueur.class) {
+      g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder,
+          hauteur_sauvegarder, null);
     }
   }
 
-  public void drawVictoire(Graphics g) {//affichage trop tot
-	  if(jeu.partieEnCours.estPartieFinie()) {
-		  g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
-		  if(jeu.partieEnCours.getBaseMontagne().estPleine()) {//si EGALITE
-			  g.drawImage(texture.egalite, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
-		  }else {
-			  String nom="";
-			  if (jeu.partieEnCours.getJoueurCourant() == 0) {
-				  nom=jeu.partieEnCours.joueur2().getNom();
-			  }else {
-				  nom=jeu.partieEnCours.joueur1().getNom();
-			  }
-			  g.drawImage(texture.victoire, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
-			  g.drawImage(texture.cadre_joueur, posX_cadre_victoire, posY_cadre_victoire, largeur_cadre, hauteur_cadre, null);
-			  g.drawString(nom, posX_jtext2, posY_jtext2);
-		  }
-	  }
-  }
-	 
   public void drawIle(Graphics g) {
     g.drawImage(this.texture.ile_joueur1, posX_ileJ1, posY_ileJ1, largeur_ileJ, hauteur_ileJ, null);
     g.drawImage(this.texture.ile_joueur2, posX_ileJ2, posY_ileJ2, largeur_ileJ, hauteur_ileJ, null);
-	g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
-  }
-  
-  public void drawPiecesVoleesJ1(Graphics g) {
-	  g.drawImage(texture.imagevol, posX_volJ1, poxY_volJ1, largeur_vol, hauteur_vol, null);
-	  g.drawImage(texture.pieceBlanche, posX_piece_voleeJ1, posY_piece_voleeJ1, largeur_piece, hauteur_piece, null);
+    g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
 
   public void drawbaPyramideJ1(Graphics g) {
+    g.drawImage(texture.imagevol, posX_volJ1, poxY_volJ1, largeur_vol, hauteur_vol, null);
     Position actualpos = new Position(0, 0);
     int posX_depart = posX_ileJ1 + (int) (largeur_ileJ * 0.54) - ((largeur_piece * 6) / 2);
     int posX = posX_depart;
@@ -395,8 +353,71 @@ public class PanelPhase2 extends javax.swing.JPanel {
     }
   }
 
+  public void drawtransparentpion(Graphics g) {
+
+    for (int z = 0; z < this.jeu.partieEnCours.getBaseMontagne().piecesPosables().size(); z++) {
+      Position actualpos = new Position(0, 0);
+      int posX_depart = posX_ileM + largeur_ileM / 2 - ((largeur_piece * 9) / 2);
+      int posX = posX_depart;
+      int posY = posY_depart;
+      int decalage = 0;
+      if (this.jeu.partieEnCours.getBaseMontagne().piecesPosables().get(z).getPiece().getColor() == tocheck) {
+        for (int i = 0; i < this.jeu.partieEnCours.getBaseMontagne().getHauteur(); i++) { // etage
+          for (int j = 0; j < (this.jeu.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
+            actualpos.rang = j;
+            actualpos.etage = i;
+            if (i == this.jeu.partieEnCours.getBaseMontagne().piecesPosables().get(z).getPos().etage
+                && j == this.jeu.partieEnCours.getBaseMontagne().piecesPosables().get(z).getPos().rang) {
+
+              System.out.println("Debug");
+              Piece c = this.jeu.partieEnCours.getBaseMontagne().getPiece(actualpos);
+              Image image;
+
+              image = colortoimageTRANS(tocheck);
+              g.drawImage(image, posX, posY, largeur_piece, hauteur_piece, null);
+
+            }
+
+            posX += largeur_piece;
+
+          }
+
+          decalage += largeur_piece / 2;
+          posY -= hauteur_piece * 0.9;
+          posX = posX_depart + decalage;// +decalage;
+
+        }
+      }
+      showcheck = false;
+
+    }
+
+  }
+
+  public Image colortoimageTRANS(Couleurs c) {
+    switch (c) {
+      case BLEU:
+        return this.texture.pieceBleueTransparent;
+      case VERT:
+        return this.texture.pieceVertTransparent;
+      case NOIR:
+        return this.texture.pieceNoireTransparent;
+      case JAUNE:
+        return this.texture.pieceJauneTransparent;
+      case ROUGE:
+        return this.texture.pieceRougeTransparent;
+      case BLANC:
+        return this.texture.pieceBlancheTransparent;
+      case NATUREL:
+        return this.texture.pieceNatureTransparent;
+    }
+    return null;
+  }
+
   public Image colortoimage(Couleurs c) {
     switch (c) {
+      case VIDE:
+        return this.texture.pieceVide;
       case BLEU:
         return this.texture.pieceBleue;
       case VERT:
@@ -414,5 +435,8 @@ public class PanelPhase2 extends javax.swing.JPanel {
     }
     return null;
   }
+
+  public Couleurs tocheck;
+  public boolean showcheck;
 
 }
