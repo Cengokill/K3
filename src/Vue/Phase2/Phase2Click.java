@@ -76,8 +76,8 @@ public class Phase2Click implements MouseListener {
 	public Position clickpyramideJ2(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 1 && panel.largeur_piece != 0 && panel.hauteur_piece != 0) {
 			Acteur a = panel.jeu.partieEnCours.joueur2();
-			int startx = panel.posX_ileJ2;
-			int starty = panel.posY_ileJ2;
+			int startx = panel.posX_ileJ2_Pyramide;
+			int starty = panel.posY_ile_Pyramide;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
@@ -130,8 +130,8 @@ public class Phase2Click implements MouseListener {
 	// CLICK MONTAGNE--------------------------------
 	public Position clickMontagne(MouseEvent e) {
 		if (panel.getPieceSelectionnee() != null) {
-			int startx = panel.posX_ileM;
-			int starty = panel.posX_ileM;
+			int startx = panel.posX_ileM_Pyramide;
+			int starty = panel.posY_ile_Pyramide;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
