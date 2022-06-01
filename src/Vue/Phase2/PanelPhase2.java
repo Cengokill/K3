@@ -214,7 +214,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	largeur_victoire = Math.min(largeur_background/3, frameWidth/3);
 	hauteur_victoire = (int)(largeur_victoire*rapportVictoire);
 	posX_victoire = posX_background+largeur_background/2-largeur_victoire/2;
-	posY_victoire = posY_background+(int)(hauteur_background*0.2);
+	posY_victoire = posY_background+(int)(hauteur_background*0.1);
 	//cadre fond joueur victorieux
 	posX_cadre_victoire = posX_victoire+largeur_victoire/2-largeur_cadre/2;
 	posY_cadre_victoire = posY_victoire+(int)(hauteur_victoire*1.5);
