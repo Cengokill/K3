@@ -37,7 +37,7 @@ public class Phase2Click implements MouseListener {
 		} else
 			return false;
 	}
-
+	//valider le coup
 	public boolean clicValider(MouseEvent e) {
 		int startx = panel.posX_valider;
 		int starty = panel.posY_valider;
@@ -49,7 +49,7 @@ public class Phase2Click implements MouseListener {
 		} else
 			return false;
 	}
-
+	//fermer le popup de sauvegarde
 	public boolean clicFermer(MouseEvent e) {
 		int startx = panel.posX_fermer;
 		int starty = panel.posY_fermer;
@@ -61,7 +61,7 @@ public class Phase2Click implements MouseListener {
 		} else
 			return false;
 	}
-
+	//retour au menu principal
 	public boolean clicRetour(MouseEvent e) {
 		int startx = panel.posX_back;
 		int starty = panel.posY_back;
