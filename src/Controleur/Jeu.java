@@ -26,6 +26,7 @@ public class Jeu {
 	public OptionsJeu options;
 	public Chargement chargement;
 	public IHM ihm;
+	public boolean changement_joueur=true;
 
 	public Jeu(JFrame fenetrePrincipale, InitPartie partieInit, OptionsJeu o, Chargement c) throws IOException {
 		this.options=o;
@@ -200,8 +201,9 @@ public class Jeu {
 		this.partieEnCours.joueur2().resetTempsConstruction();
 		while(!this.partieEnCours.estPartieFinie()) {//explicite
 			ihm.phase2Panel.repaint();
-			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-				this.options.gestionSons.playSon(35);
+			if(changement_joueur&&((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2)) {
+				this.options.gestionSons.playSon(35);//debut de tour
+				changement_joueur=false;
 			}
 			faireJouerActeurs();//fait jouer les acteurs chacun leur tour
 			timer(temps);
@@ -312,6 +314,7 @@ public class Jeu {
 			} else {
 				this.partieEnCours.joueur2().stopTempsConstruction();
 			}
+			changement_joueur=true;
 			partieEnCours.changementJoueurCourant();
 		}
 	}

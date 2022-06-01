@@ -19,7 +19,6 @@ public class PanelGeneral extends JPanel {
 	public JFrame window;
 	public int posX_background, posY_background, largeur_background, hauteur_background, offset_vertical;
 	public LoadTexture texture;
-	public SoundPlayer simpleSoundPlayerSon;
 	public OptionsJeu options;
 	public boolean estPleinEcran;
 	
@@ -27,7 +26,6 @@ public class PanelGeneral extends JPanel {
 		this.window=w;
 		this.texture=t;
 		this.options=o;
-		this.simpleSoundPlayerSon = new SoundPlayer(options.volumeEffetsSonores, texture.CHEMIN);
 		this.tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
 		this.screenWidth=tailleEcran.width;
         this.screenHeight=tailleEcran.height;
@@ -57,18 +55,15 @@ public class PanelGeneral extends JPanel {
 	}
 	
 	public void jouerSonSurvol() {
-		this.simpleSoundPlayerSon.setNumSon(38);
-		this.simpleSoundPlayerSon.jouerSon();
+		options.gestionSons.playSon(38);
 	}
 	
 	public void jouerSonClic() {
-		this.simpleSoundPlayerSon.setNumSon(17);
-		this.simpleSoundPlayerSon.jouerSon();
+		options.gestionSons.playSon(17);
 	}
 	
     public void jouerSonLancement() {
-		this.simpleSoundPlayerSon.setNumSon(29);
-		this.simpleSoundPlayerSon.jouerSon();
+    	options.gestionSons.playSon(29);
 	}
 	
     public void affichageBackGround(Graphics g, int i) {//3840x2160

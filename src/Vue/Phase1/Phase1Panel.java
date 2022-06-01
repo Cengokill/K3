@@ -34,7 +34,8 @@ public class Phase1Panel extends PanelGeneral{
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton,posX_bouton_valider,
 	posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono,posX_text_chrono,posY_text_chrono,
 	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer,posXRetourMenu,
-	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu, posX_popup,posY_popup,largeur_popup,hauteur_popup;
+	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu, posX_popup,posY_popup,largeur_popup,hauteur_popup,
+	largeur_oui,hauteur_oui,posX_oui,posY_oui,posX_non,posY_non,posX_settings,posY_settings,largeur_settings;
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
@@ -84,6 +85,7 @@ public class Phase1Panel extends PanelGeneral{
 			affichePyramideJoueur1(g);
 			affichePioche(g);
 			affichageRetourMenu(g);
+			affichageSettings(g);
 			dragNdrop(g);
 			affichePopup(g);
 		}
@@ -102,6 +104,7 @@ public class Phase1Panel extends PanelGeneral{
         double rapport_chrono=1.395;//400x558
         double rapportBackMenu = 1.185567010309278;
         double rapportPopup = 0.5103280680437424;
+        double rapportOui = 0.4183168316831683;// 169/404
 		TAILLE_CUBES_LARGEUR = Math.min(largeur_background/28, frameWidth/28);
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
@@ -143,6 +146,17 @@ public class Phase1Panel extends PanelGeneral{
 		hauteur_popup = (int)(largeur_popup*rapportPopup);
 		posX_popup = posX_background+largeur_background/2-largeur_popup/2;
 		posY_popup = posY_background+hauteur_background/2-hauteur_popup/2;
+		//oui et non
+		largeur_oui = largeur_popup/3;
+		hauteur_oui = (int)(largeur_oui*rapportOui);
+		posX_oui = posX_popup+(int)(largeur_popup*0.1);
+		posY_oui = posY_popup+(int)(hauteur_popup*0.55);
+		posX_non = posX_popup+(int)(largeur_popup*0.9)-largeur_oui;
+		posY_non = posY_oui;
+		//settings
+		largeur_settings=(int)(largeur_popup/4.5);
+		posX_settings=posX_background+(int)(largeur_background*0.92);
+		posY_settings=posY_background+(int)(hauteur_background*0.04);
 	}
 	// PIECE SELECTIONEE----------------------------------------------
 	public Piece getPieceSelectionnee() {
@@ -233,6 +247,8 @@ public class Phase1Panel extends PanelGeneral{
 	public void affichePopup(Graphics g) {
 		if(popup) {
 			g.drawImage(textures.popup, posX_popup, posY_popup, largeur_popup, hauteur_popup, null);
+			g.drawImage(textures.oui, posX_oui, posY_oui, largeur_oui, hauteur_oui, null);
+			g.drawImage(textures.non, posX_non, posY_non, largeur_oui, hauteur_oui, null);
 		}
 	}
 	
@@ -256,6 +272,10 @@ public class Phase1Panel extends PanelGeneral{
 	
 	public void affichageRetourMenu(Graphics g) {
 		g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);	
+	}
+	
+	public void affichageSettings(Graphics g) {
+		g.drawImage(texture.settings, posX_settings, posY_settings, largeur_settings, largeur_settings, null);	
 	}
 	
 	public void emettreSonClic() {

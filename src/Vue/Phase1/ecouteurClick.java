@@ -102,6 +102,16 @@ public class ecouteurClick implements MouseListener {
 		return x+y*panel.coupure;
 	}
 	//CLIC BOUTONS
+	public boolean clicSettings(MouseEvent e){
+		int startx = panel.posX_settings;
+		int starty = panel.posY_settings;
+		int hauteurBouton=panel.largeur_settings;
+		int largeurBouton=panel.largeur_settings;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	public boolean clicMelange(MouseEvent e){
 		int startx = panel.posX_bouton_melange;
 		int starty = panel.posY_bouton_melange;
@@ -132,6 +142,26 @@ public class ecouteurClick implements MouseListener {
 		}else return false;
 	}
 	
+	public boolean clicOui(MouseEvent e){
+		int startx = panel.posX_oui;
+		int starty = panel.posY_oui;
+		int hauteurBouton=panel.hauteur_oui;
+		int largeurBouton=panel.largeur_oui;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
+	public boolean clicNon(MouseEvent e){
+		int startx = panel.posX_non;
+		int starty = panel.posY_non;
+		int hauteurBouton=panel.hauteur_oui;
+		int largeurBouton=panel.largeur_oui;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	//GESTION SOURIS----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -140,62 +170,73 @@ public class ecouteurClick implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(panel.partieEnCoursSet == true) {
-			if(clicRetour(e)) {
-				panel.jouerSonClic();
-				panel.popup=true;
-				/*
-				panel.chargement.lancement = true;
-				panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
-				*/
-			}
-			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-				if(e.getButton() == MouseEvent.BUTTON1) { 
-					if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
-						int index = clickPioche(e);
-						if(index>=0) {
-							Acteur a = panel.initAffichageJoueurs();
-							panel.setPieceSelectionnee(a.getPiecesPiochees().get(index));
-						}
-					}else {
-						Position p = clickpyramide(e);
-						if(p != null) {
-							panel.empiler(p);//on empile la piece a l'endroit clique
-						}
-					}
-				}else { // deselectionner avec clic droit
-					if(panel.getPieceSelectionnee() == null) {
-						Position p = clickpyramide(e);
-						if(p != null) {
-							Acteur a = panel.initAffichageJoueurs();
-							Piece pie = a.getCamp().retirePhase1(p);
-							if(pie!=null) {
-								a.addPiecePiochee(pie);
+			if(panel.popup) {
+				if(clicOui(e)) {
+					panel.popup=false;
+					panel.chargement.lancement = true;
+					panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
+				}else if(clicNon(e)) {
+					panel.popup=false;
+				}
+			}else {
+				if(clicRetour(e)) {
+					panel.jouerSonClic();
+					panel.popup=true;
+				}
+				else if(clicSettings(e)) {
+					panel.jouerSonClic();
+					panel.chargement.nouvellePartie=false;
+					panel.chargement.lancement = true;
+					panel.chargement.setProchaineFenetre(TypeFenetre.OPTION);
+				}
+				if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+					if(e.getButton() == MouseEvent.BUTTON1) { 
+						if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
+							int index = clickPioche(e);
+							if(index>=0) {
+								Acteur a = panel.initAffichageJoueurs();
+								panel.setPieceSelectionnee(a.getPiecesPiochees().get(index));
+							}
+						}else {
+							Position p = clickpyramide(e);
+							if(p != null) {
+								panel.empiler(p);//on empile la piece a l'endroit clique
 							}
 						}
-					}else {
-						panel.setPieceSelectionnee(null);
+					}else { // deselectionner avec clic droit
+						if(panel.getPieceSelectionnee() == null) {
+							Position p = clickpyramide(e);
+							if(p != null) {
+								Acteur a = panel.initAffichageJoueurs();
+								Piece pie = a.getCamp().retirePhase1(p);
+								if(pie!=null) {
+									a.addPiecePiochee(pie);
+								}
+							}
+						}else {
+							panel.setPieceSelectionnee(null);
+						}
 					}
 				}
-			}
-		}
-
-		if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-			Acteur a = panel.initAffichageJoueurs();
-			if(clicMelange(e)) {
-				panel.emettreSonClic();
-				if(!panel.enfonce_melange) {
-					panel.enfonce_melange=true;
+				if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+					Acteur a = panel.initAffichageJoueurs();
+					if(clicMelange(e)) {
+						panel.emettreSonClic();
+						if(!panel.enfonce_melange) {
+							panel.enfonce_melange=true;
+						}
+						a.melangeAleatCamp();
+						panel.repaint();
+					}
+					if(clicValider(e) && a.getCamp().estPleine()) {
+						panel.emettreSonClic();
+						if(!panel.enfonce_valider) {
+							panel.enfonce_valider=true;
+						}
+						a.valideCamp=true;
+						panel.repaint();
+					}
 				}
-				a.melangeAleatCamp();
-				panel.repaint();
-			}
-			if(clicValider(e) && a.getCamp().estPleine()) {
-				panel.emettreSonClic();
-				if(!panel.enfonce_valider) {
-					panel.enfonce_valider=true;
-				}
-				a.valideCamp=true;
-				panel.repaint();
 			}
 		}
 	}
@@ -221,35 +262,43 @@ public class ecouteurClick implements MouseListener {
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
 			if(panel.partieEnCoursSet == true) {
-				if(clicRetour(e)) {
-					typeCurseur="main";
+				if(panel.popup) {
+					if(clicOui(e) || clicNon(e)) {
+						typeCurseur="main";
+					}else {
+						typeCurseur = "Default Cursor";
+					}
 				}else {
-					typeCurseur = "Default Cursor";
-				}
-				if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-					panel.OldX = panel.currentX;
-					panel.OldY = panel.currentY;
-					panel.currentX = e.getX();
-					panel.currentY = e.getY();
-					
-					if(clickpyramide(e)!=null) {
-						if(panel.getPieceSelectionnee()!=null) {
-							typeCurseur="curseurPlus";
-						}else {
-							typeCurseur="Default Cursor";
+					if(clicRetour(e) || clicSettings(e)) {
+						typeCurseur="main";
+					}else {
+						typeCurseur = "Default Cursor";
+					}
+					if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
+						panel.OldX = panel.currentX;
+						panel.OldY = panel.currentY;
+						panel.currentX = e.getX();
+						panel.currentY = e.getY();
+						
+						if(clickpyramide(e)!=null) {
+							if(panel.getPieceSelectionnee()!=null) {
+								typeCurseur="curseurPlus";
+							}else {
+								typeCurseur="Default Cursor";
+							}
+						}
+						else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
+							typeCurseur = "mainFermee";//ok
+						}else if(clicMelange(e)) {
+							typeCurseur="main";
+						}else if(clicValider(e)) {
+							typeCurseur="main";
 						}
 					}
-					else if(clickPioche(e)!=-1 || panel.getPieceSelectionnee()!=null) {
-						typeCurseur = "mainFermee";//ok
-					}else if(clicMelange(e)) {
-						typeCurseur="main";
-					}else if(clicValider(e)) {
-						typeCurseur="main";
-					}
 				}
-				changeCustomCurseur();
-				panel.repaint();
 			}
+			changeCustomCurseur();
+			panel.repaint();
 		}
 	}
 
