@@ -42,6 +42,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int largeur_popup,hauteur_popup,posX_popup,posY_popup,largeur_popup_save,hauteur_popup_save,posX_popup_save,posY_popup_save;
   public int largeur_valider,hauteur_valider,largeur_fermer,posX_valider,posY_valider,posX_fermer,posY_fermer;
   public int posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext;
+  public int posX_back,posY_back,largeur_back,hauteur_back;
   boolean popup=false;
   boolean popup_save=false;
   public JTextField nomSave;
@@ -91,6 +92,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawbaPyramideMilieu(g);
     drawBoutons(g);
     afficherNomJoueur(g);
+    afficheBoutonBack(g);
     affichePopupSave(g);
   }
 
@@ -195,6 +197,16 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	nomSave.setBounds(posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext);
 	nomSave.setFont(text1);
 	nomSave.setVisible(popup_save);
+	//Bouton retour
+	double rapportBack = 0.8441247002398082;//352/417
+	largeur_back = Math.min(largeur_background/15, frameWidth/15);
+	hauteur_back = (int)(largeur_back*rapportBack);
+	posX_back=posX_background+(int)(largeur_background*0.9);
+	posY_back=posY_background+(int)(hauteur_background*0.8);
+  }
+  
+  public void afficheBoutonBack(Graphics g) {
+	g.drawImage(texture.TutoMenu, posX_back, posY_back, largeur_back, hauteur_back, null);
   }
   
   public void affichePopupSave(Graphics g) {

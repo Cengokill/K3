@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
+import Vue.Menu.Chargement.TypeFenetre;
+
 public class Phase2Click implements MouseListener{
 	
 	private PanelPhase2 panel;
@@ -47,6 +49,16 @@ public class Phase2Click implements MouseListener{
 		}else return false;
 	}
 	
+	public boolean clicRetour(MouseEvent e){
+		int startx = panel.posX_back;
+		int starty = panel.posY_back;
+		int hauteurBouton=panel.hauteur_back;
+		int largeurBouton=panel.largeur_back;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -55,6 +67,13 @@ public class Phase2Click implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		if(clicSave(e)) {
 			panel.popup_save=true;
+		}
+		if(clicRetour(e)) {
+			/*
+			panel.chargement.nouvellePartie=false;
+			panel.chargement.lancement = true;
+			panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
+			*/
 		}
 		if(clicFermer(e)) {
 			panel.popup_save=false;
