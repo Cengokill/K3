@@ -21,7 +21,7 @@ public class Phase2Click implements MouseListener {
 
 	// CLICK JOUEUR1--------------------------------
 	public Position clickpyramideJ1(MouseEvent e) {
-		if (panel.jeu.partieEnCours.joueurCourant == 0) {
+		if (panel.jeu.partieEnCours.joueurCourant == 0 && panel.largeur_piece != 0 && panel.hauteur_piece != 0) {
 			Acteur a = panel.jeu.partieEnCours.joueur1();
 			int startx = panel.posX_ileJ1_Pyramide;
 			int starty = panel.posY_ile_Pyramide;
@@ -49,30 +49,32 @@ public class Phase2Click implements MouseListener {
 
 	// VOL DU JOUEUR--------------------------------
 	public int clickVolJ1(MouseEvent e) {
-		int startx = panel.posX_volJ1;
-		int starty = panel.posY_volJ1;
-		int realx = e.getX() - startx;
-		int realy = e.getY() - starty;
-
-		int x = realx / (panel.largeur_piece);
-		int y = realy / (panel.hauteur_piece);
-		if (x < 0 || (x >= panel.coupure + 1 && realy > (panel.hauteur_piece))
-				|| (x >= panel.coupure && realy < (panel.hauteur_piece))) {
-			return -1;
-		}
-		if (realy < 0 || realy > (panel.hauteur_piece) * 2) {
-			return -1;
-		}
-		int v = x + y * panel.coupure;
-		if (v < panel.jeu.partieEnCours.joueur1().getPiecesVolees().size()) {
-			return v;
+		if (panel.jeu.partieEnCours.joueurCourant == 0 && panel.largeur_piece != 0 && panel.hauteur_piece != 0) {
+			int startx = panel.posX_volJ1;
+			int starty = panel.posY_volJ1;
+			int realx = e.getX() - startx;
+			int realy = e.getY() - starty;
+	
+			int x = realx / (panel.largeur_piece);
+			int y = realy / (panel.hauteur_piece);
+			if (x < 0 || (x >= panel.coupure + 1 && realy > (panel.hauteur_piece))
+					|| (x >= panel.coupure && realy < (panel.hauteur_piece))) {
+				return -1;
+			}
+			if (realy < 0 || realy > (panel.hauteur_piece) * 2) {
+				return -1;
+			}
+			int v = x + y * panel.coupure;
+			if (v < panel.jeu.partieEnCours.joueur1().getPiecesVolees().size()) {
+				return v;
+			}
 		}
 		return -1;
 	}
 
 	// CLICK JOUEUR2--------------------------------
 	public Position clickpyramideJ2(MouseEvent e) {
-		if (panel.jeu.partieEnCours.joueurCourant == 1) {
+		if (panel.jeu.partieEnCours.joueurCourant == 1 && panel.largeur_piece != 0 && panel.hauteur_piece != 0) {
 			Acteur a = panel.jeu.partieEnCours.joueur2();
 			int startx = panel.posX_ileJ2;
 			int starty = panel.posY_ileJ2;
@@ -102,23 +104,25 @@ public class Phase2Click implements MouseListener {
 
 	// VOL DU JOUEUR2--------------------------------
 	public int clickVolJ2(MouseEvent e) {
-		int startx = panel.posX_volJ2;
-		int starty = panel.posY_volJ2;
-		int realx = e.getX() - startx;
-		int realy = e.getY() - starty;
-
-		int x = realx / (panel.largeur_piece);
-		int y = realy / (panel.hauteur_piece);
-		if (x < 0 || (x >= panel.coupure + 1 && realy > (panel.hauteur_piece))
-				|| (x >= panel.coupure && realy < (panel.hauteur_piece))) {
-			return -1;
-		}
-		if (realy < 0 || realy > (panel.hauteur_piece) * 2) {
-			return -1;
-		}
-		int v = x + y * panel.coupure;
-		if (v < panel.jeu.partieEnCours.joueur2().getPiecesVolees().size()) {
-			return v;
+		if (panel.jeu.partieEnCours.joueurCourant == 1 && panel.largeur_piece != 0 && panel.hauteur_piece != 0) {
+			int startx = panel.posX_volJ2;
+			int starty = panel.posY_volJ2;
+			int realx = e.getX() - startx;
+			int realy = e.getY() - starty;
+	
+			int x = realx / (panel.largeur_piece);
+			int y = realy / (panel.hauteur_piece);
+			if (x < 0 || (x >= panel.coupure + 1 && realy > (panel.hauteur_piece))
+					|| (x >= panel.coupure && realy < (panel.hauteur_piece))) {
+				return -1;
+			}
+			if (realy < 0 || realy > (panel.hauteur_piece) * 2) {
+				return -1;
+			}
+			int v = x + y * panel.coupure;
+			if (v < panel.jeu.partieEnCours.joueur2().getPiecesVolees().size()) {
+				return v;
+			}
 		}
 		return -1;
 	}
