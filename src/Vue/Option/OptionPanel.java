@@ -86,7 +86,7 @@ public class OptionPanel extends PanelGeneral {
 				options.setVolumeMusique(slideMusic.getValue());
 			}
 		});
-		vitesseOrdinateur = new JTextField(options.vitesse_ordi);
+		vitesseOrdinateur = new JTextField(String.valueOf(options.vitesse_ordi));
 		this.add(vitesseOrdinateur);
 		this.add(slideSound);
 		this.add(slideMusic);
