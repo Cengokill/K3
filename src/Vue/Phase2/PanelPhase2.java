@@ -333,6 +333,25 @@ public class PanelPhase2 extends PanelGeneral {
   }
 
   // AFFICHAGE
+  public void drawPiecesVoleesJ1(Graphics g) {
+    g.drawImage(texture.imagevol, posX_volJ1, posY_volJ1, largeur_vol, hauteur_vol, null);
+    for (int i = 0; i < this.jeu.partieEnCours.joueur1().getPiecesVolees().size(); i++) {
+      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur1().getPiecesVolees().get(i).getColor()),
+          posX_piece_voleeJ1 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
+          null);
+
+    }
+  }
+  
+  public void drawPiecesVoleesJ2(Graphics g) {
+    g.drawImage(texture.imagevol, posX_volJ2, posY_volJ2, largeur_vol, hauteur_vol, null);
+    for (int i = 0; i < this.jeu.partieEnCours.joueur2().getPiecesVolees().size(); i++) {
+      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur2().getPiecesVolees().get(i).getColor()),
+          posX_piece_voleeJ2 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
+          null);
+
+    }
+  }
   // J1----------------------------------------------------------------------
   public void affichePyramideJoueurJ1(Graphics g) {
     Acteur a = this.partieEnCours.joueur1();
@@ -439,26 +458,6 @@ public class PanelPhase2 extends PanelGeneral {
         return this.texture.pieceNature;
     }
     return null;
-  }
-
-  public void drawPiecesVoleesJ2(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ2, posY_volJ2, largeur_vol, hauteur_vol, null);
-    for (int i = 0; i < this.jeu.partieEnCours.joueur2().getPiecesVolees().size(); i++) {
-      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur2().getPiecesVolees().get(i).getColor()),
-          posX_piece_voleeJ2 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
-          null);
-
-    }
-  }
-
-  public void drawPiecesVoleesJ1(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ1, posY_volJ1, largeur_vol, hauteur_vol, null);
-    for (int i = 0; i < this.jeu.partieEnCours.joueur1().getPiecesVolees().size(); i++) {
-      g.drawImage(colortoimage(this.jeu.partieEnCours.joueur1().getPiecesVolees().get(i).getColor()),
-          posX_piece_voleeJ1 + (int) (i * largeur_piece * 0.95), posY_piece_voleeJ2, largeur_piece, hauteur_piece,
-          null);
-
-    }
   }
   // PIECE SELECTIONEE----------------------------------------------
   public PiecePyramide getPieceSelectionnee() {

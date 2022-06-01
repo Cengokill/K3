@@ -23,8 +23,8 @@ public class Phase2Click implements MouseListener {
 	public Position clickpyramideJ1(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 0) {
 			Acteur a = panel.jeu.partieEnCours.joueur1();
-			int startx = panel.posX_ileJ1_Pyramide;
-			int starty = panel.posY_ile_Pyramide;
+			int startx = panel.posX_campJ1;
+			int starty = panel.posY_campJ1;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
@@ -49,8 +49,8 @@ public class Phase2Click implements MouseListener {
 
 	// VOL DU JOUEUR--------------------------------
 	public int clickVolJ1(MouseEvent e) {
-		int startx = panel.posX_volJ1;
-		int starty = panel.posY_volJ1;
+		int startx = panel.posX_piece_voleeJ1;
+		int starty = panel.posY_piece_voleeJ1;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 
@@ -74,8 +74,8 @@ public class Phase2Click implements MouseListener {
 	public Position clickpyramideJ2(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 1) {
 			Acteur a = panel.jeu.partieEnCours.joueur2();
-			int startx = panel.posX_ileJ2;
-			int starty = panel.posY_ileJ2;
+			int startx = panel.posX_campJ2;
+			int starty = panel.posY_campJ2;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
@@ -102,8 +102,8 @@ public class Phase2Click implements MouseListener {
 
 	// VOL DU JOUEUR2--------------------------------
 	public int clickVolJ2(MouseEvent e) {
-		int startx = panel.posX_volJ2;
-		int starty = panel.posY_volJ2;
+		int startx = panel.posX_piece_voleeJ2;
+		int starty = panel.posY_piece_voleeJ2;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 
@@ -126,8 +126,8 @@ public class Phase2Click implements MouseListener {
 	// CLICK MONTAGNE--------------------------------
 	public Position clickMontagne(MouseEvent e) {
 		if (panel.getPieceSelectionnee() != null) {
-			int startx = panel.posX_ileM;
-			int starty = panel.posX_ileM;
+			int startx = panel.posX_campM;
+			int starty = panel.posY_campM;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
