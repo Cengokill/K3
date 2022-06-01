@@ -46,7 +46,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, posX_cadre_victoire, posY_cadre_victoire;
   public int posX_jtext2,posY_jtext2,largeur_jtext2,hauteur_jtext2;
   public int largeur_degrade,hauteur_degade,posX_degrade,posY_degrade;
-  public int posX_piece_voleeJ1, posY_piece_voleeJ1;
+  public int posX_piece_voleeJ1,posY_piece_voleeJ1,posX_piece_voleeJ2,posY_piece_voleeJ2;
   boolean popup=false;
   boolean popup_save=false;
   public JTextField nomSave,joueurVictorieux;
@@ -96,6 +96,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawbaPyramideJ1(g);
     drawPiecesVoleesJ1(g);
     drawbaPyramideJ2(g);
+    drawPiecesVoleesJ2(g);
     drawbaPyramideMilieu(g);
     drawBoutons(g);
     afficherNomJoueur(g);
@@ -122,7 +123,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     }
     // Passer son tour
     double rapportPasserTour = 0.3001776198934281;// 169/563
-    largeurPasserTour = Math.min(largeur_background / 6, frameWidth / 6);
+    largeurPasserTour = Math.min(largeur_background/8, frameWidth/8);
     hauteurPasserTour = (int) (largeurPasserTour * rapportPasserTour);
     int espacement = largeurPasserTour / 4;
     posXPasserTour = posX_background + largeur_background / 2 - largeurPasserTour - espacement / 2;
@@ -231,6 +232,8 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	//Pieces volees
 	posX_piece_voleeJ1 = posX_volJ1+(int)(largeur_vol*0.11);
 	posY_piece_voleeJ1 = poxY_volJ1+(int)(hauteur_vol*0.41);
+	posX_piece_voleeJ2 = posX_volJ2+(int)(largeur_vol*0.11);
+	posY_piece_voleeJ2 = poxY_volJ2+(int)(hauteur_vol*0.41);
   }
   
   public void afficheBoutonBack(Graphics g) {
@@ -315,6 +318,11 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	  g.drawImage(texture.imagevol, posX_volJ1, poxY_volJ1, largeur_vol, hauteur_vol, null);
 	  g.drawImage(texture.pieceBlanche, posX_piece_voleeJ1, posY_piece_voleeJ1, largeur_piece, hauteur_piece, null);
   }
+  
+  public void drawPiecesVoleesJ2(Graphics g) {
+	  g.drawImage(texture.imagevol, posX_volJ2, poxY_volJ2, largeur_vol, hauteur_vol, null);
+	  g.drawImage(texture.pieceBlanche, posX_piece_voleeJ2, posY_piece_voleeJ2, largeur_piece, hauteur_piece, null);
+  }
 
   public void drawbaPyramideJ1(Graphics g) {
     Position actualpos = new Position(0, 0);
@@ -343,7 +351,6 @@ public class PanelPhase2 extends javax.swing.JPanel {
   }
 
   public void drawbaPyramideJ2(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ2, poxY_volJ2, largeur_vol, hauteur_vol, null);
     Position actualpos = new Position(0, 0);
     int posX_depart = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
     int posX = posX_depart;
