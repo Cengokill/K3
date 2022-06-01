@@ -46,6 +46,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, posX_cadre_victoire, posY_cadre_victoire;
   public int posX_jtext2,posY_jtext2,largeur_jtext2,hauteur_jtext2;
   public int largeur_degrade,hauteur_degade,posX_degrade,posY_degrade;
+  public int posX_piece_voleeJ1, posY_piece_voleeJ1;
   boolean popup=false;
   boolean popup_save=false;
   public JTextField nomSave,joueurVictorieux;
@@ -93,6 +94,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawbackground(g);
     drawIle(g);
     drawbaPyramideJ1(g);
+    drawPiecesVoleesJ1(g);
     drawbaPyramideJ2(g);
     drawbaPyramideMilieu(g);
     drawBoutons(g);
@@ -226,6 +228,9 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	hauteur_degade = hauteur_background;
 	posX_degrade = posX_background+largeur_background/2-largeur_degrade/2;
 	posY_degrade = posY_background;
+	//Pieces volees
+	posX_piece_voleeJ1 = posX_volJ1+(int)(largeur_vol*0.11);
+	posY_piece_voleeJ1 = poxY_volJ1+(int)(hauteur_vol*0.41);
   }
   
   public void afficheBoutonBack(Graphics g) {
@@ -264,8 +269,6 @@ public class PanelPhase2 extends javax.swing.JPanel {
   }
 
   public void drawBoutons(Graphics g) {
-    g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
-    g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
     g.drawImage(texture.settings, posX_settings, posY_settings, largeur_settings, largeur_settings, null);
     if(this.jeu.partieEnCours.getJoueurCourant()==0) {
     	g.drawImage(texture.cadre_joueur, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
@@ -275,17 +278,21 @@ public class PanelPhase2 extends javax.swing.JPanel {
     	g.drawImage(texture.cadre_joueur, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
     }
     if(this.jeu.partieEnCours.joueur1().getClass() == Joueur.class) {
-    	g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
+    	if(!jeu.partieEnCours.estPartieFinie()) {
+	    	g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
+	        g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
+	    	g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
+    	}
     }
   }
 
   public void drawVictoire(Graphics g) {
-	  String nom="";
 	  if(jeu.partieEnCours.estPartieFinie()) {
 		  g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
 		  if(jeu.partieEnCours.getBaseMontagne().estPleine()) {//si EGALITE
 			  g.drawImage(texture.egalite, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
 		  }else {
+			  String nom="";
 			  if (jeu.partieEnCours.getJoueurCourant() == 0) {
 				  nom=jeu.partieEnCours.joueur2().getNom();
 			  }else {
@@ -303,9 +310,13 @@ public class PanelPhase2 extends javax.swing.JPanel {
     g.drawImage(this.texture.ile_joueur2, posX_ileJ2, posY_ileJ2, largeur_ileJ, hauteur_ileJ, null);
 	g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
+  
+  public void drawPiecesVoleesJ1(Graphics g) {
+	  g.drawImage(texture.imagevol, posX_volJ1, poxY_volJ1, largeur_vol, hauteur_vol, null);
+	  g.drawImage(texture.pieceBlanche, posX_piece_voleeJ1, posY_piece_voleeJ1, largeur_piece, hauteur_piece, null);
+  }
 
   public void drawbaPyramideJ1(Graphics g) {
-    g.drawImage(texture.imagevol, posX_volJ1, poxY_volJ1, largeur_vol, hauteur_vol, null);
     Position actualpos = new Position(0, 0);
     int posX_depart = posX_ileJ1 + (int) (largeur_ileJ * 0.54) - ((largeur_piece * 6) / 2);
     int posX = posX_depart;
