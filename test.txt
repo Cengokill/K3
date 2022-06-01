@@ -1,0 +1,43 @@
+base montagne:
+.
+..
+...
+....
+.....
+......
+.......
+........
+JJJNNBVRB
+
+joueur courant:1
+numero partie:0
+ ======================= JOUEUR 1 =======================
+type joueur 1:3
+nom joueur 1:
+V
+#R
+BRB
+RNWR
+VNJWR
+BJN#NV
+
+pioche:
+pieces volees:
+blancs joues:0
+mauvais coups joues:0
+vols effectues:0
+ ======================= JOUEUR 2 =======================
+type joueur 2:3
+nom joueur 2:
+J
+BR
+N#B
+RWNJ
+BNVWV
+R#VJVV
+
+pioche:
+pieces volees:
+blancs joues:0
+mauvais coups joues:0
+vols effectues:0

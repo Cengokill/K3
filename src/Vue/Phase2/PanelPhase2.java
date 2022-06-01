@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
+
+import javax.swing.JTextField;
+
 import Modeles.Couleurs;
 import Modeles.Joueur;
 import Modeles.Partie;
@@ -36,13 +39,23 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int posX_settings,posY_settings,largeur_settings;
   public int largeur_cadre,hauteur_cadre,posX_cadreJ1,posY_cadreJ1,posX_cadreJ2,posY_cadreJ2;
   public int taille_police_nom_joueur,posX_nom_joueur1,posY_nom_joueur1,posX_nom_joueur2,posY_nom_joueur2;
+  public int largeur_popup,hauteur_popup,posX_popup,posY_popup,largeur_popup_save,hauteur_popup_save,posX_popup_save,posY_popup_save;
+  public int largeur_valider,hauteur_valider,largeur_fermer,posX_valider,posY_valider,posX_fermer,posY_fermer;
+  public int posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext;
+  boolean popup=false;
+  boolean popup_save=false;
+  public JTextField nomSave;
   /**
    * Creates new form PanelPhase2
    */
   public PanelPhase2(Jeu j, LoadTexture texture) {
     this.texture = texture;
     this.jeu=j;
+    setLayout(null);
     initComponents();
+    this.addMouseListener(new Phase2Click(this));
+    nomSave = new JTextField();
+    this.add(nomSave);
   }
   /**
    * This method is called from within the constructor to initialize the form.
@@ -78,6 +91,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawbaPyramideMilieu(g);
     drawBoutons(g);
     afficherNomJoueur(g);
+    affichePopupSave(g);
   }
 
   public void setChangementTaillefenetre() {
@@ -157,7 +171,39 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	largeur_settings=largeur_background/18;
 	posX_settings=posX_background+(int)(largeur_background*0.92);
 	posY_settings=posY_background+(int)(hauteur_background*0.04);
+	//popup sauvegarde
+	double rapportPopupSave = 1.169139465875371;
+	largeur_popup_save = (int)(largeur_background/4);
+	hauteur_popup_save = (int)(largeur_popup_save/rapportPopupSave);
+	posX_popup_save = posX_background+largeur_background/2-largeur_popup_save/2;
+	posY_popup_save = posY_background+hauteur_background/2-hauteur_popup_save/2;
+	//valider et fermer
+	double rapportValider = 0.5950704225352113;
+	largeur_valider = largeur_popup_save/3;
+	hauteur_valider = (int)(largeur_valider*rapportValider);
+	largeur_fermer=hauteur_valider;
+	posX_valider = posX_popup_save+(int)(largeur_popup_save*0.1);
+	posY_valider = posY_popup_save+(int)(largeur_popup_save*0.55);
+	posX_fermer = posX_valider+largeur_valider*2;
+	posY_fermer = posY_valider;
+	// jtext
+	Font text1= new Font("Dialog", Font.BOLD, (int)(taille_police_nom_joueur*0.8));
+	posX_jtext=posX_valider;
+	posY_jtext=posY_popup_save+(int)(hauteur_popup_save*0.2);
+	largeur_jtext=(int)(largeur_popup_save*0.79);
+	hauteur_jtext=hauteur_valider;
+	nomSave.setBounds(posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext);
+	nomSave.setFont(text1);
+	nomSave.setVisible(popup_save);
   }
+  
+  public void affichePopupSave(Graphics g) {
+	  if(popup_save) {
+		g.drawImage(texture.popup_save, posX_popup_save, posY_popup_save, largeur_popup_save, hauteur_popup_save, null);
+		g.drawImage(texture.valider, posX_valider, posY_valider, largeur_valider, hauteur_valider, null);
+		g.drawImage(texture.fermer, posX_fermer, posY_fermer, largeur_fermer, largeur_fermer, null);
+	  }
+	}
   
 	public void afficherNomJoueur(Graphics g) {
 		String nomJ1, nomJ2;

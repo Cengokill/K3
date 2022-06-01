@@ -33,7 +33,7 @@ public class LoadTexture {
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
 			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings,
-			cadre_joueur,cadre_joueur_gris;
+			cadre_joueur,cadre_joueur_gris,popup_save,fermer;
 	// IMAGE CHARGEMENT
 	public Image boutonLoad,boutonLoadPresse;
 	// IMAGE TUTO
@@ -77,6 +77,8 @@ public class LoadTexture {
 		active = ImageIO.read(new File(CHEMIN + "active.png"));
 		desactive = ImageIO.read(new File(CHEMIN + "desactive.png"));
 		popup = ImageIO.read(new File(CHEMIN + "popup.png"));
+		popup_save = ImageIO.read(new File(CHEMIN + "popup_save.png"));
+		fermer = ImageIO.read(new File(CHEMIN + "fermer.png"));
 		// IMAGE
 		// CHARGEMENT---------------------------------------------------------------
 		boutonLoad = ImageIO.read(new File(CHEMIN + "chargerPartie_flou.png"));
