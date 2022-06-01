@@ -251,7 +251,7 @@ public class Jeu {
 	}
 
 	public void jouer() {
-		int temps = 1000;
+		int temps = 100;
 		if (this.typeActeurs == 2) {
 			temps = this.vitesseIA;
 		}
