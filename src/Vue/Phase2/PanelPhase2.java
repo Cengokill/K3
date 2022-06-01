@@ -406,23 +406,16 @@ public class PanelPhase2 extends javax.swing.JPanel {
 
               image = colortoimageTRANS(tocheck);
               g.drawImage(image, posX, posY, largeur_piece, hauteur_piece, null);
-
             }
-
             posX += largeur_piece;
-
           }
-
           decalage += largeur_piece / 2;
           posY -= hauteur_piece * 0.9;
           posX = posX_depart + decalage;// +decalage;
-
         }
       }
       showcheck = false;
-
     }
-
   }
 
   public Image colortoimageTRANS(Couleurs c) {

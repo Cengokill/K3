@@ -85,7 +85,6 @@ public class Phase2Click implements MouseListener {
 			for (int j = 0; j < (panel.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
 				if (e.getX() >= posX && e.getX() < posX + panel.largeur_piece && e.getY() >= posY
 						&& e.getY() < posY + panel.hauteur_piece) {
-					// ystem.out.println("Clique sur les pions du joueur 1 en : " + i + " " + j);
 					p.etage = i;
 					p.rang = j;
 					return p;
@@ -110,7 +109,6 @@ public class Phase2Click implements MouseListener {
 			for (int j = 0; j < (panel.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
 				if (e.getX() >= posX && e.getX() <= posX + panel.largeur_piece && e.getY() >= posY
 						&& e.getY() <= posY + panel.hauteur_piece) {
-					// ystem.out.println("Clique sur les pions du joueur 2 en : " + i + " " + j);
 					p.etage = i;
 					p.rang = j;
 					return p;
@@ -128,7 +126,6 @@ public class Phase2Click implements MouseListener {
 
 	public Position clicPyramide(MouseEvent e) {
 		Position p = new Position(-1, -1);
-		Position actualpos = new Position(0, 0);
 		int posX_depart = panel.posX_ileM + panel.largeur_ileM / 2 - ((panel.largeur_piece * 9) / 2);
 		int posX = posX_depart;
 		int posY = panel.posY_depart;
@@ -137,7 +134,6 @@ public class Phase2Click implements MouseListener {
 			for (int j = 0; j < (panel.jeu.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
 				if (e.getX() >= posX && e.getX() <= posX + panel.largeur_piece && e.getY() >= posY
 						&& e.getY() <= posY + panel.hauteur_piece) {
-					// System.out.println("Clique sur les pions du Milieu en : " + i + " " + j);
 					p.etage = i;
 					p.rang = j;
 					return p;
@@ -148,7 +144,6 @@ public class Phase2Click implements MouseListener {
 			decalage += panel.largeur_piece / 2;
 			posY -= panel.hauteur_piece * 0.9;
 			posX = posX_depart + decalage;// +decalage;
-
 		}
 		return null;
 
@@ -162,15 +157,12 @@ public class Phase2Click implements MouseListener {
 					return;
 				}
 				panel.showcheck = true;
-
 				panel.tocheck = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(piececheck).getColor();
 				panel.repaint();
 				return;
-
 			}
 			panel.showcheck = false;
 			return;
-
 		}
 
 		if (panel.jeu.partieEnCours.joueurCourant == 1) {
@@ -183,14 +175,10 @@ public class Phase2Click implements MouseListener {
 				panel.tocheck = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(piececheck).getColor();
 				panel.repaint();
 				return;
-
 			}
 			panel.showcheck = false;
-
 		}
-
 		panel.showcheck = false;
-
 	}
 
 	@Override
@@ -202,13 +190,11 @@ public class Phase2Click implements MouseListener {
 		if (panel.jeu.partieEnCours.joueurCourant == 0 && attentepyramide == false) {
 			retour = clicJoueur1(e);
 			attentepyramide = true;
-
 		}
 
 		if (panel.jeu.partieEnCours.joueurCourant == 1 && attentepyramide == false) {
 			retour2 = clicJoueur2(e);
 			attentepyramide = true;
-
 		}
 
 		Position retourpyramide = clicPyramide(e);
@@ -221,30 +207,23 @@ public class Phase2Click implements MouseListener {
 					panel.jeu.partieEnCours.joueur2().setCoupDemande(new Coup(piecetomove, retour2, null));
 					panel.jeu.partieEnCours.joueur2().validerCoup = true;
 					return;
-
 				}
 				panel.jeu.partieEnCours.joueur2().setCoupDemande(new Coup(piecetomove, retour2, retourpyramide));
 				panel.jeu.partieEnCours.joueur2().validerCoup = true;
 				return;
 			}
-
 			if (panel.jeu.partieEnCours.joueurCourant == 0 && retour != null) {
 				System.out.println(retour);
 				Piece piecetomove = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(retour);
 				if (piecetomove.getColor() == Couleurs.BLANC) {
 					System.out.println("On retire le blanc");
-					// panel.jeu.partieEnCours.joueur1().getCamp().retirer(retour);
 					panel.jeu.partieEnCours.joueur1().setCoupDemande(new Coup(piecetomove, retour, null));
 					panel.jeu.partieEnCours.joueur1().validerCoup = true;
 					// panel.repaint();
-
 					return;
-
 				}
-
 				panel.jeu.partieEnCours.joueur1().setCoupDemande(new Coup(piecetomove, retour, retourpyramide));
 				panel.jeu.partieEnCours.joueur1().validerCoup = true;
-
 				return;
 			}
 		}
