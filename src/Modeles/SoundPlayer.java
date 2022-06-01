@@ -49,9 +49,9 @@ public class SoundPlayer {
 		cheminsSons[26] = chemin + "VolerPiece/sifflement1.wav";// ok
 		cheminsSons[27] = chemin + "VolerPiece/sifflement2.wav";
 		cheminsSons[28] = chemin + "VolerPiece/sifflement3.wav";
-		cheminsSons[29] = chemin + "LancementPartie/Lancement1.wav";// ok
-		cheminsSons[30] = chemin + "LancementPartie/Lancement2.wav";
-		cheminsSons[31] = chemin + "LancementPartie/Lancement3.wav";
+		cheminsSons[29] = chemin + "LancementPartie/lancement1.wav";// ok
+		cheminsSons[30] = chemin + "LancementPartie/lancement2.wav";
+		cheminsSons[31] = chemin + "LancementPartie/lancement3.wav";
 		cheminsSons[32] = chemin + "Victoire/victoire1.wav";// ok
 		cheminsSons[33] = chemin + "Victoire/victoire2.wav";
 		cheminsSons[34] = chemin + "Victoire/victoire3.wav";
