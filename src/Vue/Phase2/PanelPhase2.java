@@ -50,8 +50,8 @@ public class PanelPhase2 extends PanelGeneral {
   boolean popup = false;
   boolean popup_save = false;
   public JTextField nomSave, joueurVictorieux;
-  
-  //test
+
+  // test
   public int posX_ileJ1_Pyramide;
   public int posY_ile_Pyramide;
   public int posX_ileJ2_Pyramide;
@@ -129,18 +129,18 @@ public class PanelPhase2 extends PanelGeneral {
     double rapportIlesJoueurs = 0.9269340974212034;// 647/698
     largeur_ileJ = Math.min((int) (largeur_background / 3.6), (int) (frameWidth / 3.6));
     hauteur_ileJ = (int) (largeur_ileJ * rapportIlesJoueurs);
-    
+
     posX_ileJ1 = posX_background + (int) (largeur_background * 0.02);
     posX_ileJ1_Pyramide = posX_ileJ1 + (int) (largeur_ileJ * 0.54) - ((largeur_piece * 6) / 2);
     posY_ileJ1 = posY_background + (int) (hauteur_background * 0.52);
-    posY_ile_Pyramide = posY_ileJ1-(partieEnCours.joueur1().getCamp().getHauteur()-1)*hauteur_piece;
-    
+    posY_ile_Pyramide = posY_ileJ1 - (partieEnCours.joueur1().getCamp().getHauteur() - 1) * hauteur_piece;
+
     posX_ileJ2 = posX_background + (int) (largeur_background * 0.98) - largeur_ileJ;
     posX_ileJ2_Pyramide = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
     ;
     posY_ileJ2 = posY_ileJ1;
     posY_depart = posY_ileJ1 - (int) (hauteur_ileJ * 0.04);
-    
+
     // Ile montagne
     double rapportIleMontagne = 0.7764198418404026;// 1080/1391
     largeur_ileM = Math.min((int) (largeur_background / 2.5), (int) (frameWidth / 2.5));
@@ -300,8 +300,6 @@ public class PanelPhase2 extends PanelGeneral {
     g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
 
-  
-
   public void drawbaPyramideJ2(Graphics g) {
     Position actualpos = new Position(0, 0);
     int posX_depart = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
@@ -460,7 +458,7 @@ public class PanelPhase2 extends PanelGeneral {
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
         g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_ileJ1_Pyramide,
-        	posY_ile_Pyramide + 5 * (hauteur_piece) - etage * (hauteur_piece),
+            posY_ile_Pyramide + 5 * (hauteur_piece) - etage * (hauteur_piece),
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
@@ -468,7 +466,7 @@ public class PanelPhase2 extends PanelGeneral {
   }
 
   public void drawVictoire(Graphics g) {
-    if (!jeu.partieEnCours.IAreflechis) {
+    if (!jeu.partieEnCours.IAreflechis && jeu.partieEnCours.afficheVictoire) {
       String nom = "";
       if (jeu.partieEnCours.estPartieFinie()) {
         g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
@@ -500,7 +498,7 @@ public class PanelPhase2 extends PanelGeneral {
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
         g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_ileJ2,
-        	posY_ile_Pyramide + 5 * (hauteur_piece) - etage * (hauteur_piece),
+            posY_ile_Pyramide + 5 * (hauteur_piece) - etage * (hauteur_piece),
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
@@ -530,7 +528,7 @@ public class PanelPhase2 extends PanelGeneral {
           }
         }
         g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeurCube) + posX_ileM,
-        	posY_ile_Pyramide + 8 * (hauteurCube) - etage * (hauteurCube), largeurCube, hauteurCube, null);
+            posY_ile_Pyramide + 8 * (hauteurCube) - etage * (hauteurCube), largeurCube, hauteurCube, null);
       }
       decalage += (largeurCube) / 2;
     }

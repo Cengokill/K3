@@ -35,6 +35,7 @@ public class Partie {
 	private final int NB_PIECES_BLANCS = 2;
 	public boolean IAreflechis = false;
 	public boolean doitVoler = false;
+	public boolean afficheVictoire = true;
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
 		this.numPartie = numPartie;
