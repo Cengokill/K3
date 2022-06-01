@@ -149,7 +149,7 @@ public class LoadTexture {
 		mainFermee = ImageIO.read(new File(CHEMIN + "hand-closed.png"));
 		mainDepose = ImageIO.read(new File(CHEMIN + "hand-depose.png"));
 		// PIECES
-		pieceVide = ImageIO.read(new File(CHEMIN + "EMPTY3.png"));
+		pieceVide = ImageIO.read(new File(CHEMIN + "VIDE.png"));
 		pieceNoire = ImageIO.read(new File(CHEMIN + "NOIR.png"));
 		pieceBleue = ImageIO.read(new File(CHEMIN + "BLEU.png"));
 		pieceVert = ImageIO.read(new File(CHEMIN + "VERT.png"));
