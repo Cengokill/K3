@@ -33,7 +33,7 @@ public class LoadTexture {
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
 			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings,
-			cadre_joueur,cadre_joueur_gris,popup_save,fermer;
+			cadre_joueur,cadre_joueur_gris,popup_save,fermer,victoire,egalite,fond_degrade;
 	// IMAGE CHARGEMENT
 	public Image boutonLoad,boutonLoadPresse;
 	// IMAGE TUTO
@@ -58,6 +58,7 @@ public class LoadTexture {
 		chrono = ImageIO.read(new File(CHEMIN + "chrono_jeu.png"));
 		cadre_joueur = ImageIO.read(new File(CHEMIN + "cadre_joueur.png"));
 		cadre_joueur_gris = ImageIO.read(new File(CHEMIN + "cadre_joueur_gris.png"));
+		fond_degrade = ImageIO.read(new File(CHEMIN + "fond_degrade.png"));
 		// IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = ImageIO.read(new File(CHEMIN + "nouvellePartie_flou.png"));
 		menuBouton1_presse = ImageIO.read(new File(CHEMIN + "nouvellePartie_presse.png"));
@@ -78,7 +79,8 @@ public class LoadTexture {
 		desactive = ImageIO.read(new File(CHEMIN + "desactive.png"));
 		popup = ImageIO.read(new File(CHEMIN + "popup.png"));
 		popup_save = ImageIO.read(new File(CHEMIN + "popup_save.png"));
-		fermer = ImageIO.read(new File(CHEMIN + "fermer.png"));
+		victoire = ImageIO.read(new File(CHEMIN + "victoire_flou.png"));
+		egalite = ImageIO.read(new File(CHEMIN + "egalite.png"));
 		// IMAGE
 		// CHARGEMENT---------------------------------------------------------------
 		boutonLoad = ImageIO.read(new File(CHEMIN + "chargerPartie_flou.png"));
@@ -142,6 +144,7 @@ public class LoadTexture {
 		oui = ImageIO.read(new File(CHEMIN + "oui.png"));
 		non = ImageIO.read(new File(CHEMIN + "non.png"));
 		settings = ImageIO.read(new File(CHEMIN + "settings.png"));
+		fermer = ImageIO.read(new File(CHEMIN + "fermer.png"));
 		// CURSEURS
 		mainFermee = ImageIO.read(new File(CHEMIN + "hand-closed.png"));
 		mainDepose = ImageIO.read(new File(CHEMIN + "hand-depose.png"));

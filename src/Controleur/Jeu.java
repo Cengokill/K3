@@ -335,7 +335,7 @@ public class Jeu {
 		} else {
 			System.out.print(this.partieEnCours.joueur1().getNom());
 		}
-		System.out.println(" a gagn� !");
+		System.out.println(" a gagne !");
 		Jeu.timer(10000);
 		this.chargement.setProchaineFenetre(TypeFenetre.MENU);
 		this.chargement.lancement = true;

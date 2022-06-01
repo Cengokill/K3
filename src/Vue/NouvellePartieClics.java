@@ -268,17 +268,29 @@ public class NouvellePartieClics implements MouseListener {
 			 else if (nouvellePartie.enfonce_pb_PVM){
 				 nouvellePartie.jouerSonLancement();
 				 nouvellePartie.partie.modeDeJeu=1;
-				 nouvellePartie.partie.nomJoueur1=nouvellePartie.nomJ3.getText();
+				 if(nouvellePartie.nomJ3.getText().isEmpty()) {
+					 nouvellePartie.partie.nomJoueur1="Joueur";
+				 }else {
+					 nouvellePartie.partie.nomJoueur1=nouvellePartie.nomJ3.getText();
+				 }
 				 nouvellePartie.partie.nomJoueur2=" Ordinateur ";
-				 nouvellePartie.partie.difficulteIA2=lvl_IA1;
+				 nouvellePartie.partie.difficulteIA2=lvl_IA2;
 				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
 				 nouvellePartie.chargement.lancement=true;
 			 }
 			 else if (nouvellePartie.enfonce_pb_PVP){
 				 nouvellePartie.jouerSonLancement();
 				 nouvellePartie.partie.modeDeJeu = 0;
-				 nouvellePartie.partie.nomJoueur1=nouvellePartie.nomJ1.getText();
-				 nouvellePartie.partie.nomJoueur2=nouvellePartie.nomJ2.getText();
+				 if(nouvellePartie.nomJ1.getText().isEmpty()) {
+					 nouvellePartie.partie.nomJoueur1="Joueur 1";
+				 }else {
+					 nouvellePartie.partie.nomJoueur1=nouvellePartie.nomJ1.getText();
+				 }
+				 if(nouvellePartie.nomJ2.getText().isEmpty()) {
+					 nouvellePartie.partie.nomJoueur2="Joueur 2";
+				 }else {
+					 nouvellePartie.partie.nomJoueur2=nouvellePartie.nomJ2.getText();
+				 }
 				 nouvellePartie.chargement.setProchaineFenetre(TypeFenetre.PHASE1);
 				 nouvellePartie.chargement.lancement=true;
 			 }

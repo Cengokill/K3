@@ -43,9 +43,12 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int largeur_valider,hauteur_valider,largeur_fermer,posX_valider,posY_valider,posX_fermer,posY_fermer;
   public int posX_jtext, posY_jtext, largeur_jtext, hauteur_jtext;
   public int posX_back,posY_back,largeur_back,hauteur_back;
+  public int posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, posX_cadre_victoire, posY_cadre_victoire;
+  public int posX_jtext2,posY_jtext2,largeur_jtext2,hauteur_jtext2;
+  public int largeur_degrade,hauteur_degade,posX_degrade,posY_degrade;
   boolean popup=false;
   boolean popup_save=false;
-  public JTextField nomSave;
+  public JTextField nomSave,joueurVictorieux;
   /**
    * Creates new form PanelPhase2
    */
@@ -56,7 +59,9 @@ public class PanelPhase2 extends javax.swing.JPanel {
     initComponents();
     this.addMouseListener(new Phase2Click(this));
     nomSave = new JTextField();
+    joueurVictorieux = new JTextField();
     this.add(nomSave);
+    this.add(joueurVictorieux);
   }
   /**
    * This method is called from within the constructor to initialize the form.
@@ -94,6 +99,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     afficherNomJoueur(g);
     afficheBoutonBack(g);
     affichePopupSave(g);
+    drawVictoire(g);
   }
 
   public void setChangementTaillefenetre() {
@@ -201,8 +207,25 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	double rapportBack = 0.8441247002398082;//352/417
 	largeur_back = Math.min(largeur_background/15, frameWidth/15);
 	hauteur_back = (int)(largeur_back*rapportBack);
-	posX_back=posX_background+(int)(largeur_background*0.9);
-	posY_back=posY_background+(int)(hauteur_background*0.8);
+	posX_back = posX_background+(int)(largeur_background*0.9);
+	posY_back = posY_background+(int)(hauteur_background*0.8);
+	//Victoire
+	double rapportVictoire = 0.2055030094582975;// 239/1163
+	largeur_victoire = Math.min(largeur_background/3, frameWidth/3);
+	hauteur_victoire = (int)(largeur_victoire*rapportVictoire);
+	posX_victoire = posX_background+largeur_background/2-largeur_victoire/2;
+	posY_victoire = posY_background+(int)(hauteur_background*0.2);
+	//cadre fond joueur victorieux
+	posX_cadre_victoire = posX_victoire+largeur_victoire/2-largeur_cadre/2;
+	posY_cadre_victoire = posY_victoire+(int)(hauteur_victoire*1.5);
+	//nom du gagnant
+	posX_jtext2=posX_cadre_victoire+(int)(largeur_cadre*0.12);
+	posY_jtext2=posY_cadre_victoire+(int)(hauteur_cadre*0.6);
+	//fond degrade noir
+	largeur_degrade = largeur_victoire*2;
+	hauteur_degade = hauteur_background;
+	posX_degrade = posX_background+largeur_background/2-largeur_degrade/2;
+	posY_degrade = posY_background;
   }
   
   public void afficheBoutonBack(Graphics g) {
@@ -237,8 +260,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public void drawbackground(Graphics g) {
 	g.setColor(Color.BLACK);
   	g.fillRect(0, 0, frameWidth, frameHeight);
-    g.drawImage(texture.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background,
-        null);
+    g.drawImage(texture.backgroundSansLogo, posX_background, posY_background, largeur_background, hauteur_background, null);
   }
 
   public void drawBoutons(Graphics g) {
@@ -257,6 +279,25 @@ public class PanelPhase2 extends javax.swing.JPanel {
     }
   }
 
+  public void drawVictoire(Graphics g) {
+	  String nom="";
+	  if(jeu.partieEnCours.estPartieFinie()) {
+		  g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
+		  if(jeu.partieEnCours.getBaseMontagne().estPleine()) {//si EGALITE
+			  g.drawImage(texture.egalite, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
+		  }else {
+			  if (jeu.partieEnCours.getJoueurCourant() == 0) {
+				  nom=jeu.partieEnCours.joueur2().getNom();
+			  }else {
+				  nom=jeu.partieEnCours.joueur1().getNom();
+			  }
+			  g.drawImage(texture.victoire, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
+			  g.drawImage(texture.cadre_joueur, posX_cadre_victoire, posY_cadre_victoire, largeur_cadre, hauteur_cadre, null);
+			  g.drawString(nom, posX_jtext2, posY_jtext2);
+		  }
+	  }
+  }
+	 
   public void drawIle(Graphics g) {
     g.drawImage(this.texture.ile_joueur1, posX_ileJ1, posY_ileJ1, largeur_ileJ, hauteur_ileJ, null);
     g.drawImage(this.texture.ile_joueur2, posX_ileJ2, posY_ileJ2, largeur_ileJ, hauteur_ileJ, null);
