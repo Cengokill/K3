@@ -286,7 +286,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     }
   }
 
-  public void drawVictoire(Graphics g) {
+  public void drawVictoire(Graphics g) {//affichage trop tot
 	  if(jeu.partieEnCours.estPartieFinie()) {
 		  g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
 		  if(jeu.partieEnCours.getBaseMontagne().estPleine()) {//si EGALITE
