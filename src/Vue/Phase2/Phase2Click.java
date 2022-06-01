@@ -5,191 +5,160 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
-import Modeles.Couleurs;
-import Modeles.Coup;
-import Modeles.Piece;
-import Modeles.Position;
-import Vue.Menu.Chargement.TypeFenetre;
+import Modeles.*;
 
 public class Phase2Click implements MouseListener {
 
-	private PanelPhase2 panel;
-	private Position retour2;
-	private Position retour;
-	private boolean attentepyramide = false;
+	public PanelPhase2 panel;
 
 	// CONSTRUTEUR--------------------------------
 	public Phase2Click(PanelPhase2 panel) {
 		super();
 		this.panel = panel;
-		this.panel.addMouseMotionListener(new DragListener());
+		DragListener dragListener = new DragListener();
+		this.panel.addMouseMotionListener(dragListener);
 	}
 
-	// SAUVEGARDE--------------------------------
-	public boolean clicSave(MouseEvent e) {
-		int startx = panel.posX_sauvegarder;
-		int starty = panel.posY_sauvegarder;
-		int largeurBouton = panel.largeur_sauvegarder;
-		int hauteurBouton = panel.hauteur_sauvegarder;
-		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
-				&& e.getY() <= starty + hauteurBouton) {
-			return true;
-		} else
-			return false;
-	}
-
-	public boolean clicValider(MouseEvent e) {
-		int startx = panel.posX_valider;
-		int starty = panel.posY_valider;
-		int largeurBouton = panel.largeur_valider;
-		int hauteurBouton = panel.hauteur_valider;
-		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
-				&& e.getY() <= starty + hauteurBouton) {
-			return true;
-		} else
-			return false;
-	}
-
-	public boolean clicFermer(MouseEvent e) {
-		int startx = panel.posX_fermer;
-		int starty = panel.posY_fermer;
-		int largeurBouton = panel.largeur_fermer;
-		int hauteurBouton = panel.largeur_fermer;
-		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
-				&& e.getY() <= starty + hauteurBouton) {
-			return true;
-		} else
-			return false;
-	}
-
-	public boolean clicRetour(MouseEvent e) {
-		int startx = panel.posX_back;
-		int starty = panel.posY_back;
-		int hauteurBouton = panel.hauteur_back;
-		int largeurBouton = panel.largeur_back;
-		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
-				&& e.getY() <= starty + hauteurBouton) {
-			return true;
-		} else
-			return false;
-	}
-
-	public Position clicJoueur1(MouseEvent e) {
-		// System.out.println("CLIQUE J1");
-		Position p = new Position(-1, -1);
-		int decalage = 0;
-		int posX_depart = panel.posX_ileJ1 + (int) (panel.largeur_ileJ * 0.54) - ((panel.largeur_piece * 6) / 2);
-		int posX = posX_depart;
-		int posY = panel.posY_depart;
-		for (int i = 0; i < panel.jeu.partieEnCours.joueur1().getCamp().getHauteur(); i++) { // etage
-			for (int j = 0; j < (panel.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
-				if (e.getX() >= posX && e.getX() < posX + panel.largeur_piece && e.getY() >= posY
-						&& e.getY() < posY + panel.hauteur_piece) {
-					// ystem.out.println("Clique sur les pions du joueur 1 en : " + i + " " + j);
-					p.etage = i;
-					p.rang = j;
-					return p;
-				}
-				posX += panel.largeur_piece;
-			}
-			decalage += panel.largeur_piece / 2;
-			posY -= panel.hauteur_piece * 0.9;
-			posX = posX_depart + decalage;// +decalage;
-		}
-		return null;
-
-	}
-
-	public Position clicJoueur2(MouseEvent e) {
-		Position p = new Position(-1, -1);
-		int decalage = 0;
-		int posX_depart = panel.posX_ileJ2 + (int) (panel.largeur_ileJ * 0.49) - ((panel.largeur_piece * 6) / 2);
-		int posX = posX_depart;
-		int posY = panel.posY_depart;
-		for (int i = 0; i < panel.jeu.partieEnCours.joueur1().getCamp().getHauteur(); i++) { // etage
-			for (int j = 0; j < (panel.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
-				if (e.getX() >= posX && e.getX() <= posX + panel.largeur_piece && e.getY() >= posY
-						&& e.getY() <= posY + panel.hauteur_piece) {
-					// ystem.out.println("Clique sur les pions du joueur 2 en : " + i + " " + j);
-					p.etage = i;
-					p.rang = j;
-					return p;
-				}
-				posX += panel.largeur_piece;
-
-			}
-			decalage += panel.largeur_piece / 2;
-			posY -= panel.hauteur_piece * 0.9;
-			posX = posX_depart + decalage;// +decalage;
-		}
-		return null;
-
-	}
-
-	public Position clicPyramide(MouseEvent e) {
-		Position p = new Position(-1, -1);
-		Position actualpos = new Position(0, 0);
-		int posX_depart = panel.posX_ileM + panel.largeur_ileM / 2 - ((panel.largeur_piece * 9) / 2);
-		int posX = posX_depart;
-		int posY = panel.posY_depart;
-		int decalage = 0;
-		for (int i = 0; i < panel.jeu.partieEnCours.getBaseMontagne().getHauteur(); i++) { // etage
-			for (int j = 0; j < (panel.jeu.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
-				if (e.getX() >= posX && e.getX() <= posX + panel.largeur_piece && e.getY() >= posY
-						&& e.getY() <= posY + panel.hauteur_piece) {
-					// System.out.println("Clique sur les pions du Milieu en : " + i + " " + j);
-					p.etage = i;
-					p.rang = j;
-					return p;
-				}
-				posX += panel.largeur_piece;
-
-			}
-			decalage += panel.largeur_piece / 2;
-			posY -= panel.hauteur_piece * 0.9;
-			posX = posX_depart + decalage;// +decalage;
-
-		}
-		return null;
-
-	}
-
-	public void checkpiece(MouseEvent e) {
+	// CLICK JOUEUR1--------------------------------
+	public Position clickpyramideJ1(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 0) {
-			Position piececheck = clicJoueur1(e);
-			if (piececheck != null) {
-				if (panel.jeu.partieEnCours.joueur1().getCamp().getPiece(piececheck).getColor() == Couleurs.BLANC) {
-					return;
-				}
-				panel.showcheck = true;
+			Acteur a = panel.jeu.partieEnCours.joueur1();
+			int posX_depart = panel.posX_ileJ1 + (int) (panel.largeur_ileJ * 0.49) - ((panel.largeur_piece * 6) / 2);
+			int posX = posX_depart;
+			int posY = panel.posY_depart;
+			int startx = posX;
+			int starty = posY;
+			System.out.println("startx: " + startx + " starty: " + starty);
+			int realx = e.getX() - startx;
+			int realy = e.getY() - starty;
 
-				panel.tocheck = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(piececheck).getColor();
-				panel.repaint();
-				return;
-
+			int y = (a.getCamp().getHauteur() - 1) - realy / (panel.hauteur_piece + 1);
+			if (y < 0 || y > a.getCamp().getHauteur()) {
+				return null;
 			}
-			panel.showcheck = false;
-			return;
 
+			realx -= ((panel.largeur_piece + 1) / 2) * y;
+			int x = realx / (panel.largeur_piece + 1);
+			if (realx < 0 || x >= a.getCamp().getLargeur() - y) {
+				return null;
+			}
+			for (PiecePyramide pp : panel.jeu.partieEnCours.joueur1().getCamp().piecesJouables()) {
+				if (pp.getPos().etage == y && pp.getPos().rang == x) {
+					return new Position(y, x);
+				}
+			}
 		}
+		return null;
+	}
 
+	// VOL DU JOUEUR--------------------------------
+	public int clickVolJ1(MouseEvent e) {
+		int startx = panel.posX_volJ1;
+		int starty = panel.posY_volJ1;
+		int realx = e.getX() - startx;
+		int realy = e.getY() - starty;
+
+		int x = realx / (panel.largeur_piece + 1);
+		int y = realy / (panel.hauteur_piece + 1);
+		if (x < 0 || (x >= panel.coupure + 1 && realy > (panel.hauteur_piece + 1))
+				|| (x >= panel.coupure && realy < (panel.hauteur_piece + 1))) {
+			return -1;
+		}
+		if (realy < 0 || realy > (panel.hauteur_piece + 1) * 2) {
+			return -1;
+		}
+		int v = x + y * panel.coupure;
+		if (v < panel.jeu.partieEnCours.joueur1().getPiecesVolees().size()) {
+			return v;
+		}
+		return -1;
+	}
+
+	// CLICK JOUEUR2--------------------------------
+	public Position clickpyramideJ2(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 1) {
-			Position piececheck = clicJoueur2(e);
-			if (piececheck != null) {
-				if (panel.jeu.partieEnCours.joueur2().getCamp().getPiece(piececheck).getColor() == Couleurs.BLANC) {
-					return;
-				}
-				panel.showcheck = true;
-				panel.tocheck = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(piececheck).getColor();
-				panel.repaint();
-				return;
+			Acteur a = panel.jeu.partieEnCours.joueur2();
+			int posX_depart = panel.posX_ileJ2 + (int) (panel.largeur_ileJ * 0.49) - ((panel.largeur_piece * 6) / 2);
+			int posX = posX_depart;
+			int posY = panel.posY_depart;
+			int startx = posX;
+			int starty = posY;
 
+			System.out.println("startx: " + startx + " starty: " + starty);
+			int realx = e.getX() - startx;
+			int realy = e.getY() - starty;
+
+			int y = (a.getCamp().getHauteur() - 1) - realy / (panel.hauteur_piece + 1);
+			if (y < 0 || y > a.getCamp().getHauteur()) {
+				return null;
 			}
-			panel.showcheck = false;
+
+			realx -= ((panel.largeur_piece + 1) / 2) * y;
+			int x = realx / (panel.largeur_piece + 1);
+			if (realx < 0 || x >= a.getCamp().getLargeur() - y) {
+				return null;
+			}
+
+			for (PiecePyramide pp : panel.jeu.partieEnCours.joueur2().getCamp().piecesJouables()) {
+				if (pp.getPos().etage == y && pp.getPos().rang == x) {
+					return new Position(y, x);
+				}
+			}
 
 		}
+		return null;
+	}
 
-		panel.showcheck = false;
+	// VOL DU JOUEUR2--------------------------------
+	public int clickVolJ2(MouseEvent e) {
+		int startx = panel.posX_volJ2;
+		int starty = panel.posY_volJ2;
+		int realx = e.getX() - startx;
+		int realy = e.getY() - starty;
+
+		int x = realx / (panel.largeur_piece + 1);
+		int y = realy / (panel.hauteur_piece + 1);
+		if (x < 0 || (x >= panel.coupure + 1 && realy > (panel.hauteur_piece + 1))
+				|| (x >= panel.coupure && realy < (panel.hauteur_piece + 1))) {
+			return -1;
+		}
+		if (realy < 0 || realy > (panel.hauteur_piece + 1) * 2) {
+			return -1;
+		}
+		int v = x + y * panel.coupure;
+		if (v < panel.jeu.partieEnCours.joueur2().getPiecesVolees().size()) {
+			return v;
+		}
+		return -1;
+	}
+
+	// CLICK MONTAGNE--------------------------------
+	public Position clickMontagne(MouseEvent e) {
+		if (panel.getPieceSelectionnee() != null) {
+			int startx = panel.posX_ileM;
+			int starty = panel.posX_ileM;
+			int realx = e.getX() - startx;
+			int realy = e.getY() - starty;
+
+			int y = (panel.jeu.partieEnCours.getBaseMontagne().getHauteur() - 1) - realy / (panel.hauteur_piece + 1);
+			if (y < 0 || y > panel.jeu.partieEnCours.getBaseMontagne().getHauteur()) {
+				return null;
+			}
+
+			realx -= ((panel.largeur_piece + 1) / 2) * y;
+			int x = realx / (panel.largeur_piece + 1);
+			if (realx < 0 || x >= panel.jeu.partieEnCours.getBaseMontagne().getLargeur() - y) {
+				return null;
+			}
+			for (PiecePyramide pp : panel.jeu.partieEnCours.getBaseMontagne().piecesPosables()) {
+
+				if (pp.getPiece().getColor() == panel.getPieceSelectionnee().getPiece().getColor()
+						&& x == pp.getPos().rang && y == pp.getPos().etage) {
+					return new Position(y, x);
+				}
+			}
+		}
+		return null;
 
 	}
 
@@ -199,74 +168,102 @@ public class Phase2Click implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (panel.jeu.partieEnCours.joueurCourant == 0 && attentepyramide == false) {
-			retour = clicJoueur1(e);
-			attentepyramide = true;
+		if (panel.partieEnCoursSet == true) {
+			if (e.getButton() == e.BUTTON3) {
+				panel.setPieceSelectionnee(null);
+			} else {
+				// J1
+				// ----------------------------------------------------------------------------
+				if (panel.jeu.partieEnCours.joueurCourant == 0) {
+					// LEJOUEUR 1 DOIT SE FAIRE VOLER UN CUBE
+					if (panel.jeu.partieEnCours.joueur2().doitVol) {
+						Position p = clickpyramideJ1(e);
+						if (p != null) {
+							Piece piece = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(p);
+							if (piece != null) {
+								panel.jeu.partieEnCours.joueur2().setChoixVol(new PiecePyramide(piece, p));
+								panel.jeu.partieEnCours.joueur2().validerVol = true;
+								System.out.println("J1 :" + panel.jeu.partieEnCours.joueur2().validerVol);
+							}
+						}
 
-		}
+					} else {// ON JOUE NORMALEMENT
+						if (panel.getPieceSelectionnee() == null) {
+							// PYRAMIDE
+							Position p = clickpyramideJ1(e);
+							if (p != null) {
+								Piece piece = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(p);
+								if (piece != null) {
+									panel.setPieceSelectionnee(new PiecePyramide(piece, p));
+								}
+							}
+							// VOL
+							int v = clickVolJ1(e);
+							if (v != -1) {
+								Piece piece = panel.jeu.partieEnCours.joueur1().getPiecesVolees().get(v);
+								if (piece != null) {
+									panel.setPieceSelectionnee(new PiecePyramide(piece, null));
+								}
+							}
+						} else {
+							// JOUER COUP
+							Position p = clickMontagne(e);
+							if (p != null) {
+								panel.setCoup(p, panel.jeu.partieEnCours.joueur1());
+							}
+							// passer sont tour
+							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
+								panel.setPasser(panel.jeu.partieEnCours.joueur1());
+							}
+						}
+					}
+					// J2--------------------------------------------------------------------------------
+				} else if (panel.jeu.partieEnCours.joueurCourant == 1) {
+					// LEJOUEUR 2 DOIT SE FAIRE VOLER UN CUBE
+					if (panel.jeu.partieEnCours.joueur1().doitVol) {
+						Position p = clickpyramideJ2(e);
+						if (p != null) {
+							Piece piece = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(p);
+							if (piece != null) {
+								panel.jeu.partieEnCours.joueur1().setChoixVol(new PiecePyramide(piece, p));
+								panel.jeu.partieEnCours.joueur1().validerVol = true;
+								System.out.println("J2 :" + panel.jeu.partieEnCours.joueur1().validerVol);
+							}
+						}
 
-		if (panel.jeu.partieEnCours.joueurCourant == 1 && attentepyramide == false) {
-			retour2 = clicJoueur2(e);
-			attentepyramide = true;
+					} else { // ON JOUE NORMALEMENT
+						if (panel.getPieceSelectionnee() == null) {
+							// PYRAMIDE
+							Position p = clickpyramideJ2(e);
+							if (p != null) {
+								Piece piece = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(p);
+								if (piece != null) {
+									panel.setPieceSelectionnee(new PiecePyramide(piece, p));
+								}
+							}
+							// VOL
+							int v = clickVolJ2(e);
+							if (v != -1) {
+								Piece piece = panel.jeu.partieEnCours.joueur2().getPiecesVolees().get(v);
+								if (piece != null) {
+									panel.setPieceSelectionnee(new PiecePyramide(piece, null));
+								}
+							}
+						} else {
+							// JOUER COUP
+							Position p = clickMontagne(e);
+							if (p != null) {
+								panel.setCoup(p, panel.jeu.partieEnCours.joueur2());
+							}
+							// passer sont tour
+							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
 
-		}
-
-		Position retourpyramide = clicPyramide(e);
-		if (retourpyramide != null && attentepyramide == true) {
-			attentepyramide = false;
-			if (panel.jeu.partieEnCours.joueurCourant == 1 && retour2 != null) {
-				System.out.println(retour2);
-				Piece piecetomove = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(retour2);
-				if (piecetomove.getColor() == Couleurs.BLANC) {
-					panel.jeu.partieEnCours.joueur2().setCoupDemande(new Coup(piecetomove, retour2, null));
-					panel.jeu.partieEnCours.joueur2().validerCoup = true;
-					return;
+								panel.setPasser(panel.jeu.partieEnCours.joueur2());
+							}
+						}
+					}
 
 				}
-				panel.jeu.partieEnCours.joueur2().setCoupDemande(new Coup(piecetomove, retour2, retourpyramide));
-				panel.jeu.partieEnCours.joueur2().validerCoup = true;
-				return;
-			}
-
-			if (panel.jeu.partieEnCours.joueurCourant == 0 && retour != null) {
-				System.out.println(retour);
-				Piece piecetomove = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(retour);
-				if (piecetomove.getColor() == Couleurs.BLANC) {
-					System.out.println("On retire le blanc");
-					// panel.jeu.partieEnCours.joueur1().getCamp().retirer(retour);
-					panel.jeu.partieEnCours.joueur1().setCoupDemande(new Coup(piecetomove, retour, null));
-					panel.jeu.partieEnCours.joueur1().validerCoup = true;
-					// panel.repaint();
-
-					return;
-
-				}
-
-				panel.jeu.partieEnCours.joueur1().setCoupDemande(new Coup(piecetomove, retour, retourpyramide));
-				panel.jeu.partieEnCours.joueur1().validerCoup = true;
-
-				return;
-			}
-		}
-
-		if (clicSave(e)) {
-			panel.popup_save = true;
-		}
-		if (clicRetour(e)) {
-			/*
-			 * panel.chargement.nouvellePartie=false;
-			 * panel.chargement.lancement = true;
-			 * panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
-			 */
-		}
-		if (clicFermer(e)) {
-			panel.popup_save = false;
-		}
-		if (clicValider(e)) {
-			if (!panel.nomSave.getText().isEmpty()) {
-				String chemin = panel.jeu.cheminSauvegardes;
-				panel.jeu.partieEnCours.sauvegarderPartie(chemin + panel.nomSave.getText() + ".saveK3");
-				panel.popup_save = false;
 			}
 		}
 	}
@@ -285,18 +282,33 @@ public class Phase2Click implements MouseListener {
 
 	public class DragListener extends MouseMotionAdapter {
 		public void mouseMoved(MouseEvent e) {
-			checkpiece(e);
-			if (panel.popup_save) {
-				if (clicValider(e) || clicFermer(e)) {
-					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				} else {
-					panel.setCursor(new Cursor(0));
+			if (panel.partieEnCoursSet == true) {
+				if (panel.initAffichageJoueurs().getClass() == Joueur.class) {
+					panel.OldX = panel.currentX;
+					panel.OldY = panel.currentY;
+					panel.currentX = e.getX();
+					panel.currentY = e.getY();
+					panel.repaint();
+					if (panel.getPieceSelectionnee() == null) {
+						if (panel.jeu.partieEnCours.joueurCourant == 0
+								&& (clickpyramideJ1(e) != null || (clickVolJ1(e) != -1))) {
+							panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						} else if (panel.jeu.partieEnCours.joueurCourant == 1
+								&& (clickpyramideJ2(e) != null || (clickVolJ2(e) != -1))) {
+							panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						} else {
+							panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						}
+					} else {
+						if (clickMontagne(e) != null) {
+							panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						} else {
+							panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						}
+					}
 				}
-			} else if (clicSave(e)) {
-				panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			} else {
-				panel.setCursor(new Cursor(0));
 			}
 		}
 	}
+
 }
