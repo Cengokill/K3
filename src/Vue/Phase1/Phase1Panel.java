@@ -2,12 +2,9 @@ package Vue.Phase1;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Modeles.*;
 import Vue.PanelGeneral;
@@ -236,7 +233,7 @@ public class Phase1Panel extends PanelGeneral{
 			nom = nom.substring(0,taille_max);
 		}
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Courier New", Font.BOLD, taille_police_nom_joueur));
+		g.setFont(new Font("Dialog", Font.BOLD, taille_police_nom_joueur));
 		g.drawString(nom, posX_nom_joueur, posY_nom_joueur);
 	}
 
