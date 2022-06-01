@@ -40,7 +40,7 @@ public class LoadTexture {
 			menuRetour,
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
-			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2;
+			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup;
 	// IMAGE CHARGEMENT
 	public Image boutonLoad;
 	public Image boutonLoadPresse;
@@ -85,6 +85,7 @@ public class LoadTexture {
 		volumeSons = ImageIO.read(new File(CHEMIN + "volume_effets_sonores_flou.png"));
 		active = ImageIO.read(new File(CHEMIN + "active.png"));
 		desactive = ImageIO.read(new File(CHEMIN + "desactive.png"));
+		popup = ImageIO.read(new File(CHEMIN + "popup.png"));
 		// IMAGE
 		// CHARGEMENT---------------------------------------------------------------
 		boutonLoad = ImageIO.read(new File(CHEMIN + "chargerPartie_flou.png"));
@@ -145,6 +146,8 @@ public class LoadTexture {
 		valider = ImageIO.read(new File(CHEMIN + "valider_flou.png"));
 		valider2 = ImageIO.read(new File(CHEMIN + "valider2.png"));
 		boutonSauvegarde = ImageIO.read(new File(CHEMIN + "sauvegarder_flou.png"));
+		oui = ImageIO.read(new File(CHEMIN + "oui.png"));
+		non = ImageIO.read(new File(CHEMIN + "non.png"));
 		// CURSEURS
 		mainFermee = ImageIO.read(new File(CHEMIN + "hand-closed.png"));
 		mainDepose = ImageIO.read(new File(CHEMIN + "hand-depose.png"));

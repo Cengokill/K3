@@ -34,7 +34,7 @@ public class Phase1Panel extends PanelGeneral{
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton,posX_bouton_valider,
 	posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono,posX_text_chrono,posY_text_chrono,
 	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer,posXRetourMenu,
-	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu;
+	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu, posX_popup,posY_popup,largeur_popup,hauteur_popup;
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
@@ -85,12 +85,7 @@ public class Phase1Panel extends PanelGeneral{
 			affichePioche(g);
 			affichageRetourMenu(g);
 			dragNdrop(g);
-		}
-	}
-	
-	public void affichePopup() {
-		if(popup) {
-			
+			affichePopup(g);
 		}
 	}
 	
@@ -106,19 +101,20 @@ public class Phase1Panel extends PanelGeneral{
         double rapport=0.8576709797;
         double rapport_chrono=1.395;//400x558
         double rapportBackMenu = 1.185567010309278;
+        double rapportPopup = 0.5103280680437424;
 		TAILLE_CUBES_LARGEUR = Math.min(largeur_background/28, frameWidth/28);
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
-		//Position objet
+		//base joueur
 		POSX_BASE_JOUEUR = posX_background+(int)(largeur_background*0.11);
 		POSY_BASE_JOUEUR = posY_background+(int)(hauteur_background*0.37);
-		
+		//pioche
 		POSX_PIOCHE = posX_background+(int)(largeur_background*0.17);
 		POSY_PIOCHE = posY_background+(int)(hauteur_background*0.76);
-		
+		//base montagne
 		POSX_BASE_MONTAGNE = posX_background+(int)(largeur_background*0.61);
 		POSY_BASE_MONTAGNE = POSY_BASE_JOUEUR-(int)(TAILLE_CUBES_HAUTEUR*3.4);
-		
+		//chrono
 		posX_chrono = POSX_BASE_JOUEUR+2*TAILLE_CUBES_LARGEUR;
 		posY_chrono = POSY_BASE_JOUEUR-(int)(3.8*TAILLE_CUBES_HAUTEUR);
 		largeur_chrono = (int)(TAILLE_CUBES_LARGEUR*2);
@@ -127,23 +123,27 @@ public class Phase1Panel extends PanelGeneral{
 		taille_police_timer = (int)(hauteur_chrono/8);
 		posX_text_chrono = posX_chrono+(int)(taille_police_timer*1.8);
 		posY_text_chrono = (int)(posY_chrono+hauteur_chrono*0.94);
-		
+		//nom joueur
 		taille_nom_joueur = initAffichageJoueurs().getNom().length();
 		taille_police_nom_joueur=(int)(hauteur_chrono/6);
 		posX_nom_joueur = posX_chrono-(int)(taille_police_nom_joueur*1.2);
 		posY_nom_joueur = posY_chrono-TAILLE_CUBES_HAUTEUR;
-		
+		//bouton melange
 		posX_bouton_melange=posX_background+(int)(largeur_background*0.4);
 		posY_bouton_melange=posY_chrono;
 	    posX_bouton_valider=posX_bouton_melange;
 	    posY_bouton_valider=posY_bouton_melange+(int)(hauteur_bouton*1.1);
-	    
+	    //bouton retour
 	    posXRetourMenu=posX_background+(int)(largeur_background*0.74);
 		posYRetourMenu=posY_background+(int)(hauteur_background*0.8);
 		largeurRetourMenu = Math.min(largeur_background/15, frameWidth/15);
 		hauteurRetourMenu = (int)(largeurRetourMenu/rapportBackMenu);
+		//popup
+		largeur_popup = (int)(largeur_background/4);
+		hauteur_popup = (int)(largeur_popup*rapportPopup);
+		posX_popup = posX_background+largeur_background/2-largeur_popup/2;
+		posY_popup = posY_background+hauteur_background/2-hauteur_popup/2;
 	}
-	
 	// PIECE SELECTIONEE----------------------------------------------
 	public Piece getPieceSelectionnee() {
 		return pieceSelectionnee;
@@ -230,6 +230,12 @@ public class Phase1Panel extends PanelGeneral{
 		g.drawString(tempsAffiche, posX_text_chrono, posY_text_chrono);
 	}
 	// AFFICHAGE BOUTONS-------------------------------------------------------------
+	public void affichePopup(Graphics g) {
+		if(popup) {
+			g.drawImage(textures.popup, posX_popup, posY_popup, largeur_popup, hauteur_popup, null);
+		}
+	}
+	
 	public void affichageBoutonValider(Graphics g) {
 		if(initAffichageJoueurs().getTaillePiecesPiochees()>0) {
 			g.drawImage(textures.boutonValider_gris, posX_bouton_valider, posY_bouton_valider, largeur_bouton, hauteur_bouton, null);

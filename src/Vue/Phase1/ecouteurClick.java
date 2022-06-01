@@ -143,8 +143,10 @@ public class ecouteurClick implements MouseListener {
 			if(clicRetour(e)) {
 				panel.jouerSonClic();
 				panel.popup=true;
+				/*
 				panel.chargement.lancement = true;
 				panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
+				*/
 			}
 			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
 				if(e.getButton() == MouseEvent.BUTTON1) { 
