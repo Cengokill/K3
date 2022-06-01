@@ -14,14 +14,7 @@ public class LoadTexture {
 	// IMAGES FOND
 	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, ile_montagne, chrono;
 	// IMAGE PIECE
-	public Image pieceVide;
-	public Image pieceNoire;
-	public Image pieceBleue;
-	public Image pieceVert;
-	public Image pieceRouge;
-	public Image pieceBlanche;
-	public Image pieceNature;
-	public Image pieceJaune;
+	public Image pieceVide,pieceNoire,pieceBleue,pieceVert,pieceRouge,pieceBlanche,pieceNature,pieceJaune;
 	// IMAGE MENU
 	public Image menuBouton1, menuBouton1_presse;
 	public Image menuBoutonCharger, menuBoutonCharger_presse;
@@ -40,17 +33,14 @@ public class LoadTexture {
 			menuRetour,
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
-			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings;
+			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings,
+			cadre_joueur;
 	// IMAGE CHARGEMENT
-	public Image boutonLoad;
-	public Image boutonLoadPresse;
-
+	public Image boutonLoad,boutonLoadPresse;
 	// IMAGE TUTO
 	public Image Tuto1, Tuto2, Tuto3, Tuto4, TutoPrecedent, TutoSuivant, TutoMenu;
-
 	// IMAGES BOUTONS
 	public Image boutonMelange, boutonMelange_presse, boutonValider, boutonValider_presse, boutonValider_gris;
-
 	// IMAGES CURSEURS
 	public Image mainFermee, mainDepose;
 	// TEXT FIELDS
@@ -67,6 +57,7 @@ public class LoadTexture {
 		ile_joueur2 = ImageIO.read(new File(CHEMIN + "ile_joueur2.png"));
 		ile_montagne = ImageIO.read(new File(CHEMIN + "ile3.png"));
 		chrono = ImageIO.read(new File(CHEMIN + "chrono_jeu.png"));
+		cadre_joueur = ImageIO.read(new File(CHEMIN + "cadre_joueur.png"));
 		// IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = ImageIO.read(new File(CHEMIN + "nouvellePartie_flou.png"));
 		menuBouton1_presse = ImageIO.read(new File(CHEMIN + "nouvellePartie_presse.png"));
@@ -152,12 +143,8 @@ public class LoadTexture {
 		// CURSEURS
 		mainFermee = ImageIO.read(new File(CHEMIN + "hand-closed.png"));
 		mainDepose = ImageIO.read(new File(CHEMIN + "hand-depose.png"));
-		// LABELS
-		texte_nomJ1 = new JTextField(30);
-		texte_nomJ2 = new JTextField(30);
-		texte_nomJoueur = new JTextField(30);
 		// PIECES
-		pieceVide = ImageIO.read(new File(CHEMIN + "EMPTY2.png"));
+		pieceVide = ImageIO.read(new File(CHEMIN + "EMPTY3.png"));
 		pieceNoire = ImageIO.read(new File(CHEMIN + "NOIR.png"));
 		pieceBleue = ImageIO.read(new File(CHEMIN + "BLEU.png"));
 		pieceVert = ImageIO.read(new File(CHEMIN + "VERT.png"));
