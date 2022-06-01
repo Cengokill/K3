@@ -268,6 +268,9 @@ public class Jeu {
 		if (jCourant.validerCoup) {// || TEMPS DEPASSE
 			ArrayList<Coup> cJ = this.partieEnCours.coupsJouables(jCourant);
 			Coup coupDemande = jCourant.jouer(cJ, this.partieEnCours);// le joueur courant a choisi un coup a jouer
+			if (coupDemande == null) {
+				System.out.println("Vous n'avez pas joue de coup");
+			}
 			this.partieEnCours.addCoupHist(coupDemande);// ajout du coup a l'historique
 			if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
 				jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant

@@ -75,7 +75,7 @@ public class Phase2Click implements MouseListener {
 	}
 
 	public Position clicJoueur1(MouseEvent e) {
-		System.out.println("CLIQUE J1");
+		// System.out.println("CLIQUE J1");
 		Position p = new Position(-1, -1);
 		int decalage = 0;
 		int posX_depart = panel.posX_ileJ1 + (int) (panel.largeur_ileJ * 0.54) - ((panel.largeur_piece * 6) / 2);
@@ -85,7 +85,7 @@ public class Phase2Click implements MouseListener {
 			for (int j = 0; j < (panel.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
 				if (e.getX() >= posX && e.getX() < posX + panel.largeur_piece && e.getY() >= posY
 						&& e.getY() < posY + panel.hauteur_piece) {
-					System.out.println("Clique sur les pions du joueur 1 en : " + i + " " + j);
+					// ystem.out.println("Clique sur les pions du joueur 1 en : " + i + " " + j);
 					p.etage = i;
 					p.rang = j;
 					return p;
@@ -110,7 +110,7 @@ public class Phase2Click implements MouseListener {
 			for (int j = 0; j < (panel.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
 				if (e.getX() >= posX && e.getX() <= posX + panel.largeur_piece && e.getY() >= posY
 						&& e.getY() <= posY + panel.hauteur_piece) {
-					System.out.println("Clique sur les pions du joueur 2 en : " + i + " " + j);
+					// ystem.out.println("Clique sur les pions du joueur 2 en : " + i + " " + j);
 					p.etage = i;
 					p.rang = j;
 					return p;
@@ -137,7 +137,7 @@ public class Phase2Click implements MouseListener {
 			for (int j = 0; j < (panel.jeu.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
 				if (e.getX() >= posX && e.getX() <= posX + panel.largeur_piece && e.getY() >= posY
 						&& e.getY() <= posY + panel.hauteur_piece) {
-					System.out.println("Clique sur les pions du Milieu en : " + i + " " + j);
+					// System.out.println("Clique sur les pions du Milieu en : " + i + " " + j);
 					p.etage = i;
 					p.rang = j;
 					return p;
@@ -158,6 +158,9 @@ public class Phase2Click implements MouseListener {
 		if (panel.jeu.partieEnCours.joueurCourant == 0) {
 			Position piececheck = clicJoueur1(e);
 			if (piececheck != null) {
+				if (panel.jeu.partieEnCours.joueur1().getCamp().getPiece(piececheck).getColor() == Couleurs.BLANC) {
+					return;
+				}
 				panel.showcheck = true;
 
 				panel.tocheck = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(piececheck).getColor();
@@ -173,6 +176,9 @@ public class Phase2Click implements MouseListener {
 		if (panel.jeu.partieEnCours.joueurCourant == 1) {
 			Position piececheck = clicJoueur2(e);
 			if (piececheck != null) {
+				if (panel.jeu.partieEnCours.joueur2().getCamp().getPiece(piececheck).getColor() == Couleurs.BLANC) {
+					return;
+				}
 				panel.showcheck = true;
 				panel.tocheck = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(piececheck).getColor();
 				panel.repaint();
@@ -212,7 +218,7 @@ public class Phase2Click implements MouseListener {
 				System.out.println(retour2);
 				Piece piecetomove = panel.jeu.partieEnCours.joueur2().getCamp().getPiece(retour2);
 				if (piecetomove.getColor() == Couleurs.BLANC) {
-					panel.jeu.partieEnCours.joueur2().getCamp().retirer(retour2);
+					panel.jeu.partieEnCours.joueur2().setCoupDemande(new Coup(piecetomove, retour2, null));
 					panel.jeu.partieEnCours.joueur2().validerCoup = true;
 					return;
 
@@ -227,7 +233,8 @@ public class Phase2Click implements MouseListener {
 				Piece piecetomove = panel.jeu.partieEnCours.joueur1().getCamp().getPiece(retour);
 				if (piecetomove.getColor() == Couleurs.BLANC) {
 					System.out.println("On retire le blanc");
-					panel.jeu.partieEnCours.joueur1().getCamp().retirer(retour);
+					// panel.jeu.partieEnCours.joueur1().getCamp().retirer(retour);
+					panel.jeu.partieEnCours.joueur1().setCoupDemande(new Coup(piecetomove, retour, null));
 					panel.jeu.partieEnCours.joueur1().validerCoup = true;
 					// panel.repaint();
 
