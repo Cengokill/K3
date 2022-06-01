@@ -12,6 +12,8 @@ import java.util.Iterator;
 
 import java.util.Timer;
 
+import Controleur.Jeu;
+
 public class Partie {
 	private int numPartie;
 	private Acteur j1;
@@ -32,6 +34,7 @@ public class Partie {
 	private final int NB_PIECES_NATURELS = 2;
 	private final int NB_PIECES_BLANCS = 2;
 	public boolean IAreflechis = false;
+	public boolean doitVoler = false;
 
 	public Partie(Acteur j1, Acteur j2, int numPartie) {
 		this.numPartie = numPartie;
@@ -325,7 +328,17 @@ public class Partie {
 		victime.addMauvaisCoup();
 		System.out.println(
 				voleur.getNom() + ", voulez-vous voler une piece a " + victime.getNom() + " ? 0 : OUI | 1 : NON");
-		PiecePyramide pieceVolee = voleur.choixVol(victime.getPiecesJouables(), this);
+		voleur.doitVol = true;
+		PiecePyramide pieceVolee = null;
+		while (voleur.doitVol) {
+			Jeu.timer(100);
+			if (voleur.validerVol) {
+				pieceVolee = voleur.choixVol(victime.getPiecesJouables(), this);
+				voleur.doitVol = false;
+			}
+		}
+		voleur.choixVol(victime.getPiecesJouables(), this);
+
 		if (pieceVolee != null) {
 			vol = new Coup(pieceVolee.getPiece(), pieceVolee.getPos(), null);
 			if (pieceVolee.getPos() == null) {// si le voleur vole une piece volee

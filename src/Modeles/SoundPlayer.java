@@ -130,8 +130,9 @@ public class SoundPlayer {
 		File f;
 		try {
 			f = new File(cheminsSons[i]); // mettre en commentaire si jar
-			AudioInputStream input = AudioSystem.getAudioInputStream(f); // getClass().getResource(cheminsSons[i]) si
-																			// .jar
+			AudioInputStream input = AudioSystem.getAudioInputStream(f); // getClass().getResource(cheminsSons[i])
+																			// si
+			// .jar
 			this.clip = AudioSystem.getClip();
 			this.clip.open(input);
 			this.volumeLevel = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

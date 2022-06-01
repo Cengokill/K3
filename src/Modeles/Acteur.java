@@ -22,6 +22,8 @@ public class Acteur {
 	protected Integer diff = 3;
 	public boolean valideCamp;
 	public boolean validerCoup;
+	public boolean validerVol = false;
+	public boolean doitVol = false;
 
 	// Constructeur
 	public Acteur(String nom) {

@@ -39,18 +39,18 @@ public class OptionPanelClick implements MouseListener {
 			panel.jouerSonClic();
 			panel.chargement.lancement = true;
 			panel.chargement.setProchaineFenetre(panel.chargement.getProchainePrecedent());
-			// panel.ecrireOptions();
+			panel.ecrireOptions();
 		} else if (clickBoutonActive(e)) {
 			panel.jouerSonClic();
 			if (!panel.enfonce_active) {
 				panel.enfonce_active = true;
 				panel.options.modePleinEcran = 1;
-				// panel.ecrireOptions();
+				panel.ecrireOptions();
 				panel.fullScreenOn();
 			} else {
 				panel.enfonce_active = false;
 				panel.options.modePleinEcran = 0;
-				// panel.ecrireOptions();
+				panel.ecrireOptions();
 				panel.fullScreenOff();
 			}
 		}

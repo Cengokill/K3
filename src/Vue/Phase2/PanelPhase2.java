@@ -85,6 +85,9 @@ public class PanelPhase2 extends PanelGeneral {
       affichageBackGround(g, 1);
       drawIle(g);
       drawbaPyramideJ1(g);
+      affichePyramideJoueurJ1(g);
+      affichePyramideJoueurJ2(g);
+      afficheBaseMontagne(g);
       drawbaPyramideJ2(g);
       drawPiecesVoleesJ1(g);
       drawPiecesVoleesJ2(g);
@@ -294,6 +297,7 @@ public class PanelPhase2 extends PanelGeneral {
     int posX_depart = posX_ileJ1 + (int) (largeur_ileJ * 0.54) - ((largeur_piece * 6) / 2);
     int posX = posX_depart;
     int posY = posY_depart;
+    System.out.println("KposX J1: " + posX + "+ posY J1: " + posY);
     int decalage = 0;
     for (int i = 0; i < this.jeu.partieEnCours.joueur1().getCamp().getHauteur(); i++) { // etage
       for (int j = 0; j < (this.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
@@ -320,6 +324,7 @@ public class PanelPhase2 extends PanelGeneral {
     int posX_depart = posX_ileJ2 + (int) (largeur_ileJ * 0.49) - ((largeur_piece * 6) / 2);
     int posX = posX_depart;
     int posY = posY_depart;
+    System.out.println("KposX J2: " + posX + "+ posY J2: " + posY);
     int decalage = 0;
     for (int i = 0; i < this.jeu.partieEnCours.joueur2().getCamp().getHauteur(); i++) { // etage
       for (int j = 0; j < (this.jeu.partieEnCours.joueur2().getCamp().getLargeur() - i); j++) { // rang
@@ -365,6 +370,11 @@ public class PanelPhase2 extends PanelGeneral {
       posY -= hauteur_piece * 0.9;
       posX = posX_depart + decalage;// +decalage;
     }
+  }
+
+  // PIECE SELECTIONEE----------------------------------------------
+  public PiecePyramide getPieceSelectionnee() {
+    return pieceSelectionnee;
   }
 
   public void setPieceSelectionnee(PiecePyramide p) {
@@ -460,6 +470,7 @@ public class PanelPhase2 extends PanelGeneral {
   // AFFICHAGE
   // J1----------------------------------------------------------------------
   public void affichePyramideJoueurJ1(Graphics g) {
+    System.out.println("MposX J1: " + posX_ileJ1 + "+ posY J1: " + posY_ileJ1);
     Acteur a = this.partieEnCours.joueur1();
     Position POSYitionPiecePyramide;
     int decalage = 0;
@@ -497,32 +508,10 @@ public class PanelPhase2 extends PanelGeneral {
     }
   }
 
-  public void afficheVolJ1(Graphics g) {
-    Acteur a = this.partieEnCours.joueur1();
-    int nb_pieces = a.getPiecesVolees().size();
-    int posX = posX_volJ1;
-    int posY = posY_volJ1;
-    for (int i = 0; i < nb_pieces; i++) {
-      Piece p = a.getPiecesVolees().get(i);
-      if (i < coupure) {
-        g.drawImage(getpetitcolor(p, 1), posX, posY, largeur_piece, hauteur_piece,
-            null);
-        posX += largeur_piece;
-      } else {
-        if (i == coupure) {
-          posX = posX_volJ1;
-          posY += hauteur_piece + 2;
-        }
-        g.drawImage(getpetitcolor(p, 1), posX, posY, largeur_piece, hauteur_piece,
-            null);
-        posX += largeur_piece;
-      }
-    }
-  }
-
   // AFFICHAGE
   // J2----------------------------------------------------------------------
   public void affichePyramideJoueurJ2(Graphics g) {
+    System.out.println("MposX J2: " + posX_ileJ2 + " + posY J2: " + posY_ileJ2);
     Acteur a = this.partieEnCours.joueur2();
     Position POSYitionPiecePyramide;
     int decalage = 0;
@@ -535,29 +524,6 @@ public class PanelPhase2 extends PanelGeneral {
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece + 1) / 2;
-    }
-  }
-
-  public void afficheVolJ2(Graphics g) {
-    Acteur a = this.partieEnCours.joueur2();
-    int nb_pieces = a.getPiecesVolees().size();
-    int posX = posX_volJ2;
-    int posY = posY_volJ2;
-    for (int i = 0; i < nb_pieces; i++) {
-      Piece p = a.getPiecesVolees().get(i);
-      if (i < coupure) {
-        g.drawImage(getpetitcolor(p, 1), posX, posY, largeur_piece, hauteur_piece,
-            null);
-        posX += largeur_piece;
-      } else {
-        if (i == coupure) {
-          posX = posX_volJ2;
-          posY += hauteur_piece + 2;
-        }
-        g.drawImage(getpetitcolor(p, 1), posX, posY, largeur_piece, hauteur_piece,
-            null);
-        posX += largeur_piece;
-      }
     }
   }
 

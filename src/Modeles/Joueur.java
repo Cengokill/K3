@@ -13,46 +13,48 @@ public class Joueur extends Acteur {
 	}
 
 	public Coup jouer(ArrayList<Coup> arr, Partie p) {
-		// a retirer ------------------------------------- 
+		// a retirer -------------------------------------
 		/*
-		super.afficherCoupsJouables(arr);
-		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
-		String coupString = myObj.nextLine();
-		Coup c = arr.get(Integer.parseInt(coupString));
-		*/
+		 * super.afficherCoupsJouables(arr);
+		 * Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
+		 * String coupString = myObj.nextLine();
+		 * Coup c = arr.get(Integer.parseInt(coupString));
+		 */
 		// a ajouter -------------------------------------
-		//Coup c = CoupDemander; 
-		validerCoup=false;
+		// Coup c = CoupDemander;
+		validerCoup = false;
 		return CoupDemande;
 	}
 
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr, Partie p) {// deja des pieces volables
-		// a retirer ------------------------------------- 
+		// a retirer -------------------------------------
 		/*
-		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
-		String num = myObj.nextLine();
-		int rep = Integer.parseInt(num);
-		if (rep == 0) {
-			System.out.println("=========== VOL DE PIECE ===========");
-			System.out.println("Camp du joueur victime :");
-			// System.out.println(victime.getCamp().toString());
-			System.out.println("Ses pieces volees :"); // + victime.toStringPiecesVolees()
-			ArrayList<PiecePyramide> piecesVolables = arr;
-			System.out.println(super.getNom() + ", veuillez choisir une piece a voler :");
-
-			for (int i = 0; i < arr.size(); i++) {
-				System.out.println("[" + i + "]" + arr.get(i).toString());
-			}
-			Scanner myObj2 = new Scanner(System.in);// NE PAS CLOSE() myObj
-			int num2 = myObj2.nextInt();
-			return arr.get(num2);
-		
-		} else {
-			return null;
-		}
-		*/
+		 * Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
+		 * String num = myObj.nextLine();
+		 * int rep = Integer.parseInt(num);
+		 * if (rep == 0) {
+		 * System.out.println("=========== VOL DE PIECE ===========");
+		 * System.out.println("Camp du joueur victime :");
+		 * // System.out.println(victime.getCamp().toString());
+		 * System.out.println("Ses pieces volees :"); // +
+		 * victime.toStringPiecesVolees()
+		 * ArrayList<PiecePyramide> piecesVolables = arr;
+		 * System.out.println(super.getNom() +
+		 * ", veuillez choisir une piece a voler :");
+		 * 
+		 * for (int i = 0; i < arr.size(); i++) {
+		 * System.out.println("[" + i + "]" + arr.get(i).toString());
+		 * }
+		 * Scanner myObj2 = new Scanner(System.in);// NE PAS CLOSE() myObj
+		 * int num2 = myObj2.nextInt();
+		 * return arr.get(num2);
+		 * 
+		 * } else {
+		 * return null;
+		 * }
+		 */
 		// a ajouter -------------------------------------
-		validerCoup=false;
+		validerVol = false;
 		return choixVol;
 	}
 
@@ -82,11 +84,11 @@ public class Joueur extends Acteur {
 	public void setPiecesPosees(PiecePyramide p) {
 		this.piecePosee = p;
 	}
-	
+
 	public void setCoupDemande(Coup c) {
 		this.CoupDemande = c;
 	}
-	
+
 	public void setChoixVol(PiecePyramide choixVol) {
 		this.choixVol = choixVol;
 	}

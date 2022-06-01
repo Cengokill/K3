@@ -15,6 +15,7 @@ public class IAActeur extends Acteur {
         this.numerojoueur = numerojoueur;
         this.valideCamp = true;
         this.validerCoup = true;
+        this.validerVol = true;
         switch (diff) { // Construit nos IAs suivant la diffciulté choisis
             case 0:
                 pioche = new piocheMC(diff);

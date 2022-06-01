@@ -23,12 +23,8 @@ public class Phase2Click implements MouseListener {
 	public Position clickpyramideJ1(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 0) {
 			Acteur a = panel.jeu.partieEnCours.joueur1();
-			int posX_depart = panel.posX_ileJ1 + (int) (panel.largeur_ileJ * 0.49) - ((panel.largeur_piece * 6) / 2);
-			int posX = posX_depart;
-			int posY = panel.posY_depart;
-			int startx = posX;
-			int starty = posY;
-			System.out.println("startx: " + startx + " starty: " + starty);
+			int startx = panel.posX_ileJ1;
+			int starty = panel.posY_ileJ1;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
@@ -78,13 +74,8 @@ public class Phase2Click implements MouseListener {
 	public Position clickpyramideJ2(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 1) {
 			Acteur a = panel.jeu.partieEnCours.joueur2();
-			int posX_depart = panel.posX_ileJ2 + (int) (panel.largeur_ileJ * 0.49) - ((panel.largeur_piece * 6) / 2);
-			int posX = posX_depart;
-			int posY = panel.posY_depart;
-			int startx = posX;
-			int starty = posY;
-
-			System.out.println("startx: " + startx + " starty: " + starty);
+			int startx = panel.posX_ileJ2;
+			int starty = panel.posY_ileJ2;
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 

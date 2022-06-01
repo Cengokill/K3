@@ -58,7 +58,7 @@ public class Jeu {
 	}
 
 	public void initNewPhase1(InitPartie p) {
-		setParametresPartie(p.modeDeJeu, p.difficulteIA1, p.difficulteIA2, 500, p.nomJoueur1, p.nomJoueur2);
+		setParametresPartie(p.modeDeJeu, p.difficulteIA1, p.difficulteIA2, 100, p.nomJoueur1, p.nomJoueur2);
 		setActeurs();
 		initPhase1();
 		lancerPhase1();
@@ -297,7 +297,9 @@ public class Jeu {
 					if ((this.typeActeurs == 2 && this.vitesseIA > 400) || this.typeActeurs != 2) {
 						this.options.gestionSons.playSon(23);
 					}
+					this.partieEnCours.doitVoler = true;
 					Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
+					this.partieEnCours.doitVoler = true;
 					if (vol != null) {// si le joueur vole une piece
 						if ((this.typeActeurs == 2 && this.vitesseIA > 400) || this.typeActeurs != 2) {
 							this.options.gestionSons.playSon(26);
