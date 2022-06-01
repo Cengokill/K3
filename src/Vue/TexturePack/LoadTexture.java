@@ -11,7 +11,8 @@ public class LoadTexture {
 	public String CHEMIN;
 
 	// IMAGES FOND
-	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, ile_montagne, chrono;
+	public Image background, backgroundSansLogo, backgroundPhase1, ile1, ile_joueur1, ile_joueur2, ile_montagne, chrono,
+			fond_degrade, egalite, victoire;
 	// IMAGE PIECE
 	public Image pieceVide, pieceNoire, pieceBleue, pieceVert, pieceRouge, pieceBlanche, pieceNature, pieceJaune;
 	public Image pieceNoireTransparent, pieceBleueTransparent, pieceVertTransparent, pieceRougeTransparent,
@@ -60,6 +61,9 @@ public class LoadTexture {
 		chrono = ImageIO.read(new File(CHEMIN + "chrono_jeu.png"));
 		cadre_joueur = ImageIO.read(new File(CHEMIN + "cadre_joueur.png"));
 		cadre_joueur_gris = ImageIO.read(new File(CHEMIN + "cadre_joueur_gris.png"));
+		fond_degrade = ImageIO.read(new File(CHEMIN + "fond_degrade.png"));
+		egalite = ImageIO.read(new File(CHEMIN + "egalite.png"));
+		victoire = ImageIO.read(new File(CHEMIN + "victoire_flou.png"));
 		// IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = ImageIO.read(new File(CHEMIN + "nouvellePartie_flou.png"));
 		menuBouton1_presse = ImageIO.read(new File(CHEMIN + "nouvellePartie_presse.png"));
@@ -164,5 +168,6 @@ public class LoadTexture {
 		pieceBlancheTransparent = ImageIO.read(new File(CHEMIN + "BLANC_TRANSPARENT.png"));
 		pieceNatureTransparent = ImageIO.read(new File(CHEMIN + "NATUREL_TRANSPARENT.png"));
 		pieceJauneTransparent = ImageIO.read(new File(CHEMIN + "JAUNE_TRANSPARENT.png"));
+
 	}
 }
