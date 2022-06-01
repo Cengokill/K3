@@ -35,7 +35,8 @@ public class Phase1Panel extends PanelGeneral{
 	posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono,posX_text_chrono,posY_text_chrono,
 	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer,posXRetourMenu,
 	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu, posX_popup,posY_popup,largeur_popup,hauteur_popup,
-	largeur_oui,hauteur_oui,posX_oui,posY_oui,posX_non,posY_non,posX_settings,posY_settings,largeur_settings;
+	largeur_oui,hauteur_oui,posX_oui,posY_oui,posX_non,posY_non,posX_settings,posY_settings,largeur_settings,
+	posX_cadre,posY_cadre,largeur_cadre,hauteur_cadre;
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
@@ -81,6 +82,7 @@ public class Phase1Panel extends PanelGeneral{
 				affichageBoutonValider(g);
 			}
 			afficherTimer(g);
+			cadreJoueur(g);
 			afficheBaseMontagne(g);
 			affichePyramideJoueur1(g);
 			affichePioche(g);
@@ -105,6 +107,7 @@ public class Phase1Panel extends PanelGeneral{
         double rapportBackMenu = 1.185567010309278;
         double rapportPopup = 0.5103280680437424;
         double rapportOui = 0.4183168316831683;// 169/404
+        double rapportCadre = 0.2200647249190939;// 204/927
 		TAILLE_CUBES_LARGEUR = Math.min(largeur_background/28, frameWidth/28);
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
@@ -126,11 +129,16 @@ public class Phase1Panel extends PanelGeneral{
 		taille_police_timer = (int)(hauteur_chrono/8);
 		posX_text_chrono = posX_chrono+(int)(taille_police_timer*1.8);
 		posY_text_chrono = (int)(posY_chrono+hauteur_chrono*0.94);
+		//cadre joueur
+		largeur_cadre = Math.min(largeur_background/6, frameWidth/6);
+		hauteur_cadre = (int)(largeur_cadre*rapportCadre);
+		posX_cadre = posX_background+(int)(largeur_background*0.135);
+		posY_cadre = posY_background+(int)(hauteur_background*0.08);
 		//nom joueur
 		taille_nom_joueur = initAffichageJoueurs().getNom().length();
 		taille_police_nom_joueur=(int)(hauteur_chrono/6);
-		posX_nom_joueur = posX_chrono-(int)(taille_police_nom_joueur*1.2);
-		posY_nom_joueur = posY_chrono-TAILLE_CUBES_HAUTEUR;
+		posX_nom_joueur = posX_cadre+(int)(largeur_cadre*0.07);
+		posY_nom_joueur = posY_cadre+(int)(hauteur_cadre*0.6);
 		//bouton melange
 		posX_bouton_melange=posX_background+(int)(largeur_background*0.4);
 		posY_bouton_melange=posY_chrono;
@@ -215,14 +223,17 @@ public class Phase1Panel extends PanelGeneral{
 	}
 
 	// AFFICHAGE***************************************************************
-	
 	public void afficherNomJoueur(Graphics g) {
 		String nom;
+		int taille_max = 14;
 		int jCourant=this.partieEnCours.getJoueurCourant();
 		if(jCourant==0) {
 			nom=this.partieEnCours.joueur1().getNom();
 		}else {
 			nom=this.partieEnCours.joueur2().getNom();
+		}
+		if(nom.length()>taille_max) {
+			nom = nom.substring(0,taille_max);
 		}
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Courier New", Font.BOLD, taille_police_nom_joueur));
@@ -276,6 +287,10 @@ public class Phase1Panel extends PanelGeneral{
 	
 	public void affichageSettings(Graphics g) {
 		g.drawImage(texture.settings, posX_settings, posY_settings, largeur_settings, largeur_settings, null);	
+	}
+	
+	public void cadreJoueur(Graphics g) {
+		g.drawImage(textures.cadre_joueur, posX_cadre, posY_cadre, largeur_cadre, hauteur_cadre, null);
 	}
 	
 	public void emettreSonClic() {
