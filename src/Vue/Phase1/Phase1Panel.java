@@ -30,7 +30,7 @@ public class Phase1Panel extends PanelGeneral{
 	
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton,posX_bouton_valider,
 	posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono,posX_text_chrono,posY_text_chrono,
-	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer,posXRetourMenu,
+	posX_nom_joueur,posY_nom_joueur,taille_police_nom_joueur,taille_police_timer,posXRetourMenu,
 	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu, posX_popup,posY_popup,largeur_popup,hauteur_popup,
 	largeur_oui,hauteur_oui,posX_oui,posY_oui,posX_non,posY_non,posX_settings,posY_settings,largeur_settings,
 	posX_cadre,posY_cadre,largeur_cadre,hauteur_cadre;
@@ -132,7 +132,6 @@ public class Phase1Panel extends PanelGeneral{
 		posX_cadre = posX_background+(int)(largeur_background*0.135);
 		posY_cadre = posY_background+(int)(hauteur_background*0.08);
 		//nom joueur
-		taille_nom_joueur = initAffichageJoueurs().getNom().length();
 		taille_police_nom_joueur=(int)(hauteur_chrono/6);
 		posX_nom_joueur = posX_cadre+(int)(largeur_cadre*0.07);
 		posY_nom_joueur = posY_cadre+(int)(hauteur_cadre*0.6);

@@ -14,6 +14,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import Modeles.Couleurs;
 import Modeles.Joueur;
+import Modeles.Partie;
 import Modeles.Piece;
 import Modeles.Position;
 import Vue.TexturePack.LoadTexture;
@@ -22,6 +23,8 @@ public class PanelPhase2 extends javax.swing.JPanel {
 
   public LoadTexture texture;
   public Dimension tailleFenetre;
+  public Jeu jeu;
+  public ArrayList<PosPixel> pospion = new ArrayList<>();
   public int frameWidth, frameHeight;
   public int largeur_background, hauteur_background, posX_background, posY_background;
   public int posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, posXCoupPrecedent;
@@ -32,12 +35,13 @@ public class PanelPhase2 extends javax.swing.JPanel {
   public int posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder;
   public int posX_settings,posY_settings,largeur_settings;
   public int largeur_cadre,hauteur_cadre,posX_cadreJ1,posY_cadreJ1,posX_cadreJ2,posY_cadreJ2;
-  public int taille_nom_joueur,taille_police_nom_joueur,posX_nom_joueur1,posY_nom_joueur1,posX_nom_joueur2,posY_nom_joueur2;
+  public int taille_police_nom_joueur,posX_nom_joueur1,posY_nom_joueur1,posX_nom_joueur2,posY_nom_joueur2;
   /**
    * Creates new form PanelPhase2
    */
-  public PanelPhase2(LoadTexture texture) {
+  public PanelPhase2(Jeu j, LoadTexture texture) {
     this.texture = texture;
+    this.jeu=j;
     initComponents();
   }
   /**
@@ -73,6 +77,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawbaPyramideJ2(g);
     drawbaPyramideMilieu(g);
     drawBoutons(g);
+    afficherNomJoueur(g);
   }
 
   public void setChangementTaillefenetre() {
@@ -135,12 +140,11 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	posX_cadreJ2 = posX_background+(int)(largeur_background*0.755);
 	posY_cadreJ2 = posY_cadreJ1;
 	//noms joueurs
-	taille_nom_joueur = initAffichageJoueurs().getNom().length();
-	taille_police_nom_joueur=(int)(hauteur_cadre/6);
+	taille_police_nom_joueur=(int)(hauteur_cadre/2.5);
 	posX_nom_joueur1 = posX_cadreJ1+(int)(largeur_cadre*0.07);
-	posY_nom_joueur1 = posY_cadreJ1+(int)(hauteur_cadre*0.6);
+	posY_nom_joueur1 = posY_cadreJ1+(int)(hauteur_cadre*0.64);
 	posX_nom_joueur2 = posX_cadreJ2+(int)(largeur_cadre*0.07);
-	posY_nom_joueur2 = posY_cadreJ2+(int)(hauteur_cadre*0.6);
+	posY_nom_joueur2 = posY_nom_joueur1;
     // Vols
     double rapportVol = 0.8104738154613466;// 975/1203
     largeur_vol = largeur_piece * 6;
@@ -158,8 +162,8 @@ public class PanelPhase2 extends javax.swing.JPanel {
 	public void afficherNomJoueur(Graphics g) {
 		String nomJ1, nomJ2;
 		int taille_max = 14;
-		nomJ1=this.partieEnCours.joueur1().getNom();
-		nomJ2=this.partieEnCours.joueur2().getNom();
+		nomJ1=this.jeu.partieEnCours.joueur1().getNom();
+		nomJ2=this.jeu.partieEnCours.joueur2().getNom();
 		if(nomJ1.length()>taille_max) {
 			nomJ1 = nomJ1.substring(0,taille_max);
 		}
@@ -183,9 +187,14 @@ public class PanelPhase2 extends javax.swing.JPanel {
     g.drawImage(texture.passerTour, posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
     g.drawImage(texture.boutonCoupPrecedent, posXCoupPrecedent, posYPasserTour, largeurPasserTour, hauteurPasserTour, null);
     g.drawImage(texture.settings, posX_settings, posY_settings, largeur_settings, largeur_settings, null);
-	g.drawImage(texture.cadre_joueur, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
-	g.drawImage(texture.cadre_joueur, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
-    if(this.partie_actuel.partieEnCours.joueur1().getClass() == Joueur.class) {
+    if(this.jeu.partieEnCours.getJoueurCourant()==0) {
+    	g.drawImage(texture.cadre_joueur, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
+    	g.drawImage(texture.cadre_joueur_gris, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
+    }else {
+    	g.drawImage(texture.cadre_joueur_gris, posX_cadreJ1, posY_cadreJ1, largeur_cadre, hauteur_cadre, null);
+    	g.drawImage(texture.cadre_joueur, posX_cadreJ2, posY_cadreJ2, largeur_cadre, hauteur_cadre, null);
+    }
+    if(this.jeu.partieEnCours.joueur1().getClass() == Joueur.class) {
     	g.drawImage(texture.boutonSauvegarde, posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder, null);
     }
   }
@@ -203,11 +212,11 @@ public class PanelPhase2 extends javax.swing.JPanel {
     int posX = posX_depart;
     int posY = posY_depart;
     int decalage = 0;
-    for (int i = 0; i < this.partie_actuel.partieEnCours.joueur1().getCamp().getHauteur(); i++) { // etage
-      for (int j = 0; j < (this.partie_actuel.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
+    for (int i = 0; i < this.jeu.partieEnCours.joueur1().getCamp().getHauteur(); i++) { // etage
+      for (int j = 0; j < (this.jeu.partieEnCours.joueur1().getCamp().getLargeur() - i); j++) { // rang
         actualpos.rang = j;
         actualpos.etage = i;
-        Piece c = this.partie_actuel.partieEnCours.joueur1().getCamp().getPiece(actualpos);
+        Piece c = this.jeu.partieEnCours.joueur1().getCamp().getPiece(actualpos);
         Image image;
         if (c == null) {
           image = colortoimage(Couleurs.VIDE);
@@ -230,11 +239,11 @@ public class PanelPhase2 extends javax.swing.JPanel {
     int posX = posX_depart;
     int posY = posY_depart;
     int decalage = 0;
-    for (int i = 0; i < this.partie_actuel.partieEnCours.joueur2().getCamp().getHauteur(); i++) { // etage
-      for (int j = 0; j < (this.partie_actuel.partieEnCours.joueur2().getCamp().getLargeur() - i); j++) { // rang
+    for (int i = 0; i < this.jeu.partieEnCours.joueur2().getCamp().getHauteur(); i++) { // etage
+      for (int j = 0; j < (this.jeu.partieEnCours.joueur2().getCamp().getLargeur() - i); j++) { // rang
         actualpos.rang = j;
         actualpos.etage = i;
-        Piece c = this.partie_actuel.partieEnCours.joueur2().getCamp().getPiece(actualpos);
+        Piece c = this.jeu.partieEnCours.joueur2().getCamp().getPiece(actualpos);
         Image image;
         if (c == null) {
           image = colortoimage(Couleurs.VIDE);
@@ -256,11 +265,11 @@ public class PanelPhase2 extends javax.swing.JPanel {
     int posX = posX_depart;
     int posY = posY_depart;
     int decalage = 0;
-    for (int i = 0; i < this.partie_actuel.partieEnCours.getBaseMontagne().getHauteur(); i++) { // etage
-      for (int j = 0; j < (this.partie_actuel.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
+    for (int i = 0; i < this.jeu.partieEnCours.getBaseMontagne().getHauteur(); i++) { // etage
+      for (int j = 0; j < (this.jeu.partieEnCours.getBaseMontagne().getLargeur() - i); j++) { // rang
         actualpos.rang = j;
         actualpos.etage = i;
-        Piece c = this.partie_actuel.partieEnCours.getBaseMontagne().getPiece(actualpos);
+        Piece c = this.jeu.partieEnCours.getBaseMontagne().getPiece(actualpos);
         Image image;
         if (c == null) {
           image = colortoimage(Couleurs.VIDE);
@@ -296,9 +305,4 @@ public class PanelPhase2 extends javax.swing.JPanel {
     return null;
   }
 
-  public Jeu partie_actuel;
-  public ArrayList<PosPixel> pospion = new ArrayList<>();
-
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  // End of variables declaration//GEN-END:variables
 }

@@ -33,7 +33,7 @@ public class LoadTexture {
 			boutonPasserTour, boutonPasserTour_gris, boutonCoupPrecedent, boutonCoupPrecedent_gris, modePleinEcran,
 			volumeMusique, volumeSons, active, desactive,
 			passerTour, passerTour_gris, imagevol, boutonSauvegarde, valider, valider2, oui, non, popup,settings,
-			cadre_joueur;
+			cadre_joueur,cadre_joueur_gris;
 	// IMAGE CHARGEMENT
 	public Image boutonLoad,boutonLoadPresse;
 	// IMAGE TUTO
@@ -57,6 +57,7 @@ public class LoadTexture {
 		ile_montagne = ImageIO.read(new File(CHEMIN + "ile3.png"));
 		chrono = ImageIO.read(new File(CHEMIN + "chrono_jeu.png"));
 		cadre_joueur = ImageIO.read(new File(CHEMIN + "cadre_joueur.png"));
+		cadre_joueur_gris = ImageIO.read(new File(CHEMIN + "cadre_joueur_gris.png"));
 		// IMAGES MENU---------------------------------------------------------------
 		menuBouton1 = ImageIO.read(new File(CHEMIN + "nouvellePartie_flou.png"));
 		menuBouton1_presse = ImageIO.read(new File(CHEMIN + "nouvellePartie_presse.png"));

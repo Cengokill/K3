@@ -32,12 +32,12 @@ public class IHM {
 	public Phase1Panel phase1Panel;
 	public PanelPhase2 phase2Panel;
 	
-	public IHM(JFrame w, OptionsJeu o, Jeu jeu, LoadTexture t, Chargement c, InitPartie p) {
+	public IHM(JFrame w, OptionsJeu o, Jeu j, LoadTexture t, Chargement c, InitPartie p) {
 		//RECUPERATION
 		this.window=w;
 		this.options = o;
 		this.texture=t;
-		this.jeu = jeu;
+		this.jeu = j;
 		this.chargement=c;
 		this.partie=p;
 		
@@ -53,8 +53,8 @@ public class IHM {
 		this.optionsPanel = new OptionPanel(window,texture, chargement, options);
 		this.tutoPanel = new TutorielPanel(window,texture, chargement, options);
 		this.phase1Panel = new Phase1Panel(window, jeu.partieEnCours, texture, options, chargement);
-		this.phase2Panel = new PanelPhase2(texture);
-		phase2Panel.partie_actuel = this.jeu;
+		this.phase2Panel = new PanelPhase2(this.jeu,texture);
+		//phase2Panel.partie_actuel = this.jeu;
 		
 		options.gestionSons.changeMusique(43);
 		options.gestionSons.playMusique();
