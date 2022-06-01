@@ -52,7 +52,7 @@ public class IHM {
 		this.chargerPanel = new ChargerPanel(window, texture, chargement, options, partie);
 		this.optionsPanel = new OptionPanel(window,texture, chargement, options);
 		this.tutoPanel = new TutorielPanel(window,texture, chargement, options);
-		this.phase1Panel = new Phase1Panel(window, jeu.partieEnCours, texture, options);
+		this.phase1Panel = new Phase1Panel(window, jeu.partieEnCours, texture, options, chargement);
 		this.phase2Panel = new PanelPhase2(texture);
 		phase2Panel.partie_actuel = this.jeu;
 		

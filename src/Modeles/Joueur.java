@@ -1,11 +1,11 @@
 package Modeles;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Joueur extends Acteur {
 	private PiecePyramide piecePosee;
-	private Coup CoupDemander;
+	private Coup CoupDemande;
 	private PiecePyramide choixVol;
 
 	public Joueur(String nom) {
@@ -14,17 +14,21 @@ public class Joueur extends Acteur {
 
 	public Coup jouer(ArrayList<Coup> arr, Partie p) {
 		// a retirer ------------------------------------- 
+		/*
 		super.afficherCoupsJouables(arr);
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String coupString = myObj.nextLine();
 		Coup c = arr.get(Integer.parseInt(coupString));
+		*/
 		// a ajouter -------------------------------------
 		//Coup c = CoupDemander; 
-		return c;
+		validerCoup=false;
+		return CoupDemande;
 	}
 
 	public PiecePyramide choixVol(ArrayList<PiecePyramide> arr, Partie p) {// deja des pieces volables
 		// a retirer ------------------------------------- 
+		/*
 		Scanner myObj = new Scanner(System.in);// NE PAS CLOSE() myObj
 		String num = myObj.nextLine();
 		int rep = Integer.parseInt(num);
@@ -42,11 +46,14 @@ public class Joueur extends Acteur {
 			Scanner myObj2 = new Scanner(System.in);// NE PAS CLOSE() myObj
 			int num2 = myObj2.nextInt();
 			return arr.get(num2);
+		
 		} else {
 			return null;
 		}
+		*/
 		// a ajouter -------------------------------------
-		// return choixVol;
+		validerCoup=false;
+		return choixVol;
 	}
 
 	public ArrayList<PiecePyramide> phase1(Partie encours) {
@@ -76,8 +83,8 @@ public class Joueur extends Acteur {
 		this.piecePosee = p;
 	}
 	
-	public void setCoupDemander(Coup c) {
-		this.CoupDemander = c;
+	public void setCoupDemande(Coup c) {
+		this.CoupDemande = c;
 	}
 	
 	public void setChoixVol(PiecePyramide choixVol) {

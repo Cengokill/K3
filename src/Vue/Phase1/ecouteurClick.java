@@ -12,6 +12,7 @@ import Modeles.Acteur;
 import Modeles.Joueur;
 import Modeles.Piece;
 import Modeles.Position;
+import Vue.Menu.Chargement.TypeFenetre;
 
 public class ecouteurClick implements MouseListener {
 	
@@ -85,22 +86,21 @@ public class ecouteurClick implements MouseListener {
 	}
 	//PIOCHE DU JOUEUR--------------------------------
 	public int clickPioche(MouseEvent e){
-		Acteur a = panel.initAffichageJoueurs();
 		int startx = panel.POSX_PIOCHE;
 		int starty = panel.POSY_PIOCHE;
 		int realx = e.getX() - startx;
 		int realy = e.getY() - starty;
 		
 		int x = realx / (panel.TAILLE_CUBES_LARGEUR+1);
-		if(x<0 || x >= a.getTaillePiecesPiochees()) {
+		int y = realy / (panel.TAILLE_CUBES_HAUTEUR+1);
+		if(x<0 || (x >= panel.coupure+1 && realy > (panel.TAILLE_CUBES_HAUTEUR+1)) || (x >= panel.coupure && realy < (panel.TAILLE_CUBES_HAUTEUR+1))) {
 			return -1;
 		}
-		if(realy < 0 || realy > panel.TAILLE_CUBES_HAUTEUR+1) {
+		if(realy < 0 || realy > (panel.TAILLE_CUBES_HAUTEUR+1)*2) {
 			return -1;
-		}		
-		return x;
+		}
+		return x+y*panel.coupure;
 	}
-	
 	//CLIC BOUTONS
 	public boolean clicMelange(MouseEvent e){
 		int startx = panel.posX_bouton_melange;
@@ -122,45 +122,30 @@ public class ecouteurClick implements MouseListener {
 		}else return false;
 	}
 	
+	public boolean clicRetour(MouseEvent e){
+		int startx = panel.posXRetourMenu;
+		int starty = panel.posYRetourMenu;
+		int hauteurBouton=panel.hauteurRetourMenu;
+		int largeurBouton=panel.largeurRetourMenu;
+		if(e.getX() >= startx && e.getX() <= startx+largeurBouton && e.getY() >= starty && e.getY() <= starty+hauteurBouton) {
+			return true;
+		}else return false;
+	}
+	
 	//GESTION SOURIS----------------------------------------------------------------
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(panel.partieEnCoursSet == true) {
-			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
-				if(e.getButton() == MouseEvent.BUTTON1) { 
-					if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
-						int index = clickPioche(e);
-						if(index>=0) {
-							Acteur a = panel.initAffichageJoueurs();
-							panel.setPieceSelectionnee(a.getPiecesPiochees().get(index));
-						}
-					}else {
-						Position p = clickpyramide(e);
-						if(p != null) {
-							panel.empiler(p);//on empile la piece a l'endroit clique
-						}
-					}
-				}else { // deselectionner avec clic droit
-					if(panel.getPieceSelectionnee() == null) {
-						Position p = clickpyramide(e);
-						if(p != null) {
-							Acteur a = panel.initAffichageJoueurs();
-							Piece pie = a.getCamp().retirePhase1(p);
-							if(pie!=null) {
-								a.addPiecePiochee(pie);
-							}
-						}
-					}else {
-						panel.setPieceSelectionnee(null);
-					}
-				}
-			}
-		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(panel.partieEnCoursSet == true) {
+			if(clicRetour(e)) {
+				panel.jouerSonClic();
+				panel.popup=true;
+				panel.chargement.lancement = true;
+				panel.chargement.setProchaineFenetre(TypeFenetre.MENU);
+			}
 			if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
 				if(e.getButton() == MouseEvent.BUTTON1) { 
 					if(panel.getPieceSelectionnee() == null) { // selectionner si aucune piece lock
@@ -234,6 +219,11 @@ public class ecouteurClick implements MouseListener {
 	public class DragListener extends MouseMotionAdapter{
 		public void mouseMoved(MouseEvent e) {
 			if(panel.partieEnCoursSet == true) {
+				if(clicRetour(e)) {
+					typeCurseur="main";
+				}else {
+					typeCurseur = "Default Cursor";
+				}
 				if(panel.initAffichageJoueurs().getClass() == Joueur.class) {
 					panel.OldX = panel.currentX;
 					panel.OldY = panel.currentY;
@@ -253,14 +243,9 @@ public class ecouteurClick implements MouseListener {
 						typeCurseur="main";
 					}else if(clicValider(e)) {
 						typeCurseur="main";
-					}else {
-						typeCurseur = "Default Cursor";
 					}
-					changeCustomCurseur();
 				}
-				else if(panel.getCursor().getType() != 3) {
-					panel.setCursor(new Cursor(0));
-				}
+				changeCustomCurseur();
 				panel.repaint();
 			}
 		}

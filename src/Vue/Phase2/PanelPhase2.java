@@ -76,7 +76,9 @@ public class PanelPhase2 extends javax.swing.JPanel {
   }
 
   public void setChangementTaillefenetre() {
-    setChangementTaillefenetre();
+    this.tailleFenetre = this.getSize();
+    this.frameWidth = this.getWidth();
+    this.frameHeight = this.getHeight();
     double rapport = (double) 0.5625;// rapport de 2160/3840
     if ((double) ((double) frameHeight / (double) frameWidth) > rapport) {
       largeur_background = frameWidth;

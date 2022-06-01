@@ -21,6 +21,7 @@ public class Acteur {
 	protected ArrayList<Piece> piecesPiochees;// pieces que le joueur a piochees et pas encore placees sur son camp
 	protected Integer diff = 3;
 	public boolean valideCamp;
+	public boolean validerCoup;
 
 	// Constructeur
 	public Acteur(String nom) {
@@ -36,6 +37,7 @@ public class Acteur {
 		this.piecesVolees = new ArrayList<Piece>();
 		this.piecesPiochees = new ArrayList<Piece>();
 		this.valideCamp = false;
+		this.validerCoup = false;
 	}
 
 	// METHODES A IMPLEMENTER DANS IA ET JOUEUR HUMAIN

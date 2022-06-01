@@ -11,7 +11,6 @@ import Modeles.*;
 import Vue.IHM;
 import Vue.Menu.Chargement;
 import Vue.Menu.Chargement.TypeFenetre;
-import Vue.Phase1.*;
 import Vue.TexturePack.LoadTexture;
 
 public class Jeu {
@@ -135,32 +134,37 @@ public class Jeu {
 				acteurCourant=this.partieEnCours.joueur2();
 				this.partieEnCours.demarrerTimer(1);
 			}
-			while (acteurCourant.getTaillePiecesPiochees()>0 || !acteurCourant.valideCamp) {
+			while ((acteurCourant.getTaillePiecesPiochees()>0 || !acteurCourant.valideCamp) && chargement.getProchaineFenetre()==TypeFenetre.PHASE1) {
 				//chaque joueur doit choisir la piece a empiler sur sa pioche
 				arr = acteurCourant.phase1(this.partieEnCours);
 				timer(16);
 				ihm.phase1Panel.repaint();//afficherTimer(ihm.phase1Panel.getGraphics());
 				if(!arr.isEmpty()){
 					for(PiecePyramide p : arr) {
-						timer((int)(temps));
-						if(acteurCourant.getCamp().empilerPhase1(p)) {//pas de verif pieces porteuse
-							acteurCourant.removePiecePiochee(p.getPiece());
-							this.ihm.phase1Panel.repaint();
-							if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-								this.options.gestionSons.playSon(1);//son de lancement de partie
+						if(chargement.getProchaineFenetre()==TypeFenetre.PHASE1) {
+							timer(temps);
+							if(acteurCourant.getCamp().empilerPhase1(p)) {//pas de verif pieces porteuse
+								acteurCourant.removePiecePiochee(p.getPiece());
+								this.ihm.phase1Panel.repaint();
+								if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+									this.options.gestionSons.playSon(1);//son de lancement de partie
+								}
 							}
 						}
 					}
 				}
 			}
-			System.out.println(acteurCourant.getTempsConstruction());
 			acteurCourant.stopTempsConstruction();
-			timer(1200);
-			this.partieEnCours.changementJoueurCourant();
-			this.ihm.phase1Panel.repaint();
+			if(chargement.getProchaineFenetre()==TypeFenetre.PHASE1) {
+				timer(1200);
+				this.partieEnCours.changementJoueurCourant();
+				this.ihm.phase1Panel.repaint();
+			}
 		}
-		this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
-		this.chargement.lancement=true;
+		if(chargement.getProchaineFenetre()==TypeFenetre.PHASE1) {
+			this.chargement.setProchaineFenetre(TypeFenetre.PHASE2);
+			this.chargement.lancement=true;
+		}
 	}
 	
 	public void lancementPhase2() {
@@ -255,58 +259,61 @@ public class Jeu {
 			jPrecedent = this.partieEnCours.joueur1();
 			this.partieEnCours.demarrerTimer(1);
 		}
-		ArrayList<Coup> cJ = this.partieEnCours.coupsJouables(jCourant);
-		Coup coupDemande = jCourant.jouer(cJ, this.partieEnCours);// le joueur courant a choisi un coup a jouer
-		this.partieEnCours.addCoupHist(coupDemande);// ajout du coup a l'historique
-		if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
-			jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant
-		} else {// si le joueur courant decide de jouer une de ses pieces volees
-			jCourant.retirerPieceVolee(coupDemande.getPiece());
-		}
-		timer(temps);
-		ihm.phase2Panel.repaint();
-		if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
-			this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
-			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-				this.options.gestionSons.playSon(4);
-			}
-			if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
-				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-					this.options.gestionSons.playSon(7);
-				}
+
+		if(jCourant.validerCoup) {// || TEMPS DEPASSE
+			ArrayList<Coup> cJ = this.partieEnCours.coupsJouables(jCourant);
+			Coup coupDemande = jCourant.jouer(cJ, this.partieEnCours);// le joueur courant a choisi un coup a jouer
+			this.partieEnCours.addCoupHist(coupDemande);// ajout du coup a l'historique
+			if (coupDemande.getPosJ() != null) {// si le joueur courant ne joue pas une piece volee
+				jCourant.getCamp().retirer(coupDemande.getPosJ());// retire la piece jouee du camp du joueur courant
+			} else {// si le joueur courant decide de jouer une de ses pieces volees
+				jCourant.retirerPieceVolee(coupDemande.getPiece());
 			}
 			timer(temps);
 			ihm.phase2Panel.repaint();
-			if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
+			if (coupDemande.getPosBase() != null) {// si le joueur ne choisit pas de jouer une piece BLANCHE
+				this.partieEnCours.getBaseMontagne().empiler(new PiecePyramide(coupDemande.getPiece(), coupDemande.getPosBase()));
 				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-					this.options.gestionSons.playSon(23);
+					this.options.gestionSons.playSon(4);
 				}
-				Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
-				if (vol != null) {//si le joueur vole une piece
+				if (coupDemande.getPiece().getColor().equals(Couleurs.NATUREL)) {
 					if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-						this.options.gestionSons.playSon(26);
-						timer(500);
+						this.options.gestionSons.playSon(7);
 					}
-					this.partieEnCours.addCoupHist(vol);
 				}
 				timer(temps);
 				ihm.phase2Panel.repaint();
+				if (this.partieEnCours.getBaseMontagne().estPorteursMemeCouleur(coupDemande.getPosBase())) {// si vol possible
+					if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+						this.options.gestionSons.playSon(23);
+					}
+					Coup vol = this.partieEnCours.volerPiece(jPrecedent, jCourant);
+					if (vol != null) {//si le joueur vole une piece
+						if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+							this.options.gestionSons.playSon(26);
+							timer(500);
+						}
+						this.partieEnCours.addCoupHist(vol);
+					}
+					timer(temps);
+					ihm.phase2Panel.repaint();
+				}
+			} else {// joue une piece BLANCHE
+				jCourant.addBlancJoue();
+				if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
+					this.options.gestionSons.playSon(10);
+				}
+				timer(temps);
+				ihm.phase2Panel.repaint();
+				System.out.println("Vous avez decide de passer votre tour !");
 			}
-		} else {// joue une piece BLANCHE
-			jCourant.addBlancJoue();
-			if((this.typeActeurs==2 && this.vitesseIA>400) || this.typeActeurs!=2) {
-				this.options.gestionSons.playSon(10);
+			if (this.partieEnCours.joueurCourant == 0) {
+				this.partieEnCours.joueur1().stopTempsConstruction();
+			} else {
+				this.partieEnCours.joueur2().stopTempsConstruction();
 			}
-			timer(temps);
-			ihm.phase2Panel.repaint();
-			System.out.println("Vous avez decide de passer votre tour !");
+			partieEnCours.changementJoueurCourant();
 		}
-		if (this.partieEnCours.joueurCourant == 0) {
-			this.partieEnCours.joueur1().stopTempsConstruction();
-		} else {
-			this.partieEnCours.joueur2().stopTempsConstruction();
-		}
-		partieEnCours.changementJoueurCourant();
 	}
 	
 	public void partieVictoire() {

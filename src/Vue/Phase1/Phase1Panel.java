@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import Modeles.*;
 import Vue.PanelGeneral;
+import Vue.Menu.Chargement;
 import Vue.TexturePack.LoadTexture;
 
 public class Phase1Panel extends PanelGeneral{
@@ -19,10 +20,7 @@ public class Phase1Panel extends PanelGeneral{
 	public Partie partieEnCours;
 	public boolean partieEnCoursSet = false;
 	private JFrame window;
-	public Dimension tailleFenetre;
-	public final Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-	public final int screenWidth=tailleEcran.width;
-	public final int screenHeight=tailleEcran.height;
+	public Chargement chargement;
 	//drag N DROP
 	public int OldX = 0;
 	public int OldY = 0;
@@ -35,16 +33,19 @@ public class Phase1Panel extends PanelGeneral{
 	
 	public int posX_bouton_melange, posY_bouton_melange, hauteur_bouton, largeur_bouton,posX_bouton_valider,
 	posY_bouton_valider, posX_chrono, posY_chrono, hauteur_chrono, largeur_chrono,posX_text_chrono,posY_text_chrono,
-	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer;
+	posX_nom_joueur,posY_nom_joueur,taille_nom_joueur,taille_police_nom_joueur,taille_police_timer,posXRetourMenu,
+	posYRetourMenu,largeurRetourMenu,hauteurRetourMenu;
     
 	boolean enfonce_melange=false;
 	boolean enfonce_valider=false;
+	boolean popup=false;
 	
 	public int POSX_BASE_JOUEUR;
 	public int POSY_BASE_JOUEUR;
 	
 	public int POSX_PIOCHE;
 	public int POSY_PIOCHE;
+	public int coupure=10;
 	
 	public int POSX_BASE_MONTAGNE;
 	public int POSY_BASE_MONTAGNE;
@@ -55,16 +56,14 @@ public class Phase1Panel extends PanelGeneral{
 	private SoundPlayer simpleSoundPlayerSon;
 
 	// CONSTRUCTEUR----------------------------------------------
-	public Phase1Panel(JFrame w, Partie p, LoadTexture t, OptionsJeu o){
+	public Phase1Panel(JFrame w, Partie p, LoadTexture t, OptionsJeu o, Chargement c){
 		super(w,t,o);
 		this.textures=t;
 		this.simpleSoundPlayerSon = new SoundPlayer(8, textures.CHEMIN);
 		this.partieEnCours=p;
 		this.window = w;
-		this.tailleFenetre = window.getSize();
+		this.chargement=c;
 		addMouseListener(new ecouteurClick(this));
-		this.window.setSize(tailleFenetre.width,tailleFenetre.height);
-		this.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 	
 	public void setPartieEnCours(Partie p) {
@@ -84,7 +83,14 @@ public class Phase1Panel extends PanelGeneral{
 			afficheBaseMontagne(g);
 			affichePyramideJoueur1(g);
 			affichePioche(g);
+			affichageRetourMenu(g);
 			dragNdrop(g);
+		}
+	}
+	
+	public void affichePopup() {
+		if(popup) {
+			
 		}
 	}
 	
@@ -99,6 +105,7 @@ public class Phase1Panel extends PanelGeneral{
         
         double rapport=0.8576709797;
         double rapport_chrono=1.395;//400x558
+        double rapportBackMenu = 1.185567010309278;
 		TAILLE_CUBES_LARGEUR = Math.min(largeur_background/28, frameWidth/28);
 		TAILLE_CUBES_HAUTEUR = (int)(TAILLE_CUBES_LARGEUR*rapport);//464
 		
@@ -130,6 +137,11 @@ public class Phase1Panel extends PanelGeneral{
 		posY_bouton_melange=posY_chrono;
 	    posX_bouton_valider=posX_bouton_melange;
 	    posY_bouton_valider=posY_bouton_melange+(int)(hauteur_bouton*1.1);
+	    
+	    posXRetourMenu=posX_background+(int)(largeur_background*0.74);
+		posYRetourMenu=posY_background+(int)(hauteur_background*0.8);
+		largeurRetourMenu = Math.min(largeur_background/15, frameWidth/15);
+		hauteurRetourMenu = (int)(largeurRetourMenu/rapportBackMenu);
 	}
 	
 	// PIECE SELECTIONEE----------------------------------------------
@@ -236,6 +248,10 @@ public class Phase1Panel extends PanelGeneral{
 		}
 	}
 	
+	public void affichageRetourMenu(Graphics g) {
+		g.drawImage(texture.TutoMenu, posXRetourMenu, posYRetourMenu, largeurRetourMenu, hauteurRetourMenu, null);	
+	}
+	
 	public void emettreSonClic() {
 		this.simpleSoundPlayerSon.setNumSon(17);
 		this.simpleSoundPlayerSon.jouerSon();
@@ -287,11 +303,11 @@ public class Phase1Panel extends PanelGeneral{
 		int posY=POSY_PIOCHE;
 		for(int i = 0; i < nb_pieces; i++) {
 			Piece p = a.getPiecesPiochees().get(i);
-			if(i<10) {
+			if(i<coupure) {
 				g.drawImage(getpetitcolor(p), posX, posY, TAILLE_CUBES_LARGEUR, TAILLE_CUBES_HAUTEUR,null);
 				posX+=TAILLE_CUBES_LARGEUR;
 			}else {
-				if(i==10) {
+				if(i==coupure) {
 					posX=POSX_PIOCHE;
 					posY+=TAILLE_CUBES_HAUTEUR+2;
 				}
