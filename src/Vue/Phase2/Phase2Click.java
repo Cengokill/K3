@@ -72,7 +72,7 @@ public class Phase2Click implements MouseListener {
 		return -1;
 	}
 
-	// CLICK JOUEUR2--------------------------------
+	// CLICK JOUEUR2-------------------------------- aaaaaa
 	public Position clickpyramideJ2(MouseEvent e) {
 		if (panel.jeu.partieEnCours.joueurCourant == 1 && panel.largeur_piece != 0 && panel.hauteur_piece != 0) {
 			Acteur a = panel.jeu.partieEnCours.joueur2();
