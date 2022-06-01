@@ -58,7 +58,7 @@ public class Jeu {
 	}
 
 	public void initNewPhase1(InitPartie p) {
-		setParametresPartie(p.modeDeJeu, p.difficulteIA1, p.difficulteIA2, 100, p.nomJoueur1, p.nomJoueur2);
+		setParametresPartie(p.modeDeJeu, p.difficulteIA1, options.vitesse_ordi, 100, p.nomJoueur1, p.nomJoueur2);
 		setActeurs();
 		initPhase1();
 		lancerPhase1();

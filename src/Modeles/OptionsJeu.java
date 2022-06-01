@@ -14,11 +14,12 @@ import java.util.ArrayList;
 public class OptionsJeu {
 
 	public String chemin;
-	public int NB_LIGNES_OPTIONS = 4;
+	public int NB_LIGNES_OPTIONS = 5;
 	public String nom_fichier = "Options.txt";
 	public int modeDaltonien;
 	public int modePleinEcran;
 	public int volumeEffetsSonores = 6, volumeMusique = 5;
+	public int vitesse_ordi = 500;
 	public GestionSons gestionSons;
 
 	public OptionsJeu(String chemin) {
@@ -36,6 +37,10 @@ public class OptionsJeu {
 	public void setVolumeSons(int v) {
 		this.volumeEffetsSonores = v;
 		this.gestionSons.setVolumeSon(v);
+	}
+
+	public void setVitesseOrdi(int v) {
+		this.vitesse_ordi = v;
 	}
 
 	public void lireOptions() {// au tout premier lancement du jeu, le fichier Options.txt existe deja
@@ -64,6 +69,8 @@ public class OptionsJeu {
 				// Volume des effets sonores
 				// Volume de la musique
 				// Mode plein ecran 0/1
+				// Vitesse de l'ordi de 0 à 10000
+				verifVitesseOrdi(Integer.parseInt(tab.get(4)));
 				verifDaltonien(Integer.parseInt(tab.get(0)));
 				verifVolume(Integer.parseInt(tab.get(1)), Integer.parseInt(tab.get(2)));
 				verifEntier(Integer.parseInt(tab.get(3)));
@@ -73,6 +80,14 @@ public class OptionsJeu {
 		Exception e) {
 			System.err.println("Erreur : le fichier Options.txt est corrompu.");
 			e.printStackTrace();
+		}
+	}
+
+	public void verifVitesseOrdi(int e) {
+		if (e < 0 || e > 10000) {
+			this.vitesse_ordi = 500;
+		} else {
+			this.vitesse_ordi = e;
 		}
 	}
 
@@ -132,6 +147,7 @@ public class OptionsJeu {
 			this.volumeEffetsSonores = 6;
 			this.volumeMusique = 4;
 			this.modePleinEcran = 1;
+			this.vitesse_ordi = 500;
 			bw.write(String.valueOf(this.modeDaltonien));
 			bw.newLine();
 			bw.write(String.valueOf(this.volumeEffetsSonores));
@@ -139,6 +155,8 @@ public class OptionsJeu {
 			bw.write(String.valueOf(this.volumeMusique));
 			bw.newLine();
 			bw.write(String.valueOf(this.modePleinEcran));
+			bw.newLine();
+			bw.write(String.valueOf(this.vitesse_ordi));
 			bw.close();
 			writer.close();
 			System.out.println("Un nouveau fichier Options.txt a ete creer.");
@@ -164,6 +182,8 @@ public class OptionsJeu {
 			bw.write(String.valueOf(volumeMusique));
 			bw.newLine();
 			bw.write(String.valueOf(modePleinEcran));
+			bw.newLine();
+			bw.write(String.valueOf(vitesse_ordi));
 			bw.close();
 			writer.close();
 			System.out.println("Le fichier Options.txt a ete modifie.");
