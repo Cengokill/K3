@@ -295,9 +295,6 @@ public class PanelPhase2 extends PanelGeneral {
     g.drawImage(this.texture.ile_joueur2, posX_ileJ2, posY_ileJ2, largeur_ileJ, hauteur_ileJ, null);
     g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
-
- 
-
   // INTERACTION ACTEUR COURANT----------------------------------------------
   public Acteur initAffichageJoueurs() {
     Acteur a;
@@ -362,7 +359,7 @@ public class PanelPhase2 extends PanelGeneral {
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
         g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_campJ1,
-        		posY_campJ1 + 5 * (hauteur_piece) - etage * (hauteur_piece),
+        		posY_campJ1 + 5 * (int)(hauteur_piece*0.95) - etage * (int)(hauteur_piece*0.95),
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
@@ -390,8 +387,6 @@ public class PanelPhase2 extends PanelGeneral {
       }
     }
   }
-
-  // AFFICHAGE
   // J2----------------------------------------------------------------------
   public void affichePyramideJoueurJ2(Graphics g) {
     Acteur a = this.partieEnCours.joueur2();
@@ -402,21 +397,17 @@ public class PanelPhase2 extends PanelGeneral {
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
         g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_campJ2,
-        		posY_campJ2 + 5 * (hauteur_piece) - etage * (hauteur_piece),
+        		posY_campJ2 + 5 * (int)(hauteur_piece*0.95) - etage * (int)(hauteur_piece*0.95),
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
     }
   }
-
-  // AFFICHAGE
   // MONTAGNE----------------------------------------------------------------------
   public void affichePyramideMontagne(Graphics g) {
     PyramideMontagne m = this.partieEnCours.getBaseMontagne();
     int alpha = 1;
     Position POSYitionPiecePyramide;
-    int largeurCube = largeur_piece;
-    int hauteurCube = hauteur_piece;
     int decalage = 0;
     for (int etage = 0; etage < m.getHauteur(); etage++) {
       for (int rang = 0; rang < m.getLargeur() - etage; rang++) {
@@ -431,10 +422,10 @@ public class PanelPhase2 extends PanelGeneral {
             }
           }
         }
-        g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeurCube) + posX_campM,
-        		posY_campM + 8 * (hauteurCube) - etage * (hauteurCube), largeurCube, hauteurCube, null);
+        g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeur_piece) + posX_campM,
+        		posY_campM + 8 * (int)(hauteur_piece*0.95) - etage * (int)(hauteur_piece*0.95), largeur_piece, hauteur_piece, null);
       }
-      decalage += (largeurCube) / 2;
+      decalage += (largeur_piece) / 2;
     }
   }
 

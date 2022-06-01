@@ -18,6 +18,42 @@ public class Phase2Click implements MouseListener {
 		DragListener dragListener = new DragListener();
 		this.panel.addMouseMotionListener(dragListener);
 	}
+	
+	public boolean clicSave(MouseEvent e) {
+        int startx = panel.posX_sauvegarder;
+        int starty = panel.posY_sauvegarder;
+        int largeurBouton = panel.largeur_sauvegarder;
+        int hauteurBouton = panel.hauteur_sauvegarder;
+        if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
+                && e.getY() <= starty + hauteurBouton) {
+            return true;
+        } else
+            return false;
+    }
+	
+	public boolean clicValider(MouseEvent e) {
+        int startx = panel.posX_valider;
+        int starty = panel.posY_valider;
+        int largeurBouton = panel.largeur_valider;
+        int hauteurBouton = panel.hauteur_valider;
+        if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
+                && e.getY() <= starty + hauteurBouton) {
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean clicFermer(MouseEvent e) {
+        int startx = panel.posX_fermer;
+        int starty = panel.posY_fermer;
+        int largeurBouton = panel.largeur_fermer;
+        int hauteurBouton = panel.largeur_fermer;
+        if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
+                && e.getY() <= starty + hauteurBouton) {
+            return true;
+        } else
+            return false;
+    }
 
 	// CLICK JOUEUR1--------------------------------
 	public Position clickpyramideJ1(MouseEvent e) {
@@ -28,7 +64,7 @@ public class Phase2Click implements MouseListener {
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
-			int y = (a.getCamp().getHauteur() - 1) - realy / (panel.hauteur_piece);
+			int y = (a.getCamp().getHauteur() - 1) - realy / (int)(panel.hauteur_piece*0.95);
 			if (y < 0 || y > a.getCamp().getHauteur()) {
 				return null;
 			}
@@ -79,7 +115,7 @@ public class Phase2Click implements MouseListener {
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
-			int y = (a.getCamp().getHauteur() - 1) - realy / (panel.hauteur_piece);
+			int y = (a.getCamp().getHauteur() - 1) - realy / (int)(panel.hauteur_piece*0.95);
 			if (y < 0 || y > a.getCamp().getHauteur()) {
 				return null;
 			}
@@ -162,11 +198,28 @@ public class Phase2Click implements MouseListener {
 		if (panel.partieEnCoursSet == true) {
 			if (e.getButton() == e.BUTTON3) {
 				panel.setPieceSelectionnee(null);
-			} else {
+			}
+			else if(clicSave(e)) {
+	            panel.popup_save = true;
+				panel.setPieceSelectionnee(null);
+	        }
+			else if(panel.popup_save){
+				if (clicValider(e)) {
+		            if (!panel.nomSave.getText().isEmpty()) {
+		                String chemin = panel.jeu.cheminSauvegardes;
+		                panel.jeu.partieEnCours.sauvegarderPartie(chemin + panel.nomSave.getText() + ".saveK3");
+		                panel.popup_save = false;
+		            }
+		        }
+				if (clicFermer(e)) {
+		            panel.popup_save = false;
+		        }
+			}
+			else{
 				// J1
 				// ----------------------------------------------------------------------------
 				if (panel.jeu.partieEnCours.joueurCourant == 0) {
-					// LEJOUEUR 1 DOIT SE FAIRE VOLER UN CUBE
+					// LE JOUEUR 1 DOIT SE FAIRE VOLER UN CUBE
 					if (panel.jeu.partieEnCours.joueur2().doitVol) {
 						Position p = clickpyramideJ1(e);
 						if (p != null) {
@@ -177,7 +230,6 @@ public class Phase2Click implements MouseListener {
 								System.out.println("J1 :" + panel.jeu.partieEnCours.joueur2().validerVol);
 							}
 						}
-
 					} else {// ON JOUE NORMALEMENT
 						if (panel.getPieceSelectionnee() == null) {
 							// PYRAMIDE
@@ -274,7 +326,10 @@ public class Phase2Click implements MouseListener {
 	public class DragListener extends MouseMotionAdapter {
 		public void mouseMoved(MouseEvent e) {
 			if (panel.partieEnCoursSet == true) {
-				if (panel.initAffichageJoueurs().getClass() == Joueur.class) {
+				if(clicSave(e) || clicValider(e) || clicFermer(e)) {
+					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else if (panel.initAffichageJoueurs().getClass() == Joueur.class) {
 					panel.OldX = panel.currentX;
 					panel.OldY = panel.currentY;
 					panel.currentX = e.getX();
@@ -297,6 +352,8 @@ public class Phase2Click implements MouseListener {
 							panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					}
+				}else {
+					panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				}
 			}
 		}
