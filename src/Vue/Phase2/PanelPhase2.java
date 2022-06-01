@@ -99,7 +99,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
     drawPiecesVoleesJ2(g);
     drawbaPyramideMilieu(g);
     if (showcheck) {
-      System.out.println("Repaint transparence");
+      // System.out.println("Repaint transparence");
       drawtransparentpion(g);
       showcheck = false;
     }
@@ -400,7 +400,7 @@ public class PanelPhase2 extends javax.swing.JPanel {
             if (i == this.jeu.partieEnCours.getBaseMontagne().piecesPosables().get(z).getPos().etage
                 && j == this.jeu.partieEnCours.getBaseMontagne().piecesPosables().get(z).getPos().rang) {
 
-              System.out.println("Debug");
+              // System.out.println("Debug");
               Piece c = this.jeu.partieEnCours.getBaseMontagne().getPiece(actualpos);
               Image image;
 
