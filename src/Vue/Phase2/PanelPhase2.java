@@ -367,11 +367,6 @@ public class PanelPhase2 extends PanelGeneral {
     }
   }
 
-  // PIECE SELECTIONEE----------------------------------------------
-  public PiecePyramide getPieceSelectionnee() {
-    return pieceSelectionnee;
-  }
-
   public void setPieceSelectionnee(PiecePyramide p) {
     pieceSelectionnee = p;
     this.repaint();
