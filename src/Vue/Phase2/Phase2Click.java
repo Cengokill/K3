@@ -249,15 +249,12 @@ public class Phase2Click implements MouseListener {
 							// JOUER COUP
 							Position p = clickMontagne(e);
 							if (p != null) {
-								// passer sont tour
-								if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
-
-									panel.setPasser(panel.jeu.partieEnCours.joueur1());
-								} else {
-									panel.setCoup(p, panel.jeu.partieEnCours.joueur1());
-								}
+								panel.setCoup(p, panel.jeu.partieEnCours.joueur1());
 							}
-
+							// passer sont tour
+							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
+								panel.setPasser(panel.jeu.partieEnCours.joueur1());
+							}
 						}
 					}
 					// J2--------------------------------------------------------------------------------
@@ -296,15 +293,13 @@ public class Phase2Click implements MouseListener {
 							// JOUER COUP
 							Position p = clickMontagne(e);
 							if (p != null) {
-								// passer sont tour
-								if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
-
-									panel.setPasser(panel.jeu.partieEnCours.joueur2());
-								} else {
-									panel.setCoup(p, panel.jeu.partieEnCours.joueur2());
-								}
+								panel.setCoup(p, panel.jeu.partieEnCours.joueur2());
 							}
+							// passer sont tour
+							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
 
+								panel.setPasser(panel.jeu.partieEnCours.joueur2());
+							}
 						}
 					}
 
