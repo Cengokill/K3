@@ -332,6 +332,7 @@ public class Jeu {
 			}
 			changement_joueur = true;
 			partieEnCours.changementJoueurCourant();
+		}
 	}
 
 	public void partieVictoire() {
