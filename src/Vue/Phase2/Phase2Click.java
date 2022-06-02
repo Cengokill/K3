@@ -18,6 +18,30 @@ public class Phase2Click implements MouseListener {
 		DragListener dragListener = new DragListener();
 		this.panel.addMouseMotionListener(dragListener);
 	}
+	
+	public boolean clicCoupPrecedent(MouseEvent e) {
+		int startx = panel.posXCoupPrecedent;
+		int starty = panel.posYPasserTour;
+		int largeurBouton = panel.largeur_sauvegarder;
+		int hauteurBouton = panel.hauteur_sauvegarder;
+		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
+				&& e.getY() <= starty + hauteurBouton) {
+			return true;
+		} else
+			return false;
+	}
+	
+	public boolean clicPasserTour(MouseEvent e) {
+		int startx = panel.posXPasserTour;
+		int starty = panel.posYPasserTour;
+		int largeurBouton = panel.largeur_sauvegarder;
+		int hauteurBouton = panel.hauteur_sauvegarder;
+		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
+				&& e.getY() <= starty + hauteurBouton) {
+			return true;
+		} else
+			return false;
+	}
 
 	public boolean clicSave(MouseEvent e) {
 		int startx = panel.posX_sauvegarder;
@@ -252,7 +276,7 @@ public class Phase2Click implements MouseListener {
 								panel.setCoup(p, panel.jeu.partieEnCours.joueur1());
 							}
 							// passer sont tour
-							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
+							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC && clicPasserTour(e)) {
 								panel.setPasser(panel.jeu.partieEnCours.joueur1());
 							}
 						}
@@ -296,8 +320,7 @@ public class Phase2Click implements MouseListener {
 								panel.setCoup(p, panel.jeu.partieEnCours.joueur2());
 							}
 							// passer sont tour
-							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC) {
-
+							if (panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC && clicPasserTour(e)) {
 								panel.setPasser(panel.jeu.partieEnCours.joueur2());
 							}
 						}
@@ -344,7 +367,11 @@ public class Phase2Click implements MouseListener {
 					} else {
 						if (clickMontagne(e) != null) {
 							panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-						} else {
+						}
+						else if(panel.getPieceSelectionnee().getPiece().getColor() == Couleurs.BLANC && clicPasserTour(e)) {
+							panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						}
+						else {
 							panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 						}
 					}
