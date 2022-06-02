@@ -191,7 +191,8 @@ public class Phase2Click implements MouseListener {
 			int realx = e.getX() - startx;
 			int realy = e.getY() - starty;
 
-			int y = (panel.jeu.partieEnCours.getBaseMontagne().getHauteur() - 1) - realy / (panel.hauteur_piece);
+			int y = (panel.jeu.partieEnCours.getBaseMontagne().getHauteur() - 1)
+					- realy / (int) (panel.hauteur_piece * 0.95);
 			if (y < 0 || y > panel.jeu.partieEnCours.getBaseMontagne().getHauteur()) {
 				return null;
 			}
@@ -225,9 +226,20 @@ public class Phase2Click implements MouseListener {
 			} else if (clicSave(e)) {
 				panel.popup_save = true;
 				panel.setPieceSelectionnee(null);
-			} else if (clicCoupPrecedent(e) && !panel.jeu.partieEnCours.getHistCoups().isEmpty()) {
+			} else if (clicCoupPrecedent(e) && !panel.jeu.partieEnCours.getHistCoups().isEmpty()
+					&& panel.jeu.partieEnCours.joueur2().getClass() != IAActeur.class) {
 				int i = panel.jeu.partieEnCours.getHistCoups().size() - 1;
 				panel.jeu.partieEnCours.annulerCoup(panel.jeu.partieEnCours.getHistCoups().get(i));
+				boolean temp;
+				if (panel.jeu.partieEnCours.getJoueurCourant() == 0) {
+					temp = (panel.jeu.partieEnCours.joueur1().getClass() == IAActeur.class);
+				} else {
+					temp = (panel.jeu.partieEnCours.joueur2().getClass() == IAActeur.class);
+				}
+				int j = panel.jeu.partieEnCours.getHistCoups().size() - 1;
+				if (temp && j >= 0) {
+					panel.jeu.partieEnCours.annulerCoup(panel.jeu.partieEnCours.getHistCoups().get(j));
+				}
 			} else if (panel.popup_save) {
 				if (clicValider(e)) {
 					if (!panel.nomSave.getText().isEmpty()) {
@@ -357,7 +369,8 @@ public class Phase2Click implements MouseListener {
 			if (panel.partieEnCoursSet == true) {
 				if (clicSave(e) || clicValider(e) || clicFermer(e)) {
 					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				} else if (!panel.jeu.partieEnCours.getHistCoups().isEmpty() && clicCoupPrecedent(e)) {
+				} else if (!panel.jeu.partieEnCours.getHistCoups().isEmpty() && clicCoupPrecedent(e)
+						&& panel.jeu.partieEnCours.joueur2().getClass() != IAActeur.class) {
 					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				} else if (panel.initAffichageJoueurs().getClass() == Joueur.class) {
 					panel.OldX = panel.currentX;

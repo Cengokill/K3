@@ -393,6 +393,7 @@ public class Partie {
 			}
 		}
 		retireCoupHist(c);
+		changementJoueurCourant();
 	}
 
 	public void sauvegarderPartie(String CheminEtnomFichier) {

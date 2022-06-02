@@ -140,7 +140,7 @@ public class PanelPhase2 extends PanelGeneral {
     largeur_ileM = Math.min((int) (largeur_background / 2.5), (int) (frameWidth / 2.5));
     hauteur_ileM = (int) (largeur_ileM * rapportIleMontagne);
     posX_ileM = posX_background + largeur_background / 2 - largeur_ileM / 2;
-    posY_ileM = posY_ileJ1 - (int) (hauteur_ileJ * 0.25);
+    posY_ileM = posY_ileJ1 - (int) (hauteur_ileJ * 0.275);
     // Camp montagne
     posX_campM = posX_ileM + (int) (largeur_ileM * 0.17);
     posY_campM = posY_campJ1 - hauteur_piece * 3;
@@ -430,7 +430,7 @@ public class PanelPhase2 extends PanelGeneral {
           }
         }
         g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeur_piece) + posX_campM,
-            posY_campM + 9 * (int) (hauteur_piece * 0.95) - etage * (int) (hauteur_piece * 0.95), largeur_piece,
+            posY_campM + 8 * (int) (hauteur_piece * 0.95) - etage * (int) (hauteur_piece * 0.95), largeur_piece,
             hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
