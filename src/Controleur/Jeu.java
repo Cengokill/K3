@@ -206,9 +206,12 @@ public class Jeu {
 			if (changement_joueur && ((this.typeActeurs == 2 && this.vitesseIA > 400) || this.typeActeurs != 2)) {
 				this.options.gestionSons.playSon(35);// debut de tour
 			}
+			partieEnCours.partieFini = false;
 			faireJouerActeurs();// fait jouer les acteurs chacun leur tour
 			timer(temps);
 		}
+
+		partieEnCours.partieFini = true;
 		partieVictoire();// affichage uniquement
 	}
 
@@ -247,6 +250,7 @@ public class Jeu {
 			changement_joueur = false;
 		}
 		// fait jouer un joueur
+
 		jouer();
 	}
 
@@ -256,7 +260,6 @@ public class Jeu {
 			temps = this.vitesseIA;
 		}
 		Acteur jCourant, jPrecedent;
-		partieEnCours.afficheVictoire = false;
 		if (this.partieEnCours.joueurCourant == 0) {
 			jCourant = this.partieEnCours.joueur1();
 			jPrecedent = this.partieEnCours.joueur2();
@@ -328,8 +331,6 @@ public class Jeu {
 			}
 			changement_joueur = true;
 			partieEnCours.changementJoueurCourant();
-			partieEnCours.afficheVictoire = true;
-		}
 	}
 
 	public void partieVictoire() {
