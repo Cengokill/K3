@@ -32,7 +32,7 @@ public class PanelPhase2 extends PanelGeneral {
   public int posXPasserTour, posYPasserTour, largeurPasserTour, hauteurPasserTour, posXCoupPrecedent;
   public int largeur_ileJ, hauteur_ileJ, posX_ileJ1, posY_ileJ1, posX_ileJ2, posY_ileJ2;
   public int largeur_ileM, hauteur_ileM, posX_ileM, posY_ileM, posX_campM, posY_campM;
-  public int posX_campJ1,posY_campJ1,posX_campJ2,posY_campJ2;
+  public int posX_campJ1, posY_campJ1, posX_campJ2, posY_campJ2;
   public int largeur_piece, hauteur_piece, posY_depart;
   public int largeur_vol, hauteur_vol, posX_volJ1, posY_volJ1, posX_volJ2, posY_volJ2;
   public int posX_sauvegarder, posY_sauvegarder, largeur_sauvegarder, hauteur_sauvegarder;
@@ -51,6 +51,7 @@ public class PanelPhase2 extends PanelGeneral {
   boolean popup = false;
   boolean popup_save = false;
   public JTextField nomSave, joueurVictorieux;
+  public int compt = 0;
 
   // TEXTURES IMPORTEES
   public LoadTexture textures;
@@ -123,29 +124,29 @@ public class PanelPhase2 extends PanelGeneral {
     double rapportIlesJoueurs = 0.9269340974212034;// 647/698
     largeur_ileJ = Math.min((int) (largeur_background / 3.6), (int) (frameWidth / 3.6));
     hauteur_ileJ = (int) (largeur_ileJ * rapportIlesJoueurs);
-    posX_ileJ1 = posX_background + (int)(largeur_background * 0.02);
-    posY_ileJ1 = posY_background + (int)(hauteur_background * 0.52);
-    posX_campJ1 = posX_ileJ1+(int)(largeur_ileJ*0.23);
-    posY_campJ1 = posY_ileJ1 - (int)(hauteur_ileJ * 0.5);
-    
-    posX_ileJ2 = posX_background + (int)(largeur_background * 0.98) - largeur_ileJ;
+    posX_ileJ1 = posX_background + (int) (largeur_background * 0.02);
+    posY_ileJ1 = posY_background + (int) (hauteur_background * 0.52);
+    posX_campJ1 = posX_ileJ1 + (int) (largeur_ileJ * 0.23);
+    posY_campJ1 = posY_ileJ1 - (int) (hauteur_ileJ * 0.5);
+
+    posX_ileJ2 = posX_background + (int) (largeur_background * 0.98) - largeur_ileJ;
     posY_ileJ2 = posY_ileJ1;
-    posX_campJ2 = posX_ileJ2+(int)(largeur_ileJ*0.17);
+    posX_campJ2 = posX_ileJ2 + (int) (largeur_ileJ * 0.17);
     posY_campJ2 = posY_campJ1;
-    posY_depart = posY_ileJ1 - (int)(hauteur_ileJ * 0.04);
-    
+    posY_depart = posY_ileJ1 - (int) (hauteur_ileJ * 0.04);
+
     // Ile montagne
     double rapportIleMontagne = 0.7764198418404026;// 1080/1391
-    largeur_ileM = Math.min((int)(largeur_background / 2.5), (int)(frameWidth / 2.5));
+    largeur_ileM = Math.min((int) (largeur_background / 2.5), (int) (frameWidth / 2.5));
     hauteur_ileM = (int) (largeur_ileM * rapportIleMontagne);
     posX_ileM = posX_background + largeur_background / 2 - largeur_ileM / 2;
-    posY_ileM = posY_ileJ1-(int)(hauteur_ileJ*0.25);
+    posY_ileM = posY_ileJ1 - (int) (hauteur_ileJ * 0.25);
     // Camp montagne
-    posX_campM = posX_ileM+(int)(largeur_ileM*0.17);
-    posY_campM = posY_campJ1 - hauteur_piece*3;
+    posX_campM = posX_ileM + (int) (largeur_ileM * 0.17);
+    posY_campM = posY_campJ1 - hauteur_piece * 3;
     // Camp joueur
     double rapportPiece = 0.8576709796672828;// 464/541
-    largeur_piece = Math.min((int)(largeur_background / 35), (int)(frameWidth / 35));
+    largeur_piece = Math.min((int) (largeur_background / 35), (int) (frameWidth / 35));
     hauteur_piece = (int) (largeur_piece * rapportPiece);
     // Cadres joueurs
     double rapportCadre = 0.2200647249190939;// 204/927
@@ -295,6 +296,7 @@ public class PanelPhase2 extends PanelGeneral {
     g.drawImage(this.texture.ile_joueur2, posX_ileJ2, posY_ileJ2, largeur_ileJ, hauteur_ileJ, null);
     g.drawImage(this.texture.ile_montagne, posX_ileM, posY_ileM, largeur_ileM, hauteur_ileM, null);
   }
+
   // INTERACTION ACTEUR COURANT----------------------------------------------
   public Acteur initAffichageJoueurs() {
     Acteur a;
@@ -339,7 +341,7 @@ public class PanelPhase2 extends PanelGeneral {
 
     }
   }
-  
+
   public void drawPiecesVoleesJ2(Graphics g) {
     g.drawImage(texture.imagevol, posX_volJ2, posY_volJ2, largeur_vol, hauteur_vol, null);
     for (int i = 0; i < this.jeu.partieEnCours.joueur2().getPiecesVolees().size(); i++) {
@@ -349,6 +351,7 @@ public class PanelPhase2 extends PanelGeneral {
 
     }
   }
+
   // J1----------------------------------------------------------------------
   public void affichePyramideJoueurJ1(Graphics g) {
     Acteur a = this.partieEnCours.joueur1();
@@ -359,7 +362,7 @@ public class PanelPhase2 extends PanelGeneral {
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
         g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_campJ1,
-        		posY_campJ1 + 5 * (int)(hauteur_piece*0.95) - etage * (int)(hauteur_piece*0.95),
+            posY_campJ1 + 5 * (int) (hauteur_piece * 0.95) - etage * (int) (hauteur_piece * 0.95),
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
@@ -370,6 +373,8 @@ public class PanelPhase2 extends PanelGeneral {
     if (!jeu.partieEnCours.IAreflechis) {
       String nom = "";
       if (jeu.partieEnCours.estPartieFinie()) {
+        compt++;
+        System.out.println("On affiche la victoire " + compt + " fois");
         g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
         if (jeu.partieEnCours.getBaseMontagne().estPleine()) {// si EGALITE
           g.drawImage(texture.egalite, posX_victoire, posY_victoire, largeur_victoire, hauteur_victoire, null);
@@ -387,6 +392,7 @@ public class PanelPhase2 extends PanelGeneral {
       }
     }
   }
+
   // J2----------------------------------------------------------------------
   public void affichePyramideJoueurJ2(Graphics g) {
     Acteur a = this.partieEnCours.joueur2();
@@ -397,12 +403,13 @@ public class PanelPhase2 extends PanelGeneral {
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece pieceJoueur = a.getCamp().getPiece(POSYitionPiecePyramide);
         g.drawImage(getpetitcolor(pieceJoueur, 1), decalage + rang * (largeur_piece) + posX_campJ2,
-        		posY_campJ2 + 5 * (int)(hauteur_piece*0.95) - etage * (int)(hauteur_piece*0.95),
+            posY_campJ2 + 5 * (int) (hauteur_piece * 0.95) - etage * (int) (hauteur_piece * 0.95),
             largeur_piece, hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
     }
   }
+
   // MONTAGNE----------------------------------------------------------------------
   public void affichePyramideMontagne(Graphics g) {
     PyramideMontagne m = this.partieEnCours.getBaseMontagne();
@@ -423,7 +430,8 @@ public class PanelPhase2 extends PanelGeneral {
           }
         }
         g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeur_piece) + posX_campM,
-        		posY_campM + 8 * (int)(hauteur_piece*0.95) - etage * (int)(hauteur_piece*0.95), largeur_piece, hauteur_piece, null);
+            posY_campM + 9 * (int) (hauteur_piece * 0.95) - etage * (int) (hauteur_piece * 0.95), largeur_piece,
+            hauteur_piece, null);
       }
       decalage += (largeur_piece) / 2;
     }
@@ -450,6 +458,7 @@ public class PanelPhase2 extends PanelGeneral {
     }
     return null;
   }
+
   // PIECE SELECTIONEE----------------------------------------------
   public PiecePyramide getPieceSelectionnee() {
     return pieceSelectionnee;
