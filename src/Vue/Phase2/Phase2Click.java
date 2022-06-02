@@ -22,8 +22,8 @@ public class Phase2Click implements MouseListener {
 	public boolean clicCoupPrecedent(MouseEvent e) {
 		int startx = panel.posXCoupPrecedent;
 		int starty = panel.posYPasserTour;
-		int largeurBouton = panel.largeur_sauvegarder;
-		int hauteurBouton = panel.hauteur_sauvegarder;
+		int largeurBouton = panel.largeurPasserTour;
+		int hauteurBouton = panel.hauteurPasserTour;
 		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
 				&& e.getY() <= starty + hauteurBouton) {
 			return true;
@@ -34,8 +34,8 @@ public class Phase2Click implements MouseListener {
 	public boolean clicPasserTour(MouseEvent e) {
 		int startx = panel.posXPasserTour;
 		int starty = panel.posYPasserTour;
-		int largeurBouton = panel.largeur_sauvegarder;
-		int hauteurBouton = panel.hauteur_sauvegarder;
+		int largeurBouton = panel.largeurPasserTour;
+		int hauteurBouton = panel.hauteurPasserTour;
 		if (e.getX() >= startx && e.getX() <= startx + largeurBouton && e.getY() >= starty
 				&& e.getY() <= starty + hauteurBouton) {
 			return true;
@@ -225,7 +225,11 @@ public class Phase2Click implements MouseListener {
 			} else if (clicSave(e)) {
 				panel.popup_save = true;
 				panel.setPieceSelectionnee(null);
-			} else if (panel.popup_save) {
+			} else if(clicCoupPrecedent(e) && !panel.jeu.partieEnCours.getHistCoups().isEmpty()) {
+				int i = panel.jeu.partieEnCours.getHistCoups().size()-1;
+				panel.jeu.partieEnCours.annulerCoup(panel.jeu.partieEnCours.getHistCoups().get(i));
+			}
+			else if (panel.popup_save) {
 				if (clicValider(e)) {
 					if (!panel.nomSave.getText().isEmpty()) {
 						String chemin = panel.jeu.cheminSauvegardes;
@@ -348,7 +352,10 @@ public class Phase2Click implements MouseListener {
 			if (panel.partieEnCoursSet == true) {
 				if (clicSave(e) || clicValider(e) || clicFermer(e)) {
 					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				} else if (panel.initAffichageJoueurs().getClass() == Joueur.class) {
+				} else if(!panel.jeu.partieEnCours.getHistCoups().isEmpty() && clicCoupPrecedent(e)) {
+					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else if (panel.initAffichageJoueurs().getClass() == Joueur.class) {
 					panel.OldX = panel.currentX;
 					panel.OldY = panel.currentY;
 					panel.currentX = e.getX();
