@@ -372,7 +372,7 @@ public class PanelPhase2 extends PanelGeneral {
   public void drawVictoire(Graphics g) {
     if (!jeu.partieEnCours.IAreflechis) {
       String nom = "";
-      if (jeu.partieEnCours.estPartieFinie()) {
+      if (jeu.partieEnCours.partieFini) {
         compt++;
         System.out.println("On affiche la victoire " + compt + " fois");
         g.drawImage(texture.fond_degrade, posX_degrade, posY_degrade, largeur_degrade, hauteur_degade, null);
