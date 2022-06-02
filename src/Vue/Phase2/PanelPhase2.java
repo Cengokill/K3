@@ -413,11 +413,11 @@ public class PanelPhase2 extends PanelGeneral {
   // MONTAGNE----------------------------------------------------------------------
   public void affichePyramideMontagne(Graphics g) {
     PyramideMontagne m = this.partieEnCours.getBaseMontagne();
-    int alpha = 1;
     Position POSYitionPiecePyramide;
     int decalage = 0;
     for (int etage = 0; etage < m.getHauteur(); etage++) {
       for (int rang = 0; rang < m.getLargeur() - etage; rang++) {
+        int alpha = 1;
         POSYitionPiecePyramide = new Position(etage, rang);
         Piece piece = m.getPiece(POSYitionPiecePyramide);
         if (piece == null && pieceSelectionnee != null) {
@@ -429,6 +429,7 @@ public class PanelPhase2 extends PanelGeneral {
             }
           }
         }
+
         g.drawImage(getpetitcolor(piece, alpha), decalage + rang * (largeur_piece) + posX_campM,
             posY_campM + 8 * (int) (hauteur_piece * 0.95) - etage * (int) (hauteur_piece * 0.95), largeur_piece,
             hauteur_piece, null);
