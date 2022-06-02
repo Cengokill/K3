@@ -423,7 +423,7 @@ public class PanelPhase2 extends PanelGeneral {
         if (piece == null && pieceSelectionnee != null) {
           for (PiecePyramide pp : this.partieEnCours.getBaseMontagne().piecesPosables()) {
             if (pp.getPiece().getColor() == pieceSelectionnee.getPiece().getColor() && pp.getPos().etage == etage
-                && pp.getPos().rang == rang) {
+                && pp.getPos().rang == rang && pp.getPiece().getColor() != Couleurs.BLANC) {
               piece = pieceSelectionnee.getPiece();
               alpha = 0;
             }
