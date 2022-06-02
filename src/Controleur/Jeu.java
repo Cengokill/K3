@@ -212,6 +212,7 @@ public class Jeu {
 		}
 
 		partieEnCours.partieFini = true;
+		ihm.phase2Panel.repaint();
 		partieVictoire();// affichage uniquement
 	}
 
