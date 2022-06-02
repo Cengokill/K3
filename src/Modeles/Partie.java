@@ -87,18 +87,9 @@ public class Partie {
 		}
 	}
 
-	public void retireCoupHist(Coup c, int jCour) {
+	public void retireCoupHist(Coup c) {
 		int taille = this.historiqueCoups.size();
-		Acteur j;
-		if (jCour == 1)
-			j = this.j1;
-		else
-			j = this.j2;
-
 		this.historiqueCoups.remove(taille - 1);
-		if (c.getPosBase() == null) {
-			j.retireBlancJoue();
-		}
 	}
 
 	public void changementJoueurCourant() {
@@ -382,23 +373,26 @@ public class Partie {
 		if (c.getPosBase() != null) {// retire une piece normale
 			PiecePyramide pp = this.baseMontagne.retirer(c.getPosBase());// ok
 			if (this.baseMontagne.estPorteursMemeCouleur(pp.getPos())) {
-				jCourant.retireMauvaisCoup();
-				jCourant.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
+				jPrecedent.retireMauvaisCoup();
+				jPrecedent.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 				System.out.println("Mauvais coup annule !");
+			}else {
+				jPrecedent.getCamp().empiler(new PiecePyramide(c.getPiece(), c.getPosJ()));
 			}
 		} else {// retire une piece BLANCHE
 			PiecePyramide pp = new PiecePyramide(c.getPiece(), c.getPosJ());
 			if (c.getPiece().getColor().equals(Couleurs.BLANC)) {
 				// annulation d'un coup blanc
-				jCourant.getCamp().empiler(pp);
-				jCourant.retireBlancJoue();
+				jPrecedent.getCamp().empiler(pp);
+				jPrecedent.retireBlancJoue();
 				System.out.println("Coup blanc annule !");
 			} else {// annulation d'un VOL
-				jPrecedent.getCamp().empiler(pp);// on empile la piece dans le camp de la victime de vol
-				jCourant.retirerPieceVolee(c.getPiece());
+				jCourant.getCamp().empiler(pp);// on empile la piece dans le camp de la victime de vol
+				jPrecedent.retirerPieceVolee(c.getPiece());
 				System.out.println("Vol annule !");
 			}
 		}
+		retireCoupHist(c);
 	}
 
 	public void sauvegarderPartie(String CheminEtnomFichier) {
