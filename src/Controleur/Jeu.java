@@ -125,9 +125,9 @@ public class Jeu {
 
 	public void jouerPhase1() {
 		int temps = 0;
-		if (this.typeActeurs == 2) {
-			temps = this.vitesseIA;
-		}
+		// if (this.typeActeurs == 2) {
+		// temps = this.vitesseIA;
+		// }
 		ArrayList<PiecePyramide> arr;
 		Acteur acteurCourant;
 		for (int i = 0; i < 2; i++) {
@@ -137,6 +137,9 @@ public class Jeu {
 			} else {
 				acteurCourant = this.partieEnCours.joueur2();
 				this.partieEnCours.demarrerTimer(1);
+			}
+			if (acteurCourant.getClass() == IAActeur.class) {
+				temps = this.vitesseIA;
 			}
 			while ((acteurCourant.getTaillePiecesPiochees() > 0 || !acteurCourant.valideCamp)
 					&& chargement.getProchaineFenetre() == TypeFenetre.PHASE1) {
@@ -257,9 +260,9 @@ public class Jeu {
 
 	public void jouer() {
 		int temps = 100;
-		if (this.typeActeurs == 2) {
-			temps = this.vitesseIA;
-		}
+		// if (this.typeActeurs == 2) {
+		// temps = this.vitesseIA;
+		// }
 		Acteur jCourant, jPrecedent;
 		if (this.partieEnCours.joueurCourant == 0) {
 			jCourant = this.partieEnCours.joueur1();
@@ -270,7 +273,9 @@ public class Jeu {
 			jPrecedent = this.partieEnCours.joueur1();
 			this.partieEnCours.demarrerTimer(1);
 		}
-
+		if (jCourant.getClass() == IAActeur.class) {
+			temps = vitesseIA;
+		}
 		if (jCourant.validerCoup) {// || TEMPS DEPASSE
 			ArrayList<Coup> cJ = this.partieEnCours.coupsJouables(jCourant);
 			Coup coupDemande = jCourant.jouer(cJ, this.partieEnCours);// le joueur courant a choisi un coup a jouer
