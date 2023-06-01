@@ -14,7 +14,7 @@ pénalité si l'on place son pion sur deux pions de la même couleur. Lorsque c'
 plus jouer, soit parce qu'il n'a plus de pion, soit parce que les couleurs ne permettent pas de le placer, ce joueur est
 éliminé. Le dernier joueur encore en jeu remporte la partie.
 
-Menu principale du jeu
+Menu principal du jeu
 ![image](https://github.com/Cengokill/K3/assets/61111039/0f21e8ae-2069-42f5-8452-d27a03e30f1a)
 
 Partie en cours
