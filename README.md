@@ -1,8 +1,8 @@
 # K3
-Le K3 est un jeu de stratégie codé ici en Java Swing pour deux joueurs. Une IA utilisant l'algorithme MiniMax est utilisée lorsqu'on choisit
+Le K3 est un jeu de stratégie codé ici en **Java Swing** pour deux joueurs. Une IA utilisant l'**algorithme MiniMax** est utilisée lorsqu'on choisit
 de jouer contre l'ordinateur.
 
-Présentation du jeu :
+## Présentation du jeu
 
 Des pions sont tirés au hasard et distribués entre les joueurs, et sur la pyramide centrale du jeu pour former la base de la pyramide.
 Chaque joueur reçoit 21 pions de différentes couleurs en début de partie, et les dispose en pyramide sur son camp.
@@ -17,10 +17,8 @@ pénalité si l'on place son pion sur deux pions de la même couleur. Lorsque c'
 plus jouer, soit parce qu'il n'a plus de pion, soit parce que les couleurs ne permettent pas de le placer, ce joueur est
 éliminé. Le dernier joueur encore en jeu remporte la partie.
 
-Menu principal du jeu
+**Menu principal du jeu**
 ![image](https://github.com/Cengokill/K3/assets/61111039/0f21e8ae-2069-42f5-8452-d27a03e30f1a)
 
-Partie en cours
+**Partie en cours**
 ![image](https://github.com/Cengokill/K3/assets/61111039/f528931d-a368-4af6-a1b4-986cdec59953)
-
-
