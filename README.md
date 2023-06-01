@@ -1,5 +1,8 @@
 # K3
-Le K3 est un jeu de stratégie codé ici pour deux joueurs.
+Le K3 est un jeu de stratégie codé ici en Java Swing pour deux joueurs. Une IA utilisant l'algorithme MiniMax est utilisée lorsqu'on choisit
+de jouer contre l'ordinateur.
+
+Présentation du jeu :
 
 Des pions sont tirés au hasard et distribués entre les joueurs, et sur la pyramide centrale du jeu pour former la base de la pyramide.
 Chaque joueur reçoit 21 pions de différentes couleurs en début de partie, et les dispose en pyramide sur son camp.
